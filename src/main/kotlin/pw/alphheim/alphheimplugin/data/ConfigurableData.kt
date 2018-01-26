@@ -6,7 +6,6 @@
 
 package pw.alphheim.alphheimplugin.data
 
-import lombok.Data
 import org.bukkit.ChatColor
 
 /**
