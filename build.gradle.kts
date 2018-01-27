@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.gradle.script.lang.kotlin.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
@@ -11,10 +13,12 @@ buildscript {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
         classpath(kotlinModule("gradle-plugin", kotlin_version))
+        classpath("com.github.jengelman.gradle.plugins:shadow:2.0.2")
     }
 
 }
@@ -57,4 +61,12 @@ configure<JavaPluginConvention> {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+val shadowJar = tasks.getByName("shadowJar") as ShadowJar
+shadowJar.apply {
+    relocate("co.aikar.commands", "im.alphhe.alphheimplugin.libs")
+}
+
+val build: DefaultTask by tasks
+build.dependsOn(shadowJar)
 

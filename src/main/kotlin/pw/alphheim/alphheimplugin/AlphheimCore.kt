@@ -6,14 +6,13 @@
 
 package pw.alphheim.alphheimplugin
 
-import com.google.inject.Module
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import pw.alphheim.alphheimplugin.components.chat.ChatHandlerService
 import pw.alphheim.api.services.Chat
 import pw.alphheim.services.CraftInternalServicesManager
 
-class AlphheimCore : JavaPlugin(), Module {
+class AlphheimCore : JavaPlugin() {
 
     lateinit var chatHandler: ChatHandlerService
 
