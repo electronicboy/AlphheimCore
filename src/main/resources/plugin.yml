@@ -1,5 +1,39 @@
 name: AlphheimCore
-main: pw.alphheim.alphheimplugin.AlphheimCore
+main: im.alphhe.alphheimplugin.AlphheimCore
 version: 1.0
 author: electronicboy
 website: alphheimmc.enjin.com
+
+depend: [Towny, Vault]
+
+permissions:
+  alphheim.lores.color:
+    default: op
+    children:
+      alphheim.lores.color.0: true
+      alphheim.lores.color.1: true
+      alphheim.lores.color.2: true
+      alphheim.lores.color.3: true
+      alphheim.lores.color.4: true
+      alphheim.lores.color.5: true
+      alphheim.lores.color.6: true
+      alphheim.lores.color.7: true
+      alphheim.lores.color.8: true
+      alphheim.lores.color.9: true
+      alphheim.lores.color.a: true
+      alphheim.lores.color.b: true
+      alphheim.lores.color.c: true
+      alphheim.lores.color.d: true
+      alphheim.lores.color.e: true
+      alphheim.lores.color.f: true
+      alphheim.lores.color.k: true
+      alphheim.lores.color.m: true
+      alphheim.lores.color.n: true
+      alphheim.lores.color.o: true
+      alphheim.lores.color.r: true
+  alphheim.lores.name:
+    default: op
+  alphheim.lores.owner:
+    default: op
+  alphheim.lores.lore:
+    default: op

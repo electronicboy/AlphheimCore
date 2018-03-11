@@ -1,0 +1,118 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+buildscript {
+    ext.kotlin_version = '1.2.20'
+
+    group = "im.alphe"
+    version = "1.0-SNAPSHOT"
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url = "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'com.github.johnrengelman.plugin-shadow'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+group = "im.alphe"
+archivesBaseName = "alphheim-plugin"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenLocal()
+    maven {
+        name = "Valaria"
+        url = "https://repo.valaria.pw/repository/maven-public/"
+    }
+    maven {
+        name = "Aikar"
+        url = "http://repo.aikar.co/nexus/content/groups/aikar/"
+    }
+    maven {
+        name = "Spigot"
+        url = "https://hub.spigotmc.org/nexus/content/groups/public/"
+    }
+
+    maven {
+        name = "vault"
+        url = "http://nexus.hc.to/content/repositories/pub_releases"
+    }
+    maven {
+        name = "valaria-private"
+        url = "https://repo.valaria.pw/repository/valaria-private/"
+    }
+    maven {
+        name = "valaria"
+        url = "https://repo.valaria.pw/repository/maven-public/"
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compileOnly "pw.alphheim:alphheimcraft:1.8.8-R0.1-SNAPSHOT"
+    compile "com.google.inject:guice:4.1.0"
+    compile "com.zaxxer:HikariCP:2.7.4"
+    compile "co.aikar:minecraft-timings:1.0.4"
+    compileOnly "net.milkbowl.vault:VaultAPI:1.6"
+    compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
+}
+
+
+tasks.withType(KotlinCompile).all {
+    kotlinOptions {
+        javaParameters = true
+    }
+}
+
+shadowJar {
+    classifier = ''
+    configurations = [project.configurations.compile]
+    relocate 'co.aikar.commands', 'im.alphhe.alphheimplugin.libs.command'
+}
+
+artifacts {
+    archives jar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://repo.valaria.pw/repository/valaria-private/") {
+                authentication(userName: valariaRepoUser, password: valariaRepoPass)
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+    }
+    repositories {
+        maven {
+            name = "valaria-private"
+            url = "https://repo.valaria.pw/repository/valaria-private/"
+            credentials {
+                username = valariaRepoUser
+                password = valariaRepoPass
+            }
+
+        }
+    }
+}
+
+build.dependsOn shadowJar
+shadowJar.dependsOn compileKotlin
