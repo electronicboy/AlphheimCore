@@ -9,9 +9,13 @@ package im.alphhe.alphheimplugin
 import co.aikar.commands.BukkitCommandManager
 import com.google.inject.Injector
 import im.alphhe.alphheimplugin.commands.CommandLore
+import im.alphhe.alphheimplugin.commands.CommandRoulette
+import im.alphhe.alphheimplugin.commands.CommandSpawn
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
+import im.alphhe.alphheimplugin.components.motd.MotdHandler
+import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
 import org.bukkit.command.SimpleCommandMap
 
 class AlphheimCore : JavaPlugin() {
@@ -36,9 +40,22 @@ class AlphheimCore : JavaPlugin() {
         injector = AlphheimModule(this).createInjector()
         injector.injectMembers(this)
 
+        registerCommands();
+        enableComponents();
+
         //chatHandler = ChatHandlerService(this)
         //servicesManager.registerService(Chat::class.java, chatHandler, this,true)
 
+    }
+
+    private fun enableComponents() {
+        PluginCommandPermHandler(this)
+        MotdHandler(this)
+    }
+
+    private fun registerCommands() {
+        CommandSpawn(this)
+        CommandRoulette(this)
     }
 
 
