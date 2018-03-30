@@ -11,6 +11,7 @@ import com.google.inject.Injector
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandRoulette
 import im.alphhe.alphheimplugin.commands.CommandSpawn
+import im.alphhe.alphheimplugin.components.`fun`.FunHandler
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
@@ -51,6 +52,7 @@ class AlphheimCore : JavaPlugin() {
     private fun enableComponents() {
         PluginCommandPermHandler(this)
         MotdHandler(this)
+        FunHandler(this)
     }
 
     private fun registerCommands() {
@@ -64,6 +66,7 @@ class AlphheimCore : JavaPlugin() {
         Bukkit.getInternalServices().unregisterServices(this)
 
         if (commandLore != null) commandLore!!.unregister(Bukkit.getCommandMap());
+        commandManager.unregisterCommands()
 
     }
 

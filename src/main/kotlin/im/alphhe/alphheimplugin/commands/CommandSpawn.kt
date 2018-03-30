@@ -17,7 +17,7 @@ import org.bukkit.entity.Player
 
 
 class CommandSpawn(val plugin: AlphheimCore) : AlphheimCommand(plugin, "spawn") {
-    val spawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
+    private val spawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
 
     @Default
     @CommandPermission("alphheim.spawn")

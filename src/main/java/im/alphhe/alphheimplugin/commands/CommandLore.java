@@ -21,10 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class CommandLore extends Command {
-    private static HashMap<String, LinkedList<ItemStack>> undo = new HashMap<>();
-    
+    private HashMap<String, LinkedList<ItemStack>> undo = new HashMap<>();
+
     public CommandLore() {
         super("lore", "Lore command", "", new ArrayList<>());
     }
@@ -59,22 +60,15 @@ public class CommandLore extends Command {
             lore = new LinkedList<>();
         }
 
-        Action action;
-
-        try {
-            action = Action.valueOf(args[0].toUpperCase());
-        } catch (IllegalArgumentException notEnum) {
-            sendHelp(sender);
-            return true;
-        }
+        String action = args[0].toLowerCase();
 
         @SuppressWarnings("deprecation") final String id = player.getName() + "'" + item.getTypeId();
 
-        if (action != Action.UNDO) {
-            if (!CommandLore.undo.containsKey(id)) {
-                CommandLore.undo.put(id, new LinkedList<>());
+        if (!action.equals("undo")) {
+            if (!undo.containsKey(id)) {
+                undo.put(id, new LinkedList<>());
             }
-            final LinkedList<ItemStack> list = CommandLore.undo.get(id);
+            final LinkedList<ItemStack> list = undo.get(id);
             list.addFirst(item.clone());
             while (list.size() > 5) {
                 list.removeLast();
@@ -83,7 +77,7 @@ public class CommandLore extends Command {
 
         switch (action) {
 
-            case NAME: {
+            case "name": {
                 if (!sender.hasPermission("alphheim.lores.name") || args.length < 2) {
                     sendHelp(sender);
                     return true;
@@ -109,7 +103,7 @@ public class CommandLore extends Command {
                 break;
             }
 
-            case OWNER: {
+            case "owner": {
                 if (!sender.hasPermission("alphheim.lores.owner") || args.length < 2) {
                     sendHelp(sender);
                     return true;
@@ -126,7 +120,7 @@ public class CommandLore extends Command {
 
             }
 
-            case ADD: {
+            case "add": {
                 if (!sender.hasPermission("alphheim.lores.lore") || args.length < 2) {
                     sendHelp(sender);
                     return true;
@@ -135,7 +129,7 @@ public class CommandLore extends Command {
                 break;
             }
 
-            case DELETE: {
+            case "delete": {
                 if (!sender.hasPermission("alphheim.lores.lore")) {
                     sendHelp(sender);
                     return true;
@@ -174,7 +168,7 @@ public class CommandLore extends Command {
                 break;
             }
 
-            case SET: {
+            case "set": {
 
                 if (!sender.hasPermission("alphheim.lores.lore") || args.length < 3) {
                     sendHelp(sender);
@@ -196,7 +190,7 @@ public class CommandLore extends Command {
                 break;
             }
 
-            case INSERT: {
+            case "insert": {
                 if (!sender.hasPermission("alphheim.lores.lore") || args.length < 3) {
                     sendHelp(sender);
                     return true;
@@ -219,7 +213,7 @@ public class CommandLore extends Command {
                 break;
             }
 
-            case CLEAR: {
+            case "clear": {
                 if (!sender.hasPermission("alphheim.lores.lore") || args.length != 1) {
                     sendHelp(sender);
                     return true;
@@ -228,7 +222,7 @@ public class CommandLore extends Command {
                 break;
             }
 
-            case UNDO: {
+            case "undo": {
                 if (args.length != 1) {
                     return false;
                 }
@@ -252,6 +246,10 @@ public class CommandLore extends Command {
                 }
                 player.getInventory().setItemInHand(undoneItem);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&5The last modification you made on this item has been undone!"));
+                return true;
+            }
+            default: {
+                sendHelp(sender);
                 return true;
             }
         }
@@ -288,7 +286,7 @@ public class CommandLore extends Command {
         if (sender.hasPermission("alphheim.lores.color") || sender.hasPermission("alphheim.lores.format")) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&5Use &6& &5to add color with any command"));
         }
-        if ( sender.hasPermission("alphheim.lores.name")) {
+        if (sender.hasPermission("alphheim.lores.name")) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2/lore name <custom name> &bSet the new Name of the Item"));
         }
         if (sender.hasPermission("alphheim.lores.owner")) {
@@ -304,14 +302,4 @@ public class CommandLore extends Command {
         }
     }
 
-    public enum Action {
-        NAME,
-        OWNER,
-        ADD,
-        DELETE,
-        SET,
-        INSERT,
-        CLEAR,
-        UNDO
-    }
 }

@@ -33,7 +33,7 @@ class CommandRoulette(val plugin: AlphheimCore) : AlphheimCommand(plugin, "roule
     }
 
     private fun broadcast(loc: Location, msg: String) {
-        Bukkit.getOnlinePlayers().filter { P -> loc.distance(P.location) < 50 }.forEach { MessageUtil.sendInfo(it, msg) }
+        Bukkit.getOnlinePlayers().filter { p -> loc.world == p.location.world && loc.distance(p.location) < 50 }.forEach { MessageUtil.sendInfo(it, msg) }
     }
 
 

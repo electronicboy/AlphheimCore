@@ -13,15 +13,17 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.FurnaceSmeltEvent
 import org.bukkit.inventory.ItemStack
 
-class ChickenFurnaceListener : Listener {
+class FurnaceListener : Listener {
 
     val chickenName = ChatColor.translateAlternateColorCodes('&', "&c[&6Cat Meat&c]")
     val cookedName = ChatColor.translateAlternateColorCodes('&', "&c[&6Cooked \"Chicken\"&c]")
 
     @EventHandler
     fun eventHandler(e: FurnaceSmeltEvent) {
-        if (e.source.type == Material.RAW_CHICKEN && e.source?.itemMeta?.displayName == chickenName) {
-            val itemStack = ItemStack(Material.COOKED_CHICKEN)
+        println(e.source.type)
+        println(e.source?.itemMeta?.displayName)
+        if (e.source.type == Material.RABBIT && e.source?.itemMeta?.displayName == chickenName) {
+            val itemStack = ItemStack(Material.COOKED_RABBIT)
             val itemMeta = itemStack.itemMeta
             itemMeta.displayName = cookedName
             itemStack.itemMeta = itemMeta
