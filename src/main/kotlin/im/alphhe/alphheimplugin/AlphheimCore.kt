@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin
 
 import co.aikar.commands.BukkitCommandManager
 import com.google.inject.Injector
+import im.alphhe.alphheimplugin.commands.AlphheimCoreCommand
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandRoulette
 import im.alphhe.alphheimplugin.components.spawn.command.CommandSpawn
@@ -18,6 +19,7 @@ import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
+import im.alphhe.alphheimplugin.components.tablist.TabHandler
 import org.bukkit.command.SimpleCommandMap
 
 class AlphheimCore : JavaPlugin() {
@@ -27,6 +29,7 @@ class AlphheimCore : JavaPlugin() {
         private set
     lateinit var commandManager: BukkitCommandManager
     var commandLore: CommandLore? = null
+    var tabHandler: TabHandler? = null
 
 
 
@@ -56,9 +59,11 @@ class AlphheimCore : JavaPlugin() {
         MotdHandler(this)
         FunHandler(this)
         SpawnHandler(this)
+        tabHandler = TabHandler(this)
     }
 
     private fun registerCommands() {
+        AlphheimCoreCommand(this)
     }
 
 

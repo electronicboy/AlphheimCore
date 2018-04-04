@@ -31,7 +31,6 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
 
     //@Subcommand("other")
     @CommandAlias("spawnother")
-    @Default
     //@CommandPermission("alphheim.spawn.other")
     @CommandCompletion("@players")
     fun spawn(self: CommandSender, target: OnlinePlayer?) {

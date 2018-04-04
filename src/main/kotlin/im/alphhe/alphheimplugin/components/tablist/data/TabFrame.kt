@@ -4,6 +4,6 @@
  * Written by Shane Freeder - 2018.
  */
 
-package im.alphhe.alphheimplugin.components.tab.data
+package im.alphhe.alphheimplugin.components.tablist.data
 
-data class TabFrame(val header: String?, val footer: String?)
+data class TabFrame(val header: String?, val footer: String?, val time: Int)
