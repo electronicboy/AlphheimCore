@@ -10,17 +10,16 @@ import co.aikar.commands.BukkitCommandManager
 import com.google.inject.Injector
 import im.alphhe.alphheimplugin.commands.AlphheimCoreCommand
 import im.alphhe.alphheimplugin.commands.CommandLore
-import im.alphhe.alphheimplugin.commands.CommandRoulette
-import im.alphhe.alphheimplugin.components.spawn.command.CommandSpawn
-import im.alphhe.alphheimplugin.components.diversions.FunHandler
-import org.bukkit.Bukkit
-import org.bukkit.plugin.java.JavaPlugin
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
+import im.alphhe.alphheimplugin.components.diversions.FunHandler
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
-import im.alphhe.alphheimplugin.components.tablist.TabHandler
+import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
+import im.alphhe.alphheimplugin.components.tablist.TabListHandler
+import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
+import org.bukkit.plugin.java.JavaPlugin
 
 class AlphheimCore : JavaPlugin() {
 
@@ -30,7 +29,7 @@ class AlphheimCore : JavaPlugin() {
     lateinit var commandManager: BukkitCommandManager
     var commandLore: CommandLore? = null
     var tabHandler: TabHandler? = null
-
+    private lateinit var tabListHandler: TabListHandler
 
 
     override fun onEnable() {
@@ -46,8 +45,8 @@ class AlphheimCore : JavaPlugin() {
         injector = AlphheimModule(this).createInjector()
         injector.injectMembers(this)
 
-        registerCommands();
-        enableComponents();
+        registerCommands()
+        enableComponents()
 
         //chatHandler = ChatHandlerService(this)
         //servicesManager.registerService(Chat::class.java, chatHandler, this,true)
@@ -60,6 +59,7 @@ class AlphheimCore : JavaPlugin() {
         FunHandler(this)
         SpawnHandler(this)
         tabHandler = TabHandler(this)
+        tabListHandler = TabListHandler(this);
     }
 
     private fun registerCommands() {

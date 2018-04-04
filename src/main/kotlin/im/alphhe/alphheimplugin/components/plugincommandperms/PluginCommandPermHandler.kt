@@ -9,17 +9,15 @@ package im.alphhe.alphheimplugin.components.plugincommandperms
 import im.alphhe.alphheimplugin.AlphheimCore
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
-import org.bukkit.command.Command
 import org.bukkit.command.SimpleCommandMap
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.server.PluginEnableEvent
-import org.bukkit.plugin.java.JavaPlugin
+
+private val NO_PERM_MESSAGE = "${ChatColor.DARK_GRAY}[${ChatColor.RED}A${ChatColor.DARK_GRAY}] ${ChatColor.DARK_RED}You do not have permission to use this command!"
 
 class PluginCommandPermHandler(val plugin: AlphheimCore) : Listener {
 
-    val NO_PERM_MESSAGE =
-            "${ChatColor.DARK_GRAY}[${ChatColor.RED}A${ChatColor.DARK_GRAY}] ${ChatColor.DARK_RED}You do not have permission to use this command!"
 
     init {
         plugin.server.pluginManager.registerEvents(this, plugin)

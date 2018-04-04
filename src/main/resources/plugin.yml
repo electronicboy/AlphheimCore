@@ -4,7 +4,7 @@ version: 1.0
 author: electronicboy
 website: alphheimmc.enjin.com
 
-depend: [Towny, Vault]
+depend: [Towny, Vault, LuckPerms]
 
 permissions:
   alphheim.lores.color:
@@ -37,3 +37,10 @@ permissions:
     default: op
   alphheim.lores.lore:
     default: op
+  alphheim.human:
+    default: false
+  alphheim.elf:
+    default: false
+  alphheim.dwarf:
+    default: false
+
