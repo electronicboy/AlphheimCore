@@ -66,8 +66,11 @@ dependencies {
     compile "com.google.inject:guice:4.1.0"
     compile "com.zaxxer:HikariCP:2.7.4"
     compile "co.aikar:minecraft-timings:1.0.4"
-    compileOnly "net.milkbowl.vault:VaultAPI:1.6"
+    compileOnly ("net.milkbowl.vault:VaultAPI:1.6") {
+        exclude group: "org.bukkit", module: "bukkit"
+    }
     compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
+    compile "me.lucko.luckperms:luckperms-api:4.1"
 }
 
 

@@ -444,6 +444,9 @@ lp group jhadia meta addprefix 0 &2[&aJhadia&2]
 lp group eldress meta addprefix 0 &2[&aEldress&2]
 lp group eldar meta addprefix 0 &2[&aEldar&2]
 lp group shasylae meta addprefix 0 &2[&aShasylae&2]
+lp group shasyl meta addprefix 0 &2[&aShasyl&2]
+lp group volaer meta addprefix 0 &2[&aVolaer&2]
+lp group voli meta addprefix 0 &2[&aVoli&2]
 
 lp group global set towny.chat.character
 lp group global set towny.chat.global
@@ -464,16 +467,13 @@ lp group global set towny.chat.join.town
 lp group global set towny.chat.join.trade
 lp group global set towny.chat.join.whisper
 lp group global set towny.chat.leave.character
-lp group global set towny.chat.leave.global
 lp group global set towny.chat.leave.local
 lp group global set towny.chat.leave.nation
 lp group global set towny.chat.leave.outofcharacter
 lp group global set towny.chat.leave.roleplay
 lp group global set towny.chat.leave.town
 lp group global set towny.chat.leave.trade
-lp group global set towny.chat.leave.whisperlp group shasyl meta addprefix 0 &2[&aShasyl&2]
-lp group volaer meta addprefix 0 &2[&aVolaer&2]
-lp group voli meta addprefix 0 &2[&aVoli&2]
+lp group global set towny.chat.leave.whisper
 
 lp group global set towny.chat.character
 lp group global set towny.chat.global
@@ -697,3 +697,129 @@ lp group topaz meta set persistSet true
 lp group emerald meta set persistSet true
 lp group amethyst meta set persistSet true
 lp group sapphire meta set persistSet true
+
+
+# RANK PERKS
+
+lp group officer set essentials.kit.soldier
+lp group garaz set essentials.kit.soldier
+lp group adoness set essentials.kit.soldier
+
+lp group general set essentials.kit.fighter
+lp group bronzebeard set essentials.kit.fighter
+lp group nikerym set essentials.kit.fighter
+
+lp group priest set alphheim.heal
+lp group frate set alphheim.heal
+lp group quendi set alphheim.heal
+lp group archbishop set alphheim.heal
+lp group tomekeeper set alphheim.heal
+lp group srinshee set alphheim.heal
+lp group priest meta set healCooldown 600
+lp group frate meta set healCooldown 600
+lp group quendi meta set healCooldown 600
+lp group archbishop meta set healCooldown 300
+lp group tomekeeper meta set healCooldown 300
+lp group srinshee meta set healCooldown 300
+
+lp group apprentice set alphheim.fix
+lp group rikkaz set alphheim.fix
+lp group tael set alphheim.fix
+lp group apprentice meta set fixCooldown 900
+lp group rikkaz meta set fixCooldown 900
+lp group tael meta set fixCooldown 900
+
+
+lp group forger set alphheim.fix
+lp group karaz set alphheim.fix
+lp group tano set alphheim.fix
+lp group forger meta set fixCooldown 600
+lp group karaz meta set fixCooldown 600
+lp group tano meta set fixCooldown 600
+
+
+lp group blacksmith set alphheim.fix
+lp group gormokri set alphheim.fix
+lp group shalor set alphheim.fix
+lp group blacksmith meta set fixCooldown 300
+lp group gormokri meta set fixCooldown 300
+lp group shalor meta set fixCooldown 300
+
+
+
+lp group global meta set health 20
+lp group human meta set health 20
+lp group dwarf meta set health 20
+lp group elf meta set health 20
+lp group soldier meta set health 20
+lp group knight meta set health 20
+lp group officer meta set health 30
+lp group general meta set health 40
+lp group axeman meta set health 20
+lp group ironguard meta set health 20
+lp group garaz meta set health 30
+lp group bronzebeard meta set health 40
+lp group lancer meta set health 20
+lp group vala meta set health 20
+lp group adoness meta set health 30
+lp group Nikerym meta set health 40
+lp group monk meta set health 20
+lp group priest meta set health 20
+lp group archbishop meta set health 20
+lp group friar meta set health 20
+lp group frate meta set health 20
+lp group tomekeeper meta set health 20
+lp group amandil meta set health 20
+lp group quendi meta set health 20
+lp group srinshee meta set health 20
+lp group apprentice meta set health 20
+lp group forger meta set health 20
+lp group blacksmith meta set health 20
+lp group rikkaz meta set health 20
+lp group karaz meta set health 20
+lp group gormokri meta set health 20
+lp group tael meta set health 20
+lp group tano meta set health 20
+lp group shalor meta set health 20
+lp group merchant meta set health 20
+lp group guildmaster meta set health 20
+lp group vithang meta set health 20
+lp group akrak meta set health 20
+lp group sadeas meta set health 20
+lp group kelaraes meta set health 20
+lp group miner meta set health 20
+lp group taskmaster meta set health 20
+lp group skrati meta set health 20
+lp group boki meta set health 20
+lp group corveil meta set health 20
+lp group tolaes meta set health 20
+lp group farmer meta set health 20
+lp group vorn meta set health 20
+lp group thasas meta set health 20
+lp group slave meta set health 20
+lp group noth meta set health 20
+lp group dithang meta set health 20
+lp group lady meta set health 30
+lp group lord meta set health 30
+lp group queen meta set health 40
+lp group king meta set health 40
+lp group azamaree meta set health 30
+lp group azamar meta set health 30
+lp group hearthmother meta set health 40
+lp group greybeard meta set health 40
+lp group jhad meta set health 30
+lp group jhadia meta set health 30
+lp group eldress meta set health 40
+lp group eldar meta set health 40
+lp group baroness meta set health 30
+lp group baron meta set health 30
+lp group princess meta set health 30
+lp group prince meta set health 30
+lp group zharreen meta set health 30
+lp group zharr meta set health 30
+lp group zarazi meta set health 30
+lp group zaraz meta set health 30
+lp group shasylae meta set health 30
+lp group shasyl meta set health 30
+lp group volaer meta set health 30
+lp group voli meta set health 30

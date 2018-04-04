@@ -20,7 +20,7 @@ class CommandRoulette(val plugin: AlphheimCore) : AlphheimCommand(plugin, "roule
     private val random = Random()
 
     @Default
-    @CommandPermission("alphheim.fun")
+    @CommandPermission("alphheim.diversions")
     fun roulette(self: Player) {
         val i = random.nextInt(101)
 

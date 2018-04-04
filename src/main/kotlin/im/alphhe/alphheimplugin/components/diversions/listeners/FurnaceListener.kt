@@ -4,7 +4,7 @@
  * Written by Shane Freeder - 2018.
  */
 
-package im.alphhe.alphheimplugin.components.`fun`.listeners
+package im.alphhe.alphheimplugin.components.diversions.listeners
 
 import org.bukkit.ChatColor
 import org.bukkit.Material

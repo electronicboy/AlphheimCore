@@ -4,15 +4,17 @@
  * Written by Shane Freeder - 2018.
  */
 
-package im.alphhe.alphheimplugin.components.`fun`
+package im.alphhe.alphheimplugin.components.diversions
 
 import im.alphhe.alphheimplugin.AlphheimCore
-import im.alphhe.alphheimplugin.components.`fun`.listeners.FurnaceListener
+import im.alphhe.alphheimplugin.components.diversions.commands.SitCommand
+import im.alphhe.alphheimplugin.components.diversions.listeners.FurnaceListener
 
 class FunHandler(var plugin: AlphheimCore) {
 
     init {
         plugin.server.pluginManager.registerEvents(FurnaceListener(), plugin)
+        plugin.commandManager.registerCommand(SitCommand(plugin))
     }
 
 }

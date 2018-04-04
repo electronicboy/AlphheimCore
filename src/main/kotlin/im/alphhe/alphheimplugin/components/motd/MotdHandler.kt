@@ -14,8 +14,11 @@ import org.bukkit.event.Listener
 class MotdHandler(val plugin: AlphheimCore) : Listener {
 
     val listener = MotdListener(this)
-    protected val command = MotdCommand(this)
+    val command = MotdCommand(this)
 
+    init {
+        plugin.server.pluginManager.registerEvents(listener, plugin)
+    }
 
 
 }

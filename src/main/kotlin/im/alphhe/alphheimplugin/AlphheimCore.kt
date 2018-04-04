@@ -10,13 +10,14 @@ import co.aikar.commands.BukkitCommandManager
 import com.google.inject.Injector
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandRoulette
-import im.alphhe.alphheimplugin.commands.CommandSpawn
-import im.alphhe.alphheimplugin.components.`fun`.FunHandler
+import im.alphhe.alphheimplugin.components.spawn.command.CommandSpawn
+import im.alphhe.alphheimplugin.components.diversions.FunHandler
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
+import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import org.bukkit.command.SimpleCommandMap
 
 class AlphheimCore : JavaPlugin() {
@@ -26,6 +27,7 @@ class AlphheimCore : JavaPlugin() {
         private set
     lateinit var commandManager: BukkitCommandManager
     var commandLore: CommandLore? = null
+
 
 
     override fun onEnable() {
@@ -53,11 +55,10 @@ class AlphheimCore : JavaPlugin() {
         PluginCommandPermHandler(this)
         MotdHandler(this)
         FunHandler(this)
+        SpawnHandler(this)
     }
 
     private fun registerCommands() {
-        CommandSpawn(this)
-        CommandRoulette(this)
     }
 
 

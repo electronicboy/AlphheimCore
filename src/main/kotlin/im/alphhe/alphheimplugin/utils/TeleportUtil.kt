@@ -31,7 +31,7 @@ class TeleportUtil(var player: Player, private val target: Location, timer: Int,
     }
 
     fun process() {
-        if (player.hasPermission("alphheim.teleport.bypass")) {
+        if (countdown <= 0 || player.hasPermission("alphheim.teleport.bypass")) {
             player.teleport(target)
         } else {
             MessageUtil.sendInfo(player, "The spell will take $countdown seconds to cast...")
