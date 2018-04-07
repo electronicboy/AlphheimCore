@@ -14,6 +14,7 @@ import im.alphhe.alphheimplugin.utils.TeleportUtil
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.command.CommandSender
+import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.entity.Player
 
 class SpawnHandler(val plugin: AlphheimCore) {
@@ -35,7 +36,7 @@ class SpawnHandler(val plugin: AlphheimCore) {
             val spawn = resolveSpawn(teleportee)
             TeleportUtil(teleportee, spawn, 10, plugin).process()
 
-        } else if (teleporter == null || silent){
+        } else if (teleporter == null || teleporter is ConsoleCommandSender || silent){
             val spawn = resolveSpawn(teleportee)
             TeleportUtil(teleportee, spawn, -1, plugin).process()
         } else if (teleporter is Player ) {

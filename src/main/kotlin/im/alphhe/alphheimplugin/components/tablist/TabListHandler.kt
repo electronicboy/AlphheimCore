@@ -35,19 +35,19 @@ class TabListHandler(private val plugin: AlphheimCore) {
 
 
         // humans
-        teams["hleader"] = getTeam("f_hleader", "&8[&3H&8]&6 ")
-        teams["hroyal"] = getTeam("g_hroyal", "&8[&3H&8]&3 ")
-        teams["hplayer"] = getTeam("h_hplayer", "&8[&3H&8]&7 ")
+        teams["hleader"] = getTeam("f_hleader", "&3[&bH&3]&6 ")
+        teams["hroyal"] = getTeam("g_hroyal", "&3[&bH&3]&3 ")
+        teams["hplayer"] = getTeam("h_hplayer", "&3[&bH&3]&7 ")
 
         // Dwarfs
-        teams["dleader"] = getTeam("i_dleader", "&8[&4A&8]&6 ")
-        teams["droyal"] = getTeam("j_droyal", "&8[&4A&8]&3 ")
-        teams["dplayer"] = getTeam("k_dplayer", "&8[&4A&8]&7 ")
+        teams["dleader"] = getTeam("i_dleader", "&4[&cD&4]&6 ")
+        teams["droyal"] = getTeam("j_droyal", "&4[&cD&4]&3 ")
+        teams["dplayer"] = getTeam("k_dplayer", "&4[&cD&4]&7 ")
 
         // Elfs
-        teams["eleader"] = getTeam("l_dleader", "&8[&4A&8]&6 ")
-        teams["eroyal"] = getTeam("m_droyal", "&8[&4A&8]&3 ")
-        teams["eplayer"] = getTeam("n_dplayer", "&8[&4A&8]&7 ")
+        teams["eleader"] = getTeam("l_dleader", "&2[&aE&2]&6 ")
+        teams["eroyal"] = getTeam("m_droyal", "&2[&aE&2]&3 ")
+        teams["eplayer"] = getTeam("n_dplayer", "&2[&aE&2]&7 ")
 
 
         // misc

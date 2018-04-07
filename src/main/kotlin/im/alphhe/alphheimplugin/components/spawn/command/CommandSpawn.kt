@@ -31,13 +31,15 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
 
     //@Subcommand("other")
     @CommandAlias("spawnother")
-    //@CommandPermission("alphheim.spawn.other")
+    @CommandPermission("alphheim.spawn.other")
     @CommandCompletion("@players")
     fun spawn(self: CommandSender, target: OnlinePlayer?) {
         if (target != null) {
             spawnHandler.goSpawn(target.player, self)
         } else if (self is Player){
             spawnHandler.goSpawn(self, self)
+        } else {
+            println("fell through...")
         }
     }
 

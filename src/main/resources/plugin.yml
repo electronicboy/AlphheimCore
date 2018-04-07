@@ -44,3 +44,25 @@ permissions:
   alphheim.dwarf:
     default: false
 
+  alphheim.owner:
+    default: false
+  alphheim.dev:
+    default: false
+  alphheim.ha:
+    default: false
+  alphheim.admin:
+    default: false
+  alphheim.mod:
+    default: false
+
+  alphheim.dwarf:
+    default: false
+  alphheim.elf:
+    default: false
+  alphheim.human:
+    default: false
+
+  alphheim.leader:
+    default: false
+  alphheim.royal:
+    default: false

@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
-    ext.kotlin_version = '1.2.30'
+    ext.kotlin_version = '1.2.31'
 
     group = "im.alphe"
     version = "1.0-SNAPSHOT"
@@ -69,6 +69,7 @@ dependencies {
     compileOnly ("net.milkbowl.vault:VaultAPI:1.6") {
         exclude group: "org.bukkit", module: "bukkit"
     }
+    compileOnly "com.palmergames.bukkit:towny:0.91.4.16"
     compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
     compile "me.lucko.luckperms:luckperms-api:4.1"
 }

@@ -10,19 +10,18 @@ import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
 import com.google.inject.Singleton
+import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.data.AlphheimUser
-import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.entity.Player
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Singleton
-class UserManager {
+class UserManager(plugin: AlphheimCore) {
     private val userCache: LoadingCache<UUID, AlphheimUser>
 
     init {
-        userCache = CacheBuilder.newBuilder().
-                maximumSize(1000)
+        userCache = CacheBuilder.newBuilder().maximumSize(1000)
                 .expireAfterAccess(30, TimeUnit.MINUTES)
                 .build(object : CacheLoader<UUID, AlphheimUser>() {
                     override fun load(uuid: UUID): AlphheimUser {
@@ -32,6 +31,11 @@ class UserManager {
                     }
 
                 })
+
+        plugin.server.scheduler.runTaskAsynchronously(plugin, {
+            plugin.server.onlinePlayers.forEach { getUser(it) }
+        })
+
     }
 
     fun getUser(uuid: UUID): AlphheimUser {

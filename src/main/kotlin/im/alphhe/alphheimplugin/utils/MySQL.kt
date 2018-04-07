@@ -8,14 +8,14 @@ package im.alphhe.alphheimplugin.utils
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import im.alphhe.alphheimplugin.AlphheimCore
 import java.sql.Connection
 
 object MySQL {
 
-    private var dataSource: HikariDataSource
+    private var dataSource: HikariDataSource? = null
 
-
-    init {
+    fun init(plugin: AlphheimCore) {
         val config = HikariConfig()
         config.jdbcUrl = "jdbc:mysql://localhost:3306/alphheim"
         config.username = "alphheim"
@@ -26,12 +26,18 @@ object MySQL {
         dataSource = HikariDataSource(config)
     }
 
-    fun getConnection(): Connection {
-        return dataSource.connection
+    init {
 
     }
 
+    fun getConnection(): Connection {
+        return dataSource!!.connection
 
+    }
+
+    fun kill() {
+        dataSource!!.close()
+    }
 
 
 }
