@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffectType
 import java.util.*
 import javax.print.attribute.IntegerSyntax
 
+val HALF_INT = Int.MAX_VALUE / 2
 class RacialHandler(private val plugin: AlphheimCore) {
     private val enchants: Map<Player, Map<PotionEffectType, Int>> = HashMap()
     private val getters = LinkedList<IRacialProcessor>()
@@ -28,7 +29,7 @@ class RacialHandler(private val plugin: AlphheimCore) {
         return getters.remove(handler)
     }
 
-    public fun applyEffects(player: Player) {
+    fun applyEffects(player: Player) {
         val applyMap = HashMap<PotionEffectType, Int>()
 
         for (getter in getters) {
@@ -41,15 +42,16 @@ class RacialHandler(private val plugin: AlphheimCore) {
                     applyMap[entry.key] = entry.value
                 }
             }
-
+            // remove effects players no longer need
             for (enchant in player.activePotionEffects) {
-                if (enchant.duration == Int.MAX_VALUE) {
+                if (enchant.duration < HALF_INT) { // use half int for safety
                     if (!applyMap.contains(enchant.type)) {
                         player.removePotionEffect(enchant.type)
                     }
                 }
             }
 
+            // apply effects that they don't have
             val activePotionEffects = player.activePotionEffects
             val activeEffects = activePotionEffects.map { it.type }.toHashSet()
             for (entry in applyMap) {
