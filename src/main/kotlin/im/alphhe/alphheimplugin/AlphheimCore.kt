@@ -17,6 +17,7 @@ import im.alphhe.alphheimplugin.components.health.HealthHandler
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import im.alphhe.alphheimplugin.components.permissionAbstract.PermissionHandler
 import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
+import im.alphhe.alphheimplugin.components.racial.RacialHandler
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
@@ -41,6 +42,7 @@ class AlphheimCore : JavaPlugin() {
     lateinit var luckPermsApi: LuckPermsApi
     lateinit var healthHandler: HealthHandler
     lateinit var permissionHandler: PermissionHandler
+    lateinit var racialHandler: RacialHandler
 
 
     override fun onEnable() {
@@ -82,6 +84,7 @@ class AlphheimCore : JavaPlugin() {
         tabHandler = TabHandler(this)
         tabListHandler = TabListHandler(this)
         healthHandler = HealthHandler(this)
+        racialHandler = RacialHandler(this)
     }
 
     private fun registerCommands() {

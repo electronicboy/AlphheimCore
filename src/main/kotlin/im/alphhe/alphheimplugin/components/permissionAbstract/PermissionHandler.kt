@@ -19,6 +19,7 @@ class PermissionHandler(private val plugin: AlphheimCore) {
                 if (player != null) {
                     plugin.tabListHandler.setSB(player)
                     plugin.healthHandler.updateHealth(player)
+                    plugin.racialHandler.applyEffects(player)
                 }
             })
         })
