@@ -15,7 +15,7 @@ import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.diversions.FunHandler
 import im.alphhe.alphheimplugin.components.health.HealthHandler
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
-import im.alphhe.alphheimplugin.components.permissionAbstract.PermissionHandler
+import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
 import im.alphhe.alphheimplugin.components.racial.RacialHandler
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler

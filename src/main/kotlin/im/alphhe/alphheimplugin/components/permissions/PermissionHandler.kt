@@ -4,10 +4,9 @@
  * Written by Shane Freeder - 2018.
  */
 
-package im.alphhe.alphheimplugin.components.permissionAbstract
+package im.alphhe.alphheimplugin.components.permissions
 
 import im.alphhe.alphheimplugin.AlphheimCore
-import me.lucko.luckperms.api.event.sync.PostSyncEvent
 import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent
 
 class PermissionHandler(private val plugin: AlphheimCore) {
