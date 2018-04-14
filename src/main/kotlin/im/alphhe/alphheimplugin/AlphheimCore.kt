@@ -95,6 +95,13 @@ class AlphheimCore : JavaPlugin() {
         PlayerListener(this)
     }
 
+    private fun registerContexts() {
+        //commandManager.commandCompletions.registerCompletion("groups",  {
+            //it.input. permissionHandler.getGroups()
+        //})
+
+    }
+
 
     override fun onDisable() {
 

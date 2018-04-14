@@ -7,6 +7,8 @@
 package im.alphhe.alphheimplugin.utils
 
 import net.md_5.bungee.api.ChatColor
+import org.bukkit.command.Command
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 
@@ -15,15 +17,15 @@ object MessageUtil {
     public val error = ChatColor.DARK_RED
     public val prefix = "${ChatColor.DARK_GRAY}[${ChatColor.RED}A${ChatColor.DARK_GRAY}]"
 
-    fun send(player: Player, s: String) {
+    private fun send(player: CommandSender, s: String) {
         player.sendMessage("$prefix $s")
     }
 
-    fun sendInfo(player: Player, s: String) {
+    fun sendInfo(player: CommandSender, s: String) {
         send(player, "$default$s")
     }
 
-    fun sendError(player: Player, s: String) {
+    fun sendError(player: CommandSender, s: String) {
         send(player, "$error$s")
     }
 

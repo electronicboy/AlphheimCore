@@ -78,6 +78,7 @@ dependencies {
 tasks.withType(KotlinCompile).all {
     kotlinOptions {
         javaParameters = true
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
