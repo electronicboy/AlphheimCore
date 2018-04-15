@@ -12,6 +12,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.sql.Statement
 import java.util.*
+import kotlin.collections.HashMap
 
 /**
  * Created by shane on 8/25/16.
@@ -25,7 +26,11 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
         }
 
     var activeChannel: String? = null
-    var channelData: Map<String, ChatStatus> = mutableMapOf();
+    var channelData: Map<String, ChatStatus> = mutableMapOf()
+
+    private val cooldowns = HashMap<String, Long>()
+
+    var overrides = false
 
     private fun getPlayer(): Player? {
         return Bukkit.getPlayer(uuid)
@@ -65,6 +70,47 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                 }
             }
         }
+
+        MySQL.getConnection().use { conn ->
+            val statement = conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?")
+            statement.use { stmt ->
+                stmt.setInt(1, userID)
+                stmt.executeQuery().use {
+                    while (it.next()) {
+                        try {
+                            val string = it.getString("NAME")
+                            val timestamp = it.getLong("EXPIRY")
+                            cooldowns[string] = timestamp
+                        } catch (ignored: Exception) {
+                        } // this should never happen, but I really don't wanna deal with the potential that it does...
+                    }
+                }
+            }
+
+        }
     }
+
+    fun getCooldown(name: String): Long? {
+        return cooldowns[name]
+    }
+
+    fun setCooldown(name: String, expiry: Long) {
+        cooldowns[name] = expiry
+
+        MySQL.executor.execute({
+            MySQL.getConnection().use { conn ->
+                val statement = conn.prepareStatement("INSERT INTO cooldowns (PLAYER_ID, NAME, EXPIRY) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE EXPIRY = EXPIRY")
+                statement.use { stmt ->
+                    stmt.setInt(1, userID)
+                    stmt.setString(2, name)
+                    stmt.setLong(3, expiry)
+                    stmt.execute()
+                }
+            }
+        })
+    }
+
+    fun hasOverrides(): Boolean = overrides
+
 
 }

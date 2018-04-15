@@ -6,14 +6,19 @@
 
 package im.alphhe.alphheimplugin.utils
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import im.alphhe.alphheimplugin.AlphheimCore
 import java.sql.Connection
+import java.util.concurrent.Executors
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 object MySQL {
 
     private var dataSource: HikariDataSource? = null
+    val executor = Executors.newCachedThreadPool(com.google.common.util.concurrent.ThreadFactoryBuilder().setNameFormat("MySQL Executor Thread - %1\$d").build())
 
     fun init(plugin: AlphheimCore) {
         val config = HikariConfig()
@@ -37,6 +42,8 @@ object MySQL {
 
     fun kill() {
         dataSource!!.close()
+        executor.shutdown()
+        executor.awaitTermination(1, TimeUnit.MINUTES)
     }
 
 

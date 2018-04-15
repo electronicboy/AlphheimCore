@@ -18,6 +18,7 @@ import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
 import im.alphhe.alphheimplugin.components.racial.RacialHandler
+import im.alphhe.alphheimplugin.components.rankcommands.RankCommands
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
@@ -85,6 +86,7 @@ class AlphheimCore : JavaPlugin() {
         tabListHandler = TabListHandler(this)
         healthHandler = HealthHandler(this)
         racialHandler = RacialHandler(this)
+        RankCommands(this)
     }
 
     private fun registerCommands() {
