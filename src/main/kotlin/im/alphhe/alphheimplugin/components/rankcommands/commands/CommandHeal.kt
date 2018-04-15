@@ -20,6 +20,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @CommandAlias("heal")
     @CommandPermission("alphheim.heal")
     @CommandCompletion("@players")
+    @Description("Heal the targeted player (or yourself)")
     fun onHeal(sender: Player, @Optional target: OnlinePlayer?) {
         if (checkCooldown(sender, "healCooldown")) {
             if (target == null) {
@@ -35,6 +36,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @Subcommand("radius")
     @CommandAlias("rheal")
     @CommandPermission("alphheim.heal.radius")
+    @Description("Heal all players in a 7m radius")
     fun onRadiusHeal(sender: Player) {
         if (checkCooldown(sender, "healCooldown")) {
             val location = sender.location
@@ -51,6 +53,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @CommandAlias("fheal")
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players")
+    @Description("staff force heal command")
     fun onStaffHeal(sender: CommandSender, @Optional target: OnlinePlayer?) {
         when {
             target != null -> {

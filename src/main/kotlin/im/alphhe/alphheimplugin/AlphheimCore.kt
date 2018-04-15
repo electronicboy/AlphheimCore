@@ -56,6 +56,8 @@ class AlphheimCore : JavaPlugin() {
 
         userManager = UserManager(this)
         commandManager = BukkitCommandManager(this)
+        commandManager.enableUnstableAPI("help")
+
         val commandLore = CommandLore()
 
         val commandMap = (Bukkit.getCommandMap() as SimpleCommandMap)
