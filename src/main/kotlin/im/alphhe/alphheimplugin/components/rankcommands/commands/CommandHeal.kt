@@ -6,10 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.rankcommands.commands
 
-import co.aikar.commands.annotation.CommandAlias
-import co.aikar.commands.annotation.CommandPermission
-import co.aikar.commands.annotation.Optional
-import co.aikar.commands.annotation.Subcommand
+import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
@@ -22,6 +19,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @Subcommand("heal")
     @CommandAlias("heal")
     @CommandPermission("alphheim.heal")
+    @CommandCompletion("@players")
     fun onHeal(sender: Player, @Optional target: OnlinePlayer?) {
         if (checkCooldown(sender, "healCooldown")) {
             if (target == null) {
@@ -52,6 +50,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @Subcommand("force")
     @CommandAlias("fheal")
     @CommandPermission("alphheim.mod")
+    @CommandCompletion("@players")
     fun onStaffHeal(sender: CommandSender, @Optional target: OnlinePlayer?) {
         when {
             target != null -> {
