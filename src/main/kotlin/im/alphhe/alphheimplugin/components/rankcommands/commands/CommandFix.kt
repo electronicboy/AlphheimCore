@@ -13,9 +13,6 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.entity.Player
-import java.time.Duration
-import java.util.concurrent.TimeUnit
-import java.util.logging.Level
 
 class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "fix") {
 
@@ -28,52 +25,10 @@ class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "fi
             MessageUtil.sendError(sender, "You cannot repair this item!")
             return
         }
-
-        val cooldown = plugin.permissionHandler.getLongMetaCached(sender, "fixCooldown", -1L)
-        val user = plugin.userManager.getUser(sender)
-
-        if (cooldown == -1L) {
-            if (!user.hasOverrides()) {
-                MessageUtil.sendError(sender, "An internal error has occurred, Please contact electronicboy!")
-                plugin.logger.log(Level.WARNING, "User ${sender.name} attempted to use command, but could not find cooldown key! ")
-                return
-            }
-        } else {
-            val time = user.getCooldown("fixCooldown")
-            println("timestamp: $time")
-            if (time == null || System.currentTimeMillis() >= time) {
-                user.setCooldown("fixCooldown", System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(cooldown))
-            } else {
-                val duration = Duration.ofMillis(time - System.currentTimeMillis())
-                val seconds = (duration.toMillis() / 1000) % 60
-                val minutes = duration.toMinutes() % 60
-                val hours = duration.toHours() % 24
-
-                val sb = StringBuilder("You cannot use this command for another ")
-                var hasAppended = false
-                if (hours != 0L) {
-                    sb.append("$hours hour")
-                    hasAppended = true
-                }
-                if (minutes != 0L || hasAppended) {
-                    if (hasAppended) sb.append(", ")
-                    sb.append("$minutes minutes")
-                    hasAppended = true
-                }
-                if (seconds != 0L || hasAppended) {
-                    if (hasAppended) sb.append(", ")
-                    sb.append("$seconds seconds")
-                }
-
-                MessageUtil.sendInfo(sender, sb.toString())
-                return
-
-            }
+        if (checkCooldown(sender, "fixCooldown")) {
+            item.durability = 0
+            sender.itemInHand = item // This item is already there, but this solves issues with updates
         }
-
-        item.durability = 0
-        sender.itemInHand = item // This item is already there, but this solves issues with updates
-
 
     }
 
