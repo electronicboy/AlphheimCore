@@ -753,16 +753,16 @@ lp group dwarf meta set health 20
 lp group elf meta set health 20
 lp group soldier meta set health 20
 lp group knight meta set health 20
-lp group officer meta set health 30
-lp group general meta set health 40
+lp group officer meta set health 20
+lp group general meta set health 20
 lp group axeman meta set health 20
 lp group ironguard meta set health 20
-lp group garaz meta set health 30
-lp group bronzebeard meta set health 40
+lp group garaz meta set health 20
+lp group bronzebeard meta set health 20
 lp group lancer meta set health 20
 lp group vala meta set health 20
-lp group adoness meta set health 30
-lp group Nikerym meta set health 40
+lp group adoness meta set health 20
+lp group Nikerym meta set health 20
 lp group monk meta set health 20
 lp group priest meta set health 20
 lp group archbishop meta set health 20
@@ -823,3 +823,96 @@ lp group shasylae meta set health 30
 lp group shasyl meta set health 30
 lp group volaer meta set health 30
 lp group voli meta set health 30
+
+
+#staff perms
+lp group mod set essentials.back
+lp group mod set essentials.ban
+lp group mod set essentials.ban.*
+lp group mod set essentials.banip
+lp group mod set essentials.clearinventory
+lp group mod set essentials.delhome.others
+lp group mod set essentials.fly
+lp group mod set essentials.fly.safelogin
+lp group mod set essentials.gamemode
+lp group mod set essentials.give
+lp group mod set essentials.home.others
+lp group mod set essentials.invsee
+lp group mod set essentials.item
+lp group mod set essentials.itemdb
+lp group mod set essentials.kick
+lp group mod set essentials.kick.notify
+lp group mod set essentials.list
+lp group mod set essentials.mute
+lp group mod set essentials.mute.offline
+lp group mod set essentials.near.*
+lp group mod set essentials.ptime
+lp group mod set essentials.seen.banreason
+lp group mod set essentials.socialspy
+lp group mod set essentials.tempban
+lp group mod set essentials.tempban.offline
+lp group mod set essentials.tempban.unlimited
+lp group mod set essentials.tp
+lp group mod set essentials.unban
+lp group mod set essentials.unbanip
+lp group mod set essentials.vanish
+lp group mod set essentials.vanish.interact
+lp group mod set essentials.vanish.see
+lp group mod set libsdisguises.undisguise
+lp group mod set libsdisguises.undisguiseplayer
+lp group mod set towny.chat.*
+
+
+lp group admin set lores.*
+lp group admin set essentials.silentjoin.vanish false
+lp group admin set essentials.kick.exempt false
+lp group admin set citizens.npc.talk
+lp group admin set coreprotect.*
+lp group admin set coreprotect.inspect
+lp group admin set coreprotect.lookup
+lp group admin set credits.add
+lp group admin set deadbolt.admin.*
+lp group admin set deadbolt.admin.break
+lp group admin set essentials.*
+lp group admin set essentials.ban
+lp group admin set essentials.ban.notify
+lp group admin set essentials.ban.offline
+lp group admin set essentials.banip
+lp group admin set essentials.broadcast
+lp group admin set essentials.chat.ignoreexempt
+lp group admin set essentials.delhome
+lp group admin set essentials.delwarp
+lp group admin set essentials.enchantments
+lp group admin set essentials.enchantments.unsafe
+lp group admin set essentials.fly
+lp group admin set essentials.gamemode
+lp group admin set essentials.gamemode.others
+lp group admin set essentials.jail
+lp group admin set essentials.joinfullserver
+lp group admin set essentials.kick
+lp group admin set essentials.kick.notify
+lp group admin set essentials.mute
+lp group admin set essentials.mute.notify
+lp group admin set essentials.mute.offline
+lp group admin set essentials.nick
+lp group admin set essentials.nick.color
+lp group admin set essentials.nick.others
+lp group admin set essentials.seen
+lp group admin set essentials.setwarp
+lp group admin set essentials.tempban
+lp group admin set essentials.tempban.offline
+lp group admin set essentials.togglejail
+lp group admin set essentials.togglejail.offline
+lp group admin set essentials.tp
+lp group admin set essentials.tpa
+lp group admin set essentials.tpaccept
+lp group admin set essentials.tpahere
+lp group admin set essentials.tpdeny
+lp group admin set essentials.unban
+lp group admin set essentials.vanish
+lp group admin set itemizer.*
+lp group admin set lores.admin
+lp group admin set mineresetlite.*
+lp group admin set worldguard.region.bypass.flat_world
+lp group admin set worldguard.region.bypass.world
+lp group admin set worldguard.region.wand
