@@ -8,11 +8,13 @@ package im.alphhe.alphheimplugin.components.rankcommands
 
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.rankcommands.commands.CommandFix
+import im.alphhe.alphheimplugin.components.rankcommands.commands.CommandHeal
 
 class RankCommands(private val plugin: AlphheimCore) {
 
     init {
         CommandFix(plugin)
+        CommandHeal(plugin)
     }
 
 }
