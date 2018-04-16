@@ -26,10 +26,10 @@ class CommandRoulette(val plugin: AlphheimCore) : AlphheimCommand(plugin, "roule
         val i = random.nextInt(101)
 
         if (i > 80) {
-            broadcast(self.location, self.getName() + " pulls the trigger *BANG*")
+            broadcast(self.location, self.name + " pulls the trigger *BANG*")
             Bukkit.getScheduler().runTaskLater(plugin, { self.kickPlayer("*BANG*") }, 2L)
         } else {
-            broadcast(self.location, self.getName() + " pulls the trigger *CLICK*")
+            broadcast(self.location, self.name + " pulls the trigger *CLICK*")
         }
     }
 
