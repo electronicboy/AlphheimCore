@@ -4,11 +4,12 @@
  * Written by Shane Freeder - 2018.
  */
 
-package im.alphhe.alphheimplugin.commands
+package im.alphhe.alphheimplugin.components.diversions.commands
 
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.Bukkit
 import org.bukkit.Location

@@ -7,14 +7,14 @@
 package im.alphhe.alphheimplugin.components.diversions
 
 import im.alphhe.alphheimplugin.AlphheimCore
-import im.alphhe.alphheimplugin.components.diversions.commands.SitCommand
+import im.alphhe.alphheimplugin.components.diversions.commands.CommandRoulette
 import im.alphhe.alphheimplugin.components.diversions.listeners.FurnaceListener
 
 class FunHandler(var plugin: AlphheimCore) {
 
     init {
         plugin.server.pluginManager.registerEvents(FurnaceListener(), plugin)
-        plugin.commandManager.registerCommand(SitCommand(plugin))
+        plugin.commandManager.registerCommand(CommandRoulette(plugin))
     }
 
 }
