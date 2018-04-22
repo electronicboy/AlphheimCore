@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.components.permissions
 
 import co.aikar.commands.BukkitCommandCompletionContext
 import com.google.common.collect.HashBasedTable
+import com.google.common.collect.ImmutableList
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.permissions.commands.CommandRank
 import me.lucko.luckperms.api.Contexts
@@ -80,14 +81,24 @@ class PermissionHandler(private val plugin: AlphheimCore) {
         return true
     }
 
-    fun getGroupsForUser(player: Player): MutableList<Group> {
-        val groups = mutableListOf<Group>()
+    fun getGroupsForUser(player: Player): ImmutableList<Group> {
+        val groups = ImmutableList.builder<Group>()
         for (group in getGroups()) {
             if (player.hasPermission("group.$group")) {
                 groups.add(getGroup(group) ?: continue)
             }
         }
-        return groups
+        return groups.build()
+
+    }
+
+    fun getOwnGroupsForUser(player: Player): ImmutableList<Group> {
+        val user = plugin.luckPermsApi.getUser(player.uniqueId) ?: return ImmutableList.of()
+
+        val builder = ImmutableList.builder<Group>()
+        user.ownNodes.filter { it.isGroupNode }.map { getGroup(it.groupName)!! }.forEach{ builder.add(it) }
+
+        return builder.build();
     }
 
     fun getBooleanMeta(group: Group, metaKey: String, default: Boolean = false): Boolean {
