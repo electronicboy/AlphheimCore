@@ -28,7 +28,8 @@ class PluginCommandPermHandler(val plugin: AlphheimCore) : Listener {
     }
 
     @EventHandler
-    fun pluginEnable(ignored: PluginEnableEvent) {
+    @Suppress("UNUSED_PARAMETER")
+    fun pluginEnable(e: PluginEnableEvent) {
         handleCommands()
     }
 

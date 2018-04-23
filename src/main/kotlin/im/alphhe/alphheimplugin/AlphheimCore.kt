@@ -56,6 +56,7 @@ class AlphheimCore : JavaPlugin() {
 
         userManager = UserManager(this)
         commandManager = BukkitCommandManager(this)
+        @Suppress("DEPRECATION")
         commandManager.enableUnstableAPI("help")
 
         val commandLore = CommandLore()

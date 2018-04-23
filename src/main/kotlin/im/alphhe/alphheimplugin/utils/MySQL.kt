@@ -18,6 +18,7 @@ object MySQL {
     private lateinit var dataSource: HikariDataSource
     val executor = Executors.newCachedThreadPool(com.google.common.util.concurrent.ThreadFactoryBuilder().setNameFormat("MySQL Executor Thread - %1\$d").build())!!
 
+    @Suppress("UNUSED_PARAMETER")
     fun init(plugin: AlphheimCore) {
         val config = HikariConfig()
         config.jdbcUrl = "jdbc:mysql://localhost:3306/alphheim"
