@@ -6,10 +6,14 @@
 
 package im.alphhe.alphheimplugin.commands
 
+import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
+import net.md_5.bungee.api.chat.ComponentBuilder
+import net.minecraft.server.v1_8_R3.ChatBaseComponent
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class AlphheimCoreCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "alphheim") {
@@ -26,6 +30,18 @@ class AlphheimCoreCommand(private val plugin: AlphheimCore) : AlphheimCommand(pl
         }
     }
 
+    @Subcommand("website")
+    @CommandAlias("website")
+    fun website(sender: CommandSender) {
+        MessageUtil.sendInfo(sender, "http://alphhe.im")
+    }
+
+
+    @Subcommand("discord")
+    @CommandAlias("discord")
+    fun discord(sender: CommandSender) {
+        MessageUtil.sendInfo(sender, "http://alphhe.im/discord")
+    }
 }
 
 

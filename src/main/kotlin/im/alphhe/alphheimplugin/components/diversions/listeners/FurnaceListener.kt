@@ -20,8 +20,6 @@ class FurnaceListener : Listener {
 
     @EventHandler
     fun eventHandler(e: FurnaceSmeltEvent) {
-        println(e.source.type)
-        println(e.source?.itemMeta?.displayName)
         if (e.source.type == Material.RABBIT && e.source?.itemMeta?.displayName == chickenName) {
             val itemStack = ItemStack(Material.COOKED_RABBIT)
             val itemMeta = itemStack.itemMeta
