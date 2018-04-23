@@ -13,6 +13,7 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.minecraft.server.v1_8_R3.ChatBaseComponent
+import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 

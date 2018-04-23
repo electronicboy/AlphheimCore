@@ -35,7 +35,7 @@ class ChatNickFormatter(channel: ChatChannel, plugin: AlphheimCore) : AbstractCh
 
         val user = userManager.getUser(sender)
         // Just because I'd rather not have null show in chat...
-        val userName = user.nickname ?: sender.displayName
+        val userName = user.getNickname()
 
         components.append(TextComponent.fromLegacyText(userName))
 
