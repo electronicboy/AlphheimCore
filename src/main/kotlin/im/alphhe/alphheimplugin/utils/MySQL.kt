@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit
 
 object MySQL {
 
-    private var dataSource: HikariDataSource? = null
-    val executor = Executors.newCachedThreadPool(com.google.common.util.concurrent.ThreadFactoryBuilder().setNameFormat("MySQL Executor Thread - %1\$d").build())
+    private lateinit var dataSource: HikariDataSource
+    val executor = Executors.newCachedThreadPool(com.google.common.util.concurrent.ThreadFactoryBuilder().setNameFormat("MySQL Executor Thread - %1\$d").build())!!
 
     fun init(plugin: AlphheimCore) {
         val config = HikariConfig()
@@ -34,14 +34,14 @@ object MySQL {
     }
 
     fun getConnection(): Connection {
-        return dataSource!!.connection
+        return dataSource.connection
 
     }
 
     fun kill() {
-        dataSource!!.close()
         executor.shutdown()
         executor.awaitTermination(1, TimeUnit.MINUTES)
+        dataSource.close()
     }
 
 
