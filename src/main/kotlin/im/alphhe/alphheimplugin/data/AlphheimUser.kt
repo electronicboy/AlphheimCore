@@ -10,6 +10,7 @@ import im.alphhe.alphheimplugin.components.chat.ChatStatus
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
+import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import java.sql.Statement
 import java.util.*
@@ -20,7 +21,8 @@ import kotlin.collections.HashMap
  */
 class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean = false) {
 
-    private var userID: Int = -1
+    var userID: Int = -1
+        private set
     private var nickname: String? = null
 
     var activeChannel: String? = null
@@ -124,6 +126,12 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
 
     fun setNickname(nick: String) {
         nickname = nick
+
+        val player = getPlayer()
+        if (player != null) {
+            player.displayName = ChatColor.translateAlternateColorCodes('&', nick)
+        }
+
         MySQL.executor.execute {
             MySQL.getConnection().use {
                 val stmt = it.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, NICKNAME, REJECTED, REQUESTED) VALUE ( ?, ?, ?, ?) ON DUPLICATE KEY UPDATE NICKNAME = NICKNAME, REJECTED = 0, REQUESTED = null ")
@@ -132,10 +140,15 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                 stmt.setInt(3, 0)
                 stmt.setString(4, null)
                 stmt.execute()
-
             }
         }
 
     }
+
+    fun getOfflinePlayer(): OfflinePlayer {
+        return Bukkit.getOfflinePlayer(uuid)
+    }
+
+
 
 }

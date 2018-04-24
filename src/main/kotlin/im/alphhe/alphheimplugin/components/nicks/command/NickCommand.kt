@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.nicks.command
 
+import co.aikar.commands.annotation.CommandCompletion
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -18,9 +19,10 @@ import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
+import sun.plugin2.message.Message
 import java.util.*
 
-class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "nick") {
+class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "anick") {
 
     @Subcommand("list")
     @CommandPermission("alphheim.mod")
@@ -111,8 +113,18 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
         MySQL.executor.execute {
             MySQL.getConnection().use {
-                it.prepareStatement("").use{
-                    it
+                it.prepareStatement("SELECT REQUESTED FROM player_nicks WHERE PLAYER_ID = ? AND REQUESTED IS NOT NULL").use{
+                    it.setInt(1, uTarget.userID)
+                    val rs = it.executeQuery()
+                    rs.use {
+                        if (it.next()) {
+                            val nick = it.getString("REQUESTED")
+                            uTarget.setNickname(nick)
+                            MessageUtil.sendInfo(sender, "You have accepted ${uTarget.getOfflinePlayer().name}'s nickname")
+                        } else {
+                            MessageUtil.sendError(sender, "The user did not have a pending request")
+                        }
+                    }
                 }
 
             }

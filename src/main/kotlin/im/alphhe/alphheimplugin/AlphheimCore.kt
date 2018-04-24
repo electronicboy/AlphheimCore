@@ -15,6 +15,7 @@ import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.diversions.FunHandler
 import im.alphhe.alphheimplugin.components.health.HealthHandler
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
+import im.alphhe.alphheimplugin.components.nicks.NickManager
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
 import im.alphhe.alphheimplugin.components.racial.RacialHandler
@@ -90,6 +91,7 @@ class AlphheimCore : JavaPlugin() {
         healthHandler = HealthHandler(this)
         racialHandler = RacialHandler(this)
         RankCommands(this)
+        NickManager(this)
     }
 
     private fun registerCommands() {
