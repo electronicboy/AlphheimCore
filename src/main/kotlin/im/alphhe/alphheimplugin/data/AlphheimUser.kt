@@ -94,7 +94,11 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                     it.setInt(1, userID)
                     it.executeQuery().use {
                         if (it.next()) {
-                            nickname = ChatColor.translateAlternateColorCodes('&', it.getString("NICKNAME"));
+                            nickname = it.getString("NICKNAME");
+                            val player = getPlayer()
+                            if (player != null) {
+                                player.displayName = ChatColor.translateAlternateColorCodes('&', nickname)
+                            }
                         }
                     }
 

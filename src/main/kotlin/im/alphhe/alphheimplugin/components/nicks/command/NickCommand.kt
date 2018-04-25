@@ -6,7 +6,6 @@
 
 package im.alphhe.alphheimplugin.components.nicks.command
 
-import co.aikar.commands.annotation.CommandCompletion
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -19,7 +18,6 @@ import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
-import sun.plugin2.message.Message
 import java.util.*
 
 class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "anick") {
@@ -113,7 +111,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
 
         MySQL.executor.execute {
             MySQL.getConnection().use {
-                it.prepareStatement("SELECT REQUESTED FROM player_nicks WHERE PLAYER_ID = ? AND REQUESTED IS NOT NULL").use{
+                it.prepareStatement("SELECT REQUESTED FROM player_nicks WHERE PLAYER_ID = ? AND REQUESTED IS NOT NULL").use {
                     it.setInt(1, uTarget.userID)
                     val rs = it.executeQuery()
                     rs.use {
@@ -130,11 +128,26 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
             }
 
         }
-
-
-
     }
 
+    @Subcommand("request")
+    fun request(sender: Player, request: String) {
+        MySQL.executor.execute {
+
+            val user = plugin.userManager.getUser(sender.uniqueId)
+            MySQL.getConnection().use { conn ->
+                val stmt = conn.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, REJECTED, REQUESTED) VALUE (?, 0, ?) ON DUPLICATE KEY UPDATE REQUESTED = REQUESTED, REJECTED = 0")
+                stmt.use {
+                    it.setInt(1, user.userID)
+                    it.setString(2, request)
+
+                    if (it.executeUpdate() != 0) {
+                        MessageUtil.sendInfo(sender, "Your nickname has been requested!")
+                    }
+                }
+            }
+        }
+    }
 
 
 }
