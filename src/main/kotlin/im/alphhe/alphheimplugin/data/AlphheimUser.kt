@@ -37,8 +37,8 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     }
 
     init {
-        MySQL.getConnection().use { connection ->
-            val prepareStatement = connection.prepareStatement("SELECT PLAYER_ID FROM player_data WHERE PLAYER_UUID = ?");
+        MySQL.getConnection().use { conn ->
+            val prepareStatement = conn.prepareStatement("SELECT PLAYER_ID FROM player_data WHERE PLAYER_UUID = ?");
             prepareStatement.use { statement ->
                 statement.setString(1, uuid.toString())
                 if (statement.execute()) {
@@ -69,24 +69,37 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                     }
                 }
             }
-        }
-
-        MySQL.getConnection().use { conn ->
-            val statement = conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?")
-            statement.use { stmt ->
-                stmt.setInt(1, userID)
-                stmt.executeQuery().use {
-                    while (it.next()) {
-                        try {
-                            val string = it.getString("NAME")
-                            val timestamp = it.getLong("EXPIRY")
-                            cooldowns[string] = timestamp
-                        } catch (ignored: Exception) {
-                        } // this should never happen, but I really don't wanna deal with the potential that it does...
+        } else {
+            MySQL.getConnection().use { conn ->
+                val statement = conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?")
+                statement.use { stmt ->
+                    stmt.setInt(1, userID)
+                    stmt.executeQuery().use {
+                        while (it.next()) {
+                            try {
+                                val string = it.getString("NAME")
+                                val timestamp = it.getLong("EXPIRY")
+                                cooldowns[string] = timestamp
+                            } catch (ignored: Exception) {
+                            } // this should never happen, but I really don't wanna deal with the potential that it does...
+                        }
                     }
                 }
+
             }
 
+            MySQL.getConnection().use { conn ->
+                val statement = conn.prepareStatement("SELECT NICKNAME FROM player_nicks WHERE PLAYER_ID = ?")
+                statement.use {
+                    it.setInt(1, userID)
+                    it.executeQuery().use {
+                        if (it.next()) {
+                            nickname = ChatColor.translateAlternateColorCodes('&', it.getString("NICKNAME"));
+                        }
+                    }
+
+                }
+            }
         }
     }
 
@@ -148,7 +161,6 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     fun getOfflinePlayer(): OfflinePlayer {
         return Bukkit.getOfflinePlayer(uuid)
     }
-
 
 
 }

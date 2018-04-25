@@ -42,7 +42,6 @@ class SpawnListener(private val spawnHandler: SpawnHandler) : Listener {
         )
         book.itemMeta = meta
         spawnBook = book
-
     }
 
     @EventHandler
