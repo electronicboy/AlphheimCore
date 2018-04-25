@@ -9,12 +9,17 @@ package im.alphhe.alphheimplugin.components.nicks.command
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.addComponent
+import im.alphhe.alphheimplugin.append
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
+import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
+import net.minecraft.server.v1_8_R3.ChatBaseComponent
+import net.minecraft.server.v1_8_R3.ChatComponentText
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
@@ -25,74 +30,99 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Subcommand("list")
     @CommandPermission("alphheim.mod")
     fun list(sender: Player) {
-        MySQL.getConnection().use {
-            val stmt = it.prepareStatement("SELECT PLAYER_UUID, REQUESTED, REJECTED, NICKNAME FROM player_data INNER JOIN player_nicks pn on player_data.PLAYER_ID = pn.PLAYER_ID WHERE pn.REQUESTED IS NOT NULL AND pn.REJECTED = 0")
+        MySQL.executor.execute {
 
-            stmt.use {
-                val rs = it.executeQuery()
-                rs.use {
-                    val count = rs.fetchSize
-                    val c = if (count == 0) {
-                        "no"
-                    } else {
-                        count.toString()
+            MySQL.getConnection().use {
+                val stmt = it.prepareStatement("SELECT PLAYER_UUID, REQUESTED, REJECTED, NICKNAME FROM player_data INNER JOIN player_nicks pn on player_data.PLAYER_ID = pn.PLAYER_ID WHERE pn.REQUESTED IS NOT NULL AND pn.REJECTED = 0")
+
+                stmt.use {
+                    val rs = it.executeQuery()
+                    rs.use {
+                        val count = rs.fetchSize
+
+
+                        rs.last()
+                        val c = if (rs.row == 0) {
+                            "no"
+                        } else {
+                            count.toString()
+                        }
+                        rs.beforeFirst()
+                        MessageUtil.sendInfo(sender, "There are $c pending requests!")
+
+                        while (rs.next()) {
+                            val nickRequest = rs.getString("REQUESTED")
+                            val playerUuid = UUID.fromString(rs.getString("PLAYER_UUID"))
+                            val userName = Bukkit.getOfflinePlayer(playerUuid).name
+
+                            //val nick = TextComponent(nickRequest)
+                            val nick = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', nickRequest))
+
+                            val request = TextComponent(" requested by: ")
+                            request.color = ChatColor.DARK_RED
+
+                            val groups = plugin.permissionHandler.getOwnGroupsForOfflineUser(playerUuid).joinToString { ", " }
+
+                            val playerData = TextComponent("$userName ($groups) ")
+                            playerData.color = ChatColor.RED
+
+                            val openBracket = TextComponent("[")
+                            openBracket.color = ChatColor.DARK_RED
+
+
+                            val accept = TextComponent("✓")
+                            accept.isBold = true
+                            accept.color = ChatColor.GREEN
+                            accept.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick accept $userName")
+
+                            val separator = TextComponent("|")
+                            separator.color = ChatColor.DARK_RED
+
+                            // ✗ ✘
+                            val deny = TextComponent("✗")
+                            deny.isBold = true
+                            deny.color = ChatColor.GREEN
+                            deny.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick deny $userName")
+
+                            val closeBracket = TextComponent("]")
+                            closeBracket.color = ChatColor.DARK_RED
+
+                            val out = TextComponent()
+
+                            /*
+                            for (component in nick) {
+                                out.addExtra(component)
+                            }
+
+                            out.addExtra(request)
+                            out.addExtra(playerData)
+                            out.addExtra(openBracket)
+                            out.addExtra(accept)
+                            out.addExtra(separator)
+                            out.addExtra(deny)
+                            out.addExtra(closeBracket)
+                            */
+
+                            val builder = ComponentBuilder("* ")
+                            builder.color(ChatColor.RED)
+                            builder.append(nick)
+                            builder.addComponent(request)
+                            builder.addComponent(playerData)
+                            builder.addComponent(accept)
+                            builder.addComponent(separator)
+                            builder.addComponent(deny)
+                            builder.addComponent(closeBracket)
+
+                            sender.spigot().sendMessage(*builder.create())
+
+
+                        }
+
+
                     }
-
-                    MessageUtil.sendInfo(sender, "There are $c pending requests!")
-
-                    while (rs.next()) {
-                        val nickRequest = rs.getString("REQUESTED")
-                        val playerUuid = UUID.fromString(rs.getString("PLAYER_UUID"))
-                        val userName = Bukkit.getOfflinePlayer(playerUuid).name
-
-                        val nick = TextComponent(nickRequest)
-                        nick.color = ChatColor.RED
-
-                        val request = TextComponent(" requested by: ")
-                        request.color = ChatColor.DARK_RED
-
-                        //val playerData = TextComponent("$userName ($group) ")
-                        //playerData.color = ChatColor.RED
-
-                        val openBracket = TextComponent("[")
-                        openBracket.color = ChatColor.DARK_RED
-
-
-                        val accept = TextComponent("✓")
-                        accept.isBold = true
-                        accept.color = ChatColor.GREEN
-                        accept.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick accept $userName")
-
-                        val separator = TextComponent("|")
-                        separator.color = ChatColor.DARK_RED
-
-                        // ✗ ✘
-                        val deny = TextComponent("✗")
-                        deny.isBold = true
-                        deny.color = ChatColor.GREEN
-                        deny.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick deny $userName")
-
-                        val closeBracket = TextComponent("]")
-                        closeBracket.color = ChatColor.DARK_RED
-
-
-                        nick.addExtra(request)
-                        //nick.addExtra(playerData)
-                        nick.addExtra(openBracket)
-                        nick.addExtra(accept)
-                        nick.addExtra(separator)
-                        nick.addExtra(deny)
-                        nick.addExtra(closeBracket)
-
-                        sender.spigot().sendMessage(nick)
-
-
-                    }
-
-
                 }
-            }
 
+            }
         }
     }
 
@@ -136,7 +166,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
             val user = plugin.userManager.getUser(sender.uniqueId)
             MySQL.getConnection().use { conn ->
-                val stmt = conn.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, REJECTED, REQUESTED) VALUE (?, 0, ?) ON DUPLICATE KEY UPDATE REQUESTED = REQUESTED, REJECTED = 0")
+                val stmt = conn.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, REJECTED, REQUESTED) VALUE (?, 0, ?) ON DUPLICATE KEY UPDATE REQUESTED = VALUES(REQUESTED), REJECTED = 0")
                 stmt.use {
                     it.setInt(1, user.userID)
                     it.setString(2, request)

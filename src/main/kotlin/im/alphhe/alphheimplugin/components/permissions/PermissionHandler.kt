@@ -19,6 +19,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.java.PluginClassLoader
 import org.bukkit.util.StringUtil
 import java.util.*
+import javax.annotation.concurrent.NotThreadSafe
 
 class PermissionHandler(private val plugin: AlphheimCore) {
 
@@ -99,6 +100,21 @@ class PermissionHandler(private val plugin: AlphheimCore) {
         user.ownNodes.filter { it.isGroupNode }.map { getGroup(it.groupName)!! }.forEach{ builder.add(it) }
 
         return builder.build();
+    }
+
+    fun getOwnGroupsForOfflineUser(uuid: UUID) : ImmutableList<Group> {
+        var user = plugin.luckPermsApi.getUser(uuid)
+        if (user == null) {
+            user = plugin.luckPermsApi.userManager.loadUser(uuid).get()
+        }
+
+        if (user == null) return ImmutableList.of()
+
+        val builder = ImmutableList.builder<Group>()
+        user.ownNodes.filter { it.isGroupNode }.map { getGroup(it.groupName)!! }.forEach{ builder.add(it) }
+
+        return builder.build()
+
     }
 
     fun getBooleanMeta(group: Group, metaKey: String, default: Boolean = false): Boolean {
