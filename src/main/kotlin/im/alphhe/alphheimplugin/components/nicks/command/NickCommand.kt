@@ -20,7 +20,7 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import java.util.*
 
-class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "anick") {
+class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "nick") {
 
     @Subcommand("list")
     @CommandPermission("alphheim.mod")
