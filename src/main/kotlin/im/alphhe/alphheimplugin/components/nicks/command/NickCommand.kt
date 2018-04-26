@@ -179,5 +179,10 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
         }
     }
 
+    @Subcommand("status")
+    fun status(sender: Player) {
+
+    }
+
 
 }

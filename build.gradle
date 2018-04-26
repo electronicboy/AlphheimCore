@@ -51,6 +51,10 @@ repositories {
     maven {
         name = "valaria-private"
         url = "https://repo.valaria.pw/repository/valaria-private/"
+        credentials {
+            username valariaRepoUser
+            password valariaRepoPass
+        }
     }
     maven {
         name = "valaria"
