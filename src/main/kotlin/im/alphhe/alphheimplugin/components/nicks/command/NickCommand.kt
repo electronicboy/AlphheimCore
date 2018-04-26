@@ -18,8 +18,6 @@ import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
-import net.minecraft.server.v1_8_R3.ChatBaseComponent
-import net.minecraft.server.v1_8_R3.ChatComponentText
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
@@ -181,7 +179,27 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("status")
     fun status(sender: Player) {
+        MySQL.executor.execute {
+            val user = plugin.userManager.getUser(sender.uniqueId)
+            MySQL.getConnection().use { conn ->
+                conn.prepareStatement("SELECT REJECTED, REQUESTED FROM player_nicks WHERE PLAYER_ID = ? AND REQUESTED IS NOT NULL").use { stmt ->
+                    stmt.setInt(1, user.userID)
+                    stmt.executeQuery().use { rs ->
+                        if (rs.next()) {
+                            val status = rs.getInt("REJECTED")
+                            if (status == 0) {
+                                MessageUtil.sendInfo(sender, "Your nickname is currently pending!")
+                            } else if (status == 1) {
+                                MessageUtil.sendError(sender, "Your nickname request has been rejected!")
+                            }
 
+                        } else {
+                            MessageUtil.sendError(sender, "You do not have a pending request")
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
