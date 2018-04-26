@@ -23,5 +23,8 @@ class NickListener(private val plugin: AlphheimCore) : Listener {
         val user = plugin.userManager.getUser(e.player.uniqueId)
         e.player.displayName = ChatColor.translateAlternateColorCodes('&', user.getNickname())
 
+
+
+
     }
 }

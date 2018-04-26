@@ -43,10 +43,10 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                         val c = if (rs.row == 0) {
                             "no"
                         } else {
-                            count.toString()
+                           rs.row.toString()
                         }
                         rs.beforeFirst()
-                        MessageUtil.sendInfo(sender, "There are $c pending requests!")
+                        MessageUtil.sendInfo(sender, "There are $c pending nick requests!")
 
                         while (rs.next()) {
                             val nickRequest = rs.getString("REQUESTED")
@@ -59,7 +59,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                             val request = TextComponent(" requested by: ")
                             request.color = ChatColor.DARK_RED
 
-                            val groups = plugin.permissionHandler.getOwnGroupsForOfflineUser(playerUuid).joinToString { ", " }
+                            val groups = plugin.permissionHandler.getOwnGroupsForOfflineUser(playerUuid).map { group -> group.name }.joinToString()
 
                             val playerData = TextComponent("$userName ($groups) ")
                             playerData.color = ChatColor.RED
@@ -106,6 +106,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                             builder.append(nick)
                             builder.addComponent(request)
                             builder.addComponent(playerData)
+                            builder.addComponent(openBracket)
                             builder.addComponent(accept)
                             builder.addComponent(separator)
                             builder.addComponent(deny)
