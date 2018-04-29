@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.nicks.command
 
+import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -23,6 +24,7 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import java.util.*
 
+@CommandAlias("nickname")
 class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "nick") {
 
     @Subcommand("list")
@@ -52,14 +54,12 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                             val nickRequest = rs.getString("REQUESTED")
                             val playerUuid = UUID.fromString(rs.getString("PLAYER_UUID"))
                             val userName = Bukkit.getOfflinePlayer(playerUuid).name
-
-                            //val nick = TextComponent(nickRequest)
                             val nick = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', nickRequest))
 
                             val request = TextComponent(" requested by: ")
                             request.color = ChatColor.DARK_RED
 
-                            val groups = plugin.permissionHandler.getOwnGroupsForOfflineUser(playerUuid).map { group -> group.name }.joinToString()
+                            val groups = plugin.permissionHandler.getOwnGroupsForOfflineUser(playerUuid).joinToString { group -> group.name }
 
                             val playerData = TextComponent("$userName ($groups) ")
                             playerData.color = ChatColor.RED
@@ -84,22 +84,6 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
                             val closeBracket = TextComponent("]")
                             closeBracket.color = ChatColor.DARK_RED
-
-                            val out = TextComponent()
-
-                            /*
-                            for (component in nick) {
-                                out.addExtra(component)
-                            }
-
-                            out.addExtra(request)
-                            out.addExtra(playerData)
-                            out.addExtra(openBracket)
-                            out.addExtra(accept)
-                            out.addExtra(separator)
-                            out.addExtra(deny)
-                            out.addExtra(closeBracket)
-                            */
 
                             val builder = ComponentBuilder("* ")
                             builder.color(ChatColor.RED)
