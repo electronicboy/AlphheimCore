@@ -152,10 +152,10 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
         MySQL.executor.execute {
             try {
                 MySQL.getConnection().use {
-                    val stmt = it.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, NICKNAME, REJECTED, REQUESTED) VALUE ( ?, ?, ?, NULL) ON DUPLICATE KEY UPDATE NICKNAME = VALUES(NICKNAME), REJECTED = 0, REQUESTED = null ")
+                    val stmt = it.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, NICKNAME, STATUS, REQUESTED) VALUE ( ?, ?, ?, NULL) ON DUPLICATE KEY UPDATE NICKNAME = VALUES(NICKNAME), STATUS = VALUES(STATUS), REQUESTED = null ")
                     stmt.setInt(1, userID)
                     stmt.setString(2, nick)
-                    stmt.setInt(3, 0)
+                    stmt.setInt(3, NickStatus.APPROVED.value)
                     stmt.executeUpdate()
                 }
             } catch (ex: Throwable) {
