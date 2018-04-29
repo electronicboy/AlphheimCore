@@ -13,6 +13,7 @@ import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.components.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.diversions.FunHandler
+import im.alphhe.alphheimplugin.components.donor.DonorManager
 import im.alphhe.alphheimplugin.components.health.HealthHandler
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import im.alphhe.alphheimplugin.components.nicks.NickManager
@@ -28,10 +29,12 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
+import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
 
 
-class AlphheimCore : JavaPlugin() {
+class
+AlphheimCore : JavaPlugin() {
 
     lateinit var chatHandler: ChatHandlerService
     lateinit var userManager: UserManager
@@ -46,8 +49,16 @@ class AlphheimCore : JavaPlugin() {
     lateinit var permissionHandler: PermissionHandler
     lateinit var racialHandler: RacialHandler
 
+    private var consolePerms = mutableListOf<PermissionAttachment>()
+
 
     override fun onEnable() {
+
+        registerConsolePerm("alphheim.admin")
+        registerConsolePerm("alphheim.mod")
+
+
+
         MySQL.init(this)
 
         val provider = Bukkit.getServicesManager().getRegistration(LuckPermsApi::class.java)
@@ -92,6 +103,7 @@ class AlphheimCore : JavaPlugin() {
         racialHandler = RacialHandler(this)
         RankCommands(this)
         NickManager(this)
+        DonorManager(this)
     }
 
     private fun registerCommands() {
@@ -110,6 +122,16 @@ class AlphheimCore : JavaPlugin() {
     }
 
 
+    private fun registerConsolePerm(perm: String) {
+        consolePerms.add(Bukkit.getConsoleSender().addAttachment(this, perm, true))
+    }
+    private fun killConsolePerms() {
+        for (attach in consolePerms) {
+            attach.remove()
+        }
+    }
+
+
     override fun onDisable() {
 
         //Bukkit.getInternalServices().unregisterService(Chat::class.java, chatHandler)
@@ -121,6 +143,7 @@ class AlphheimCore : JavaPlugin() {
         permissionHandler.destruct() // Unregister components... Or, at least try to..
 
         MySQL.kill()
+        killConsolePerms();
     }
 
 

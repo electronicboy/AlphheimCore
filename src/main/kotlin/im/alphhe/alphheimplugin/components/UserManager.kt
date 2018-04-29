@@ -12,6 +12,7 @@ import com.google.common.cache.LoadingCache
 import com.google.inject.Singleton
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.data.AlphheimUser
+import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.entity.Player
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -32,7 +33,7 @@ class UserManager(plugin: AlphheimCore) {
 
                 })
 
-        plugin.server.scheduler.runTaskAsynchronously(plugin, {
+        MySQL.executor.execute( {
             plugin.server.onlinePlayers.forEach { getUser(it) }
         })
 
