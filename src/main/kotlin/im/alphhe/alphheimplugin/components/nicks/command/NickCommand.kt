@@ -33,7 +33,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
         MySQL.executor.execute {
 
             MySQL.getConnection().use {
-                val stmt = it.prepareStatement("SELECT PLAYER_UUID, REQUESTED, REJECTED, NICKNAME FROM player_data INNER JOIN player_nicks pn on player_data.PLAYER_ID = pn.PLAYER_ID WHERE pn.REQUESTED IS NOT NULL AND pn.REJECTED = 0")
+                val stmt = it.prepareStatement("SELECT PLAYER_UUID, REQUESTED, STATUS, NICKNAME FROM player_data INNER JOIN player_nicks pn on player_data.PLAYER_ID = pn.PLAYER_ID WHERE pn.REQUESTED IS NOT NULL AND pn.STATUS = 0")
 
                 stmt.use {
                     val rs = it.executeQuery()
@@ -158,7 +158,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                             MySQL.executor.execute {
 
                                 MySQL.getConnection().use { conn ->
-                                    conn.prepareStatement("UPDATE player_nicks SET REJECTED = 1 WHERE PLAYER_ID = ?").use {
+                                    conn.prepareStatement("UPDATE player_nicks SET STATUS = 2 WHERE PLAYER_ID = ?").use {
                                         it.setInt(1, uTarget.userID)
                                         if (it.executeUpdate() != 0) {
                                             MessageUtil.sendInfo(sender, "Nickname request for ${uTarget.getOfflinePlayer().name} has been declined!")
@@ -186,7 +186,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
             val user = plugin.userManager.getUser(sender.uniqueId)
             MySQL.getConnection().use { conn ->
-                val stmt = conn.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, REJECTED, REQUESTED) VALUE (?, 0, ?) ON DUPLICATE KEY UPDATE REQUESTED = VALUES(REQUESTED), REJECTED = 0")
+                val stmt = conn.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, STATUS, REQUESTED) VALUE (?, 0, ?) ON DUPLICATE KEY UPDATE REQUESTED = VALUES(REQUESTED), STATUS = 0")
                 stmt.use {
                     it.setInt(1, user.userID)
                     it.setString(2, request)
@@ -204,15 +204,15 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
         MySQL.executor.execute {
             val user = plugin.userManager.getUser(sender.uniqueId)
             MySQL.getConnection().use { conn ->
-                conn.prepareStatement("SELECT REJECTED, REQUESTED FROM player_nicks WHERE PLAYER_ID = ? AND REQUESTED IS NOT NULL").use { stmt ->
+                conn.prepareStatement("SELECT STATUS, REQUESTED FROM player_nicks WHERE PLAYER_ID = ? AND REQUESTED IS NOT NULL").use { stmt ->
                     stmt.setInt(1, user.userID)
                     stmt.executeQuery().use { rs ->
                         if (rs.next()) {
-                            val status = rs.getInt("REJECTED")
+                            val status = rs.getInt("STATUS")
                             if (status == 0) {
                                 MessageUtil.sendInfo(sender, "Your nickname is currently pending!")
                             } else if (status == 1) {
-                                MessageUtil.sendError(sender, "Your nickname request has been rejected!")
+                                MessageUtil.sendError(sender, "Your nickname request has been STATUS!")
                             }
 
                         } else {
