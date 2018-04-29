@@ -45,7 +45,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                         val c = if (rs.row == 0) {
                             "no"
                         } else {
-                           rs.row.toString()
+                            rs.row.toString()
                         }
                         rs.beforeFirst()
                         MessageUtil.sendInfo(sender, "There are $c pending nick requests!")
@@ -114,6 +114,7 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     fun set(sender: Player, target: OfflinePlayer, nick: String) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
         uTarget.setNickname(nick)
+        MessageUtil.sendInfo(sender, "You have set the nickname of ${uTarget.getOfflinePlayer().name} to ${ChatColor.translateAlternateColorCodes('&', nick)}")
     }
 
 
@@ -142,6 +143,42 @@ class NickCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
         }
     }
+
+    @Subcommand("reject")
+    @CommandPermission("alphheim.mod")
+    fun reject(sender: Player, target: OfflinePlayer) {
+        val uTarget = plugin.userManager.getUser(target.uniqueId)
+
+        MySQL.executor.execute {
+            MySQL.getConnection().use { conn ->
+                conn.prepareStatement("SELECT REQUESTED FROM player_nicks WHERE PLAYER_ID = ? AND REQUESTED IS NOT NULL").use {
+                    it.setInt(1, uTarget.userID)
+                    it.executeQuery().use {
+                        if (it.next()) {
+                            MySQL.executor.execute {
+
+                                MySQL.getConnection().use { conn ->
+                                    conn.prepareStatement("UPDATE player_nicks SET REJECTED = 1 WHERE PLAYER_ID = ?").use {
+                                        it.setInt(1, uTarget.userID)
+                                        if (it.executeUpdate() != 0) {
+                                            MessageUtil.sendInfo(sender, "Nickname request for ${uTarget.getOfflinePlayer().name} has been declined!")
+                                            val player = uTarget.getOfflinePlayer().player
+                                            if (player != null) {
+                                                MessageUtil.sendError(player, "Your nickname has been declined!")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            MessageUtil.sendError(sender, "This user does not have a pending request")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     @Subcommand("request")
     fun request(sender: Player, request: String) {
