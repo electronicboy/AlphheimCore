@@ -48,6 +48,7 @@ AlphheimCore : JavaPlugin() {
     lateinit var healthHandler: HealthHandler
     lateinit var permissionHandler: PermissionHandler
     lateinit var racialHandler: RacialHandler
+    lateinit var spawnHandler: SpawnHandler
 
     private var consolePerms = mutableListOf<PermissionAttachment>()
 
@@ -96,7 +97,7 @@ AlphheimCore : JavaPlugin() {
         PluginCommandPermHandler(this)
         MotdHandler(this)
         FunHandler(this)
-        SpawnHandler(this)
+        spawnHandler = SpawnHandler(this)
         tabHandler = TabHandler(this)
         tabListHandler = TabListHandler(this)
         healthHandler = HealthHandler(this)
@@ -112,13 +113,6 @@ AlphheimCore : JavaPlugin() {
 
     private fun registerListeners() {
         PlayerListener(this)
-    }
-
-    private fun registerContexts() {
-        //commandManager.commandCompletions.registerCompletion("groups",  {
-            //it.input. permissionHandler.getGroups()
-        //})
-
     }
 
 

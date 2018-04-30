@@ -43,6 +43,11 @@ class AlphheimCoreCommand(private val plugin: AlphheimCore) : AlphheimCommand(pl
     fun discord(sender: CommandSender) {
         MessageUtil.sendInfo(sender, "http://alphhe.im/discord")
     }
+
+    @Subcommand("spawnbook")
+    fun spawnBook(sender: Player) {
+        sender.inventory.addItem(plugin.spawnHandler.getBook())
+    }
 }
 
 
