@@ -39,13 +39,13 @@ class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "fi
     fun onAll(sender: Player) {
         // This command currently isn't given out to the public, so...
         sender.inventory.contents.forEach {
-            if (it != null && !it.type.isBlock && it.durability != 0.toShort() && it.type.maxDurability == 0.toShort()) {
+            if (it != null && !it.type.isBlock && it.durability != 0.toShort() && it.type.maxDurability > 0.toShort()) {
                 it.durability = 0
             }
         }
 
         sender.inventory.armorContents.forEach {
-            if (it != null && !it.type.isBlock && it.durability != 0.toShort() && it.type.maxDurability == 0.toShort()) {
+            if (it != null && !it.type.isBlock && it.durability != 0.toShort() && it.type.maxDurability > 0.toShort()) {
                 it.durability = 0
             }
         }
