@@ -11,6 +11,7 @@ import im.alphhe.alphheimplugin.components.donor.commands.DonorCommand
 import im.alphhe.alphheimplugin.components.donor.handlers.IDonorHandler
 import im.alphhe.alphheimplugin.components.donor.handlers.LorebagHandler
 import im.alphhe.alphheimplugin.components.donor.handlers.MobSpawnerHandler
+import im.alphhe.alphheimplugin.components.donor.handlers.ReasonToLiveHandler
 
 class DonorManager(private val plugin: AlphheimCore) {
 
@@ -21,6 +22,7 @@ class DonorManager(private val plugin: AlphheimCore) {
 
         registerHandler("spawner", MobSpawnerHandler())
         registerHandler("lorebag", LorebagHandler())
+        registerHandler("reasontolive", ReasonToLiveHandler())
 
     }
 

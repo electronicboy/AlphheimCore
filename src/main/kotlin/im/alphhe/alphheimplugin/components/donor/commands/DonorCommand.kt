@@ -59,6 +59,10 @@ class DonorCommand(plugin: AlphheimCore, private val manager: DonorManager) : Al
     @Subcommand("check")
     fun check(player: Player) {
         val bukkitStack = player.itemInHand
+        if (bukkitStack == null) {
+            MessageUtil.sendError(player, "You cannot check air!")
+        }
+
         val vanillaStack = CraftItemStack.asNMSCopy(bukkitStack)
 
         val tag = vanillaStack.tag
