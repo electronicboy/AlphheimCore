@@ -19,17 +19,18 @@ class MobSpawnerHandler() : IDonorHandler() {
         get() = "MobSpawner"
 
     override fun handle(player: Player, args: Map<String, String>) {
-        val spawnerType = args["spawnerType"] ?: throw IllegalArgumentException("Missing spawner type!!")
+        val spawnerType = args["spawnerType"]
+                ?: throw IllegalArgumentException("Missing spawner type!!")
 
         if (EntityType.fromName(spawnerType) == null) throw IllegalArgumentException("invalid spawner type!!")
 
-        val items = player.inventory.addItem(getSpawner(spawnerType, args["displayName"]) )
+        val items = player.inventory.addItem(getSpawner(spawnerType, args["displayName"]))
         for (item in items) {
             player.location.world.dropItemNaturally(player.location, item.value)
         }
     }
 
-    private fun getSpawner(mobType: String, name: String?) : ItemStack {
+    private fun getSpawner(mobType: String, name: String?): ItemStack {
 
         val stack = CraftItemStack.asNMSCopy(ItemStack(Material.MOB_SPAWNER))
 
@@ -55,7 +56,7 @@ class MobSpawnerHandler() : IDonorHandler() {
 
         stack.tag = tag;
 
-        val bukkitStack =CraftItemStack.asCraftMirror(stack)
+        val bukkitStack = CraftItemStack.asCraftMirror(stack)
 
         if (name != null) {
             val meta = bukkitStack.itemMeta
@@ -64,13 +65,5 @@ class MobSpawnerHandler() : IDonorHandler() {
         }
 
         return bukkitStack
-
-
-
-
     }
-
-
-
-
 }
