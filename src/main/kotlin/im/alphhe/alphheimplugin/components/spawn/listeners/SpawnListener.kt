@@ -38,7 +38,7 @@ class SpawnListener(private val spawnHandler: SpawnHandler) : Listener {
                 ChatColor.translateAlternateColorCodes('&', "&nChats&0\n&0\n&c/ooc &0- Out of Chatacter&0\n&7/g &0- Global&0\n&8/l &0- Local&0\n&4/w &0- Whisper&0\n&1/tc &0- Towny Chat&0\n&2/gc &0- Group Chat&0\n&9/ic &0- In Character"),
                 ChatColor.translateAlternateColorCodes('&', "&nHelpful Commands&0\n&0\n&5/nick request&0\n&0Request a nickname&0\n&3/vote&0\n&0Vote daily for rewards&0\n&6/bal&0\n&0Check your balance&0\n&a/warp&0\n&0Our free warps&0\n&c/mcmmo&0\n&0McMMO info page&0\n&d/realname&0\n&0Helps with rp names"),
                 ChatColor.translateAlternateColorCodes('&', "&nDonation Store&0\n&0\n&0If you wish to &2help &0the server, stop by the &6donation store&0. You can buy &ccommands&0, &9in game items&0, &0and &5donor ranks &0which come with &8kits &0and &3more&0!"),
-                ChatColor.translateAlternateColorCodes('&', "&nStaff&0\n&0\n&0If you need help, contact the staff!&0\n&6Dark_SargeWolf&0\n&6MissCake00&0\n&5electroniccat&0\n&3Galduron&0\n&cBiznitcash&0\n&2A&3n&6a&8r&5c&bh&ci&ds&et&0Fly&0\n&bPluvix&0\n&1&lEnjoy Alphheim!")
+                ChatColor.translateAlternateColorCodes('&', "&nStaff&0\n&0\n&0If you need help, contact the staff!&0\n&6Dark_SargeWolf&0\n&6MissCake00&0\n&5electronicboy&0\n&3Galduron&0\n&cBiznitcash&0\n&2A&3n&6a&8r&5c&bh&ci&ds&et&0Fly&0\n&bPluvix&0\n&bPepperGuardian\n&bNacho\n&1&lEnjoy Alphheim!")
         )
         book.itemMeta = meta
         spawnBook = book

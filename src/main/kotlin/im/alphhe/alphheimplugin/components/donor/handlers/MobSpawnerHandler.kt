@@ -22,6 +22,7 @@ class MobSpawnerHandler() : IDonorHandler() {
         val spawnerType = args["spawnerType"]
                 ?: throw IllegalArgumentException("Missing spawner type!!")
 
+        @Suppress("DEPRECATION")
         if (EntityType.fromName(spawnerType) == null) throw IllegalArgumentException("invalid spawner type!!")
 
         val items = player.inventory.addItem(getSpawner(spawnerType, args["displayName"]))
