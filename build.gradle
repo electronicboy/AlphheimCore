@@ -60,6 +60,7 @@ repositories {
         name = "valaria"
         url = "https://repo.valaria.pw/repository/maven-public/"
     }
+    jcenter()
     mavenLocal()
 }
 
@@ -76,6 +77,7 @@ dependencies {
     compileOnly "com.palmergames.bukkit:towny:0.91.4.16"
     compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
     compile "me.lucko.luckperms:luckperms-api:4.1"
+    compile "net.dv8tion:JDA:3.6.0_361"
 }
 
 

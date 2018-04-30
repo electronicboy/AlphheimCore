@@ -72,5 +72,29 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
         }
 
     }
+
+    @Subcommand("feed")
+    @CommandAlias("feed")
+    @CommandPermission("alphheim.mod")
+    @CommandCompletion("@players")
+    @Description("staff force heal command")
+    fun onFeed(sender: CommandSender, @Optional target: OnlinePlayer?) {
+        when {
+            target != null -> {
+                target.player.foodLevel = 20
+                target.player.saturation = 20f
+                MessageUtil.sendInfo(sender, "You feel as if you've had the feast of a king!")
+            }
+            sender is Player -> {
+                sender.foodLevel = 20
+                sender.player.saturation = 20f
+                MessageUtil.sendInfo(sender, "You feel as if you've had the feast of a king!")
+            }
+            else -> MessageUtil.sendError(sender, "Missing target?!")
+        }
+
+    }
+
+
 }
 
