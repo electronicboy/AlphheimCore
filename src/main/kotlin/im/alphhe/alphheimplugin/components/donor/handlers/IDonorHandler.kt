@@ -9,6 +9,7 @@ package im.alphhe.alphheimplugin.components.donor.handlers
 import org.bukkit.entity.Player
 
 abstract class IDonorHandler {
+    abstract val name: String
 
     abstract fun handle(player: Player, args: Map<String, String>)
 

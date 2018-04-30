@@ -12,6 +12,9 @@ import org.bukkit.entity.Player
 
 
 class ReasonToLiveHandler : IDonorHandler() {
+    override val name: String
+        get() = "ReasonToLive"
+
     override fun handle(player: Player, args: Map<String, String>) {
         for (tPlayer in Bukkit.getOnlinePlayers()) {
             MessageUtil.sendInfo(tPlayer, "${player.displayName} has purchased a reason to live!")

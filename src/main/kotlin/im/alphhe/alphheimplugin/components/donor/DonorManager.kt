@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.donor
 
+import co.aikar.commands.InvalidCommandArgument
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.donor.commands.DonorCommand
 import im.alphhe.alphheimplugin.components.donor.handlers.IDonorHandler
@@ -18,6 +19,16 @@ class DonorManager(private val plugin: AlphheimCore) {
     private val handlers = mutableMapOf<String, IDonorHandler>()
 
     init {
+
+        plugin.commandManager.commandContexts.registerContext(IDonorHandler::class.java, {c ->
+            val type = c.popFirstArg().toLowerCase()
+            getHandler(type) ?: throw InvalidCommandArgument("The $type handler does not exist!")
+        })
+
+        plugin.commandManager.commandCompletions.registerCompletion("donorhandler", {c ->
+            handlers.keys
+        })
+
         plugin.commandManager.registerCommand(DonorCommand(plugin, this), true)
 
         registerHandler("spawner", MobSpawnerHandler())

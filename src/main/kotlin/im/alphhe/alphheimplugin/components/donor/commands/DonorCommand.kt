@@ -6,16 +6,16 @@
 
 package im.alphhe.alphheimplugin.components.donor.commands
 
-import co.aikar.commands.annotation.CommandPermission
+import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
-import co.aikar.commands.annotation.Single
-import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.donor.DonorManager
+import im.alphhe.alphheimplugin.components.donor.handlers.IDonorHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.command.CommandSender
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack
 import org.bukkit.entity.Player
@@ -26,31 +26,27 @@ class DonorCommand(plugin: AlphheimCore, private val manager: DonorManager) : Al
 
     @CommandPermission("alphheim.admin")
     @Subcommand("give")
-    fun give(sender: CommandSender, target: OnlinePlayer, @Single perk: String, @Optional args: String?) {
-        val handler = manager.getHandler(perk)
-        if (handler != null) {
+    @CommandCompletion("@players @donorhandler @nothing")
+    fun give(sender: CommandSender, target: OnlinePlayer, perk: IDonorHandler, @Optional args: String?) {
 
-            val processedArgs = if (args == null) {
-                mutableMapOf<String, String>()
-            } else {
-                val arguments = mutableMapOf<String, String>()
-                for (splitArgs in args.split(",")) {
-                    val splitedArgs = splitArgs.split("=")
-                    if (splitedArgs.size == 2) {
-                        arguments[splitedArgs[0]] = splitedArgs[1]
-                    }
+        val processedArgs = if (args == null) {
+            mutableMapOf<String, String>()
+        } else {
+            val arguments = mutableMapOf<String, String>()
+            for (splitArgs in args.split(",")) {
+                val splitedArgs = splitArgs.split("=")
+                if (splitedArgs.size == 2) {
+                    arguments[splitedArgs[0]] = splitedArgs[1]
                 }
-
-                arguments
             }
 
-
-
-            handler.handle(target.player, processedArgs)
-            MessageUtil.sendInfo(sender, "Giving $perk to ${target.player.name}")
-        } else {
-            MessageUtil.sendError(sender, "$perk not found in handler!")
+            arguments
         }
+
+
+
+        perk.handle(target.player, processedArgs)
+        MessageUtil.sendInfo(sender, "Giving ${perk.name} to ${target.player.name}")
 
     }
 
@@ -59,8 +55,9 @@ class DonorCommand(plugin: AlphheimCore, private val manager: DonorManager) : Al
     @Subcommand("check")
     fun check(player: Player) {
         val bukkitStack = player.itemInHand
-        if (bukkitStack == null) {
+        if (bukkitStack == null || bukkitStack.type == Material.AIR) {
             MessageUtil.sendError(player, "You cannot check air!")
+            return
         }
 
         val vanillaStack = CraftItemStack.asNMSCopy(bukkitStack)

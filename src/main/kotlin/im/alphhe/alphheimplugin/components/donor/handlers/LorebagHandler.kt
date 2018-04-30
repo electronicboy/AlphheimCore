@@ -15,6 +15,9 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.material.Dye
 
 class LorebagHandler() : IDonorHandler() {
+    override val name: String
+        get() = "lorebag"
+
     override fun handle(player: Player, args: Map<String, String>) {
         val items = player.inventory.addItem(getItemStack(player, args))
         for (item in items) {
@@ -24,7 +27,7 @@ class LorebagHandler() : IDonorHandler() {
     }
 
     private fun getItemStack(player: Player, args: Map<String, String>) : ItemStack {
-        val itemstack = CraftItemStack.asNMSCopy(Dye(DyeColor.LIME).toItemStack())
+        val itemstack = CraftItemStack.asNMSCopy(Dye(DyeColor.LIME).toItemStack(1))
 
         val tag = itemstack.tag ?: NBTTagCompound()
 
