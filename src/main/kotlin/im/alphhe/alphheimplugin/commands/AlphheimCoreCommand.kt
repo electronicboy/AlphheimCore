@@ -34,14 +34,20 @@ class AlphheimCoreCommand(private val plugin: AlphheimCore) : AlphheimCommand(pl
     @Subcommand("website")
     @CommandAlias("website")
     fun website(sender: CommandSender) {
-        MessageUtil.sendInfo(sender, "http://alphhe.im")
+        MessageUtil.sendInfo(sender, "Visit our website @ http://alphhe.im")
     }
 
 
     @Subcommand("discord")
     @CommandAlias("discord")
     fun discord(sender: CommandSender) {
-        MessageUtil.sendInfo(sender, "http://alphhe.im/discord")
+        MessageUtil.sendInfo(sender, "Join us on Discord @ http://alphhe.im/discord")
+    }
+
+    @Subcommand("map")
+    @CommandAlias("map")
+    fun map(sender: CommandSender) {
+        MessageUtil.sendInfo(sender, "See your house @ http://map.alphhe.im/")
     }
 
     @Subcommand("spawnbook")

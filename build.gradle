@@ -32,7 +32,6 @@ archivesBaseName = "alphheim-plugin"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    mavenLocal()
     maven {
         name = "Aikar"
         url = "http://repo.aikar.co/nexus/content/groups/aikar/"
