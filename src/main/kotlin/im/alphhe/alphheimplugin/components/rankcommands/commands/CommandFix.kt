@@ -50,6 +50,8 @@ class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "fi
             }
         }
 
+        sender.updateInventory()
+
         MessageUtil.sendInfo(sender, "Items repaired!")
 
     }
