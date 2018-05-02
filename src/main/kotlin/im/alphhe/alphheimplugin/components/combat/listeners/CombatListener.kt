@@ -82,9 +82,13 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
                     sb.append("$minutes minutes")
                     hasAppended = true
                 }
-                if (seconds != 0L || hasAppended) {
+                if (seconds != 0L || hasAppended || (!hasAppended && seconds == 0L)) {
                     if (hasAppended) sb.append(", ")
-                    sb.append("$seconds seconds")
+                    val secondsToDis = if (seconds == 0L) {
+                        1L
+                    } else seconds
+
+                    sb.append("$secondsToDis seconds")
                 }
 
                 MessageUtil.sendInfo(testUser, sb.toString())
