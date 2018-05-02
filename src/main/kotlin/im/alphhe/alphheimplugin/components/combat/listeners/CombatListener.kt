@@ -53,6 +53,7 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
     fun checkCooldown(testUser: Player, metaKey: String): Boolean {
         val cooldown = plugin.permissionHandler.getLongMetaCached(testUser, metaKey, -1L)
         val user = plugin.userManager.getUser(testUser)
+        val currentTime = System.currentTimeMillis()
 
         if (cooldown == -1L) {
             if (!user.hasOverrides()) {
@@ -62,10 +63,10 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
             }
         } else {
             val time = user.getCooldown(metaKey)
-            if (time == null || System.currentTimeMillis() >= time) {
-                user.setCooldown(metaKey, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(cooldown))
+            if (time == null ||  currentTime >= time) {
+                user.setCooldown(metaKey, currentTime + TimeUnit.SECONDS.toMillis(cooldown))
             } else {
-                val duration = Duration.ofMillis(time - System.currentTimeMillis())
+                val duration = Duration.ofMillis(time - currentTime)
                 val seconds = (duration.toMillis() / 1000) % 60
                 val minutes = duration.toMinutes() % 60
                 val hours = duration.toHours() % 24
