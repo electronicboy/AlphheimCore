@@ -122,7 +122,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
 
         MySQL.executor.execute({
             MySQL.getConnection().use { conn ->
-                val statement = conn.prepareStatement("INSERT INTO cooldowns (PLAYER_ID, NAME, EXPIRY) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE EXPIRY = EXPIRY")
+                val statement = conn.prepareStatement("INSERT INTO cooldowns (PLAYER_ID, NAME, EXPIRY) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE EXPIRY = VALUES(EXPIRY)")
                 statement.use { stmt ->
                     stmt.setInt(1, userID)
                     stmt.setString(2, name)

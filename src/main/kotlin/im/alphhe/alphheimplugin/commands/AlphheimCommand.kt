@@ -32,9 +32,13 @@ abstract class AlphheimCommand(private val plugin: AlphheimCore, name: String) :
                 return false
             }
         } else {
-            val time = user.getCooldown(metaKey)
-            println("timestamp: $time")
-            if (time == null || System.currentTimeMillis() >= time) {
+            val cooldownTime = user.getCooldown(metaKey)
+            val time = if (cooldownTime != null) {
+                1000 * ((cooldownTime + 500)/ 1000)
+            } else {
+                null
+            }
+            if (time == null ||  currentTime + 500 >= time) {
                 user.setCooldown(metaKey, currentTime + TimeUnit.SECONDS.toMillis(cooldown))
             } else {
                 val duration = Duration.ofMillis(time - currentTime)

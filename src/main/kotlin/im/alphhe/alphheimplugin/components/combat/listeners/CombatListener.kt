@@ -31,6 +31,7 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
         if (e.item.type == Material.GOLDEN_APPLE && e.item.durability == 1.toShort()) {
             if (!checkCooldown(e.player, "gappleCooldown")) {
                 e.isCancelled = true
+
             }
 
 
@@ -42,6 +43,7 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
         if (e.action == Action.RIGHT_CLICK_AIR && e.item?.type == Material.ENDER_PEARL) {
             if (!checkCooldown(e.player, "enderpearlCooldown")) {
                 e.isCancelled = true
+                Bukkit.getScheduler().runTask(plugin, { e.player.updateInventory()})
             }
         }
 
@@ -62,8 +64,13 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
                 return false
             }
         } else {
-            val time = user.getCooldown(metaKey)
-            if (time == null ||  currentTime >= time) {
+            val cooldownTime = user.getCooldown(metaKey)
+            val time = if (cooldownTime != null) {
+                1000 * ((cooldownTime + 500)/ 1000)
+            } else {
+                null
+            }
+            if (time == null ||  currentTime + 500 >= time) {
                 user.setCooldown(metaKey, currentTime + TimeUnit.SECONDS.toMillis(cooldown))
             } else {
                 val duration = Duration.ofMillis(time - currentTime)
