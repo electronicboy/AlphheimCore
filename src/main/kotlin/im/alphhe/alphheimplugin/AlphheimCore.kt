@@ -12,6 +12,7 @@ import im.alphhe.alphheimplugin.commands.AlphheimCoreCommand
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.components.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
+import im.alphhe.alphheimplugin.components.combat.CombatHandler
 import im.alphhe.alphheimplugin.components.diversions.FunHandler
 import im.alphhe.alphheimplugin.components.donor.DonorManager
 import im.alphhe.alphheimplugin.components.health.HealthHandler
@@ -105,6 +106,7 @@ AlphheimCore : JavaPlugin() {
         RankCommands(this)
         NickManager(this)
         DonorManager(this)
+        CombatHandler(this)
     }
 
     private fun registerCommands() {

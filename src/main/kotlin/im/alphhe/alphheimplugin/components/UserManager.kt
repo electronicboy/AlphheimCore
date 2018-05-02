@@ -26,14 +26,11 @@ class UserManager(plugin: AlphheimCore) {
                 .expireAfterAccess(30, TimeUnit.MINUTES)
                 .build(object : CacheLoader<UUID, AlphheimUser>() {
                     override fun load(uuid: UUID): AlphheimUser {
-
                         return AlphheimUser(uuid)
-
                     }
-
                 })
 
-        MySQL.executor.execute( {
+        MySQL.executor.execute({
             plugin.server.onlinePlayers.forEach { getUser(it) }
         })
 
