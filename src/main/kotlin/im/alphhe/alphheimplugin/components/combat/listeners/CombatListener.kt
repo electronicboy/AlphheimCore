@@ -62,7 +62,6 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
             }
         } else {
             val time = user.getCooldown(metaKey)
-            println("timestamp: $time")
             if (time == null || System.currentTimeMillis() >= time) {
                 user.setCooldown(metaKey, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(cooldown))
             } else {
