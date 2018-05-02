@@ -10,6 +10,7 @@ import co.aikar.commands.BukkitCommandManager
 import com.google.inject.Injector
 import im.alphhe.alphheimplugin.commands.AlphheimCoreCommand
 import im.alphhe.alphheimplugin.commands.CommandLore
+import im.alphhe.alphheimplugin.commands.SignCommand
 import im.alphhe.alphheimplugin.components.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.combat.CombatHandler
@@ -26,6 +27,7 @@ import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
 import im.alphhe.alphheimplugin.listeners.PlayerListener
+import im.alphhe.alphheimplugin.listeners.SignListener
 import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
@@ -111,10 +113,12 @@ AlphheimCore : JavaPlugin() {
 
     private fun registerCommands() {
         AlphheimCoreCommand(this)
+        SignCommand(this)
     }
 
     private fun registerListeners() {
         PlayerListener(this)
+        SignListener(this)
     }
 
 

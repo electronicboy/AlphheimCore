@@ -18,6 +18,18 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class AlphheimCoreCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "alphheim") {
+    val colorString: String
+
+
+    init {
+        val sb = StringBuilder("Colors: ")
+        for (color in ChatColor.values()) {
+            if (color.isColor) {
+                sb.append(color.toString()).append(color.char)
+            }
+        }
+        colorString = sb.toString()
+    }
 
 
     @CommandPermission("alphheim.admin")
@@ -53,6 +65,12 @@ class AlphheimCoreCommand(private val plugin: AlphheimCore) : AlphheimCommand(pl
     @Subcommand("spawnbook")
     fun spawnBook(sender: Player) {
         sender.inventory.addItem(plugin.spawnHandler.getBook())
+    }
+
+    @Subcommand("colors")
+    @CommandAlias("colors")
+    fun colors(sender: CommandSender) {
+        MessageUtil.sendInfo(sender, colorString)
     }
 }
 
