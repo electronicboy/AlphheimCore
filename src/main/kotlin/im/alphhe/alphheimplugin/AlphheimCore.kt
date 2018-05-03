@@ -28,6 +28,7 @@ import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
 import im.alphhe.alphheimplugin.listeners.PlayerListener
 import im.alphhe.alphheimplugin.listeners.SignListener
+import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
@@ -89,6 +90,11 @@ AlphheimCore : JavaPlugin() {
         registerCommands()
         registerListeners()
         enableComponents()
+
+        for (player in Bukkit.getOnlinePlayers()) {
+            if (player.hasPermission("alphheim.admin"))
+                MessageUtil.sendError(player, "AlphheimCore has successfully reloaded!")
+        }
 
         //chatHandler = ChatHandlerService(this)
         //servicesManager.registerService(Chat::class.java, chatHandler, this,true)
