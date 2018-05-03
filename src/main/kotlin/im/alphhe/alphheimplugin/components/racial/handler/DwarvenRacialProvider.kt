@@ -18,9 +18,9 @@ class DwarvenRacialProvider(private var plugin: AlphheimCore) : IRacialProcessor
 
 
         return if (groups.contains("miner") || groups.contains("skrati") || groups.contains("corveil")) {
-            mutableMapOf( PotionEffectType.FAST_DIGGING to 2)
+            mutableMapOf( PotionEffectType.FAST_DIGGING to 1)
         } else if (groups.contains("taskmaster") || groups.contains("boki") || groups.contains("tolaes")) {
-            mutableMapOf( PotionEffectType.FAST_DIGGING to 3)
+            mutableMapOf( PotionEffectType.FAST_DIGGING to 2)
         } else mutableMapOf()
 
     }
