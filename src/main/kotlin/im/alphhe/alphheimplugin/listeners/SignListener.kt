@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Shane Freeder
+ * Copyright (c) Alphheim
  * Unauthorized copying of this file is not permitted!
  * Written by Shane Freeder - 2018.
  */
