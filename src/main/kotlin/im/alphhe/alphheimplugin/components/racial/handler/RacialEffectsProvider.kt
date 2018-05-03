@@ -17,7 +17,7 @@ class RacialEffectsProvider(private val plugin: AlphheimCore) : IRacialProcessor
         return when (race) {
             "elf" -> mutableMapOf(PotionEffectType.SPEED to 0)
             "dwarf" -> mutableMapOf(PotionEffectType.FAST_DIGGING to 0)
-            "human" -> mutableMapOf(PotionEffectType.WATER_BREATHING to 0)
+            "human" -> mutableMapOf(PotionEffectType.INCREASE_DAMAGE to 0)
             else -> mutableMapOf()
         }
 
