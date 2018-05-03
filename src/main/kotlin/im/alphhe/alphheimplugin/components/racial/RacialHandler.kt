@@ -10,6 +10,7 @@ import com.palmergames.bukkit.towny.Towny
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.racial.handler.DwarvenRacialProvider
 import im.alphhe.alphheimplugin.components.racial.handler.IRacialProcessor
+import im.alphhe.alphheimplugin.components.racial.handler.RacialEffectsProvider
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -24,6 +25,7 @@ class RacialHandler(private val plugin: AlphheimCore) {
 
     init {
         addHandler(DwarvenRacialProvider(plugin))
+        addHandler(RacialEffectsProvider(plugin))
 
         if (plugin.server.onlinePlayers.isNotEmpty()) {
             object : BukkitRunnable() {

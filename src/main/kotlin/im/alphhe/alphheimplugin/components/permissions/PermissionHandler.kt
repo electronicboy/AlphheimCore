@@ -154,5 +154,12 @@ class PermissionHandler(private val plugin: AlphheimCore) {
         }
     }
 
+    fun getMeta(player: Player, key: String, default: String): String {
+        val user = plugin.luckPermsApi.getUser(player.uniqueId) ?: return default
+        val meta = user.cachedData.getMetaData(Contexts.global()).meta
+        return meta[key] ?: default
+
+    }
+
 
 }
