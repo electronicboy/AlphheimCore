@@ -64,7 +64,7 @@ class RacialHandler(private val plugin: AlphheimCore) {
             // remove effects players no longer need
             for (enchant in player.activePotionEffects) {
                 if (enchant.duration > HALF_INT) { // use half int for safety
-                    if (!applyMap.contains(enchant.type)) {
+                    if (enchant.type != PotionEffectType.INVISIBILITY && !applyMap.contains(enchant.type)) {
                         player.removePotionEffect(enchant.type)
                     }
                 }
