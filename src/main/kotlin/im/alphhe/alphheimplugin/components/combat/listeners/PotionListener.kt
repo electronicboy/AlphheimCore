@@ -61,20 +61,22 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
 
     @EventHandler
     fun potionConsume(e: PlayerItemConsumeEvent) {
-        if (e.item.type == Material.POTION) {
-            object : BukkitRunnable() {
-                override fun run() {
-                    plugin.racialHandler.applyEffects(e.player)
-                }
-            }.runTask(plugin)
+        if (e.item.type != Material.POTION) return
 
-            val potionMeta = e.item.itemMeta as PotionMeta
+        if ((e.item.itemMeta as PotionMeta).hasCustomEffect(PotionEffectType.INVISIBILITY)) return
 
-            if (potionMeta.hasCustomEffect(PotionEffectType.INVISIBILITY)) {
-                potionMeta.removeCustomEffect(PotionEffectType.INVISIBILITY)
-                e.item.itemMeta = potionMeta
 
+        object : BukkitRunnable() {
+            override fun run() {
+                plugin.racialHandler.applyEffects(e.player)
             }
+        }.runTask(plugin)
+
+        val potionMeta = e.item.itemMeta as PotionMeta
+
+        if (potionMeta.hasCustomEffect(PotionEffectType.INVISIBILITY)) {
+            potionMeta.removeCustomEffect(PotionEffectType.INVISIBILITY)
+            e.item.itemMeta = potionMeta
 
         }
 
