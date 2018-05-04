@@ -12,7 +12,9 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import me.lucko.luckperms.api.Group
+import org.bukkit.Material
 import org.bukkit.command.CommandSender
+import org.bukkit.inventory.ItemStack
 
 class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "rank") {
 
@@ -35,11 +37,11 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "r
             return
         }
 
-      if (permHandler.getBooleanMeta(group, "persistSet")) {
-          MessageUtil.sendError(sender, "This is NOT a user rank, see `/lp user <user> parent add <group>` to add specialised ranks!")
+        if (permHandler.getBooleanMeta(group, "persistSet")) {
+            MessageUtil.sendError(sender, "This is NOT a user rank, see `/lp user <user> parent add <group>` to add specialised ranks!")
 
-          return
-      }
+            return
+        }
 
 
         val user = plugin.luckPermsApi.getUser(target.player.uniqueId)
@@ -64,6 +66,28 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "r
         plugin.luckPermsApi.userManager.saveUser(user).thenRunAsync({ user.refreshCachedData() }).thenRunAsync({
             MessageUtil.sendInfo(sender, "Added group ${group.name}; All set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
         })
+
+        if (!firstSet) return
+
+        val inventory = target.player.inventory
+        if (inventory.helmet == null && inventory.chestplate == null && inventory.leggings == null && inventory.boots == null) {
+
+            inventory.helmet = ItemStack(Material.CHAINMAIL_HELMET)
+            inventory.chestplate = ItemStack(Material.CHAINMAIL_CHESTPLATE)
+            inventory.leggings = ItemStack(Material.CHAINMAIL_LEGGINGS)
+            inventory.boots = ItemStack(Material.CHAINMAIL_BOOTS)
+        }
+
+        inventory.addItem(
+                ItemStack(Material.STONE_SWORD),
+                ItemStack(Material.STONE_AXE),
+                ItemStack(Material.STONE_PICKAXE),
+                ItemStack(Material.STONE_SPADE),
+                ItemStack(Material.STONE_HOE),
+                ItemStack(Material.COOKED_BEEF, 16),
+                ItemStack(Material.COMPASS)
+        )
+
 
     }
 }
