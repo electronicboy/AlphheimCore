@@ -27,6 +27,8 @@ import kotlin.collections.HashMap
  */
 class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean = false) {
 
+    private var lastUpdated = 0L
+
     var userID: Int = -1
         private set
     private var nickname: String? = null
@@ -81,6 +83,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     }
 
     fun updateData() {
+        if (System.currentTimeMillis() <= lastUpdated + TimeUnit.MINUTES.toMillis(2)) return
 
         MySQL.getConnection().use { conn ->
             val statement = conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?")
