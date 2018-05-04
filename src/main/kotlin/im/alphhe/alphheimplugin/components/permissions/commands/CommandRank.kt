@@ -35,11 +35,11 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "r
             return
         }
 
-      if (permHandler.getBooleanMeta(group, "persistSet")) {
-          MessageUtil.sendError(sender, "This is NOT a user rank, see `/lp user <user> parent add <group>` to add specialised ranks!")
+        if (permHandler.getBooleanMeta(group, "persistSet")) {
+            MessageUtil.sendError(sender, "This is NOT a user rank, see `/lp user <user> parent add <group>` to add specialised ranks!")
 
-          return
-      }
+            return
+        }
 
 
         val user = plugin.luckPermsApi.getUser(target.player.uniqueId)
