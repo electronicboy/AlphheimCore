@@ -75,43 +75,49 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                     }
                 }
             }
-        } else {
-            MySQL.getConnection().use { conn ->
-                val statement = conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?")
-                statement.use { stmt ->
-                    stmt.setInt(1, userID)
-                    stmt.executeQuery().use {
-                        while (it.next()) {
-                            try {
-                                val string = it.getString("NAME")
-                                val timestamp = it.getLong("EXPIRY")
-                                cooldowns[string] = timestamp
-                            } catch (ignored: Exception) {
-                            } // this should never happen, but I really don't wanna deal with the potential that it does...
-                        }
+        }
+
+        updateData()
+    }
+
+    fun updateData() {
+
+        MySQL.getConnection().use { conn ->
+            val statement = conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?")
+            statement.use { stmt ->
+                stmt.setInt(1, userID)
+                stmt.executeQuery().use {
+                    while (it.next()) {
+                        try {
+                            val string = it.getString("NAME")
+                            val timestamp = it.getLong("EXPIRY")
+                            cooldowns[string] = timestamp
+                        } catch (ignored: Exception) {
+                        } // this should never happen, but I really don't wanna deal with the potential that it does...
                     }
                 }
-
             }
 
-            MySQL.getConnection().use { conn ->
-                val statement = conn.prepareStatement("SELECT NICKNAME FROM player_nicks WHERE PLAYER_ID = ?")
-                statement.use {
-                    it.setInt(1, userID)
-                    it.executeQuery().use {
-                        if (it.next()) {
-                            nickname = it.getString("NICKNAME");
-                            if (nickname != null) {
-                                val player = getPlayer()
-                                getPlayer()?.displayName = ChatColor.translateAlternateColorCodes('&', nickname)
-                            }
+        }
+
+        MySQL.getConnection().use { conn ->
+            val statement = conn.prepareStatement("SELECT NICKNAME FROM player_nicks WHERE PLAYER_ID = ?")
+            statement.use {
+                it.setInt(1, userID)
+                it.executeQuery().use {
+                    if (it.next()) {
+                        nickname = it.getString("NICKNAME");
+                        if (nickname != null) {
+                            val player = getPlayer()
+                            getPlayer()?.displayName = ChatColor.translateAlternateColorCodes('&', nickname)
                         }
                     }
-
                 }
+
             }
         }
     }
+
 
     fun getCooldown(name: String): Long? {
         return cooldowns[name]
