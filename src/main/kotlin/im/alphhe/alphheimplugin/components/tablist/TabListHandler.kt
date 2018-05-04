@@ -28,7 +28,7 @@ class TabListHandler(private val plugin: AlphheimCore) {
         sb = manager.newScoreboard
 
         teams["owner"] = getTeam("a_owner", "&1&4[&8Owner&4] &4")
-        teams["coowner"] = getTeam("b_coowner", "&1&4[&8COwner&4] &4")
+        teams["coowner"] = getTeam("b_coowner", "&1&4[&8Owner&4] &4")
         teams["dev"] = getTeam("c_dev", "&a&4[&8Dev&4] &9")
         teams["ha"] = getTeam("d_cm", "&c&4[&8HA&4] &9")
         teams["admin"] = getTeam("e_staff", "&4[&8Admin&4] &9")
