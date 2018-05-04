@@ -28,26 +28,27 @@ class TabListHandler(private val plugin: AlphheimCore) {
         sb = manager.newScoreboard
 
         teams["owner"] = getTeam("a_owner", "&1&4[&8Owner&4] &4")
-        teams["dev"] = getTeam("b_dev", "&a&4[&8Dev&4] &9")
-        teams["ha"] = getTeam("c_cm", "&c&4[&8HA&4] &9")
-        teams["admin"] = getTeam("d_staff", "&4[&8Admin&4] &9")
-        teams["mod"] = getTeam("e_mod", "&4[&8Mod&4] &9")
+        teams["coowner"] = getTeam("b_coowner", "&1&4[&8Co-Owner&4] &4")
+        teams["dev"] = getTeam("c_dev", "&a&4[&8Dev&4] &9")
+        teams["ha"] = getTeam("d_cm", "&c&4[&8HA&4] &9")
+        teams["admin"] = getTeam("e_staff", "&4[&8Admin&4] &9")
+        teams["mod"] = getTeam("f_mod", "&4[&8Mod&4] &9")
 
 
         // humans
-        teams["hleader"] = getTeam("f_hleader", "&3[&bH&3]&6 ")
-        teams["hroyal"] = getTeam("g_hroyal", "&3[&bH&3]&3 ")
-        teams["hplayer"] = getTeam("h_hplayer", "&3[&bH&3]&7 ")
+        teams["hleader"] = getTeam("g_hleader", "&3[&bH&3]&6 ")
+        teams["hroyal"] = getTeam("h_hroyal", "&3[&bH&3]&3 ")
+        teams["hplayer"] = getTeam("i_hplayer", "&3[&bH&3]&7 ")
 
         // Dwarfs
-        teams["dleader"] = getTeam("i_dleader", "&4[&cD&4]&6 ")
-        teams["droyal"] = getTeam("j_droyal", "&4[&cD&4]&3 ")
-        teams["dplayer"] = getTeam("k_dplayer", "&4[&cD&4]&7 ")
+        teams["dleader"] = getTeam("j_dleader", "&4[&cD&4]&6 ")
+        teams["droyal"] = getTeam("k_droyal", "&4[&cD&4]&3 ")
+        teams["dplayer"] = getTeam("l_dplayer", "&4[&cD&4]&7 ")
 
         // Elfs
-        teams["eleader"] = getTeam("l_dleader", "&2[&aE&2]&6 ")
-        teams["eroyal"] = getTeam("m_droyal", "&2[&aE&2]&3 ")
-        teams["eplayer"] = getTeam("n_dplayer", "&2[&aE&2]&7 ")
+        teams["eleader"] = getTeam("m_dleader", "&2[&aE&2]&6 ")
+        teams["eroyal"] = getTeam("n_droyal", "&2[&aE&2]&3 ")
+        teams["eplayer"] = getTeam("o_dplayer", "&2[&aE&2]&7 ")
 
 
         // misc
@@ -68,7 +69,12 @@ class TabListHandler(private val plugin: AlphheimCore) {
             teams["owner"]?.addEntry(player.name)
             return
         }
-        
+
+        if (player.hasPermission("alphheim.coowner")) {
+            teams["coowner"]?.addEntry(player.name)
+            return
+        }
+
         if (player.hasPermission("alphheim.dev")) {
             teams["dev"]?.addEntry(player.name)
             return
