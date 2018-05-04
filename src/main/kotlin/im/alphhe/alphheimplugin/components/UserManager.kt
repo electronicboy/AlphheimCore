@@ -9,6 +9,7 @@ package im.alphhe.alphheimplugin.components
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
+import com.google.common.collect.ImmutableCollection
 import com.google.inject.Singleton
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.data.AlphheimUser
@@ -18,7 +19,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Singleton
-class UserManager(plugin: AlphheimCore) {
+class UserManager(private val plugin: AlphheimCore) {
     private val userCache: LoadingCache<UUID, AlphheimUser>
 
     init {
@@ -42,6 +43,10 @@ class UserManager(plugin: AlphheimCore) {
 
     fun getUser(sender: Player): AlphheimUser {
         return getUser(sender.uniqueId)
+    }
+
+    fun getOnlineUsers(): List<AlphheimUser> {
+        return plugin.server.onlinePlayers.map { getUser(it) }.toList()
     }
 
 
