@@ -916,3 +916,18 @@ lp group admin set mineresetlite.*
 lp group admin set worldguard.region.bypass.flat_world
 lp group admin set worldguard.region.bypass.world
 lp group admin set worldguard.region.wand
+
+
+# Brewery ranks
+
+lp creategroup Barkeeper
+lp creategroup Ilkar
+lp creategroup Shasaedaes
+
+lp group Barkeeper parent add human
+lp group Ilkar parent add dwarf
+lp group Shasaedaes parent add elf
+
+lp group Barkeeper meta addprefix 0 &3[&bBarkeeper&3]
+lp group Ilkar meta addprefix 0 &4[&cIlkar&4]
+lp group Shasaedaes meta addprefix 0 &2[&aShasaedaes&2]
