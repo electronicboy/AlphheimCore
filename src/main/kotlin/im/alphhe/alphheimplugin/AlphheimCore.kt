@@ -26,6 +26,7 @@ import im.alphhe.alphheimplugin.components.rankcommands.RankCommands
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
+import im.alphhe.alphheimplugin.components.voting.VoteHandler
 import im.alphhe.alphheimplugin.listeners.PlayerListener
 import im.alphhe.alphheimplugin.listeners.SignListener
 import im.alphhe.alphheimplugin.utils.MessageUtil
@@ -53,6 +54,7 @@ AlphheimCore : JavaPlugin() {
     lateinit var permissionHandler: PermissionHandler
     lateinit var racialHandler: RacialHandler
     lateinit var spawnHandler: SpawnHandler
+    lateinit var voteHandler: VoteHandler
 
     private var consolePerms = mutableListOf<PermissionAttachment>()
 
@@ -115,6 +117,7 @@ AlphheimCore : JavaPlugin() {
         NickManager(this)
         DonorManager(this)
         CombatHandler(this)
+        VoteHandler(this)
     }
 
     private fun registerCommands() {
@@ -145,7 +148,7 @@ AlphheimCore : JavaPlugin() {
 
         if (commandLore != null) commandLore!!.unregister(Bukkit.getCommandMap());
         commandManager.unregisterCommands()
-
+        voteHandler.destruct()
         permissionHandler.destruct() // Unregister components... Or, at least try to..
 
         MySQL.kill()

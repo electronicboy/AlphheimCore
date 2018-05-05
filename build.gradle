@@ -87,7 +87,9 @@ dependencies {
     compileOnly "com.palmergames.bukkit:towny:0.91.4.16"
     compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
     compile "me.lucko.luckperms:luckperms-api:4.1"
-    compile "com.vexsoftware:votifier:1.9"
+    compile ("com.vexsoftware:votifier:1.9") {
+        exclude group: "org.bukkit", module: "bukkit"
+    }
 }
 
 
