@@ -7,6 +7,7 @@
 package im.alphhe.alphheimplugin.utils
 
 import net.md_5.bungee.api.ChatColor
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -27,6 +28,12 @@ object MessageUtil {
 
     fun sendError(player: CommandSender, s: String) {
         send(player, "$error$s")
+    }
+
+    fun broadcast(message: String) {
+        for (player in Bukkit.getOnlinePlayers()) {
+            sendInfo(player, message)
+        }
     }
 
 }
