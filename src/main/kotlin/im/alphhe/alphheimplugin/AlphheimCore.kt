@@ -117,7 +117,7 @@ AlphheimCore : JavaPlugin() {
         NickManager(this)
         DonorManager(this)
         CombatHandler(this)
-        VoteHandler(this)
+        voteHandler = VoteHandler(this)
     }
 
     private fun registerCommands() {
