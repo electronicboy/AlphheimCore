@@ -7,13 +7,13 @@
 package im.alphhe.alphheimplugin.components.nicks
 
 import im.alphhe.alphheimplugin.AlphheimCore
-import im.alphhe.alphheimplugin.components.nicks.command.NickCommand
+import im.alphhe.alphheimplugin.components.nicks.command.CommandNick
 import im.alphhe.alphheimplugin.components.nicks.listeners.NickListener
 
 class NickManager(plugin: AlphheimCore) {
 
     init {
-        NickCommand(plugin);
+        CommandNick(plugin);
         NickListener(plugin)
     }
 

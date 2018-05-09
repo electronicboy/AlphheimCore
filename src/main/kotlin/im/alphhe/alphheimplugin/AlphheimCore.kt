@@ -8,9 +8,9 @@ package im.alphhe.alphheimplugin
 
 import co.aikar.commands.BukkitCommandManager
 import com.google.inject.Injector
-import im.alphhe.alphheimplugin.commands.AlphheimCoreCommand
+import im.alphhe.alphheimplugin.commands.CommandCore
 import im.alphhe.alphheimplugin.commands.CommandLore
-import im.alphhe.alphheimplugin.commands.SignCommand
+import im.alphhe.alphheimplugin.commands.CommandSign
 import im.alphhe.alphheimplugin.components.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.combat.CombatHandler
@@ -121,8 +121,8 @@ AlphheimCore : JavaPlugin() {
     }
 
     private fun registerCommands() {
-        AlphheimCoreCommand(this)
-        SignCommand(this)
+        CommandCore(this)
+        CommandSign(this)
     }
 
     private fun registerListeners() {

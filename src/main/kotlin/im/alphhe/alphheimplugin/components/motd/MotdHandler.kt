@@ -7,14 +7,14 @@
 package im.alphhe.alphheimplugin.components.motd
 
 import im.alphhe.alphheimplugin.AlphheimCore
-import im.alphhe.alphheimplugin.components.motd.commands.MotdCommand
+import im.alphhe.alphheimplugin.components.motd.commands.CommandMotd
 import im.alphhe.alphheimplugin.components.motd.listeners.MotdListener
 import org.bukkit.event.Listener
 
 class MotdHandler(val plugin: AlphheimCore) : Listener {
 
     val listener = MotdListener(this)
-    val command = MotdCommand(this)
+    val command = CommandMotd(this)
 
     init {
         plugin.server.pluginManager.registerEvents(listener, plugin)

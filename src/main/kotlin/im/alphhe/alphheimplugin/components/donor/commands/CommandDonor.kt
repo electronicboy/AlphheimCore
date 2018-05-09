@@ -22,7 +22,7 @@ import org.bukkit.entity.Player
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DonorCommand(plugin: AlphheimCore, private val manager: DonorManager) : AlphheimCommand(plugin, "donate") {
+class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : AlphheimCommand(plugin, "donate") {
 
     @CommandPermission("alphheim.admin")
     @Subcommand("give")

@@ -17,7 +17,7 @@ import org.bukkit.block.Block
 import org.bukkit.block.Sign
 import org.bukkit.entity.Player
 
-class SignCommand(plugin: AlphheimCore) : AlphheimCommand(plugin, "editsign") {
+class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin, "editsign") {
 
     @CatchUnknown
     @CommandPermission("alphheim.mod")

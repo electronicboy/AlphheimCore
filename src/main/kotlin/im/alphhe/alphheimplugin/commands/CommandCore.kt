@@ -17,7 +17,7 @@ import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class AlphheimCoreCommand(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "alphheim") {
+class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "alphheim") {
     val colorString: String
 
 
