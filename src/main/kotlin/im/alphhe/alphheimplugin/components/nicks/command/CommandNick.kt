@@ -38,8 +38,6 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                 stmt.use {
                     val rs = it.executeQuery()
                     rs.use {
-                        val count = rs.fetchSize
-
 
                         rs.last()
                         val c = if (rs.row == 0) {
@@ -47,6 +45,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                         } else {
                             rs.row.toString()
                         }
+
                         rs.beforeFirst()
                         MessageUtil.sendInfo(sender, "There are $c pending nick requests!")
 

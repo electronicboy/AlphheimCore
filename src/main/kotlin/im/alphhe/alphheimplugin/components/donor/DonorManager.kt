@@ -25,7 +25,7 @@ class DonorManager(private val plugin: AlphheimCore) {
             getHandler(type) ?: throw InvalidCommandArgument("The $type handler does not exist!")
         })
 
-        plugin.commandManager.commandCompletions.registerCompletion("donorhandler", {c ->
+        plugin.commandManager.commandCompletions.registerCompletion("donorhandler", {_ ->
             handlers.keys
         })
 
