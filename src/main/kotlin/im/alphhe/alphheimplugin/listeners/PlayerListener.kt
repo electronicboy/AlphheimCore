@@ -7,6 +7,7 @@
 package im.alphhe.alphheimplugin.listeners
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
@@ -29,6 +30,7 @@ class PlayerListener(private val plugin: AlphheimCore) : Listener {
     fun onJoin(e: PlayerJoinEvent) {
         plugin.server.scheduler.runTaskLater(plugin, {this.plugin.tabListHandler.setSB(e.player)}, 10L)
         plugin.healthHandler.updateHealth(e.player)
+        e.player.gameMode = GameMode.CREATIVE // TODO: REMOVE
 
     }
 }
