@@ -8,13 +8,11 @@ package im.alphhe.alphheimplugin.utils
 
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
-import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
 
 
 object MessageUtil {
-    public val default= ChatColor.GREEN
+    public val default = ChatColor.GREEN
     public val error = ChatColor.DARK_RED
     public val prefix = "${ChatColor.DARK_GRAY}[${ChatColor.RED}A${ChatColor.DARK_GRAY}]"
 

@@ -6,7 +6,6 @@
 
 package im.alphhe.alphheimplugin.components.motd.listeners
 
-import com.google.common.collect.Lists
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender

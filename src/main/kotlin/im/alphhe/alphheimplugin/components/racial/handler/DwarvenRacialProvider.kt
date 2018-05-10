@@ -10,7 +10,7 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
 
-class DwarvenRacialProvider(private var plugin: AlphheimCore) : IRacialProcessor{
+class DwarvenRacialProvider(private var plugin: AlphheimCore) : IRacialProcessor {
     override fun getEnchants(player: Player): Map<PotionEffectType, Int> {
         val groupsForUser = plugin.permissionHandler.getOwnGroupsForUser(player)
 
@@ -18,9 +18,9 @@ class DwarvenRacialProvider(private var plugin: AlphheimCore) : IRacialProcessor
 
 
         return if (groups.contains("miner") || groups.contains("skrati") || groups.contains("corveil")) {
-            mutableMapOf( PotionEffectType.FAST_DIGGING to 1)
+            mutableMapOf(PotionEffectType.FAST_DIGGING to 1)
         } else if (groups.contains("taskmaster") || groups.contains("boki") || groups.contains("tolaes")) {
-            mutableMapOf( PotionEffectType.FAST_DIGGING to 2)
+            mutableMapOf(PotionEffectType.FAST_DIGGING to 2)
         } else mutableMapOf()
 
     }

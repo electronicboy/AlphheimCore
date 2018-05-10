@@ -55,7 +55,7 @@ class SpawnHandler(val plugin: AlphheimCore) {
     }
 
 
-    fun getBook() : ItemStack = spawnBook
+    fun getBook(): ItemStack = spawnBook
 
 
     fun goSpawn(teleportee: Player, teleporter: CommandSender?, silent: Boolean = false) {
@@ -63,10 +63,10 @@ class SpawnHandler(val plugin: AlphheimCore) {
             val spawn = resolveSpawn(teleportee)
             TeleportUtil(teleportee, spawn, 10, plugin).process()
 
-        } else if (teleporter == null || teleporter is ConsoleCommandSender || silent){
+        } else if (teleporter == null || teleporter is ConsoleCommandSender || silent) {
             val spawn = resolveSpawn(teleportee)
             TeleportUtil(teleportee, spawn, -1, plugin).process()
-        } else if (teleporter is Player ) {
+        } else if (teleporter is Player) {
             val spawn = resolveSpawn(teleportee)
             TeleportUtil(teleportee, spawn, -1, plugin).process()
             MessageUtil.sendInfo(teleportee, "You have been teleported to spawn by ${teleporter.name}")
@@ -77,7 +77,7 @@ class SpawnHandler(val plugin: AlphheimCore) {
     }
 
 
-    internal fun resolveSpawn(player: Player) : Location {
+    internal fun resolveSpawn(player: Player): Location {
         return if (player.hasPermission("alphheim.raceselected"))
             worldSpawn
         else

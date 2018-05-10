@@ -10,7 +10,6 @@ import com.google.inject.Binder
 import com.google.inject.Guice
 import com.google.inject.Injector
 import com.google.inject.Module
-import im.alphhe.alphheimplugin.components.UserManager
 
 class AlphheimModule(private val alphheimCore: AlphheimCore) : Module {
     lateinit var injector: Injector

@@ -26,7 +26,7 @@ class NickListener(private val plugin: AlphheimCore) : Listener {
         e.player.displayName = ChatColor.translateAlternateColorCodes('&', user.getNickname())
 
         if (e.player.hasPermission("alphheim.mod")) {
-            plugin.server.scheduler.runTaskLater(plugin, {showCount(e.player)}, 10L)
+            plugin.server.scheduler.runTaskLater(plugin, { showCount(e.player) }, 10L)
         }
 
     }

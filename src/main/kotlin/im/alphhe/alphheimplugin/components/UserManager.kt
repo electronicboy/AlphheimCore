@@ -9,7 +9,6 @@ package im.alphhe.alphheimplugin.components
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
-import com.google.common.collect.ImmutableCollection
 import com.google.inject.Singleton
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.data.AlphheimUser

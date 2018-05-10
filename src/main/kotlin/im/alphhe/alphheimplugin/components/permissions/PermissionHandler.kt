@@ -19,7 +19,6 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.java.PluginClassLoader
 import org.bukkit.util.StringUtil
 import java.util.*
-import javax.annotation.concurrent.NotThreadSafe
 
 class PermissionHandler(private val plugin: AlphheimCore) {
 
@@ -97,12 +96,12 @@ class PermissionHandler(private val plugin: AlphheimCore) {
         val user = plugin.luckPermsApi.getUser(player.uniqueId) ?: return ImmutableList.of()
 
         val builder = ImmutableList.builder<Group>()
-        user.ownNodes.filter { it.isGroupNode }.map { getGroup(it.groupName)!! }.forEach{ builder.add(it) }
+        user.ownNodes.filter { it.isGroupNode }.map { getGroup(it.groupName)!! }.forEach { builder.add(it) }
 
         return builder.build();
     }
 
-    fun getOwnGroupsForOfflineUser(uuid: UUID) : ImmutableList<Group> {
+    fun getOwnGroupsForOfflineUser(uuid: UUID): ImmutableList<Group> {
         var user = plugin.luckPermsApi.getUser(uuid)
         if (user == null) {
             user = plugin.luckPermsApi.userManager.loadUser(uuid).get()
@@ -111,7 +110,7 @@ class PermissionHandler(private val plugin: AlphheimCore) {
         if (user == null) return ImmutableList.of()
 
         val builder = ImmutableList.builder<Group>()
-        user.ownNodes.filter { it.isGroupNode }.map { getGroup(it.groupName)!! }.forEach{ builder.add(it) }
+        user.ownNodes.filter { it.isGroupNode }.map { getGroup(it.groupName)!! }.forEach { builder.add(it) }
 
         return builder.build()
 

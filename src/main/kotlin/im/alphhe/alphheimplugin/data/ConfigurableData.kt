@@ -27,8 +27,7 @@ public class ConfigurableData {
 
         private var HOLDER: ConfigurableData = ConfigurableData()
 
-        fun getInstance() : ConfigurableData = HOLDER
-
+        fun getInstance(): ConfigurableData = HOLDER
 
 
     }

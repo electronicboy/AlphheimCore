@@ -7,8 +7,8 @@
 package im.alphhe.alphheimplugin.utils
 
 import im.alphhe.alphheimplugin.AlphheimCore
-import org.bukkit.entity.Player
 import org.bukkit.Location
+import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 
 class TeleportUtil(var player: Player, private val target: Location, timer: Int, private val plugin: AlphheimCore) : BukkitRunnable() {

@@ -11,6 +11,6 @@ import org.bukkit.potion.PotionEffectType
 
 interface IRacialProcessor {
 
-    fun getEnchants(player: Player) : Map<PotionEffectType, Int>
+    fun getEnchants(player: Player): Map<PotionEffectType, Int>
 
 }

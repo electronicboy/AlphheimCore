@@ -6,7 +6,6 @@
 
 package im.alphhe.alphheimplugin.components.chat.formatter
 
-import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.entity.Player
 

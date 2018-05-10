@@ -18,6 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
 val HALF_INT = Int.MAX_VALUE / 2
+
 class RacialHandler(private val plugin: AlphheimCore) {
     //private val enchants: Map<Player, Map<PotionEffectType, Int>> = HashMap()
     private val getters = LinkedList<IRacialProcessor>()
@@ -94,8 +95,6 @@ class RacialHandler(private val plugin: AlphheimCore) {
 
 
             }
-
-
 
 
         }

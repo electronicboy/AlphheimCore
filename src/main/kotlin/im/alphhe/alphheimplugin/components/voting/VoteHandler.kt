@@ -6,14 +6,10 @@
 
 package im.alphhe.alphheimplugin.components.voting
 
-import com.sun.istack.internal.logging.Logger
 import com.vexsoftware.votifier.Votifier
-import com.vexsoftware.votifier.model.VoteListener
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.voting.votelistener.AVoteListener
 import im.alphhe.alphheimplugin.utils.MessageUtil
-import net.milkbowl.vault.economy.Economy
-import org.bukkit.Bukkit
 
 class VoteHandler(private var plugin: AlphheimCore) {
 
@@ -42,9 +38,6 @@ class VoteHandler(private var plugin: AlphheimCore) {
         MessageUtil.broadcast("$username has voted on $serviceName! Remember to vote to support the server and get cool goodies!")
 
     }
-
-
-
 
 
 }

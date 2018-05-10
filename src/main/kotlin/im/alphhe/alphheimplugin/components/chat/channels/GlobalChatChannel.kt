@@ -21,10 +21,9 @@ class GlobalChatChannel(name: String, color: ChatColor, shortName: String, priva
     override fun sendChat(components: ComponentBuilder) {
 
         val compiledComponents = components.create()
-        chatMembers.filter { it.value == ChatStatus.ACTIVE }.forEach { it.key.sendMessage(*compiledComponents)}
+        chatMembers.filter { it.value == ChatStatus.ACTIVE }.forEach { it.key.sendMessage(*compiledComponents) }
 
     }
-
 
 
     override fun canJoin(player: Player): Boolean {

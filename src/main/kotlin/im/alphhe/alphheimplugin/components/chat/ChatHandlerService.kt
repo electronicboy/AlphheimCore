@@ -9,9 +9,7 @@ package im.alphhe.alphheimplugin.components.chat
 import com.google.inject.Inject
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.UserManager
-import im.alphhe.alphheimplugin.components.chat.channels.GlobalChatChannel
 import im.alphhe.alphheimplugin.data.AlphheimUser
-import net.md_5.bungee.api.ChatColor
 import org.bukkit.entity.Player
 
 

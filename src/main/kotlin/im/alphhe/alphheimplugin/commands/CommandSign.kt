@@ -8,12 +8,10 @@ package im.alphhe.alphheimplugin.commands
 
 import co.aikar.commands.annotation.CatchUnknown
 import co.aikar.commands.annotation.CommandPermission
-import co.aikar.commands.annotation.Default
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.ChatColor
 import org.bukkit.Material
-import org.bukkit.block.Block
 import org.bukkit.block.Sign
 import org.bukkit.entity.Player
 
@@ -33,13 +31,12 @@ class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin, "editsign") {
 
         if (0 < line && line <= sign.lines.size) {
             val newText = ChatColor.translateAlternateColorCodes('&', text)
-            sign.setLine(line -1, newText)
+            sign.setLine(line - 1, newText)
             sign.update()
 
         } else {
             MessageUtil.sendError(sender, "Invalid row number!")
         }
-
 
 
     }

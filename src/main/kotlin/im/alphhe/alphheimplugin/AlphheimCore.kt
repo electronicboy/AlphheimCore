@@ -134,6 +134,7 @@ AlphheimCore : JavaPlugin() {
     private fun registerConsolePerm(perm: String) {
         consolePerms.add(Bukkit.getConsoleSender().addAttachment(this, perm, true))
     }
+
     private fun killConsolePerms() {
         for (attach in consolePerms) {
             attach.remove()

@@ -43,13 +43,12 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
         if (e.action == Action.RIGHT_CLICK_AIR && e.item?.type == Material.ENDER_PEARL) {
             if (!checkCooldown(e.player, "enderpearlCooldown")) {
                 e.isCancelled = true
-                Bukkit.getScheduler().runTask(plugin, { e.player.updateInventory()})
+                Bukkit.getScheduler().runTask(plugin, { e.player.updateInventory() })
             }
         }
 
 
     }
-
 
 
     fun checkCooldown(testUser: Player, metaKey: String): Boolean {
@@ -66,11 +65,11 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
         } else {
             val cooldownTime = user.getCooldown(metaKey)
             val time = if (cooldownTime != null) {
-                1000 * ((cooldownTime + 500)/ 1000)
+                1000 * ((cooldownTime + 500) / 1000)
             } else {
                 null
             }
-            if (time == null ||  currentTime + 500 >= time) {
+            if (time == null || currentTime + 500 >= time) {
                 user.setCooldown(metaKey, currentTime + TimeUnit.SECONDS.toMillis(cooldown))
             } else {
                 val duration = Duration.ofMillis(time - currentTime)

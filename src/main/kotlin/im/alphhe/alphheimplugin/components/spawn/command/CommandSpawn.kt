@@ -14,8 +14,6 @@ import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
-import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
@@ -36,7 +34,7 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
     fun spawn(self: CommandSender, target: OnlinePlayer?) {
         if (target != null) {
             spawnHandler.goSpawn(target.player, self)
-        } else if (self is Player){
+        } else if (self is Player) {
             spawnHandler.goSpawn(self, self)
         } else {
             println("fell through...")

@@ -26,7 +26,7 @@ class LorebagHandler() : IDonorHandler() {
 
     }
 
-    private fun getItemStack(player: Player, args: Map<String, String>) : ItemStack {
+    private fun getItemStack(player: Player, args: Map<String, String>): ItemStack {
         val itemstack = CraftItemStack.asNMSCopy(Dye(DyeColor.LIME).toItemStack(1))
 
         val tag = itemstack.tag ?: NBTTagCompound()

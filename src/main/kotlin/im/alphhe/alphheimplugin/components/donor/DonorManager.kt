@@ -20,12 +20,12 @@ class DonorManager(private val plugin: AlphheimCore) {
 
     init {
 
-        plugin.commandManager.commandContexts.registerContext(IDonorHandler::class.java, {c ->
+        plugin.commandManager.commandContexts.registerContext(IDonorHandler::class.java, { c ->
             val type = c.popFirstArg().toLowerCase()
             getHandler(type) ?: throw InvalidCommandArgument("The $type handler does not exist!")
         })
 
-        plugin.commandManager.commandCompletions.registerCompletion("donorhandler", {_ ->
+        plugin.commandManager.commandCompletions.registerCompletion("donorhandler", { _ ->
             handlers.keys
         })
 
@@ -36,7 +36,6 @@ class DonorManager(private val plugin: AlphheimCore) {
         registerHandler("reasontolive", ReasonToLiveHandler())
 
     }
-
 
 
     fun getHandler(perk: String): IDonorHandler? {

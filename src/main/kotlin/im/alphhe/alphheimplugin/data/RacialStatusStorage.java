@@ -22,9 +22,9 @@ public class RacialStatusStorage {
     private AtomicBoolean isDirty = new AtomicBoolean(false);
 
 
-     public RacialStatusStorage() {
-         enchants = new HashMap<>();
-     }
+    public RacialStatusStorage() {
+        enchants = new HashMap<>();
+    }
 
     public RacialStatusStorage(Map<PotionEffectType, Integer> potionEffectTypeIntegerMap) {
         enchants = potionEffectTypeIntegerMap;

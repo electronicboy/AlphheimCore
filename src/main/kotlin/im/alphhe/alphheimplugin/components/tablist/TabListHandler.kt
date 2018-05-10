@@ -101,12 +101,12 @@ class TabListHandler(private val plugin: AlphheimCore) {
                 teams["hleader"]?.addEntry(player.name)
                 return
             }
-            
+
             if (player.hasPermission("alphheim.royal")) {
                 teams["hroyal"]?.addEntry(player.name)
                 return
             }
-            
+
             teams["hplayer"]?.addEntry(player.name)
             return
         }

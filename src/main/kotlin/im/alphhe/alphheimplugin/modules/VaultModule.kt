@@ -6,9 +6,6 @@
 
 package im.alphhe.alphheimplugin.modules
 
-import com.google.inject.Binder
-import com.google.inject.Inject
-import com.google.inject.Module
 import im.alphhe.alphheimplugin.AlphheimCore
 import net.milkbowl.vault.chat.Chat
 import net.milkbowl.vault.economy.Economy
