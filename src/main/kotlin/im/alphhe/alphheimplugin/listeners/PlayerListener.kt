@@ -30,7 +30,12 @@ class PlayerListener(private val plugin: AlphheimCore) : Listener {
     fun onJoin(e: PlayerJoinEvent) {
         plugin.server.scheduler.runTaskLater(plugin, { this.plugin.tabListHandler.setSB(e.player) }, 10L)
         plugin.healthHandler.updateHealth(e.player)
-        e.player.gameMode = GameMode.CREATIVE // TODO: REMOVE
+
+        plugin.server.scheduler.runTaskLater(plugin, {
+            e.player.gameMode = GameMode.CREATIVE // TODO: REMOVE
+        }, 10L)
+
+
 
     }
 }
