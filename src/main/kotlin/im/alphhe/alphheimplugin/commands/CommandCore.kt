@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.commands
 
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
+import co.aikar.commands.annotation.Single
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
@@ -69,6 +70,12 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @CommandAlias("colors")
     fun colors(sender: CommandSender) {
         MessageUtil.sendInfo(sender, colorString)
+    }
+
+    @Subcommand("fakevote")
+    @CommandPermission("alphheim.developer")
+    fun fakevote(sender: CommandSender, @Single target: String, @Single address: String, @Single service: String) {
+        plugin.voteHandler.processVote(target, address, service)
     }
 }
 
