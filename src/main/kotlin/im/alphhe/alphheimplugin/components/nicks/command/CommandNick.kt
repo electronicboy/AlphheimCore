@@ -192,6 +192,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
                     if (it.executeUpdate() != 0) {
                         MessageUtil.sendInfo(sender, "Your nickname has been requested!")
+                        //MessageUtil.broadcast()
                     }
                 }
             }

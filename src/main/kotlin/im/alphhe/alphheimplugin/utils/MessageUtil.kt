@@ -28,10 +28,15 @@ object MessageUtil {
         send(player, "$error$s")
     }
 
-    fun broadcast(message: String) {
+    fun broadcast(perm: String?, message: String) {
         for (player in Bukkit.getOnlinePlayers()) {
-            sendInfo(player, message)
+            if (perm == null || player.hasPermission(perm))
+                sendInfo(player, message)
         }
+    }
+
+    fun broadcast(message: String) {
+
     }
 
 }
