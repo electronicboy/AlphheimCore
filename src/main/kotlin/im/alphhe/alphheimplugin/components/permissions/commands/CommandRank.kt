@@ -12,12 +12,15 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import me.lucko.luckperms.api.Group
+import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.command.CommandSender
 import org.bukkit.inventory.ItemStack
 
 class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "rank") {
 
+    private val worldSpawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
 
     @Default
     @Subcommand("list")
@@ -87,6 +90,8 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "r
                 ItemStack(Material.COOKED_BEEF, 16),
                 ItemStack(Material.COMPASS)
         )
+
+        target.player.teleport(worldSpawn)
 
 
     }
