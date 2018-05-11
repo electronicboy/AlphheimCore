@@ -36,7 +36,7 @@ object MessageUtil {
     }
 
     fun broadcast(message: String) {
-
+        broadcast(null, message)
     }
 
 }
