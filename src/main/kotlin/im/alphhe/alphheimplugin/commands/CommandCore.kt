@@ -98,7 +98,7 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
 
         commands.forEach {
             val name = if (it is PluginCommand) {
-                it.plugin.name + it.name
+                it.plugin.name + ":" + it.name
             } else {
                 it.name
             }
