@@ -13,8 +13,11 @@ import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.ChatColor
+import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
+import org.bukkit.command.PluginCommand
 import org.bukkit.entity.Player
+import java.util.*
 
 class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "alphheim") {
     val colorString: String
@@ -76,6 +79,30 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @CommandPermission("alphheim.developer")
     fun fakevote(sender: CommandSender, @Single target: String, @Single address: String, @Single service: String) {
         plugin.voteHandler.createVote(target, address, service)
+    }
+
+    @Subcommand("cmdlist")
+    @CommandPermission("alphheim.developer")
+    fun cmdlist(sender: CommandSender) {
+        val field = plugin.server.commandMap.javaClass.getField("knownCommands")
+        val commandMap: Map<String, Command> = field.get(plugin.server.commandMap) as Map<String, Command>
+
+        val commands = TreeSet<Command>({i1, i2 ->
+            i1.name.compareTo(i2.name)
+
+        })
+
+        commandMap.entries.forEach { commands.add(it.value) }
+
+        commands.forEach {
+            val name = if (it is PluginCommand) {
+                it.plugin.name + it.name
+            } else {
+                it.name
+            }
+            println("command: $name")
+        }
+
     }
 }
 
