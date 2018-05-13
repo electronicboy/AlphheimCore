@@ -79,7 +79,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                             val deny = TextComponent("✗")
                             deny.isBold = true
                             deny.color = ChatColor.GREEN
-                            deny.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick deny $userName")
+                            deny.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick reject $userName")
 
                             val closeBracket = TextComponent("]")
                             closeBracket.color = ChatColor.DARK_RED
