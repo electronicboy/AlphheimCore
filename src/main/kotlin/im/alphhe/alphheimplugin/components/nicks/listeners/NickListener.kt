@@ -8,6 +8,8 @@ package im.alphhe.alphheimplugin.components.nicks.listeners
 
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
+import im.alphhe.alphheimplugin.utils.MySQL
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -33,5 +35,32 @@ class NickListener(private val plugin: AlphheimCore) : Listener {
 
     private fun showCount(player: Player) {
         MessageUtil.sendInfo(player, "nick request count pending!")
+
+        val runnable: Runnable = Runnable {
+            MySQL.getConnection().use { conn ->
+                conn.prepareStatement("SELECT COUNT(*) AS COUNT FROM player_nicks WHERE REQUESTED iS NOT NULL AND STATUS = 0").use {
+                    it.executeQuery().use {
+                        it.next()
+                        val count = it.getInt("COUNT")
+                        val countString = if (count == 0) {
+                            "no"
+                        } else {
+                            count.toString()
+                        }
+
+                        MessageUtil.sendInfo(player, "There are $countString pending nick requests")
+
+
+                    }
+                }
+            }
+        }
+
+        if (Bukkit.isPrimaryThread()) {
+            MySQL.executor.execute(runnable)
+        } else {
+            runnable.run()
+        }
+
     }
 }
