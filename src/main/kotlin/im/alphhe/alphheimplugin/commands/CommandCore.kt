@@ -18,6 +18,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.PluginCommand
 import org.bukkit.command.SimpleCommandMap
 import org.bukkit.entity.Player
+import org.bukkit.plugin.java.PluginClassLoader
 import java.util.*
 
 class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "alphheim") {
@@ -89,8 +90,23 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
         field.isAccessible = true
         val commandMap: Map<String, Command> = field.get(plugin.server.commandMap) as Map<String, Command>
 
-        val commands = TreeSet<Command>({i1, i2 ->
-            i1.name.compareTo(i2.name)
+        val commands = TreeSet<Command>({ i1, i2 ->
+            val name1 = when {
+                i1 is PluginCommand -> i1.plugin.name + ":" + i1.name
+                i1.javaClass.classLoader is PluginClassLoader -> (i1.javaClass.classLoader as PluginClassLoader).plugin.name + ":" + i1.name
+                else -> {
+                    i1.name
+                }
+            }
+
+            val name2 = when {
+                i2 is PluginCommand -> i2.plugin.name + ":" + i2.name
+                i2.javaClass.classLoader is PluginClassLoader -> (i2.javaClass.classLoader as PluginClassLoader).plugin.name + ":" + i2.name
+                else -> {
+                    i2.name
+                }
+            }
+            name1.compareTo(name2)
 
         })
 
