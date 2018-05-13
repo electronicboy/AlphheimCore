@@ -21,6 +21,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.*
 
@@ -29,7 +30,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("list")
     @CommandPermission("alphheim.mod")
-    fun list(sender: Player) {
+    fun list(sender: CommandSender) {
         MySQL.executor.execute {
 
             MySQL.getConnection().use {
@@ -95,7 +96,11 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                             builder.addComponent(deny)
                             builder.addComponent(closeBracket)
 
-                            sender.spigot().sendMessage(*builder.create())
+                            if (sender is Player) {
+                                sender.spigot().sendMessage(*builder.create())
+                            } else {
+                                sender.sendMessage(TextComponent.toLegacyText(*builder.create()))
+                            }
 
 
                         }
@@ -110,7 +115,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("set")
     @CommandPermission("alphheim.mod")
-    fun set(sender: Player, target: OfflinePlayer, nick: String) {
+    fun set(sender: CommandSender, target: OfflinePlayer, nick: String) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
         uTarget.setNickname(nick)
         MessageUtil.sendInfo(sender, "You have set the nickname of ${uTarget.getOfflinePlayer().name} to ${ChatColor.translateAlternateColorCodes('&', nick)}")
@@ -119,7 +124,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("accept")
     @CommandPermission("alphheim.mod")
-    fun accept(sender: Player, target: OfflinePlayer) {
+    fun accept(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
 
         MySQL.executor.execute {
@@ -145,7 +150,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("reject")
     @CommandPermission("alphheim.mod")
-    fun reject(sender: Player, target: OfflinePlayer) {
+    fun reject(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
 
         MySQL.executor.execute {
