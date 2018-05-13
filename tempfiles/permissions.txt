@@ -680,9 +680,9 @@ lp group sapphire set essentials.kit.sapphire
 lp group sapphire set essentials.sethome.multiple
 lp group sapphire set essentials.sethome.multiple.sapphire
 lp group sapphire set alphheim.hat
-lp group amethyst set alphheim.craft
-lp group amethyst set mcmmo.perks.xp.triple
-lp group amethyst set mcmmo.perks.cooldowns.halved
+lp group sapphire set alphheim.craft
+lp group sapphire set mcmmo.perks.xp.triple
+lp group sapphire set mcmmo.perks.cooldowns.halved
 
 
 lp group builder meta set persistSet true
