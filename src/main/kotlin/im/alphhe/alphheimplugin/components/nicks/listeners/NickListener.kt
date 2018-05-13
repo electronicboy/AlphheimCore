@@ -34,9 +34,7 @@ class NickListener(private val plugin: AlphheimCore) : Listener {
     }
 
     private fun showCount(player: Player) {
-        MessageUtil.sendInfo(player, "nick request count pending!")
-
-        val runnable: Runnable = Runnable {
+        val runnable = Runnable {
             MySQL.getConnection().use { conn ->
                 conn.prepareStatement("SELECT COUNT(*) AS COUNT FROM player_nicks WHERE REQUESTED iS NOT NULL AND STATUS = 0").use {
                     it.executeQuery().use {
