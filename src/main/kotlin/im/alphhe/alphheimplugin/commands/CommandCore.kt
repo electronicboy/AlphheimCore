@@ -16,6 +16,7 @@ import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.PluginCommand
+import org.bukkit.command.SimpleCommandMap
 import org.bukkit.entity.Player
 import java.util.*
 
@@ -84,7 +85,8 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @Subcommand("cmdlist")
     @CommandPermission("alphheim.developer")
     fun cmdlist(sender: CommandSender) {
-        val field = plugin.server.commandMap.javaClass.getField("knownCommands")
+        val field = SimpleCommandMap::class.java.getDeclaredField("knownCommands")
+        field.isAccessible = true
         val commandMap: Map<String, Command> = field.get(plugin.server.commandMap) as Map<String, Command>
 
         val commands = TreeSet<Command>({i1, i2 ->
