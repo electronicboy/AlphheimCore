@@ -29,6 +29,7 @@ object MessageUtil {
     }
 
     fun broadcast(perm: String?, message: String) {
+        Bukkit.getConsoleSender().sendMessage(message)
         for (player in Bukkit.getOnlinePlayers()) {
             if (perm == null || player.hasPermission(perm))
                 sendInfo(player, message)

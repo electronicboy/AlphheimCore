@@ -75,7 +75,7 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
     @Subcommand("fakevote")
     @CommandPermission("alphheim.developer")
     fun fakevote(sender: CommandSender, @Single target: String, @Single address: String, @Single service: String) {
-        plugin.voteHandler.processVote(target, address, service)
+        plugin.voteHandler.createVote(target, address, service)
     }
 }
 

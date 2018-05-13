@@ -12,7 +12,7 @@ import im.alphhe.alphheimplugin.components.voting.VoteHandler
 
 class AVoteListener(private val handler: VoteHandler) : VoteListener {
     override fun voteMade(vote: Vote) {
-        handler.processVote(vote.username, vote.address, vote.serviceName)
+        handler.createVote(vote.username, vote.address, vote.serviceName)
     }
 
 }
