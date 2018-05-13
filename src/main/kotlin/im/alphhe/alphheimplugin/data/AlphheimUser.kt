@@ -106,7 +106,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                     if (it.next()) {
                         nickname = it.getString("NICKNAME");
                         if (nickname != null) {
-                            getPlayer()?.displayName = ChatColor.translateAlternateColorCodes('&', nickname)
+                            getPlayer()?.displayName = ChatColor.translateAlternateColorCodes('&', nickname!!.replace(' ', '_'))
                         }
                     }
                 }
