@@ -6,9 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.nicks.command
 
-import co.aikar.commands.annotation.CommandAlias
-import co.aikar.commands.annotation.CommandPermission
-import co.aikar.commands.annotation.Subcommand
+import co.aikar.commands.annotation.*
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.addComponent
 import im.alphhe.alphheimplugin.append
@@ -30,6 +28,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("list")
     @CommandPermission("alphheim.mod")
+    @Description("list pending nick requests")
     fun list(sender: CommandSender) {
         MySQL.executor.execute {
 
@@ -114,6 +113,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     }
 
     @Subcommand("set")
+    @Description("set the nickname for a player")
     @CommandPermission("alphheim.mod")
     fun set(sender: CommandSender, target: OfflinePlayer, nick: String) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
@@ -123,6 +123,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
 
     @Subcommand("accept")
+    @Description("accept pending nick request")
     @CommandPermission("alphheim.mod")
     fun accept(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
@@ -149,6 +150,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     }
 
     @Subcommand("reject")
+    @Description("reject pending nick request")
     @CommandPermission("alphheim.mod")
     fun reject(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
@@ -185,19 +187,20 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
 
     @Subcommand("request")
+    @Description("request a nickname")
     fun request(sender: Player, request: String) {
+        val requested = request.trim().replace(' ', '_')
         MySQL.executor.execute {
-
             val user = plugin.userManager.getUser(sender.uniqueId)
             MySQL.getConnection().use { conn ->
                 val stmt = conn.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, STATUS, REQUESTED) VALUE (?, 0, ?) ON DUPLICATE KEY UPDATE REQUESTED = VALUES(REQUESTED), STATUS = 0")
                 stmt.use {
                     it.setInt(1, user.userID)
-                    it.setString(2, request)
+                    it.setString(2, requested) // B
 
                     if (it.executeUpdate() != 0) {
                         MessageUtil.sendInfo(sender, "Your nickname has been requested!")
-                        MessageUtil.broadcast("alphheim.mod", "${sender.name} has requested the nickname ${ChatColor.translateAlternateColorCodes('&', request)}")
+                        MessageUtil.broadcast("alphheim.mod", "${sender.name} has requested the nickname ${ChatColor.translateAlternateColorCodes('&', requested)}")
                     }
                 }
             }
@@ -205,6 +208,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     }
 
     @Subcommand("status")
+    @Description("check the status of your nickname request")
     fun status(sender: Player) {
         MySQL.executor.execute {
             val user = plugin.userManager.getUser(sender.uniqueId)
@@ -217,9 +221,10 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                             if (status == 0) {
                                 MessageUtil.sendInfo(sender, "Your nickname is currently pending!")
                             } else if (status == 1) {
-                                MessageUtil.sendError(sender, "Your nickname request has been STATUS!")
+                                MessageUtil.sendError(sender, "Your nickname request has been approved!")
+                            } else if (status == 2) {
+                                MessageUtil.sendInfo(sender, "your nickname request has been approved!")
                             }
-
                         } else {
                             MessageUtil.sendError(sender, "You do not have a pending request")
                         }
@@ -229,5 +234,9 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
         }
     }
 
-
+    @HelpCommand
+    @CatchUnknown
+    fun unknownCommand(sender: CommandSender) {
+        showCommandHelp()
+    }
 }
