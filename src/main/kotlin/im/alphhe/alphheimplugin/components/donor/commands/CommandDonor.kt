@@ -45,7 +45,9 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
             arguments
         }
 
-
+        if (processedArgs["transaction"] == null) {
+            processedArgs["transaction"] = "Manual[${sender.name}]"
+        }
 
         perk.handle(target.player, processedArgs)
         MessageUtil.sendInfo(sender, "Giving ${perk.name} to ${target.player.name}")
