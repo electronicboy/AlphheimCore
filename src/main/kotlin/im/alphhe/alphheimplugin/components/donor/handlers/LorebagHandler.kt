@@ -13,6 +13,7 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.material.Dye
+import java.util.*
 
 class LorebagHandler() : IDonorHandler() {
     override val name: String
@@ -36,7 +37,11 @@ class LorebagHandler() : IDonorHandler() {
             tag.setString("transaction", args["transaction"])
         }
 
-        tag.setLong("timestamp", System.currentTimeMillis())
+        val cal = GregorianCalendar()
+        cal.set(Calendar.MILLISECOND, 0)
+        cal.set(Calendar.SECOND, 0)
+
+        tag.setLong("timestamp", cal.timeInMillis )
         tag.setString("purchaser", player.uniqueId.toString())
 
 
