@@ -150,13 +150,32 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     }
 
 
+    fun setDisplayName(nick: String) {
+        val p = getPlayer() ?: return
+        p.displayName = (getTier()?.color ?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick)
+
+    }
+
+
+    fun getTier(): DonorTier? {
+        val p = getPlayer() ?: return null
+        return when {
+            p.hasPermission("group.sapphire") -> DonorTier.SAPPHIRE
+            p.hasPermission("group.amethyst") -> DonorTier.AMETHYST
+            p.hasPermission("group.emerald") -> DonorTier.EMERALD
+            p.hasPermission("group.topaz") -> DonorTier.TOPAZ
+            p.hasPermission("group.ruby") -> DonorTier.RUBY
+            else -> null
+
+        }
+
+    }
+
+
     fun setNickname(nick: String) {
         nickname = nick
 
-        val player = getPlayer()
-        if (player != null) {
-            player.displayName = ChatColor.translateAlternateColorCodes('&', nick)
-        }
+        setDisplayName(nick)
 
         MySQL.executor.execute {
             try {

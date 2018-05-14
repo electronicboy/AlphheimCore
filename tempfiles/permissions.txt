@@ -652,15 +652,15 @@ lp group ruby set essentials.sethome.multiple
 lp group ruby set essentials.sethome.multiple.ruby
 
 lp group topaz meta set persistSet true
-lp group ruby set essentials.kit.ruby false
+lp group topaz set essentials.kit.ruby false
 lp group topaz set essentials.kit.topaz
 lp group topaz set essentials.sethome.multiple
 lp group topaz set essentials.sethome.multiple.topaz
 lp group topaz set alphheim.hat
 
 lp group emerald meta set persistSet true
-lp group ruby set essentials.kit.ruby false
-lp group topaz set essentials.kit.topaz false
+lp group emerald set essentials.kit.ruby false
+lp group emerald set essentials.kit.topaz false
 lp group emerald set essentials.kit.emerald
 lp group emerald set essentials.sethome.multiple
 lp group emerald set essentials.sethome.multiple.emerald
@@ -670,9 +670,9 @@ lp group emerald set mcmmo.perks.cooldowns.quartered
 lp group emerald set mcmmo.perks.xp.50percentboost
 
 lp group amethyst meta set persistSet true
-lp group ruby set essentials.kit.ruby false
-lp group topaz set essentials.kit.topaz false
-lp group emerald set essentials.kit.emerald false
+lp group amethyst set essentials.kit.ruby false
+lp group amethyst set essentials.kit.topaz false
+lp group amethyst set essentials.kit.emerald false
 lp group amethyst set essentials.kit.amethyst
 lp group amethyst set essentials.sethome.multiple
 lp group amethyst set essentials.sethome.multiple.amethyst
@@ -682,10 +682,10 @@ lp group amethyst set mcmmo.perks.xp.double
 lp group amethyst set mcmmo.perks.cooldowns.halved
 
 lp group sapphire meta set persistSet true
-lp group ruby set essentials.kit.ruby false
-lp group topaz set essentials.kit.topaz false
-lp group emerald set essentials.kit.emerald false
-lp group amethyst set essentials.kit.amethyst false
+lp group sapphire set essentials.kit.ruby false
+lp group sapphire set essentials.kit.topaz false
+lp group sapphire set essentials.kit.emerald false
+lp group sapphire set essentials.kit.amethyst false
 lp group sapphire set essentials.kit.sapphire
 lp group sapphire set essentials.sethome.multiple
 lp group sapphire set essentials.sethome.multiple.sapphire
