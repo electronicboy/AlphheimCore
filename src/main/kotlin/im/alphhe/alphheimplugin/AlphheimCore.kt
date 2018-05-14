@@ -9,6 +9,7 @@ package im.alphhe.alphheimplugin
 import co.aikar.commands.BukkitCommandManager
 import com.google.inject.Injector
 import im.alphhe.alphheimplugin.commands.CommandCore
+import im.alphhe.alphheimplugin.commands.CommandEnderChest
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandSign
 import im.alphhe.alphheimplugin.components.UserManager
@@ -123,6 +124,7 @@ AlphheimCore : JavaPlugin() {
     private fun registerCommands() {
         CommandCore(this)
         CommandSign(this)
+        CommandEnderChest(this)
     }
 
     private fun registerListeners() {
