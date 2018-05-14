@@ -33,6 +33,10 @@ class PermissionHandler(private val plugin: AlphheimCore) {
                     plugin.tabListHandler.setSB(player)
                     plugin.healthHandler.updateHealth(player)
                     plugin.racialHandler.applyEffects(player)
+
+                    val player = plugin.userManager.getUser(it.user.uuid)
+                    player.setDisplayName(player.getNickname())
+
                 }
             })
         })
