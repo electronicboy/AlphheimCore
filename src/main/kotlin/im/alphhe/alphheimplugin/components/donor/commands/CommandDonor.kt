@@ -82,7 +82,7 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
                 val date = Date(timestamp)
                 MessageUtil.sendInfo(player, "purchased: ${SimpleDateFormat().format(date)}")
             } catch (ex: Exception) {
-                MessageUtil.sendError(player, "Error occured while fetching time")
+                MessageUtil.sendError(player, "Error occurred while fetching time")
             }
         }
 
@@ -92,7 +92,7 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
                 val offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(stringUUID))
                 MessageUtil.sendInfo(player, "Purchased by: ${offlinePlayer.name}")
             } catch (ex: Exception) {
-                MessageUtil.sendError(player, "Error occured while fetching purchaser")
+                MessageUtil.sendError(player, "Error occurred while fetching purchaser")
             }
 
         }
