@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.components.donor
 
 import co.aikar.commands.InvalidCommandArgument
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.donor.commands.CommandCraft
 import im.alphhe.alphheimplugin.components.donor.commands.CommandDonor
 import im.alphhe.alphheimplugin.components.donor.handlers.IDonorHandler
 import im.alphhe.alphheimplugin.components.donor.handlers.LorebagHandler
@@ -29,7 +30,9 @@ class DonorManager(private val plugin: AlphheimCore) {
             handlers.keys
         })
 
-        plugin.commandManager.registerCommand(CommandDonor(plugin, this), true)
+        CommandDonor(plugin, this)
+
+        CommandCraft(plugin)
 
         registerHandler("spawner", MobSpawnerHandler())
         registerHandler("lorebag", LorebagHandler())
