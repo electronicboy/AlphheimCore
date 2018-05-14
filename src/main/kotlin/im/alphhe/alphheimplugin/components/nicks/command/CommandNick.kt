@@ -115,6 +115,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Subcommand("set")
     @Description("set the nickname for a player")
     @CommandPermission("alphheim.mod")
+    @CommandCompletion("@players")
     fun set(sender: CommandSender, target: OfflinePlayer, nick: String) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
         uTarget.setNickname(nick)
