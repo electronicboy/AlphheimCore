@@ -126,6 +126,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Subcommand("accept")
     @Description("accept pending nick request")
     @CommandPermission("alphheim.mod")
+    @CommandCompletion("@players")
     fun accept(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
 
@@ -153,6 +154,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Subcommand("reject")
     @Description("reject pending nick request")
     @CommandPermission("alphheim.mod")
+    @CommandCompletion("@players")
     fun reject(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
 
@@ -237,6 +239,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("reset")
     @Description("remove a players nickname")
+    @CommandCompletion("@players")
     @CommandPermission("alphheim.mod")
     fun reset(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
