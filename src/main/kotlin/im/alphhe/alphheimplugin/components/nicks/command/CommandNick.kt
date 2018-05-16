@@ -138,7 +138,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                         if (it.next()) {
                             val nick = it.getString("REQUESTED")
                             uTarget.setNickname(nick)
-                            MessageUtil.sendInfo(sender, "You have accepted ${uTarget.getOfflinePlayer().name}'s nickname")
+                            MessageUtil.broadcast("alphheim.mod", "${sender.name} has accepted ${uTarget.getOfflinePlayer().name}'s nickname")
                         } else {
                             MessageUtil.sendError(sender, "The user did not have a pending request")
                         }
@@ -168,7 +168,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
                                     conn.prepareStatement("UPDATE player_nicks SET STATUS = 2 WHERE PLAYER_ID = ?").use {
                                         it.setInt(1, uTarget.userID)
                                         if (it.executeUpdate() != 0) {
-                                            MessageUtil.sendInfo(sender, "Nickname request for ${uTarget.getOfflinePlayer().name} has been declined!")
+                                            MessageUtil.broadcast("alphheim.mod", "${sender.name} has declined ${uTarget.getOfflinePlayer().name}'s nickname")
                                             val player = uTarget.getOfflinePlayer().player
                                             if (player != null) {
                                                 MessageUtil.sendError(player, "Your nickname has been declined!")
