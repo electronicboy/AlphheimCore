@@ -235,6 +235,15 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
         }
     }
 
+    @Subcommand("reset")
+    @Description("remove a players nickname")
+    @CommandPermission("alphheim.mod")
+    fun reset(sender: CommandSender, target: OfflinePlayer) {
+        val uTarget = plugin.userManager.getUser(target.uniqueId)
+        uTarget.setNickname(null)
+    }
+
+
     @HelpCommand
     @CatchUnknown
     fun unknownCommand(sender: CommandSender) {

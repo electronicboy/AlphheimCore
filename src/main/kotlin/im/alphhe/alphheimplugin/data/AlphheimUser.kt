@@ -150,9 +150,13 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     }
 
 
-    fun setDisplayName(nick: String) {
+    fun setDisplayName(nick: String?) {
         val p = getPlayer() ?: return
-        p.displayName = (getTier()?.color ?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick)
+        if (nick != null) {
+            p.displayName = (getTier()?.color ?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick)
+        } else {
+            p.displayName = (getTier()?.color ?: "").toString() + p.name
+        }
 
     }
 
@@ -172,10 +176,16 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     }
 
 
-    fun setNickname(nick: String) {
+    fun setNickname(nick: String?, approved: Boolean = false) {
         nickname = nick
 
         setDisplayName(nick)
+
+        val newStatus = if (approved) {
+            NickStatus.APPROVED
+        } else {
+            NickStatus.PENDING
+        }
 
         MySQL.executor.execute {
             try {
@@ -183,7 +193,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                     val stmt = it.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, NICKNAME, STATUS, REQUESTED) VALUE ( ?, ?, ?, NULL) ON DUPLICATE KEY UPDATE NICKNAME = VALUES(NICKNAME), STATUS = VALUES(STATUS), REQUESTED = null ")
                     stmt.setInt(1, userID)
                     stmt.setString(2, nick)
-                    stmt.setInt(3, NickStatus.APPROVED.value)
+                    stmt.setInt(3, newStatus.value)
                     stmt.executeUpdate()
                 }
             } catch (ex: Throwable) {
