@@ -8,8 +8,10 @@ package im.alphhe.alphheimplugin.commands
 
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
+import co.aikar.commands.annotation.Optional
 import co.aikar.commands.annotation.Single
 import co.aikar.commands.annotation.Subcommand
+import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.ChatColor
@@ -99,14 +101,18 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
 
     @Subcommand("checkoverrides")
     @CommandPermission("alphheim.admin")
-    fun checkOverrides(sender: Player) {
-        val user = plugin.userManager.getUser(sender.uniqueId)
+    fun checkOverrides(sender: Player, @Optional target: OnlinePlayer?) {
+        val user = if (target == null) {
+            plugin.userManager.getUser(sender.uniqueId)
+        } else {
+            plugin.userManager.getUser(target.player.uniqueId)
+        }
         val newMode = if (user.hasOverrides()) {
             "enabled"
         } else {
             "disabled"
         }
-        MessageUtil.sendInfo(sender, "Staff overrides are $newMode")
+        MessageUtil.sendInfo(sender, "Staff overrides are $newMode for ${user.getNickname()}")
     }
 
 
