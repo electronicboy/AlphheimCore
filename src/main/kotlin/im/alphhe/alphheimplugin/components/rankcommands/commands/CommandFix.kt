@@ -37,6 +37,8 @@ class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "fi
     @CommandPermission("alphheim.fixall")
     @Subcommand("all")
     fun onAll(sender: Player) {
+        if (!checkCooldown(sender, "fixCooldown")) return
+
         // This command currently isn't given out to the public, so...
         sender.inventory.contents.forEach {
             if (it != null && !it.type.isBlock && it.durability != 0.toShort() && it.type.maxDurability > 0.toShort()) {
