@@ -90,6 +90,10 @@ dependencies {
     compile ("com.vexsoftware:votifier:1.9") {
         exclude group: "org.bukkit", module: "bukkit"
     }
+    compileOnly ("com.gmail.nossr50.mcMMO:mcMMO:1.5.04-SNAPSHOT") {
+        exclude group: "org.bukkit", module: "bukkit"
+        exclude group: "com.turt2live.metrics", module: "MetricsExtension"
+    }
 }
 
 
