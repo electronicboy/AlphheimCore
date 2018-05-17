@@ -32,7 +32,7 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "r
     @Subcommand("set")
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players @groups")
-    fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String, @Optional @Default("true") firstSet: Boolean) {
+    fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String, @Optional @Default("false") firstSet: Boolean) {
         val permHandler = plugin.permissionHandler
         val group = permHandler.getGroup(rank)
         if (group == null) {
