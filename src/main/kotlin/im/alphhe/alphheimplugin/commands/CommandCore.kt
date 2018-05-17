@@ -83,6 +83,21 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
         plugin.voteHandler.createVote(target, address, service)
     }
 
+    @Subcommand("toggleoverrides")
+    @CommandPermission("alphheim.admin")
+    fun enableOverrides(sender: Player) {
+        val user = plugin.userManager.getUser(sender.uniqueId)
+        user.overrides = !user.hasOverrides()
+        val newMode = if (user.hasOverrides()) {
+            "enabled"
+        } else {
+            "disabled"
+        }
+
+        MessageUtil.broadcast("alphheim.admin", "${sender.name} has $newMode staff overrides!")
+    }
+
+
     @Subcommand("cmdlist")
     @CommandPermission("alphheim.developer")
     fun cmdlist(sender: CommandSender) {

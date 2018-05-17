@@ -32,6 +32,9 @@ abstract class AlphheimCommand(private val plugin: AlphheimCore, name: String) :
                 return false
             }
         } else {
+            if (user.hasOverrides()) {
+                return true
+            }
             val cooldownTime = user.getCooldown(metaKey)
             val time = if (cooldownTime != null) {
                 1000 * ((cooldownTime + 500) / 1000)
