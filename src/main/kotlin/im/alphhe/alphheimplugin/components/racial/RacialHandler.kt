@@ -91,7 +91,7 @@ class RacialHandler(private val plugin: AlphheimCore) {
                     }
 
                     if (potionEffect != null && potionEffect.amplifier >= entry.value) {
-                        println("removing ${entry.key} from ${player.name}  #94")
+                        println("removing ${entry.key} from ${player.name}  #94 ${potionEffect.amplifier} >= ${entry.value}")
                         player.addPotionEffect(PotionEffect(entry.key, Int.MAX_VALUE, entry.value, true, false), true)
                     }
                 }
