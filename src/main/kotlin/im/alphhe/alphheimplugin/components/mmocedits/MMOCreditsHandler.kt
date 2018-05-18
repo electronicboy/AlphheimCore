@@ -6,14 +6,24 @@
 
 package im.alphhe.alphheimplugin.components.mmocedits
 
+import co.aikar.commands.annotation.CommandPermission
+import com.gmail.nossr50.api.ExperienceAPI
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.mmocedits.commands.CommandCredits
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
 
 class MMOCreditsHandler(private val plugin: AlphheimCore) {
+    val validSkills = setOf("TAMING", "SWORDS", "ALCHEMY", "UNARMED", "ARCHERY", "AXES", "ACROBATICS", "FISHING", "EXCAVATION", "MINING", "HERBALISM", "REPAIR", "WOODCUTTING")
+
     init {
+        plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills", {_ ->
+            validSkills.map { it.toLowerCase() }
+        })
+
         CommandCredits(plugin, this)
+
+
     }
 
     fun getCredits(player: OfflinePlayer): Int {
@@ -47,6 +57,7 @@ class MMOCreditsHandler(private val plugin: AlphheimCore) {
             }
         }
     }
+
 
 
 
