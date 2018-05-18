@@ -18,6 +18,7 @@ import im.alphhe.alphheimplugin.components.combat.CombatHandler
 import im.alphhe.alphheimplugin.components.diversions.FunHandler
 import im.alphhe.alphheimplugin.components.donor.DonorManager
 import im.alphhe.alphheimplugin.components.health.HealthHandler
+import im.alphhe.alphheimplugin.components.mmocedits.MMOCreditsHandler
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import im.alphhe.alphheimplugin.components.nicks.NickManager
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
@@ -119,6 +120,7 @@ AlphheimCore : JavaPlugin() {
         DonorManager(this)
         CombatHandler(this)
         voteHandler = VoteHandler(this)
+        MMOCreditsHandler(this)
     }
 
     private fun registerCommands() {
