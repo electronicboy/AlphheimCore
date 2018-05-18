@@ -68,7 +68,6 @@ class RacialHandler(private val plugin: AlphheimCore) {
             for (enchant in player.activePotionEffects) {
                 if (enchant.duration > HALF_INT) { // use half int for safety
                     if (enchant.type != PotionEffectType.INVISIBILITY && !applyMap.contains(enchant.type)) {
-                        println("removing $enchant from ${player.name} #72")
                         player.removePotionEffect(enchant.type)
                     }
                 }
@@ -79,7 +78,6 @@ class RacialHandler(private val plugin: AlphheimCore) {
             val activeEffects = activePotionEffects.map { it.type }.toHashSet()
             for (entry in applyMap) {
                 if (!activeEffects.contains(entry.key)) {
-                    println("removing ${entry.key} from ${player.name}  #82")
                     player.addPotionEffect(PotionEffect(entry.key, Int.MAX_VALUE, entry.value, true, false))
                 } else {
                     var potionEffect: PotionEffect? = null
@@ -91,7 +89,6 @@ class RacialHandler(private val plugin: AlphheimCore) {
                     }
 
                     if (potionEffect != null && potionEffect.amplifier <= entry.value) {
-                        println("removing ${entry.key} from ${player.name}  #94 ${potionEffect.amplifier} >= ${entry.value}")
                         player.addPotionEffect(PotionEffect(entry.key, Int.MAX_VALUE, entry.value, true, false), true)
                     }
                 }
