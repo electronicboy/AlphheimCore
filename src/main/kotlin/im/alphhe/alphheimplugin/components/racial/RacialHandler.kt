@@ -88,7 +88,7 @@ class RacialHandler(private val plugin: AlphheimCore) {
                         break
                     }
 
-                    if (potionEffect != null && potionEffect.amplifier != entry.value) {
+                    if (potionEffect != null && potionEffect.amplifier >= entry.value) {
                         player.addPotionEffect(PotionEffect(entry.key, Int.MAX_VALUE, entry.value, true, false), true)
                     }
                 }
