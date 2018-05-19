@@ -9,11 +9,18 @@ package im.alphhe.alphheimplugin.commands
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
+import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import org.bukkit.entity.Player
 
 @CommandAlias("ec")
 class CommandEnderChest(plugin: AlphheimCore) : AlphheimCommand(plugin, "enderchest") {
+
+    @CommandPermission("alphheim.enderchest")
+    @Default
+    fun enderChest(sender: Player, target: OnlinePlayer) {
+        sender.openInventory(target.player.enderChest)
+    }
 
     @CommandPermission("alphheim.enderchest")
     @Default
