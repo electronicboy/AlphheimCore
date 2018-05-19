@@ -16,11 +16,22 @@ import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
+import pw.alphheim.api.events.EffectRemovalNotification
 
 class PotionListener(private var plugin: AlphheimCore) : Listener {
 
     init {
         plugin.server.pluginManager.registerEvents(this, plugin)
+    }
+
+    @EventHandler
+    fun onExpire(e: EffectRemovalNotification) {
+        if (e.entity !is Player) return
+        object : BukkitRunnable() {
+            override fun run() {
+                plugin.racialHandler.applyEffects(e.entity as Player)
+            }
+        }
     }
 
 
@@ -64,6 +75,18 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
         if (e.item.type != Material.POTION) return
 
         if ((e.item.itemMeta as PotionMeta).hasCustomEffect(PotionEffectType.INVISIBILITY)) return
+
+        // Because apparently the client doesn't like it when you go from infinite -> finite
+        (e.item.itemMeta as PotionMeta).customEffects.forEach({ eff ->
+            for (activeEff in e.player.activePotionEffects) {
+                if (activeEff.type == eff.type) {
+                    if (activeEff.amplifier < eff.amplifier) {
+                        e.player.removePotionEffect(eff.type)
+                    }
+                }
+            }
+
+        })
 
 
         object : BukkitRunnable() {
