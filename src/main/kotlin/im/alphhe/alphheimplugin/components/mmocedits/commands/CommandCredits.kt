@@ -30,7 +30,12 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     @CatchUnknown
     @Subcommand("credits|check")
     fun creditCheck(sender: Player, @Flags("defaultself") target: Player) {
-        handler.getCredits(sender)
+        val credits = handler.getCredits(target.player)
+        if (target.player == sender) {
+            MessageUtil.sendInfo(sender, "You have $credits to redeem!")
+        } else {
+            MessageUtil.sendInfo(sender, "${target.player.name} has $credits")
+        }
 
     }
 
