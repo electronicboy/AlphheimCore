@@ -19,20 +19,15 @@ import org.bukkit.entity.Player
 @CommandAlias("mmocredits")
 class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin, "credits") {
 
-    @CommandPermission("alphheim.mod")
-    fun creditCheck(sender: Player) {
-        handler.getCredits(sender)
-    }
-
     @CommandPermission("alphheim.dev")
     @CommandCompletion("@players")
-    @CatchUnknown
+    @Default
     @Subcommand("credits|check")
     fun creditCheck(sender: Player, @Flags("defaultself") target: Player) {
         MySQL.executor.execute({
             val credits = handler.getCredits(target.player)
             if (target.player == sender) {
-                MessageUtil.sendInfo(sender, "You have $credits to redeem!")
+                MessageUtil.sendInfo(sender, "You have $credits credits to redeem!")
             } else {
                 MessageUtil.sendInfo(sender, "${target.player.name} has $credits")
             }
