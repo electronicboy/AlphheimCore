@@ -44,6 +44,19 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
                 ?: return
 
         e.affectedEntities.stream().filter { entity -> entity is Player }.forEach { entity ->
+
+
+            // Because apparently the client doesn't like it when you go from infinite -> finite
+            (e.potion.effects.forEach({ eff ->
+                for (activeEff in entity.activePotionEffects) {
+                    if (activeEff.type == eff.type) {
+                        if (activeEff.amplifier < eff.amplifier) {
+                            entity.removePotionEffect(eff.type)
+                        }
+                    }
+                }
+
+            })
             object : BukkitRunnable() {
                 override fun run() {
                     val p = entity as Player
