@@ -31,7 +31,7 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
             override fun run() {
                 plugin.racialHandler.applyEffects(e.entity as Player)
             }
-        }
+        }.runTask(plugin)
     }
 
 
