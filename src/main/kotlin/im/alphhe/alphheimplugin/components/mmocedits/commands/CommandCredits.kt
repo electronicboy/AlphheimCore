@@ -16,6 +16,7 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import sun.plugin2.message.Message
 
 @CommandAlias("mmocredits")
 class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin, "credits"){
@@ -48,7 +49,11 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
             MessageUtil.sendError(sender, "Specify a value greater than 0!")
         }
 
-        handler.giveCredits(target, amount)
+        if (handler.giveCredits(target, amount)) {
+            if (target.isOnline) MessageUtil.sendInfo(target.player, "You have recieved $amount credits!")
+
+            MessageUtil.sendInfo(sender, "You have given ${target.name} $amount credits!")
+        }
 
     }
 
