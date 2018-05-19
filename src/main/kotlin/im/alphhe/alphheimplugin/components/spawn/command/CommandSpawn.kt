@@ -6,10 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.spawn.command
 
-import co.aikar.commands.annotation.CommandAlias
-import co.aikar.commands.annotation.CommandCompletion
-import co.aikar.commands.annotation.CommandPermission
-import co.aikar.commands.annotation.Default
+import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
@@ -32,13 +29,17 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
     @CommandPermission("alphheim.spawn.other")
     @CommandCompletion("@players")
     fun spawn(self: CommandSender, target: OnlinePlayer?) {
-        if (target != null) {
-            spawnHandler.goSpawn(target.player, self)
-        } else if (self is Player) {
-            spawnHandler.goSpawn(self, self)
-        } else {
-            println("fell through...")
+        when {
+            target != null -> spawnHandler.goSpawn(target.player, self)
+            self is Player -> spawnHandler.goSpawn(self, self)
+            else -> println("fell through...")
         }
+    }
+
+    @Subcommand("book")
+    @CommandPermission("alphheim.dev")
+    fun getBook(sender: Player) {
+        sender.inventory.addItem(spawnHandler.getBook())
     }
 
 
