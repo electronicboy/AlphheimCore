@@ -14,6 +14,7 @@ import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.entity.Player
 
+@CommandAlias("repair")
 class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "fix") {
 
     @Subcommand("hand")
