@@ -7,7 +7,6 @@
 package im.alphhe.alphheimplugin.components.mmocedits.commands
 
 import co.aikar.commands.annotation.*
-import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.mmocedits.MMOCreditsHandler
@@ -16,10 +15,9 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import sun.plugin2.message.Message
 
 @CommandAlias("mmocredits")
-class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin, "credits"){
+class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin, "credits") {
 
     @CommandPermission("alphheim.mod")
     fun creditCheck(sender: Player) {
@@ -31,12 +29,14 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     @CatchUnknown
     @Subcommand("credits|check")
     fun creditCheck(sender: Player, @Flags("defaultself") target: Player) {
-        val credits = handler.getCredits(target.player)
-        if (target.player == sender) {
-            MessageUtil.sendInfo(sender, "You have $credits to redeem!")
-        } else {
-            MessageUtil.sendInfo(sender, "${target.player.name} has $credits")
-        }
+        MySQL.executor.execute({
+            val credits = handler.getCredits(target.player)
+            if (target.player == sender) {
+                MessageUtil.sendInfo(sender, "You have $credits to redeem!")
+            } else {
+                MessageUtil.sendInfo(sender, "${target.player.name} has $credits")
+            }
+        })
 
     }
 
@@ -48,12 +48,14 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
         if (amount!! <= 0) {
             MessageUtil.sendError(sender, "Specify a value greater than 0!")
         }
+        MySQL.executor.execute({
 
-        if (handler.giveCredits(target, amount)) {
-            if (target.isOnline) MessageUtil.sendInfo(target.player, "You have recieved $amount credits!")
+            if (handler.giveCredits(target, amount)) {
+                if (target.isOnline) MessageUtil.sendInfo(target.player, "You have recieved $amount credits!")
 
-            MessageUtil.sendInfo(sender, "You have given ${target.name} $amount credits!")
-        }
+                MessageUtil.sendInfo(sender, "You have given ${target.name} $amount credits!")
+            }
+        })
 
     }
 
