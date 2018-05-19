@@ -60,7 +60,9 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
                 target.player.foodLevel = 20
                 target.player.saturation = 20f
                 target.player.health = target.player.maxHealth
-                MessageUtil.sendInfo(sender, "You have been healed")
+                MessageUtil.sendInfo(target.player, "You have been healed")
+                MessageUtil.sendInfo(sender, "You have healed ${target.player.name}")
+
             }
             sender is Player -> {
                 sender.foodLevel = 20
