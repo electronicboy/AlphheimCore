@@ -16,7 +16,12 @@ import java.util.logging.Level
 
 abstract class AlphheimCommand(private val plugin: AlphheimCore, name: String) : BaseCommand(name) {
     init {
-        plugin.commandManager.registerCommand(this, true)
+        try {
+            plugin.commandManager.registerCommand(this, true)
+        } catch (ex: Exception) {
+            plugin.logger.log(Level.SEVERE, "Command $name failed to register!")
+            ex.printStackTrace()
+        }
     }
 
 
