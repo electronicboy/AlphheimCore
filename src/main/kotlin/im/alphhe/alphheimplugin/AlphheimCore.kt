@@ -105,33 +105,6 @@ AlphheimCore : JavaPlugin() {
 
         //chatHandler = ChatHandlerService(this)
         //servicesManager.registerService(Chat::class.java, chatHandler, this,true)
-        object : BukkitRunnable() {
-            override fun run() {
-                MySQL.getConnection().use { conn ->
-                    conn.prepareStatement("SELECT PLAYER_UUID FROM player_data").use { stmt ->
-                        stmt.executeQuery().use {
-
-
-                            while (it.next()) {
-                                try {
-                                    val uuidString = it.getString("PLAYER_UUID")
-
-                                    val uuid = UUID.fromString(uuidString)
-                                    val player = Bukkit.getOfflinePlayer(uuid)
-                                    val user = userManager.getUser(uuid)
-                                    user.setLastNick(player.name)
-
-
-                                } catch (ex: Exception) {
-                                    ex.printStackTrace()
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }.runTaskAsynchronously(this)
     }
 
     private fun enableComponents() {
