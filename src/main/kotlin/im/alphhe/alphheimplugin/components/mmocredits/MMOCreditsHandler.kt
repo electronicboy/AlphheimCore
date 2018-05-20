@@ -6,10 +6,12 @@
 
 package im.alphhe.alphheimplugin.components.mmocredits
 
+import com.gmail.nossr50.api.ExperienceAPI
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.mmocredits.commands.CommandCredits
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
+import org.bukkit.entity.Player
 
 class MMOCreditsHandler(private val plugin: AlphheimCore) {
     val validSkills = setOf("TAMING", "SWORDS", "ALCHEMY", "UNARMED", "ARCHERY", "AXES", "ACROBATICS", "FISHING", "EXCAVATION", "MINING", "HERBALISM", "REPAIR", "WOODCUTTING")
@@ -90,6 +92,30 @@ class MMOCreditsHandler(private val plugin: AlphheimCore) {
 
         }
 
+
+    }
+
+
+    fun redeemCredits(player: Player, skill: String, amount: Int): Boolean {
+        val skillUpper = skill.toUpperCase()
+        if (!validSkills.contains(skillUpper)) {
+            throw IllegalArgumentException("$skill is not a valid skill!")
+        }
+
+        val maxLimit = ExperienceAPI.getLevelCap(skillUpper)
+        val currentLevel = ExperienceAPI.getLevel(player, skillUpper)
+        val newLevel = currentLevel + amount
+
+        if (newLevel > maxLimit) {
+            throw IllegalArgumentException("Cannot exceed level cap!")
+        }
+
+        return if (!takeCredits(player, amount)) {
+            false
+        } else {
+            ExperienceAPI.setLevel(player, skillUpper, newLevel)
+            true
+        }
 
     }
 

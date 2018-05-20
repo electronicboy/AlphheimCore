@@ -73,5 +73,25 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
 
     }
 
+    @CommandPermission("alphheim.dev")
+    @CommandCompletion("@mmoskills")
+    @Subcommand("redeem")
+    fun redeem(sender: Player, skill: String, amount: Int?) {
+        amount!!
+        if (amount <= 0) {
+            MessageUtil.sendError(sender, "Specify a value greater than 0!")
+        }
+
+        MySQL.executor.execute({
+            if (handler.redeemCredits(sender, skill, amount)) {
+                MessageUtil.sendInfo(sender, "You have successfully redeemed your credits!")
+            } else {
+                MessageUtil.sendError(sender, "You do not have enough credits!")
+            }
+
+        })
+
+    }
+
 
 }
