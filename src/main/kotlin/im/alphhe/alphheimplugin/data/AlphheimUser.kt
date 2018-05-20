@@ -81,8 +81,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
         if (System.currentTimeMillis() <= lastUpdated + TimeUnit.MINUTES.toMillis(2)) return
 
         MySQL.getConnection().use { conn ->
-            val statement = conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?")
-            statement.use { stmt ->
+            conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?").use { stmt ->
                 stmt.setInt(1, userID)
                 stmt.executeQuery().use {
                     while (it.next()) {
@@ -96,11 +95,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                 }
             }
 
-        }
-
-        MySQL.getConnection().use { conn ->
-            val statement = conn.prepareStatement("SELECT NICKNAME FROM player_nicks WHERE PLAYER_ID = ?")
-            statement.use {
+            conn.prepareStatement("SELECT NICKNAME FROM player_nicks WHERE PLAYER_ID = ?").use {
                 it.setInt(1, userID)
                 it.executeQuery().use {
                     if (it.next()) {
@@ -112,6 +107,12 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                 }
 
             }
+
+
+        }
+
+        MySQL.getConnection().use { conn ->
+
         }
     }
 
@@ -153,7 +154,8 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     fun setDisplayName(nick: String?) {
         val p = getPlayer() ?: return
         if (nick != null) {
-            p.displayName = (getTier()?.color ?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick)
+            p.displayName = (getTier()?.color
+                    ?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick)
         } else {
             p.displayName = (getTier()?.color ?: "").toString() + p.name
         }
