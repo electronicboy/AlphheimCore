@@ -59,7 +59,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
         if (userID == -1) {
             firstJoin = true
             MySQL.getConnection().use { connection ->
-                val statement1 = connection.prepareStatement("INSERT INTO player_data (PLAYER_UUID) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)
+                val statement1 = connection.prepareStatement("INSERT INTO player_data (PLAYER_UUID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)
                 statement1.use { insertStatement ->
 
                     insertStatement.setString(1, uuid.toString())
