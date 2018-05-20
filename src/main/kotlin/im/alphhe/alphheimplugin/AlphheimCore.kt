@@ -38,6 +38,7 @@ import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
 import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.scheduler.BukkitRunnable
 
 
 class
@@ -104,6 +105,14 @@ AlphheimCore : JavaPlugin() {
         //chatHandler = ChatHandlerService(this)
         //servicesManager.registerService(Chat::class.java, chatHandler, this,true)
 
+        object : BukkitRunnable() {
+            override fun run() {
+                Bukkit.getOfflinePlayers().forEach {
+                    val user = userManager.getUser(it.uniqueId)
+                    user.setLastNick(it.name)
+                }
+            }
+        }
     }
 
     private fun enableComponents() {
