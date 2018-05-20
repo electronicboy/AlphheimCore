@@ -71,7 +71,7 @@ class VoteHandler(internal var plugin: AlphheimCore) {
                 conn.prepareStatement(
                         "INSERT INTO player_votes (PLAYER_ID, SERVICE, TIMESTAMP, REDEEMED) VALUE (?, ?, ?, ?)").use { stmt ->
                     stmt.setInt(1, user.userID)
-                    stmt.setString(2, address)
+                    stmt.setString(2, serviceName)
                     stmt.setTimestamp(3, Timestamp(System.currentTimeMillis()))
                     stmt.setBoolean(4, redeemed)
                     stmt.executeUpdate()
