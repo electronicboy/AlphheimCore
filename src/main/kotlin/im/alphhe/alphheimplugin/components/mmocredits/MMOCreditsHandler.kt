@@ -14,7 +14,7 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
 class MMOCreditsHandler(private val plugin: AlphheimCore) {
-    val validSkills = setOf("TAMING", "SWORDS", "ALCHEMY", "UNARMED", "ARCHERY", "AXES", "ACROBATICS", "FISHING", "EXCAVATION", "MINING", "HERBALISM", "REPAIR", "WOODCUTTING")
+    private val validSkills = setOf("TAMING", "SWORDS", "ALCHEMY", "UNARMED", "ARCHERY", "AXES", "ACROBATICS", "FISHING", "EXCAVATION", "MINING", "HERBALISM", "REPAIR", "WOODCUTTING")
 
     init {
         plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills", { _ ->

@@ -7,9 +7,11 @@
 package im.alphhe.alphheimplugin.components.voting.rewards
 
 import im.alphhe.alphheimplugin.components.voting.VoteHandler
+import im.alphhe.alphheimplugin.utils.MessageUtil
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.entity.Player
 import sun.plugin.dom.exception.InvalidStateException
+import java.text.NumberFormat
 
 class EcoVoteReward(private val voteHandler: VoteHandler, private val amount: Double) : IVoteReward {
 
@@ -32,9 +34,13 @@ class EcoVoteReward(private val voteHandler: VoteHandler, private val amount: Do
 
 
     override fun process(player: Player): Boolean {
-        // TODO: Messages?
         val response = ecoService!!.depositPlayer(player, amount)
-        return response.transactionSuccess()
+        if (response.transactionSuccess()) {
+            val amountPretty = NumberFormat.getCurrencyInstance().format(amount).replace(".00", "")
+            MessageUtil.sendInfo(player, "You have received $amountPretty!")
+        }
+
+        return true
 
     }
 }

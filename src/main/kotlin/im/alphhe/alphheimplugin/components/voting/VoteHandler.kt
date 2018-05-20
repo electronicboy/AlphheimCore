@@ -11,6 +11,7 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.voting.rewards.EcoVoteReward
 import im.alphhe.alphheimplugin.components.voting.rewards.IVoteReward
 import im.alphhe.alphheimplugin.components.voting.rewards.ItemVoteReward
+import im.alphhe.alphheimplugin.components.voting.rewards.MMOCreditReward
 import im.alphhe.alphheimplugin.components.voting.votelistener.AVoteListener
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
@@ -40,6 +41,7 @@ class VoteHandler(internal var plugin: AlphheimCore) {
 
         rewards.add(EcoVoteReward(this, 2000.0))
         rewards.add(ItemVoteReward(this, ItemStack(Material.DIAMOND, 5)))
+        rewards.add(MMOCreditReward(this, 2))
 
 
     }

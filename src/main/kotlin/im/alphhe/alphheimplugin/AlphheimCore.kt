@@ -57,6 +57,7 @@ AlphheimCore : JavaPlugin() {
     lateinit var racialHandler: RacialHandler
     lateinit var spawnHandler: SpawnHandler
     lateinit var voteHandler: VoteHandler
+    lateinit var creditsHandler: MMOCreditsHandler
 
     private var consolePerms = mutableListOf<PermissionAttachment>()
 
@@ -120,7 +121,7 @@ AlphheimCore : JavaPlugin() {
         DonorManager(this)
         CombatHandler(this)
         voteHandler = VoteHandler(this)
-        MMOCreditsHandler(this)
+        creditsHandler = MMOCreditsHandler(this)
     }
 
     private fun registerCommands() {
