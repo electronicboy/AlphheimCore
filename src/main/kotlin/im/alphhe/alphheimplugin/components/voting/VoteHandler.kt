@@ -29,13 +29,16 @@ class VoteHandler(internal var plugin: AlphheimCore) {
 
     private val votifier = plugin.server.pluginManager.getPlugin("Votifier") as? Votifier
     private val rewards = ArrayList<IVoteReward>()
+    var voteHandler: AVoteListener? = null
 
     init {
 
         if (votifier == null) {
             plugin.logger.warning("Could not find votifier plugin!")
         } else {
-            votifier.listeners.add(AVoteListener(this))
+            votifier.listeners.clear()
+            voteHandler = AVoteListener(this)
+            votifier.listeners.add(voteHandler)
             plugin.logger.info("registered vote listener!")
         }
 
@@ -47,10 +50,7 @@ class VoteHandler(internal var plugin: AlphheimCore) {
     }
 
     fun destruct() {
-        val removed = votifier?.listeners?.removeIf { it.javaClass == AVoteListener::javaClass }
-        if (removed != null && removed) {
-            plugin.logger.info("Unregistered vote listener!")
-        }
+        val removed = votifier?.listeners?.remove(voteHandler)
     }
 
     fun createVote(username: String, address: String, serviceName: String) {
