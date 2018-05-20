@@ -13,6 +13,7 @@ import im.alphhe.alphheimplugin.components.mmocredits.MMOCreditsHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandException
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
@@ -42,6 +43,7 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     fun giveCredits(sender: CommandSender, target: OfflinePlayer, amount: Int?) {
         if (amount!! <= 0) {
             MessageUtil.sendError(sender, "Specify a value greater than 0!")
+            return
         }
         MySQL.executor.execute({
 
@@ -61,6 +63,7 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     fun takeCredits(sender: CommandSender, target: OfflinePlayer, amount: Int?) {
         if (amount!! <= 0) {
             MessageUtil.sendError(sender, "Specify a value greater than 0!")
+            return
         }
         MySQL.executor.execute({
 
@@ -80,6 +83,7 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
         amount!!
         if (amount <= 0) {
             MessageUtil.sendError(sender, "Specify a value greater than 0!")
+            return
         }
 
         MySQL.executor.execute({
