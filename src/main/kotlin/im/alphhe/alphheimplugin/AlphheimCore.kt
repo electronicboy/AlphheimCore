@@ -112,7 +112,7 @@ AlphheimCore : JavaPlugin() {
                     user.setLastNick(it.name)
                 }
             }
-        }
+        }.runTask(this)
     }
 
     private fun enableComponents() {
