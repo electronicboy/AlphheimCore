@@ -55,4 +55,23 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     }
 
 
+    @CommandPermission("alphheim.dev")
+    @CommandCompletion("@players")
+    @Subcommand("take")
+    fun takeCredits(sender: CommandSender, target: OfflinePlayer, amount: Int?) {
+        if (amount!! <= 0) {
+            MessageUtil.sendError(sender, "Specify a value greater than 0!")
+        }
+        MySQL.executor.execute({
+
+            if (handler.takeCredits(target, amount)) {
+                if (target.isOnline) MessageUtil.sendInfo(target.player, "You have lost $amount credits!")
+
+                MessageUtil.sendInfo(sender, "You have taken $amount credits from ${target.name}!")
+            }
+        })
+
+    }
+
+
 }

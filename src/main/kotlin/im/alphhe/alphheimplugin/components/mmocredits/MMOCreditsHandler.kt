@@ -15,7 +15,7 @@ class MMOCreditsHandler(private val plugin: AlphheimCore) {
     val validSkills = setOf("TAMING", "SWORDS", "ALCHEMY", "UNARMED", "ARCHERY", "AXES", "ACROBATICS", "FISHING", "EXCAVATION", "MINING", "HERBALISM", "REPAIR", "WOODCUTTING")
 
     init {
-        plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills", {_ ->
+        plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills", { _ ->
             validSkills.map { it.toLowerCase() }
         })
 
@@ -46,7 +46,6 @@ class MMOCreditsHandler(private val plugin: AlphheimCore) {
 
     fun giveCredits(player: OfflinePlayer, amount: Int): Boolean {
         val user = plugin.userManager.getUser(player.uniqueId)
-
         MySQL.getConnection().use { conn ->
             conn.prepareStatement("INSERT INTO player_credits (PLAYER_ID, CREDITS) VALUES (?, ?) ON DUPLICATE KEY UPDATE CREDITS = CREDITS + VALUES(CREDITS)").use { stmt ->
                 stmt.setInt(1, user.userID)
@@ -56,8 +55,43 @@ class MMOCreditsHandler(private val plugin: AlphheimCore) {
         }
     }
 
+    fun takeCredits(player: OfflinePlayer, amount: Int): Boolean {
+        val user = plugin.userManager.getUser(player.uniqueId)
+        MySQL.getConnection().use { conn ->
+            conn.autoCommit = false // Disable, we're about to do stuff that requires locking for the transaction....
+
+            var credits = 0
+            conn.prepareStatement("SELECT CREDITS FROM player_credits WHERE PLAYER_ID = ? FOR UPDATE").use { stmt ->
+                stmt.setInt(1, user.userID)
+                stmt.executeQuery().use { rs ->
+                    // No results, means that we can't take from them...
+                    if (!rs.next()) {
+                        return false
+                    }
+
+                    credits = rs.getInt("CREDITS")
+                }
+            }
+
+            val newAmount = credits - amount
+            if (newAmount < 0) {
+                return false
+            }
+
+            conn.prepareStatement("UPDATE player_credits SET CREDITS = CREDITS - ? WHERE PLAYER_ID = ?").use { stmt ->
+                stmt.setInt(1, amount)
+                stmt.setInt(2, user.userID)
+                stmt.execute()
+            }
+
+            conn.commit()
+            conn.autoCommit = true
+            return true
+
+        }
 
 
+    }
 
 
 }
