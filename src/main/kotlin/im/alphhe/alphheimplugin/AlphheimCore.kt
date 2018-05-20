@@ -109,10 +109,15 @@ AlphheimCore : JavaPlugin() {
             override fun run() {
                 Bukkit.getOfflinePlayers().forEach {
                     val user = userManager.getUser(it.uniqueId)
-                    user.setLastNick(it.name)
+                    try {
+                        user.setLastNick(it.name)
+                    }catch (ex: Exception) {
+                        logger.warning("failed to update info for ${it.name}|${it.uniqueId}|${user.userID}")
+                        ex.printStackTrace()
+                    }
                 }
             }
-        }.runTask(this)
+        }.runTaskAsynchronously(this)
     }
 
     private fun enableComponents() {
