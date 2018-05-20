@@ -26,7 +26,6 @@ class SpawnListener(private val spawnHandler: SpawnHandler) : Listener {
             e.player.inventory.addItem(spawnHandler.getBook())
         }
 
-
     }
 
     @EventHandler

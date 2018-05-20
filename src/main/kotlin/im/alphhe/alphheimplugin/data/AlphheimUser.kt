@@ -34,6 +34,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     private val cooldowns = HashMap<String, Long>()
 
     var overrides = false
+    var firstJoin = false
 
     private fun getPlayer(): Player? {
         return Bukkit.getPlayer(uuid)
@@ -56,9 +57,9 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
             }
         }
         if (userID == -1) {
-
+            firstJoin = true
             MySQL.getConnection().use { connection ->
-                val statement1 = connection.prepareStatement("INSERT INTO player_data (PLAYER_UUID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)
+                val statement1 = connection.prepareStatement("INSERT INTO player_data (PLAYER_UUID) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)
                 statement1.use { insertStatement ->
 
                     insertStatement.setString(1, uuid.toString())
@@ -107,13 +108,8 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                 }
 
             }
-
-
         }
 
-        MySQL.getConnection().use { conn ->
-
-        }
     }
 
 
@@ -207,6 +203,18 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
 
     fun getOfflinePlayer(): OfflinePlayer {
         return Bukkit.getOfflinePlayer(uuid)
+    }
+
+    fun setLastNick(name: String) {
+        MySQL.executor.execute({
+            MySQL.getConnection().use {conn ->
+                conn.prepareStatement("UPDATE player_data SET PLAYER_LAST_NAME = ? WHERE PLAYER_ID = ?").use {stmt ->
+                    stmt.setString(1, name)
+                    stmt.setInt(2, userID)
+                    stmt.executeUpdate()
+                }
+            }
+        })
     }
 
 }

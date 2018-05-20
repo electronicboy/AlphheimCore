@@ -23,6 +23,7 @@ class PlayerListener(private val plugin: AlphheimCore) : Listener {
     fun onAsyncJoin(e: AsyncPlayerPreLoginEvent) {
         val user = this.plugin.userManager.getUser(e.uniqueId)
         user.updateData() // ensure that user data is updated from the db
+        user.setLastNick(e.name)
 
     }
 
