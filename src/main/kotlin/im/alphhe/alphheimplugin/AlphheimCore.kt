@@ -39,6 +39,7 @@ import org.bukkit.command.SimpleCommandMap
 import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
+import java.util.*
 
 
 class
@@ -104,6 +105,32 @@ AlphheimCore : JavaPlugin() {
 
         //chatHandler = ChatHandlerService(this)
         //servicesManager.registerService(Chat::class.java, chatHandler, this,true)
+        object : BukkitRunnable() {
+            override fun run() {
+                MySQL.getConnection().use { conn ->
+                    conn.prepareStatement("SELECT PLAYER_UUID FROM player_data").use { stmt ->
+                        stmt.executeQuery().use {
+
+
+                            while (it.next()) {
+                                try {
+                                    val uuidString = it.getString("PLAYER_UUID")
+
+                                    val uuid = UUID.fromString(uuidString)
+                                    val player = Bukkit.getOfflinePlayer(uuid)
+                                    val user = userManager.getUser(uuid)
+                                    user.setLastNick(player.name)
+
+
+                                } catch (ex: Exception) {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }.runTaskAsynchronously(this)
     }
 
     private fun enableComponents() {
