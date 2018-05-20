@@ -123,6 +123,7 @@ AlphheimCore : JavaPlugin() {
 
 
                                 } catch (ex: Exception) {
+                                    ex.printStackTrace()
                                 }
                             }
                         }
