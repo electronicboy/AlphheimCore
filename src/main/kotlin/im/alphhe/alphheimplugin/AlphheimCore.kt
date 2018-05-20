@@ -104,20 +104,6 @@ AlphheimCore : JavaPlugin() {
 
         //chatHandler = ChatHandlerService(this)
         //servicesManager.registerService(Chat::class.java, chatHandler, this,true)
-
-        object : BukkitRunnable() {
-            override fun run() {
-                Bukkit.getOfflinePlayers().forEach {
-                    val user = userManager.getUser(it.uniqueId)
-                    try {
-                        user.setLastNick(it.name)
-                    }catch (ex: Exception) {
-                        logger.warning("failed to update info for ${it.name}|${it.uniqueId}|${user.userID}")
-                        ex.printStackTrace()
-                    }
-                }
-            }
-        }.runTaskAsynchronously(this)
     }
 
     private fun enableComponents() {
