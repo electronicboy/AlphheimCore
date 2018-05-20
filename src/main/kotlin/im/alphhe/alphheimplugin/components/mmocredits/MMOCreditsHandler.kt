@@ -4,12 +4,10 @@
  * Written by Shane Freeder - 2018.
  */
 
-package im.alphhe.alphheimplugin.components.mmocedits
+package im.alphhe.alphheimplugin.components.mmocredits
 
-import co.aikar.commands.annotation.CommandPermission
-import com.gmail.nossr50.api.ExperienceAPI
 import im.alphhe.alphheimplugin.AlphheimCore
-import im.alphhe.alphheimplugin.components.mmocedits.commands.CommandCredits
+import im.alphhe.alphheimplugin.components.mmocredits.commands.CommandCredits
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
 

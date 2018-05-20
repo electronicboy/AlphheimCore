@@ -4,12 +4,12 @@
  * Written by Shane Freeder - 2018.
  */
 
-package im.alphhe.alphheimplugin.components.mmocedits.commands
+package im.alphhe.alphheimplugin.components.mmocredits.commands
 
 import co.aikar.commands.annotation.*
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
-import im.alphhe.alphheimplugin.components.mmocedits.MMOCreditsHandler
+import im.alphhe.alphheimplugin.components.mmocredits.MMOCreditsHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
