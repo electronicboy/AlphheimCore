@@ -52,7 +52,8 @@ class MMOCreditsHandler(private val plugin: AlphheimCore) {
             conn.prepareStatement("INSERT INTO player_credits (PLAYER_ID, CREDITS) VALUES (?, ?) ON DUPLICATE KEY UPDATE CREDITS = CREDITS + VALUES(CREDITS)").use { stmt ->
                 stmt.setInt(1, user.userID)
                 stmt.setInt(2, amount)
-                return stmt.execute()
+                stmt.execute()
+                return true // No exceptions occurred, this can't be bad.
             }
         }
     }
