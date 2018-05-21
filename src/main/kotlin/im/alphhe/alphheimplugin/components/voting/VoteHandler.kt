@@ -15,14 +15,11 @@ import im.alphhe.alphheimplugin.components.voting.rewards.MMOCreditReward
 import im.alphhe.alphheimplugin.components.voting.votelistener.AVoteListener
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.OfflinePlayer
-import org.bukkit.craftbukkit.v1_8_R3.util.Waitable
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import java.sql.Timestamp
-import java.util.concurrent.CompletableFuture
 import java.util.concurrent.FutureTask
 
 class VoteHandler(internal var plugin: AlphheimCore) {
@@ -61,7 +58,7 @@ class VoteHandler(internal var plugin: AlphheimCore) {
             val user = plugin.userManager.getUser(offlinePlayer.uniqueId)
             val task = FutureTask({
                 processVote(offlinePlayer)
-            } )
+            })
 
             plugin.server.scheduler.runTask(plugin, task)
 
@@ -86,9 +83,50 @@ class VoteHandler(internal var plugin: AlphheimCore) {
 
 
     fun processPlayerLogin(player: Player) {
+        if (player.name != "electronicboy") return
+
+        MySQL.executor.execute({
+            val user = plugin.userManager.getUser(player)
+            MySQL.getConnection().use { conn ->
+                val votes = ArrayList<Int>()
+
+                conn.autoCommit = false // we're about to go barebones again...
+                conn.prepareStatement("SELECT VOTE_ID FROM player_votes WHERE PLAYER_ID = ? AND REDEEMED = FALSE FOR UPDATE ").use { stmt ->
+                    stmt.setInt(1, user.userID)
+                    stmt.executeQuery().use { rs ->
+                        while (rs.next()) {
+                            votes.add(rs.getInt("VOTE_ID"))
+                        }
+                    }
+
+                }
+
+                for (voteID in votes) {
+                    if (!player.isOnline) break
+
+                    val task = FutureTask<Boolean>({
+                        processVote(player)
+                    })
+                    plugin.server.scheduler.runTask(plugin, task)
+
+                    if (task.get()) {
+                        conn.prepareStatement("UPDATE player_votes SET REDEEMED = TRUE WHERE VOTE_ID = ?").use { stmt ->
+                            stmt.setInt(1, voteID)
+                        }
+                    }
+
+
+                }
+
+                conn.commit()
+                conn.autoCommit = true
+
+            }
+        })
+
     }
 
-    fun processVote(player: OfflinePlayer) : Boolean {
+    fun processVote(player: OfflinePlayer): Boolean {
         if (!player.isOnline) return false
         val onlinePlayer = player.player ?: return false
 
@@ -104,8 +142,6 @@ class VoteHandler(internal var plugin: AlphheimCore) {
         return true
 
     }
-
-
 
 
 }
