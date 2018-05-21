@@ -96,4 +96,18 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "r
 
 
     }
+
+    @CommandPermission("alphheim.mod")
+    @Subcommand("i|inspect|info")
+    @CommandCompletion("@players")
+    fun inspect(sender: CommandSender, target: OnlinePlayer) {
+        val user = plugin.luckPermsApi.getUser(target.player.uniqueId)
+        if (user == null) {
+            MessageUtil.sendError(sender, "Error occured fetching profile for ${target.player.name}")
+            return
+        }
+
+        MessageUtil.sendInfo(sender, "groups set for user set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
+    }
+
 }
