@@ -13,7 +13,7 @@ import org.bukkit.entity.Player
 class MMOCreditReward(private val voteHandler: VoteHandler, private val amount: Int) : IVoteReward {
     override fun process(player: Player): Boolean {
         if (voteHandler.plugin.creditsHandler.giveCredits(player, amount)) {
-            MessageUtil.sendInfo(player, "You have received $amount mmo credits! Use /redeem to redeem them!")
+            MessageUtil.sendInfo(player, "You have received $amount mmo credits! Use /credits redeem to redeem them!")
         }
 
         return true
