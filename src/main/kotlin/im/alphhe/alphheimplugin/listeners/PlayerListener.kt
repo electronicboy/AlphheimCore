@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.scheduler.BukkitRunnable
 
 class PlayerListener(private val plugin: AlphheimCore) : Listener {
 
@@ -31,7 +32,13 @@ class PlayerListener(private val plugin: AlphheimCore) : Listener {
     fun onJoin(e: PlayerJoinEvent) {
         plugin.server.scheduler.runTaskLater(plugin, { this.plugin.tabListHandler.setSB(e.player) }, 10L)
         plugin.healthHandler.updateHealth(e.player)
-        plugin.voteHandler.processPlayerLogin(e.player)
+        object : BukkitRunnable() {
+            override fun run() {
+                if (e.player.isOnline)
+                    plugin.voteHandler.processPlayerLogin(e.player)
+            }
+        }.runTaskLater(plugin, 10)
+
 
 
     }
