@@ -112,6 +112,7 @@ class VoteHandler(internal var plugin: AlphheimCore) {
                     if (task.get()) {
                         conn.prepareStatement("UPDATE player_votes SET REDEEMED = TRUE WHERE VOTE_ID = ?").use { stmt ->
                             stmt.setInt(1, voteID)
+                            stmt.execute()
                         }
                     }
 
