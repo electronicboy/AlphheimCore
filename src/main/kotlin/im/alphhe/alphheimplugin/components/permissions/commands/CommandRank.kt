@@ -23,13 +23,13 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "r
     private val worldSpawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
 
     @Default
-    @Subcommand("list")
+    @Subcommand("list|l")
     @CommandPermission("alphheim.mod")
     fun listRanks(sender: CommandSender) {
         sender.sendMessage(plugin.permissionHandler.getGroups().joinToString(","))
     }
 
-    @Subcommand("set")
+    @Subcommand("set|s")
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players @groups")
     fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String, @Optional @Default("false") firstSet: Boolean) {
@@ -98,7 +98,7 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "r
     }
 
     @CommandPermission("alphheim.mod")
-    @Subcommand("i|inspect|info")
+    @Subcommand("inspect|info|i")
     @CommandCompletion("@players")
     fun inspect(sender: CommandSender, target: OnlinePlayer) {
         val user = plugin.luckPermsApi.getUser(target.player.uniqueId)
