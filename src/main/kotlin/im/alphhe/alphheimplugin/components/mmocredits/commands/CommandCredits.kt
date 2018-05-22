@@ -13,24 +13,30 @@ import im.alphhe.alphheimplugin.components.mmocredits.MMOCreditsHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
-import org.bukkit.command.CommandException
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("mmocredits")
 class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin, "credits") {
 
+
     @CommandCompletion("@players")
+    @CommandPermission("alphheim.admin")
+    @Subcommand("credits|check")
+    fun creditCheck(sender: Player, target: OfflinePlayer) {
+        MySQL.executor.execute({
+            val credits = handler.getCredits(target)
+            MessageUtil.sendInfo(sender, "${target.player.name} has $credits")
+        })
+
+    }
+
     @Default
     @Subcommand("credits|check")
-    fun creditCheck(sender: Player, @Flags("defaultself") target: Player) {
+    fun creditCheck(sender: Player) {
         MySQL.executor.execute({
-            val credits = handler.getCredits(target.player)
-            if (target.player == sender) {
-                MessageUtil.sendInfo(sender, "You have $credits credits to redeem!")
-            } else {
-                MessageUtil.sendInfo(sender, "${target.player.name} has $credits")
-            }
+            val credits = handler.getCredits(sender)
+            MessageUtil.sendInfo(sender, "You have $credits credits to redeem!")
         })
 
     }
