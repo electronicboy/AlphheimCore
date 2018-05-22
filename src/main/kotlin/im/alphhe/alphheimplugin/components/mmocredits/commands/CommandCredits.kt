@@ -23,10 +23,10 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     @CommandCompletion("@players")
     @CommandPermission("alphheim.admin")
     @Subcommand("credits|check")
-    fun creditCheck(sender: Player, target: OfflinePlayer) {
+    fun creditCheck(sender: CommandSender, target: OfflinePlayer) {
         MySQL.executor.execute({
             val credits = handler.getCredits(target)
-            MessageUtil.sendInfo(sender, "${target.player.name} has $credits")
+            MessageUtil.sendInfo(sender, "${target.name} has $credits")
         })
 
     }
