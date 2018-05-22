@@ -20,7 +20,6 @@ import org.bukkit.entity.Player
 @CommandAlias("mmocredits")
 class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin, "credits") {
 
-    @CommandPermission("alphheim.dev")
     @CommandCompletion("@players")
     @Default
     @Subcommand("credits|check")
@@ -37,7 +36,7 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     }
 
 
-    @CommandPermission("alphheim.dev")
+    @CommandPermission("alphheim.admin")
     @CommandCompletion("@players")
     @Subcommand("give")
     fun giveCredits(sender: CommandSender, target: OfflinePlayer, amount: Int?) {
@@ -57,7 +56,7 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     }
 
 
-    @CommandPermission("alphheim.dev")
+    @CommandPermission("alphheim.admin")
     @CommandCompletion("@players")
     @Subcommand("take")
     fun takeCredits(sender: CommandSender, target: OfflinePlayer, amount: Int?) {
@@ -76,7 +75,6 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
 
     }
 
-    @CommandPermission("alphheim.dev")
     @CommandCompletion("@mmoskills")
     @Subcommand("redeem")
     fun redeem(sender: Player, skill: String, amount: Int?) {
