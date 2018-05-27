@@ -135,7 +135,7 @@ class PermissionHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
             if (mappedValue != null) {
                 try {
                     val long = mappedValue.toLong()
-                    if (value == null || long >= value) value = long
+                    if (value == null) value = long
                 } catch (ignored: NumberFormatException) {
                 } // ignore...
             }
