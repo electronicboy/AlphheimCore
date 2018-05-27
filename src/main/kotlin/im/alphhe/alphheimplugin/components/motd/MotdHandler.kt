@@ -7,11 +7,12 @@
 package im.alphhe.alphheimplugin.components.motd
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.motd.commands.CommandMotd
 import im.alphhe.alphheimplugin.components.motd.listeners.MotdListener
 import org.bukkit.event.Listener
 
-class MotdHandler(val plugin: AlphheimCore) {
+class MotdHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     val listener = MotdListener(this)
     val command = CommandMotd(this)

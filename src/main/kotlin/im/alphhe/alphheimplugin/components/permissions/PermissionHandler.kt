@@ -10,6 +10,7 @@ import co.aikar.commands.BukkitCommandCompletionContext
 import com.google.common.collect.HashBasedTable
 import com.google.common.collect.ImmutableList
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.permissions.commands.CommandRank
 import me.lucko.luckperms.api.Contexts
 import me.lucko.luckperms.api.Group
@@ -20,10 +21,10 @@ import org.bukkit.plugin.java.PluginClassLoader
 import org.bukkit.util.StringUtil
 import java.util.*
 
-class PermissionHandler(private val plugin: AlphheimCore) {
+class PermissionHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     val groups = HashMap<String, Group>()
-    val userMetaCache = HashBasedTable.create<UUID, String, String>(100, 20)
+    val userMetaCache: HashBasedTable<UUID, String, String> = HashBasedTable.create<UUID, String, String>(100, 20)
 
     init {
         plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java, {

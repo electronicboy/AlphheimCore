@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.components.voting
 
 import com.vexsoftware.votifier.Votifier
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.voting.rewards.EcoVoteReward
 import im.alphhe.alphheimplugin.components.voting.rewards.IVoteReward
 import im.alphhe.alphheimplugin.components.voting.rewards.ItemVoteReward
@@ -22,7 +23,7 @@ import org.bukkit.inventory.ItemStack
 import java.sql.Timestamp
 import java.util.concurrent.FutureTask
 
-class VoteHandler(internal var plugin: AlphheimCore) {
+class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     private val votifier = plugin.server.pluginManager.getPlugin("Votifier") as? Votifier
     private val rewards = ArrayList<IVoteReward>()

@@ -94,6 +94,7 @@ dependencies {
         exclude group: "org.bukkit", module: "bukkit"
         exclude group: "com.turt2live.metrics", module: "MetricsExtension"
     }
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
 

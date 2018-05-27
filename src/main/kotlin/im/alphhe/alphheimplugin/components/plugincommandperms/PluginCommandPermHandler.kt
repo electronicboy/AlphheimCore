@@ -7,6 +7,7 @@
 package im.alphhe.alphheimplugin.components.plugincommandperms
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
@@ -16,7 +17,7 @@ import org.bukkit.event.server.PluginEnableEvent
 
 private val NO_PERM_MESSAGE = "${ChatColor.DARK_GRAY}[${ChatColor.RED}A${ChatColor.DARK_GRAY}] ${ChatColor.DARK_RED}You do not have permission to use this command!"
 
-class PluginCommandPermHandler(val plugin: AlphheimCore) : Listener {
+class PluginCommandPermHandler(plugin: AlphheimCore) : AbstractHandler(plugin), Listener {
 
 
     init {

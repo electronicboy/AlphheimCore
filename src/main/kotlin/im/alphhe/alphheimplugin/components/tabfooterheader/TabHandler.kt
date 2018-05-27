@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.components.tabfooterheader
 
 import com.google.gson.GsonBuilder
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.FrameBuilder
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.TabFrame
 import net.md_5.bungee.api.chat.TextComponent
@@ -19,7 +20,7 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.util.*
 
-class TabHandler(private val plugin: AlphheimCore) : BukkitRunnable() {
+class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
 
     private var frames = ArrayList<TabFrame>()
@@ -45,26 +46,29 @@ class TabHandler(private val plugin: AlphheimCore) : BukkitRunnable() {
 
         reset()
 
-        runTaskTimerAsynchronously(plugin, 0, 10)
-    }
+        // TODO: Extract to seperate class
+        val runnable = object : BukkitRunnable() {
+            override fun run() {
+                synchronized(lock) {
+                    for (player in plugin.server.onlinePlayers) {
+                        var playerFrame = frame[player.uniqueId] ?: 0
 
-    @Synchronized
-    override fun run() {
-        synchronized(lock) {
-            for (player in plugin.server.onlinePlayers) {
-                var playerFrame = frame[player.uniqueId] ?: 0
+                        sendFrame(player, frames[playerFrame])
+                        ++playerFrame
+                        if (playerFrame == frames.size) {
+                            frame[player.uniqueId] = 0
+                        } else {
+                            frame[player.uniqueId] = playerFrame
+                        }
 
-                sendFrame(player, frames[playerFrame])
-                ++playerFrame
-                if (playerFrame == frames.size) {
-                    frame[player.uniqueId] = 0
-                } else {
-                    frame[player.uniqueId] = playerFrame
+                    }
                 }
-
             }
         }
+
+        runnable.runTaskTimerAsynchronously(plugin, 0, 10)
     }
+
 
     fun sendFrame(player: Player, frame: TabFrame) {
         val header = processReplacements(frame.header, player)

@@ -7,6 +7,7 @@
 package im.alphhe.alphheimplugin.components.tablist
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -15,7 +16,7 @@ import org.bukkit.scoreboard.ScoreboardManager
 import org.bukkit.scoreboard.Team
 import java.util.*
 
-class TabListHandler(private val plugin: AlphheimCore) {
+class TabListHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     private val manager: ScoreboardManager
     private val sb: Scoreboard

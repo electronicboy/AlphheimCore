@@ -8,4 +8,4 @@ package im.alphhe.alphheimplugin.components
 
 import im.alphhe.alphheimplugin.AlphheimCore
 
-abstract class AbstractHandler(internal val plugin: AlphheimCore)
+abstract class AbstractHandler(open val plugin: AlphheimCore)

@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.components.donor
 
 import co.aikar.commands.InvalidCommandArgument
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.donor.commands.CommandCraft
 import im.alphhe.alphheimplugin.components.donor.commands.CommandDonor
 import im.alphhe.alphheimplugin.components.donor.commands.CommandHat
@@ -16,7 +17,7 @@ import im.alphhe.alphheimplugin.components.donor.handlers.LorebagHandler
 import im.alphhe.alphheimplugin.components.donor.handlers.MobSpawnerHandler
 import im.alphhe.alphheimplugin.components.donor.handlers.ReasonToLiveHandler
 
-class DonorManager(private val plugin: AlphheimCore) {
+class DonorManager(plugin: AlphheimCore) : AbstractHandler(plugin){
 
     private val handlers = mutableMapOf<String, IDonorHandler>()
 

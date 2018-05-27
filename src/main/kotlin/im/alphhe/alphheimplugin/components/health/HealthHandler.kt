@@ -7,12 +7,13 @@
 package im.alphhe.alphheimplugin.components.health
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import me.lucko.luckperms.api.Contexts
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.entity.Player
 import java.util.*
 
-class HealthHandler(private var plugin: AlphheimCore) {
+class HealthHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     private val playerHealth: MutableMap<UUID, Double>
 

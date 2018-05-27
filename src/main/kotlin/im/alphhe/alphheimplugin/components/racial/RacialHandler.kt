@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.components.racial
 
 import com.palmergames.bukkit.towny.Towny
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.racial.handler.DwarvenRacialProvider
 import im.alphhe.alphheimplugin.components.racial.handler.IRacialProcessor
 import im.alphhe.alphheimplugin.components.racial.handler.RacialEffectsProvider
@@ -17,9 +18,9 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
-val HALF_INT = Int.MAX_VALUE / 2
+const val HALF_INT = Int.MAX_VALUE / 2
 
-class RacialHandler(private val plugin: AlphheimCore) {
+class RacialHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     //private val enchants: Map<Player, Map<PotionEffectType, Int>> = HashMap()
     private val getters = LinkedList<IRacialProcessor>()
     private val towny: Towny = plugin.server.pluginManager.getPlugin("Towny") as Towny
