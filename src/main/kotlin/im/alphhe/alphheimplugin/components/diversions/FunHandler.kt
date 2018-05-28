@@ -19,7 +19,7 @@ class FunHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     init {
         plugin.server.pluginManager.registerEvents(FurnaceListener(), plugin)
-        plugin.server.pluginManager.registerEvents(EdibleListener(), plugin)
+        plugin.server.pluginManager.registerEvents(EdibleListener(plugin), plugin)
         plugin.commandManager.registerCommand(CommandRoulette(plugin))
 
         try { registerRecipes() } catch (ex: Exception) {}
