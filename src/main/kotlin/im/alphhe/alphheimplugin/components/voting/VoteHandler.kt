@@ -20,6 +20,7 @@ import org.bukkit.Material
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.plugin.java.PluginClassLoader
 import java.sql.Timestamp
 import java.util.concurrent.FutureTask
 
@@ -34,7 +35,12 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         if (votifier == null) {
             plugin.logger.warning("Could not find votifier plugin!")
         } else {
-            votifier.listeners.clear()
+
+            votifier.listeners.removeIf({
+                val cl = it.javaClass.classLoader as? PluginClassLoader
+                cl != null && cl.plugin.name == plugin.name
+            })
+
             voteHandler = AVoteListener(this)
             votifier.listeners.add(voteHandler)
             plugin.logger.info("registered vote listener!")
