@@ -21,11 +21,6 @@ class CommandHat(private var plugin: AlphheimCore) : AlphheimCommand(plugin, "ha
     fun onHat(player: Player, @Default("wear") action: String) {
         // TODO: Handle remove?
         if (player.itemInHand?.type != Material.AIR) {
-            if (player.itemInHand.type.maxDurability == 0.toShort()) {
-                MessageUtil.sendError(player, "This item cannot be used as a hat!")
-            }
-
-
             val inventory = player.inventory
 
             // Get items....
