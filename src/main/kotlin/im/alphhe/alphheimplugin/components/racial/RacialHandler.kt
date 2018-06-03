@@ -12,6 +12,7 @@ import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.racial.handler.DwarvenRacialProvider
 import im.alphhe.alphheimplugin.components.racial.handler.IRacialProcessor
 import im.alphhe.alphheimplugin.components.racial.handler.RacialEffectsProvider
+import im.alphhe.alphheimplugin.components.racial.listeners.RacialPlayerListener
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -28,6 +29,7 @@ class RacialHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     init {
         addHandler(DwarvenRacialProvider(plugin))
         addHandler(RacialEffectsProvider(plugin))
+        RacialPlayerListener(this);
 
         if (plugin.server.onlinePlayers.isNotEmpty()) {
             object : BukkitRunnable() {

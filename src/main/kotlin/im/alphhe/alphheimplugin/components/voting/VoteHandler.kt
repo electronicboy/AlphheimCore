@@ -54,7 +54,7 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     }
 
     fun destruct() {
-        val removed = votifier?.listeners?.remove(voteHandler)
+        votifier?.listeners?.remove(voteHandler)
     }
 
     fun createVote(username: String, address: String, serviceName: String) {
