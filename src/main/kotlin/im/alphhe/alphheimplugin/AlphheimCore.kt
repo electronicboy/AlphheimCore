@@ -12,7 +12,6 @@ import im.alphhe.alphheimplugin.commands.CommandCore
 import im.alphhe.alphheimplugin.commands.CommandEnderChest
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandSign
-import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.combat.CombatHandler
@@ -32,7 +31,6 @@ import im.alphhe.alphheimplugin.components.tablist.TabListHandler
 import im.alphhe.alphheimplugin.components.voting.VoteHandler
 import im.alphhe.alphheimplugin.listeners.PlayerListener
 import im.alphhe.alphheimplugin.listeners.SignListener
-import im.alphhe.alphheimplugin.utils.ComponentHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.LuckPermsApi
@@ -40,7 +38,6 @@ import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
 import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
-import kotlin.reflect.KClass
 
 
 class AlphheimCore : JavaPlugin() {

@@ -1,4 +1,4 @@
-for mine in Icario Eliador navach KhazadDul
+for mine in CourtofSummer
 do
     # unset existing junk
     echo mrl unset $mine GOLD_ORE

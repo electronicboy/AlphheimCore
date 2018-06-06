@@ -81,7 +81,7 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
 
     @Subcommand("fakevote")
     @CommandPermission("alphheim.developer")
-    fun fakevote(sender: CommandSender, @Single target: String, @Single address: String, @Single service: String) {
+    fun fakevote(@Single target: String, @Single address: String, @Single service: String) {
         plugin.voteHandler.createVote(target, address, service)
     }
 
@@ -115,46 +115,6 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "a
         MessageUtil.sendInfo(sender, "Staff overrides are $newMode for ${user.getNickname()}")
     }
 
-
-    @Subcommand("cmdlist")
-    @CommandPermission("alphheim.developer")
-    fun cmdlist(sender: CommandSender) {
-        val field = SimpleCommandMap::class.java.getDeclaredField("knownCommands")
-        field.isAccessible = true
-        val commandMap: Map<String, Command> = field.get(plugin.server.commandMap) as Map<String, Command>
-
-        val commands = TreeSet<Command>({ i1, i2 ->
-            val name1 = when {
-                i1 is PluginCommand -> i1.plugin.name + ":" + i1.name
-                i1.javaClass.classLoader is PluginClassLoader -> (i1.javaClass.classLoader as PluginClassLoader).plugin.name + ":" + i1.name
-                else -> {
-                    i1.name
-                }
-            }
-
-            val name2 = when {
-                i2 is PluginCommand -> i2.plugin.name + ":" + i2.name
-                i2.javaClass.classLoader is PluginClassLoader -> (i2.javaClass.classLoader as PluginClassLoader).plugin.name + ":" + i2.name
-                else -> {
-                    i2.name
-                }
-            }
-            name1.compareTo(name2)
-
-        })
-
-        commandMap.entries.forEach { commands.add(it.value) }
-
-        commands.forEach {
-            val name = if (it is PluginCommand) {
-                it.plugin.name + ":" + it.name
-            } else {
-                it.name
-            }
-            println("command: $name")
-        }
-
-    }
 }
 
 
