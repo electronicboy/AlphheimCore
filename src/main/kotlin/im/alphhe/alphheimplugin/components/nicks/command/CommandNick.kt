@@ -30,7 +30,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Subcommand("list")
     @CommandPermission("alphheim.mod")
     @Description("list pending nick requests")
-    public fun list(sender: CommandSender) {
+    fun list(sender: CommandSender) {
         MySQL.executor.execute {
 
             MySQL.getConnection().use {
@@ -117,7 +117,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Description("set the nickname for a player")
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players")
-    public fun set(sender: CommandSender, target: OfflinePlayer, nick: String) {
+    fun set(sender: CommandSender, target: OfflinePlayer, nick: String) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
         uTarget.setNickname(nick)
         MessageUtil.sendInfo(sender, "You have set the nickname of ${uTarget.getOfflinePlayer().name} to ${ChatColor.translateAlternateColorCodes('&', nick)}")
@@ -128,7 +128,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Description("accept pending nick request")
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players")
-    public fun accept(sender: CommandSender, target: OfflinePlayer) {
+    fun accept(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
 
         MySQL.executor.execute {
@@ -156,7 +156,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Description("reject pending nick request")
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players")
-    public fun reject(sender: CommandSender, target: OfflinePlayer) {
+    fun reject(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
 
         MySQL.executor.execute {
@@ -192,7 +192,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("request")
     @Description("request a nickname")
-    public fun request(sender: Player, request: String) {
+    fun request(sender: Player, request: String) {
         val requested = request.trim().replace(' ', '_')
         MySQL.executor.execute {
             val user = plugin.userManager.getUser(sender.uniqueId)
@@ -213,7 +213,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
     @Subcommand("status")
     @Description("check the status of your nickname request")
-    public fun status(sender: Player) {
+    fun status(sender: Player) {
         MySQL.executor.execute {
             val user = plugin.userManager.getUser(sender.uniqueId)
             MySQL.getConnection().use { conn ->
@@ -242,7 +242,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
     @Description("remove a players nickname")
     @CommandCompletion("@players")
     @CommandPermission("alphheim.mod")
-    public fun reset(sender: CommandSender, target: OfflinePlayer) {
+    fun reset(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.userManager.getUser(target.uniqueId)
         uTarget.setNickname(null)
         MessageUtil.sendInfo(sender, "You have reset the nickname of ${target.name}")
