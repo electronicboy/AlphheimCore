@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.nicks.command
 
+import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.addComponent
@@ -249,8 +250,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "n
 
 
     @HelpCommand
-    @CatchUnknown
-    fun unknownCommand(sender: CommandSender) {
-        showCommandHelp()
+    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
     }
 }
