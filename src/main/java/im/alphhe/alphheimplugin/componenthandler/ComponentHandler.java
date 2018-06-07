@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.componenthandler;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -17,7 +18,7 @@ import im.alphhe.alphheimplugin.AlphheimCore;
 import im.alphhe.alphheimplugin.components.AbstractHandler;
 
 public class ComponentHandler {
-    private Map<Class<? extends AbstractHandler>, ComponentHolder<? extends AbstractHandler>> component;
+    private Map<Class<? extends AbstractHandler>, ComponentHolder<? extends AbstractHandler>> component = new HashMap<>();
     private AlphheimCore plugin;
 
 
