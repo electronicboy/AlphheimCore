@@ -12,6 +12,7 @@ import im.alphhe.alphheimplugin.commands.CommandCore
 import im.alphhe.alphheimplugin.commands.CommandEnderChest
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandSign
+import im.alphhe.alphheimplugin.componenthandler.ComponentHandler
 import im.alphhe.alphheimplugin.components.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.combat.CombatHandler
@@ -42,20 +43,34 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class AlphheimCore : JavaPlugin() {
 
+    private val componentHandler = ComponentHandler(this)
+
     lateinit var chatHandler: ChatHandlerService
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var userManager: UserManager
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var injector: Injector
         private set
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var commandManager: BukkitCommandManager
     var commandLore: CommandLore? = null
+    @Deprecated("Use ComponentHandler!!!")
     var tabHandler: TabHandler? = null
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var tabListHandler: TabListHandler
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var luckPermsApi: LuckPermsApi
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var healthHandler: HealthHandler
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var permissionHandler: PermissionHandler
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var racialHandler: RacialHandler
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var spawnHandler: SpawnHandler
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var voteHandler: VoteHandler
+    @Deprecated("Use ComponentHandler!!!")
     lateinit var creditsHandler: MMOCreditsHandler
 
     private var consolePerms = mutableListOf<PermissionAttachment>()
@@ -118,7 +133,8 @@ class AlphheimCore : JavaPlugin() {
         DonorManager(this)
         CombatHandler(this)
         voteHandler = VoteHandler(this)
-        creditsHandler = MMOCreditsHandler(this)
+        creditsHandler = componentHandler.registerComponent(MMOCreditsHandler::class.java)
+        //creditsHandler = MMOCreditsHandler(this)
     }
 
     private fun registerCommands() {
