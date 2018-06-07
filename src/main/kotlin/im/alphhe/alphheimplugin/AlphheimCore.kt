@@ -119,22 +119,21 @@ class AlphheimCore : JavaPlugin() {
     }
 
     private fun enableComponents() {
-        permissionHandler = PermissionHandler(this)
-        PluginCommandPermHandler(this)
-        MotdHandler(this)
-        FunHandler(this)
-        spawnHandler = SpawnHandler(this)
-        tabHandler = TabHandler(this)
-        tabListHandler = TabListHandler(this)
-        healthHandler = HealthHandler(this)
-        racialHandler = RacialHandler(this)
-        RankCommands(this)
-        NickManager(this)
-        DonorManager(this)
-        CombatHandler(this)
-        voteHandler = VoteHandler(this)
+        permissionHandler = componentHandler.registerComponent(PermissionHandler::class.java)
+        componentHandler.registerComponent(PluginCommandPermHandler::class.java)
+        componentHandler.registerComponent(MotdHandler::class.java)
+        componentHandler.registerComponent(FunHandler::class.java)
+
+        spawnHandler = componentHandler.registerComponent(SpawnHandler::class.java)
+        tabHandler = componentHandler.registerComponent(TabHandler::class.java)
+        tabListHandler = componentHandler.registerComponent(TabListHandler::class.java)
+        healthHandler = componentHandler.registerComponent(HealthHandler::class.java)
+        racialHandler = componentHandler.registerComponent(RacialHandler::class.java)
+        componentHandler.registerComponent(RankCommands::class.java)
+        componentHandler.registerComponent(DonorManager::class.java)
+        componentHandler.registerComponent(CombatHandler::class.java)
+        voteHandler = componentHandler.registerComponent(VoteHandler::class.java)
         creditsHandler = componentHandler.registerComponent(MMOCreditsHandler::class.java)
-        //creditsHandler = MMOCreditsHandler(this)
     }
 
     private fun registerCommands() {
