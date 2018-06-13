@@ -7,7 +7,7 @@
 package im.alphhe.alphheimplugin.listeners
 
 import im.alphhe.alphheimplugin.AlphheimCore
-import org.bukkit.GameMode
+import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
@@ -36,9 +36,13 @@ class PlayerListener(private val plugin: AlphheimCore) : Listener {
             override fun run() {
                 if (e.player.isOnline)
                     plugin.voteHandler.processPlayerLogin(e.player)
-            }
-        }.runTaskLater(plugin, 10)
 
+                if (plugin.server.hasWhitelist() && e.player.hasPermission("alphheim.mod")) {
+                    MessageUtil.sendError(e.player, "Server is whitelisted!")
+                }
+            }
+
+        }.runTaskLater(plugin, 10)
 
 
     }

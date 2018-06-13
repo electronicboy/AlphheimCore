@@ -55,4 +55,8 @@ public class ComponentHandler {
         return null;
 
     }
+
+    public void disable() {
+
+    }
 }

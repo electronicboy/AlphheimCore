@@ -169,6 +169,8 @@ class AlphheimCore : JavaPlugin() {
         voteHandler.destruct()
         permissionHandler.destruct() // Unregister components... Or, at least try to..
 
+        componentHandler.disable()
+
         MySQL.kill()
         killConsolePerms();
     }
