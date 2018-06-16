@@ -29,6 +29,7 @@ class CommandRestart(private val handler: RestartHandler, plugin: AlphheimCore) 
     fun setStatus(sender: CommandSender, newStatus: Boolean ) {
         handler.setStatus(newStatus)
         MessageUtil.sendInfo(sender, "pending restart status: ${handler.getStatus()}" )
+        MessageUtil.broadcast("alphheim.admin", "pending restart status: ${handler.getStatus()}")
     }
 
 }
