@@ -176,5 +176,9 @@ class AlphheimCore : JavaPlugin() {
         killConsolePerms();
     }
 
+    fun restart(message: String = "We'll see you on the other side!") {
+        server.onlinePlayers.forEach { it.kickPlayer(message) }
+    }
+
 
 }

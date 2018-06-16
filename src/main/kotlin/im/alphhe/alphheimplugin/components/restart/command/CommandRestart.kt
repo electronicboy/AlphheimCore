@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.components.restart.command
 
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
+import co.aikar.commands.annotation.Optional
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.restart.RestartHandler
@@ -17,19 +18,29 @@ import org.bukkit.command.CommandSender
 
 class CommandRestart(private val handler: RestartHandler, plugin: AlphheimCore) : AlphheimCommand(plugin, "restart") {
 
-    @CommandPermission("alphheim.dev")
+    @CommandPermission("alphheim.admin")
     @Subcommand("get|status")
     @Default
     fun getStatus(sender: CommandSender) {
         MessageUtil.sendInfo(sender, "pending restart status: ${handler.getStatus()}" )
     }
 
-    @CommandPermission("alphheim.dev")
+    @CommandPermission("alphheim.admin")
     @Subcommand("set")
     fun setStatus(sender: CommandSender, newStatus: Boolean ) {
         handler.setStatus(newStatus)
         MessageUtil.sendInfo(sender, "pending restart status: ${handler.getStatus()}" )
         MessageUtil.broadcast("alphheim.admin", "pending restart status: ${handler.getStatus()}")
+    }
+
+    @CommandPermission("alphheim.admin")
+    @Subcommand("now")
+    fun restartNow(sender: CommandSender, @Optional reason: String?) {
+        if (reason == null) {
+            handler.plugin.restart()
+        } else {
+            handler.plugin.restart(reason)
+        }
     }
 
 }
