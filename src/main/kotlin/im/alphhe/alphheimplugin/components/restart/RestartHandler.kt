@@ -15,7 +15,7 @@ class RestartHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     init {
         RestartListener(this)
-        CommandRestart(plugin)
+        CommandRestart(this, plugin)
     }
 
     fun getStatus(): Boolean {

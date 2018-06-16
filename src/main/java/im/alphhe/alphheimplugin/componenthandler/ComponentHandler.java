@@ -46,6 +46,7 @@ public class ComponentHandler {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Nullable
     public <T extends AbstractHandler> T getComponent(@Nonnull Class<T> handlerClass) {
         ComponentHolder<? extends AbstractHandler> componentHolder = component.get(handlerClass);
