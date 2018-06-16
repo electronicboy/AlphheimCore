@@ -40,4 +40,8 @@ object MessageUtil {
         broadcast(null, message)
     }
 
+    fun format(message: String, prefix: String = "A", color: ChatColor = ChatColor.RED): String {
+        return "${ChatColor.DARK_GRAY}[$color$prefix${ChatColor.DARK_GRAY}] $color$message"
+    }
+
 }

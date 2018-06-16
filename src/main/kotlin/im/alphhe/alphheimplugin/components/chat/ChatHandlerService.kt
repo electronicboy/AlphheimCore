@@ -8,7 +8,7 @@ package im.alphhe.alphheimplugin.components.chat
 
 import com.google.inject.Inject
 import im.alphhe.alphheimplugin.AlphheimCore
-import im.alphhe.alphheimplugin.components.UserManager
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.data.AlphheimUser
 import org.bukkit.entity.Player
 

@@ -13,7 +13,7 @@ import im.alphhe.alphheimplugin.commands.CommandEnderChest
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandSign
 import im.alphhe.alphheimplugin.componenthandler.ComponentHandler
-import im.alphhe.alphheimplugin.components.UserManager
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.combat.CombatHandler
 import im.alphhe.alphheimplugin.components.diversions.FunHandler

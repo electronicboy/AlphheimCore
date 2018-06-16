@@ -4,13 +4,15 @@
  * Written by Shane Freeder - 2018.
  */
 
-package im.alphhe.alphheimplugin.components
+package im.alphhe.alphheimplugin.components.usermanagement
 
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
 import com.google.inject.Singleton
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
+import im.alphhe.alphheimplugin.components.usermanagement.listeners.UserListener
 import im.alphhe.alphheimplugin.data.AlphheimUser
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.entity.Player
@@ -18,7 +20,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Singleton
-class UserManager(private val plugin: AlphheimCore) {
+class UserManager(plugin: AlphheimCore) : AbstractHandler(plugin){
     private val userCache: LoadingCache<UUID, AlphheimUser>
 
     init {
@@ -30,9 +32,11 @@ class UserManager(private val plugin: AlphheimCore) {
                     }
                 })
 
-        MySQL.executor.execute({
+        MySQL.executor.execute{
             plugin.server.onlinePlayers.forEach { getUser(it) }
-        })
+        }
+
+        UserListener(this)
 
     }
 
