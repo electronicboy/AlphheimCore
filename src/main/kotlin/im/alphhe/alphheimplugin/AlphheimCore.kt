@@ -26,6 +26,7 @@ import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.components.plugincommandperms.PluginCommandPermHandler
 import im.alphhe.alphheimplugin.components.racial.RacialHandler
 import im.alphhe.alphheimplugin.components.rankcommands.RankCommands
+import im.alphhe.alphheimplugin.components.restart.RestartHandler
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
@@ -43,7 +44,7 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class AlphheimCore : JavaPlugin() {
 
-    private val componentHandler = ComponentHandler(this)
+    public val componentHandler = ComponentHandler(this)
 
     lateinit var chatHandler: ChatHandlerService
     @Deprecated("Use ComponentHandler!!!")
@@ -51,7 +52,6 @@ class AlphheimCore : JavaPlugin() {
     @Deprecated("Use ComponentHandler!!!")
     lateinit var injector: Injector
         private set
-    @Deprecated("Use ComponentHandler!!!")
     lateinit var commandManager: BukkitCommandManager
     var commandLore: CommandLore? = null
     @Deprecated("Use ComponentHandler!!!")
@@ -134,6 +134,7 @@ class AlphheimCore : JavaPlugin() {
         componentHandler.registerComponent(CombatHandler::class.java)
         voteHandler = componentHandler.registerComponent(VoteHandler::class.java)
         creditsHandler = componentHandler.registerComponent(MMOCreditsHandler::class.java)
+        componentHandler.registerComponent(RestartHandler::class.java)
     }
 
     private fun registerCommands() {
