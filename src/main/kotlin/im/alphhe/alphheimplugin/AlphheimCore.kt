@@ -89,7 +89,7 @@ class AlphheimCore : JavaPlugin() {
             luckPermsApi = provider.provider
         }
 
-        userManager = UserManager(this)
+        //userManager = UserManager(this)
         commandManager = BukkitCommandManager(this)
         @Suppress("DEPRECATION")
         commandManager.enableUnstableAPI("help")
@@ -119,6 +119,7 @@ class AlphheimCore : JavaPlugin() {
     }
 
     private fun enableComponents() {
+        userManager = componentHandler.registerComponent(UserManager::class.java)
         permissionHandler = componentHandler.registerComponent(PermissionHandler::class.java)
         componentHandler.registerComponent(PluginCommandPermHandler::class.java)
         componentHandler.registerComponent(MotdHandler::class.java)

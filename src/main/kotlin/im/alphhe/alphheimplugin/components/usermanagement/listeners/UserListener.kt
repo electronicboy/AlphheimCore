@@ -16,6 +16,11 @@ import org.bukkit.event.player.PlayerQuitEvent
 
 class UserListener(private val userManager: UserManager) : Listener {
 
+    init {
+        userManager.plugin.server.pluginManager.registerEvents(this, userManager.plugin)
+    }
+
+
     @EventHandler
     fun playerJoin(e: PlayerJoinEvent) {
         userManager.plugin.server.scheduler.runTaskLater(userManager.plugin, {
