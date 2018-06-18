@@ -53,8 +53,8 @@ class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin, "editsign") {
 
         val lines = sign.lines
 
-        for (lineNo in 0..lines.size) {
-            MessageUtil.sendInfo(sender, "${lineNo + 1} ${lines[lineNo]}")
+        for (lineNo in 0..(lines.size - 1)) {
+            MessageUtil.sendInfo(sender, "${lineNo + 1}: ${ChatColor.RESET} ${lines[lineNo]}")
         }
 
     }
