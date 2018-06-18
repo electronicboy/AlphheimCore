@@ -8,6 +8,7 @@ package im.alphhe.alphheimplugin.commands
 
 import co.aikar.commands.annotation.CatchUnknown
 import co.aikar.commands.annotation.CommandPermission
+import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.ChatColor
@@ -20,14 +21,12 @@ class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin, "editsign") {
     @CatchUnknown
     @CommandPermission("alphheim.mod")
     fun editSign(sender: Player, line: Int, text: String) {
-        val block = sender.getTargetBlock(mutableSetOf(Material.AIR), 8)
+        val sign = getSign(sender)
 
-        if (block.type != Material.WALL_SIGN && block.type != Material.SIGN_POST) {
+        if (sign == null) {
             MessageUtil.sendError(sender, "You must be facing a sign!")
             return
         }
-
-        val sign = block.state as Sign
 
         if (0 < line && line <= sign.lines.size) {
             val newText = ChatColor.translateAlternateColorCodes('&', text)
@@ -39,6 +38,35 @@ class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin, "editsign") {
         }
 
 
+    }
+
+
+    @Subcommand("list")
+    @CommandPermission("alphheim.mod")
+    fun getLines(sender: Player) {
+        val sign = getSign(sender)
+
+        if (sign == null) {
+            MessageUtil.sendError(sender, "You must be facing a sign!")
+            return
+        }
+
+        val lines = sign.lines
+
+        for (lineNo in 0..lines.size) {
+            MessageUtil.sendInfo(sender, "${lineNo + 1} ${lines[lineNo]}")
+        }
+
+    }
+
+    private fun getSign(player: Player) : Sign? {
+        val block = player.getTargetBlock(mutableSetOf(Material.AIR), 8)
+
+        if (block.type != Material.WALL_SIGN && block.type != Material.SIGN_POST) {
+            return null
+        }
+
+        return block.state as Sign?
     }
 
 
