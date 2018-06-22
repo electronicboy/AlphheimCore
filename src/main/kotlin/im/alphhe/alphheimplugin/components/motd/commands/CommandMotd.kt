@@ -6,12 +6,14 @@
 
 package im.alphhe.alphheimplugin.components.motd.commands
 
+import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.Default
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.motd.MotdHandler
 import org.bukkit.command.CommandSender
 
-class CommandMotd(val handler: MotdHandler) : AlphheimCommand(handler.plugin, "motd") {
+@CommandAlias("motd")
+class CommandMotd(val handler: MotdHandler) : AlphheimCommand(handler.plugin) {
 
     @Default
     fun onCommand(sender: CommandSender): Unit {

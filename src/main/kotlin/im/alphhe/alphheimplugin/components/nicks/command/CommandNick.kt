@@ -24,8 +24,8 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.*
 
-@CommandAlias("nickname")
-class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "nick") {
+@CommandAlias("nick|nickname")
+class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @Subcommand("list")
     @CommandPermission("alphheim.mod")

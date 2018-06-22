@@ -6,10 +6,8 @@
 
 package im.alphhe.alphheimplugin.components.donor.commands
 
-import co.aikar.commands.annotation.CommandCompletion
-import co.aikar.commands.annotation.CommandPermission
+import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
-import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
@@ -24,7 +22,8 @@ import org.bukkit.entity.Player
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : AlphheimCommand(plugin, "donate") {
+@CommandAlias("donate")
+class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : AlphheimCommand(plugin) {
 
     @CommandPermission("alphheim.admin")
     @Subcommand("give")

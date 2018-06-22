@@ -18,7 +18,8 @@ import org.bukkit.Material
 import org.bukkit.command.CommandSender
 import org.bukkit.inventory.ItemStack
 
-class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "rank") {
+@CommandAlias("rank")
+class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     private val worldSpawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
 

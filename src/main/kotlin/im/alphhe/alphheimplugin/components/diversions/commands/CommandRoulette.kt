@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.diversions.commands
 
+import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -16,7 +17,8 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 import java.util.*
 
-class CommandRoulette(val plugin: AlphheimCore) : AlphheimCommand(plugin, "roulette") {
+@CommandAlias("roulette")
+class CommandRoulette(val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     private val random = Random()
 

@@ -11,8 +11,8 @@ import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import org.bukkit.entity.Player
 
-@CommandAlias("ec")
-class CommandEnderChest(plugin: AlphheimCore) : AlphheimCommand(plugin, "enderchest") {
+@CommandAlias("enderchest|ec")
+class CommandEnderChest(plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @CommandPermission("alphheim.enderchest")
     @Default

@@ -17,8 +17,8 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.io.File
 
-@CommandAlias("mmocredits")
-class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin, "credits") {
+@CommandAlias("credits|mmocredits")
+class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin) {
 
 
     @CommandCompletion("@players")

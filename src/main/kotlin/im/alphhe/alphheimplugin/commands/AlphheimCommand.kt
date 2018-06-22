@@ -15,7 +15,7 @@ import java.time.Period
 import java.util.concurrent.TimeUnit
 import java.util.logging.Level
 
-abstract class AlphheimCommand(private val plugin: AlphheimCore, name: String) : BaseCommand(name) {
+abstract class AlphheimCommand(private val plugin: AlphheimCore) : BaseCommand() {
     init {
         try {
             plugin.commandManager.registerCommand(this, true)

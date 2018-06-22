@@ -14,8 +14,8 @@ import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-
-class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: AlphheimCore) : AlphheimCommand(plugin, "spawn") {
+@CommandAlias("spawn")
+class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @Default
     @CommandPermission("alphheim.spawn")

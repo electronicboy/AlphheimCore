@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.donor.commands
 
+import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -14,7 +15,8 @@ import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.Material
 import org.bukkit.entity.Player
 
-class CommandHat(private var plugin: AlphheimCore) : AlphheimCommand(plugin, "hat") {
+@CommandAlias("hat")
+class CommandHat(private var plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @Default
     @CommandPermission("alphheim.hat")

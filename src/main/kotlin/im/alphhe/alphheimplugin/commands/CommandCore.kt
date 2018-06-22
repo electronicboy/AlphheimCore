@@ -23,8 +23,9 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.java.PluginClassLoader
 import java.util.*
 
-class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "alphheim") {
-    val colorString: String
+@CommandAlias("alphheim")
+class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
+    private val colorString: String
 
 
     init {

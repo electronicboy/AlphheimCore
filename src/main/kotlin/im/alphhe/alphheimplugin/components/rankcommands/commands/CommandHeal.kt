@@ -14,7 +14,8 @@ import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin, "aheal") {
+@CommandAlias("aheal")
+class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @Subcommand("heal")
     @CommandAlias("heal")

@@ -8,7 +8,7 @@ package im.alphhe.alphheimplugin.data
 
 import org.bukkit.ChatColor
 
-enum class DonorTier(level: Int, val color: ChatColor) {
+enum class DonorTier(@Suppress("UNUSED_PARAMETER") level: Int, val color: ChatColor) {
 
     RUBY(1, ChatColor.DARK_RED),
     TOPAZ(2, ChatColor.GOLD),

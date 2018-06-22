@@ -7,6 +7,7 @@
 package im.alphhe.alphheimplugin.commands
 
 import co.aikar.commands.annotation.CatchUnknown
+import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -16,7 +17,8 @@ import org.bukkit.Material
 import org.bukkit.block.Sign
 import org.bukkit.entity.Player
 
-class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin, "editsign") {
+@CommandAlias("editsign")
+class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @CatchUnknown
     @CommandPermission("alphheim.mod")
