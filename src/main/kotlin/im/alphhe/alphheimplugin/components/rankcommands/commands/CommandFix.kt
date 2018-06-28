@@ -6,12 +6,15 @@
 
 package im.alphhe.alphheimplugin.components.rankcommands.commands
 
+import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
+import co.aikar.commands.annotation.HelpCommand
 import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("fix|repair")
@@ -59,5 +62,9 @@ class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     }
 
+    @HelpCommand
+    fun unknownCommand(sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
+    }
 
 }

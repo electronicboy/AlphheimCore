@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.restart.command
 
+import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.restart.RestartHandler
@@ -39,6 +40,11 @@ class CommandRestart(private val handler: RestartHandler, plugin: AlphheimCore) 
         } else {
             handler.plugin.restart(reason)
         }
+    }
+
+    @HelpCommand
+    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
     }
 
 }

@@ -6,11 +6,9 @@
 
 package im.alphhe.alphheimplugin.commands
 
-import co.aikar.commands.annotation.CommandAlias
-import co.aikar.commands.annotation.CommandPermission
+import co.aikar.commands.CommandHelp
+import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
-import co.aikar.commands.annotation.Single
-import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
@@ -116,6 +114,10 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
         MessageUtil.sendInfo(sender, "Staff overrides are $newMode for ${user.getNickname()}")
     }
 
+    @HelpCommand
+    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
+    }
 }
 
 

@@ -6,15 +6,14 @@
 
 package im.alphhe.alphheimplugin.commands
 
-import co.aikar.commands.annotation.CatchUnknown
-import co.aikar.commands.annotation.CommandAlias
-import co.aikar.commands.annotation.CommandPermission
-import co.aikar.commands.annotation.Subcommand
+import co.aikar.commands.CommandHelp
+import co.aikar.commands.annotation.*
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.block.Sign
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("editsign")
@@ -38,8 +37,6 @@ class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin) {
         } else {
             MessageUtil.sendError(sender, "Invalid row number!")
         }
-
-
     }
 
 
@@ -71,5 +68,8 @@ class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin) {
         return block.state as Sign?
     }
 
-
+    @HelpCommand
+    fun unknownCommand(sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
+    }
 }

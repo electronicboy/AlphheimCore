@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.mmocredits.commands
 
+import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
@@ -100,6 +101,11 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
 
         })
 
+    }
+
+    @HelpCommand
+    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
     }
 
 

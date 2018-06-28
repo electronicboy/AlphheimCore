@@ -27,8 +27,7 @@ import java.util.*
 
 class PermissionHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
-    val groups = HashMap<String, Group>()
-    val userMetaCache: HashBasedTable<UUID, String, String> = HashBasedTable.create<UUID, String, String>(100, 20)
+    private val userMetaCache: HashBasedTable<UUID, String, String> = HashBasedTable.create<UUID, String, String>(100, 20)
 
     init {
         plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java) {

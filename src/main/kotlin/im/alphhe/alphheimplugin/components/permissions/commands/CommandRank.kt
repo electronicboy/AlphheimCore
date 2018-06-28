@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.permissions.commands
 
+import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -67,9 +68,9 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
         user.setPermission(plugin.luckPermsApi.nodeFactory.makeGroupNode(group).build())
         user.primaryGroup = group.name
 
-        plugin.luckPermsApi.userManager.saveUser(user).thenRunAsync({ user.refreshCachedData() }).thenRunAsync({
+        plugin.luckPermsApi.userManager.saveUser(user).thenRunAsync { user.refreshCachedData() }.thenRunAsync {
             MessageUtil.sendInfo(sender, "Added group ${group.name}; All set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
-        })
+        }
 
         if (!firstSet) return
 
@@ -111,4 +112,8 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
         MessageUtil.sendInfo(sender, "groups set for user set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
     }
 
+    @HelpCommand
+    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
+    }
 }

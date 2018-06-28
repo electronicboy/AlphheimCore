@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.donor.commands
 
+import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
 import co.aikar.commands.contexts.OnlinePlayer
@@ -100,5 +101,9 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
         tag.setString("purchaser", player.uniqueId.toString())
     }
 
+    @HelpCommand
+    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
+    }
 
 }

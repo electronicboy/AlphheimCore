@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.spawn.command
 
+import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -42,5 +43,8 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
         sender.inventory.addItem(spawnHandler.getBook())
     }
 
-
+    @HelpCommand
+    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
+    }
 }

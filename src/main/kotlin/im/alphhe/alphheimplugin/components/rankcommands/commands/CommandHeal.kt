@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.rankcommands.commands
 
+import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
@@ -98,6 +99,10 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     }
 
+    @HelpCommand
+    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+        help.showHelp()
+    }
 
 }
 
