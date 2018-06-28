@@ -58,7 +58,6 @@ class AlphheimCore : JavaPlugin() {
     var tabHandler: TabHandler? = null
     @Deprecated("Use ComponentHandler!!!")
     lateinit var tabListHandler: TabListHandler
-    @Deprecated("Use ComponentHandler!!!")
     lateinit var luckPermsApi: LuckPermsApi
     @Deprecated("Use ComponentHandler!!!")
     lateinit var healthHandler: HealthHandler

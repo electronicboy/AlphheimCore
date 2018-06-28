@@ -11,7 +11,11 @@ import com.google.common.collect.HashBasedTable
 import com.google.common.collect.ImmutableList
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
+import im.alphhe.alphheimplugin.components.health.HealthHandler
 import im.alphhe.alphheimplugin.components.permissions.commands.CommandRank
+import im.alphhe.alphheimplugin.components.racial.RacialHandler
+import im.alphhe.alphheimplugin.components.tablist.TabListHandler
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import me.lucko.luckperms.api.Contexts
 import me.lucko.luckperms.api.Group
 import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent
@@ -27,33 +31,27 @@ class PermissionHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     val userMetaCache: HashBasedTable<UUID, String, String> = HashBasedTable.create<UUID, String, String>(100, 20)
 
     init {
-        plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java, {
-            plugin.server.scheduler.runTask(plugin, {
+        plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java) {
+            plugin.server.scheduler.runTask(plugin) {
                 val player = this.plugin.server.getPlayer(it.user.uuid)
                 if (player != null) {
-                    plugin.tabListHandler.setSB(player)
-                    plugin.healthHandler.updateHealth(player)
-                    plugin.racialHandler.applyEffects(player)
+                    plugin.componentHandler.getComponent(TabListHandler::class.java)?.setSB(player)
+                    plugin.componentHandler.getComponent(HealthHandler::class.java)?.updateHealth(player)
+                    plugin.componentHandler.getComponent(RacialHandler::class.java)?.applyEffects(player)
 
-                    val player = plugin.userManager.getUser(it.user.uuid)
-                    player.setDisplayName(player.getNickname())
-
+                    val user = plugin.componentHandler.getComponent(UserManager::class.java)?.getUser(it.user.uuid)
+                    user?.setDisplayName(user.getNickname())
                 }
-            })
-        })
+            }
+        }
 
-        plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java, {
+        plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java) {
             // clear the users cache row
             userMetaCache.row(it.user.uuid).clear()
-
-        })
+        }
 
         plugin.commandManager.commandCompletions.registerCompletion("groups") { it: BukkitCommandCompletionContext ->
-            val out = mutableSetOf<String>()
-            for (group in getGroups()) {
-                if (StringUtil.startsWithIgnoreCase(group, it.input)) out.add(group)
-            }
-            out
+            getGroups().filter { group -> StringUtil.startsWithIgnoreCase(group, it.input) }.toMutableSet()
         }
 
         plugin.commandManager.registerCommand(CommandRank(plugin))
