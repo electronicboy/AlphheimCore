@@ -12,6 +12,8 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.addComponent
 import im.alphhe.alphheimplugin.append
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
+import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
 import net.md_5.bungee.api.ChatColor
@@ -59,7 +61,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
                             val request = TextComponent(" requested by: ")
                             request.color = ChatColor.DARK_RED
 
-                            val groups = plugin.permissionHandler.getOwnGroupsForOfflineUser(playerUuid).joinToString { group -> group.name }
+                            val groups = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getOwnGroupsForOfflineUser(playerUuid).joinToString { group -> group.name }
 
                             val playerData = TextComponent("$userName ($groups) ")
                             playerData.color = ChatColor.RED
@@ -118,7 +120,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players")
     fun set(sender: CommandSender, target: OfflinePlayer, nick: String) {
-        val uTarget = plugin.userManager.getUser(target.uniqueId)
+        val uTarget = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(target.uniqueId)
         uTarget.setNickname(nick)
         MessageUtil.sendInfo(sender, "You have set the nickname of ${uTarget.getOfflinePlayer().name} to ${ChatColor.translateAlternateColorCodes('&', nick)}")
     }
@@ -129,7 +131,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players")
     fun accept(sender: CommandSender, target: OfflinePlayer) {
-        val uTarget = plugin.userManager.getUser(target.uniqueId)
+        val uTarget = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(target.uniqueId)
 
         MySQL.executor.execute {
             MySQL.getConnection().use {
@@ -157,7 +159,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players")
     fun reject(sender: CommandSender, target: OfflinePlayer) {
-        val uTarget = plugin.userManager.getUser(target.uniqueId)
+        val uTarget = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(target.uniqueId)
 
         MySQL.executor.execute {
             MySQL.getConnection().use { conn ->
@@ -195,7 +197,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     fun request(sender: Player, request: String) {
         val requested = request.trim().replace(' ', '_')
         MySQL.executor.execute {
-            val user = plugin.userManager.getUser(sender.uniqueId)
+            val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(sender.uniqueId)
             MySQL.getConnection().use { conn ->
                 val stmt = conn.prepareStatement("INSERT INTO player_nicks (PLAYER_ID, STATUS, REQUESTED) VALUE (?, 0, ?) ON DUPLICATE KEY UPDATE REQUESTED = VALUES(REQUESTED), STATUS = 0")
                 stmt.use {
@@ -215,7 +217,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @Description("check the status of your nickname request")
     fun status(sender: Player) {
         MySQL.executor.execute {
-            val user = plugin.userManager.getUser(sender.uniqueId)
+            val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(sender.uniqueId)
             MySQL.getConnection().use { conn ->
                 conn.prepareStatement("SELECT STATUS, REQUESTED FROM player_nicks WHERE PLAYER_ID = ? AND REQUESTED IS NOT NULL").use { stmt ->
                     stmt.setInt(1, user.userID)
@@ -243,7 +245,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @CommandCompletion("@players")
     @CommandPermission("alphheim.mod")
     fun reset(sender: CommandSender, target: OfflinePlayer) {
-        val uTarget = plugin.userManager.getUser(target.uniqueId)
+        val uTarget = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(target.uniqueId)
         uTarget.setNickname(null)
         MessageUtil.sendInfo(sender, "You have reset the nickname of ${target.name}")
     }

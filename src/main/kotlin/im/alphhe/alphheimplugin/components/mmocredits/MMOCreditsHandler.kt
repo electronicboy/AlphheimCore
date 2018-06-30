@@ -10,6 +10,7 @@ import com.gmail.nossr50.api.ExperienceAPI
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.mmocredits.commands.CommandCredits
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
@@ -29,7 +30,7 @@ class MMOCreditsHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     fun getCredits(player: OfflinePlayer): Int {
         MySQL.getConnection().use { conn ->
-            val user = plugin.userManager.getUser(player.uniqueId)
+            val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(player.uniqueId)
 
             conn.prepareStatement("SELECT CREDITS FROM player_credits WHERE PLAYER_ID = ?").use {
                 it.setInt(1, user.userID)
@@ -48,7 +49,7 @@ class MMOCreditsHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     }
 
     fun giveCredits(player: OfflinePlayer, amount: Int): Boolean {
-        val user = plugin.userManager.getUser(player.uniqueId)
+        val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(player.uniqueId)
         MySQL.getConnection().use { conn ->
             conn.prepareStatement("INSERT INTO player_credits (PLAYER_ID, CREDITS) VALUES (?, ?) ON DUPLICATE KEY UPDATE CREDITS = CREDITS + VALUES(CREDITS)").use { stmt ->
                 stmt.setInt(1, user.userID)
@@ -60,7 +61,7 @@ class MMOCreditsHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     }
 
     fun takeCredits(player: OfflinePlayer, amount: Int): Boolean {
-        val user = plugin.userManager.getUser(player.uniqueId)
+        val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(player.uniqueId)
         MySQL.getConnection().use { conn ->
             conn.autoCommit = false // Disable, we're about to do stuff that requires locking for the transaction....
 

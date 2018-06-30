@@ -7,6 +7,8 @@
 package im.alphhe.alphheimplugin.components.combat.listeners
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -52,8 +54,8 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
 
 
     fun checkCooldown(testUser: Player, metaKey: String): Boolean {
-        val cooldown = plugin.permissionHandler.getLongMetaCached(testUser, metaKey, -1L)
-        val user = plugin.userManager.getUser(testUser)
+        val cooldown = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getLongMetaCached(testUser, metaKey, -1L)
+        val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(testUser)
         val currentTime = System.currentTimeMillis()
 
         if (cooldown == -1L) {

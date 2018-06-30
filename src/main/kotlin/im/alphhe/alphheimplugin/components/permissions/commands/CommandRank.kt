@@ -11,6 +11,7 @@ import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
+import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import me.lucko.luckperms.api.Group
 import org.bukkit.Bukkit
@@ -28,14 +29,14 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @Subcommand("list|l")
     @CommandPermission("alphheim.mod")
     fun listRanks(sender: CommandSender) {
-        sender.sendMessage(plugin.permissionHandler.getGroups().joinToString(","))
+        sender.sendMessage(plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getGroups().joinToString(","))
     }
 
     @Subcommand("set|s")
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players @groups")
     fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String, @Optional @Default("false") firstSet: Boolean) {
-        val permHandler = plugin.permissionHandler
+        val permHandler = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!
         val group = permHandler.getGroup(rank)
         if (group == null) {
             MessageUtil.sendError(sender, "Rank $rank does not exist!")

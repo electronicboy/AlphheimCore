@@ -7,12 +7,13 @@
 package im.alphhe.alphheimplugin.components.racial.handler
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
 
 class RacialEffectsProvider(private val plugin: AlphheimCore) : IRacialProcessor {
     override fun getEnchants(player: Player): Map<PotionEffectType, Int> {
-        val race = plugin.permissionHandler.getMeta(player, "race", "unknown");
+        val race = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getMeta(player, "race", "unknown");
 
         return when (race) {
             "elf" -> mutableMapOf(PotionEffectType.SPEED to 0)

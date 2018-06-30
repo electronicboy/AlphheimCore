@@ -7,6 +7,7 @@
 package im.alphhe.alphheimplugin.components.combat.listeners
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.racial.RacialHandler
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -27,9 +28,10 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
     @EventHandler
     fun onExpire(e: EffectRemovalNotification) {
         if (e.entity !is Player) return
+        val racialHandler = plugin.componentHandler.getComponent(RacialHandler::class.java) ?: return
         object : BukkitRunnable() {
             override fun run() {
-                plugin.racialHandler.applyEffects(e.entity as Player)
+                racialHandler.applyEffects(e.entity as Player)
             }
         }.runTask(plugin)
     }
@@ -47,7 +49,7 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
 
 
             // Because apparently the client doesn't like it when you go from infinite -> finite
-            e.potion.effects.forEach({ eff ->
+            e.potion.effects.forEach { eff ->
                 for (activeEff in entity.activePotionEffects) {
                     if (activeEff.type == eff.type) {
                         if (activeEff.amplifier < eff.amplifier) {
@@ -56,14 +58,16 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
                     }
                 }
 
-            })
+            }
 
-            object : BukkitRunnable() {
-                override fun run() {
-                    val p = entity as Player
-                    plugin.racialHandler.applyEffects(p)
-                }
-            }.runTask(plugin)
+            val racialHandler = plugin.componentHandler.getComponent(RacialHandler::class.java)
+            if (racialHandler != null ) {
+                object : BukkitRunnable() {
+                    override fun run() {
+                        racialHandler.applyEffects(entity as Player)
+                    }
+                }.runTask(plugin)
+            }
 
         }
 
@@ -91,7 +95,7 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
         if ((e.item.itemMeta as PotionMeta).hasCustomEffect(PotionEffectType.INVISIBILITY)) return
 
         // Because apparently the client doesn't like it when you go from infinite -> finite
-        (e.item.itemMeta as PotionMeta).customEffects.forEach({ eff ->
+        (e.item.itemMeta as PotionMeta).customEffects.forEach { eff ->
             for (activeEff in e.player.activePotionEffects) {
                 if (activeEff.type == eff.type) {
                     if (activeEff.amplifier < eff.amplifier) {
@@ -100,14 +104,17 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
                 }
             }
 
-        })
+        }
 
 
-        object : BukkitRunnable() {
-            override fun run() {
-                plugin.racialHandler.applyEffects(e.player)
-            }
-        }.runTask(plugin)
+        val racialHandler = plugin.componentHandler.getComponent(RacialHandler::class.java)
+        if (racialHandler != null ) {
+            object : BukkitRunnable() {
+                override fun run() {
+                    racialHandler.applyEffects(e.player)
+                }
+            }.runTask(plugin)
+        }
 
         val potionMeta = e.item.itemMeta as PotionMeta
 

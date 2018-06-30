@@ -46,31 +46,13 @@ class AlphheimCore : JavaPlugin() {
 
     public val componentHandler = ComponentHandler(this)
 
-    lateinit var chatHandler: ChatHandlerService
-    @Deprecated("Use ComponentHandler!!!")
-    lateinit var userManager: UserManager
     @Deprecated("Use ComponentHandler!!!")
     lateinit var injector: Injector
         private set
     lateinit var commandManager: BukkitCommandManager
     var commandLore: CommandLore? = null
-    @Deprecated("Use ComponentHandler!!!")
-    var tabHandler: TabHandler? = null
-    @Deprecated("Use ComponentHandler!!!")
-    lateinit var tabListHandler: TabListHandler
+
     lateinit var luckPermsApi: LuckPermsApi
-    @Deprecated("Use ComponentHandler!!!")
-    lateinit var healthHandler: HealthHandler
-    @Deprecated("Use ComponentHandler!!!")
-    lateinit var permissionHandler: PermissionHandler
-    @Deprecated("Use ComponentHandler!!!")
-    lateinit var racialHandler: RacialHandler
-    @Deprecated("Use ComponentHandler!!!")
-    lateinit var spawnHandler: SpawnHandler
-    @Deprecated("Use ComponentHandler!!!")
-    lateinit var voteHandler: VoteHandler
-    @Deprecated("Use ComponentHandler!!!")
-    lateinit var creditsHandler: MMOCreditsHandler
 
     private var consolePerms = mutableListOf<PermissionAttachment>()
 
@@ -118,22 +100,22 @@ class AlphheimCore : JavaPlugin() {
     }
 
     private fun enableComponents() {
-        userManager = componentHandler.registerComponent(UserManager::class.java)
-        permissionHandler = componentHandler.registerComponent(PermissionHandler::class.java)
+        componentHandler.registerComponent(UserManager::class.java)
+        componentHandler.registerComponent(PermissionHandler::class.java)
         componentHandler.registerComponent(PluginCommandPermHandler::class.java)
         componentHandler.registerComponent(MotdHandler::class.java)
         componentHandler.registerComponent(FunHandler::class.java)
-        spawnHandler = componentHandler.registerComponent(SpawnHandler::class.java)
-        tabHandler = componentHandler.registerComponent(TabHandler::class.java)
-        tabListHandler = componentHandler.registerComponent(TabListHandler::class.java)
-        healthHandler = componentHandler.registerComponent(HealthHandler::class.java)
-        racialHandler = componentHandler.registerComponent(RacialHandler::class.java)
+        componentHandler.registerComponent(SpawnHandler::class.java)
+        componentHandler.registerComponent(TabHandler::class.java)
+        componentHandler.registerComponent(TabListHandler::class.java)
+        componentHandler.registerComponent(HealthHandler::class.java)
+        componentHandler.registerComponent(RacialHandler::class.java)
         componentHandler.registerComponent(RankCommands::class.java)
         componentHandler.registerComponent(NickManager::class.java)
         componentHandler.registerComponent(DonorManager::class.java)
         componentHandler.registerComponent(CombatHandler::class.java)
-        voteHandler = componentHandler.registerComponent(VoteHandler::class.java)
-        creditsHandler = componentHandler.registerComponent(MMOCreditsHandler::class.java)
+        componentHandler.registerComponent(VoteHandler::class.java)
+        componentHandler.registerComponent(MMOCreditsHandler::class.java)
         componentHandler.registerComponent(RestartHandler::class.java)
     }
 
@@ -167,8 +149,9 @@ class AlphheimCore : JavaPlugin() {
 
         if (commandLore != null) commandLore!!.unregister(Bukkit.getCommandMap());
         commandManager.unregisterCommands()
-        voteHandler.destruct()
-        permissionHandler.destruct() // Unregister components... Or, at least try to..
+
+        componentHandler.getComponent(VoteHandler::class.java)?.destruct()
+        componentHandler.getComponent(PermissionHandler::class.java)!!.destruct()
 
         componentHandler.disable()
 

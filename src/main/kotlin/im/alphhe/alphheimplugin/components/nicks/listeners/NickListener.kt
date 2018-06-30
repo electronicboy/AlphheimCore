@@ -7,6 +7,7 @@
 package im.alphhe.alphheimplugin.components.nicks.listeners
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.Bukkit
@@ -24,7 +25,7 @@ class NickListener(private val plugin: AlphheimCore) : Listener {
 
     @EventHandler
     fun join(e: PlayerJoinEvent) {
-        val user = plugin.userManager.getUser(e.player.uniqueId)
+        val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(e.player.uniqueId)
         user.setDisplayName(user.getNickname())
 
         if (e.player.hasPermission("alphheim.mod")) {
