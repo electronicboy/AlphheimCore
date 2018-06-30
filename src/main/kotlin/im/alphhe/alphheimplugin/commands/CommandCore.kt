@@ -11,6 +11,10 @@ import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
 import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
+import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
+import im.alphhe.alphheimplugin.components.voting.VoteHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
@@ -40,7 +44,7 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @CommandPermission("alphheim.admin")
     @Subcommand("reloadTab")
     fun reloadTab(sender: Player) {
-        val tabHandler = plugin.tabHandler
+        val tabHandler = plugin.componentHandler.getComponent(TabHandler::class.java)
         if (tabHandler == null) {
             MessageUtil.sendError(sender, "TabHandler is null?!")
         } else {
@@ -69,7 +73,7 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @Subcommand("spawnbook")
     fun spawnBook(sender: Player) {
-        sender.inventory.addItem(plugin.spawnHandler.getBook())
+        sender.inventory.addItem(plugin.componentHandler.getComponent(SpawnHandler::class.java)!!.getBook())
     }
 
     @Subcommand("colors")
@@ -80,14 +84,20 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @Subcommand("fakevote")
     @CommandPermission("alphheim.developer")
-    fun fakevote(@Single target: String, @Single address: String, @Single service: String) {
-        plugin.voteHandler.createVote(target, address, service)
+    fun fakevote(sender: CommandSender, @Single target: String, @Single address: String, @Single service: String) {
+        val handler = plugin.componentHandler.getComponent(VoteHandler::class.java)
+        if (handler != null) {
+            handler.createVote(target, address, service)
+        } else {
+            MessageUtil.sendError(sender, "Vote handler is missing!")
+        }
+
     }
 
     @Subcommand("toggleoverrides")
     @CommandPermission("alphheim.admin")
     fun toggleOverrides(sender: Player) {
-        val user = plugin.userManager.getUser(sender.uniqueId)
+        val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(sender.uniqueId)
         user.overrides = !user.hasOverrides()
         val newMode = if (user.hasOverrides()) {
             "enabled"
@@ -101,10 +111,11 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @Subcommand("checkoverrides")
     @CommandPermission("alphheim.admin")
     fun checkOverrides(sender: Player, @Optional target: OnlinePlayer?) {
+        val userManager = plugin.componentHandler.getComponent(UserManager::class.java)!!
         val user = if (target == null) {
-            plugin.userManager.getUser(sender.uniqueId)
+            userManager.getUser(sender.uniqueId)
         } else {
-            plugin.userManager.getUser(target.player.uniqueId)
+            userManager.getUser(target.player.uniqueId)
         }
         val newMode = if (user.hasOverrides()) {
             "enabled"

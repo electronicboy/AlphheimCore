@@ -7,6 +7,10 @@
 package im.alphhe.alphheimplugin.listeners
 
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.health.HealthHandler
+import im.alphhe.alphheimplugin.components.tablist.TabListHandler
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
+import im.alphhe.alphheimplugin.components.voting.VoteHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -22,7 +26,7 @@ class PlayerListener(private val plugin: AlphheimCore) : Listener {
 
     @EventHandler
     fun onAsyncJoin(e: AsyncPlayerPreLoginEvent) {
-        val user = this.plugin.userManager.getUser(e.uniqueId)
+        val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(e.uniqueId)
         user.updateData() // ensure that user data is updated from the db
         user.setLastNick(e.name)
 
@@ -30,12 +34,17 @@ class PlayerListener(private val plugin: AlphheimCore) : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
-        plugin.server.scheduler.runTaskLater(plugin, { this.plugin.tabListHandler.setSB(e.player) }, 10L)
-        plugin.healthHandler.updateHealth(e.player)
+        val tabListHandler = plugin.componentHandler.getComponent(TabListHandler::class.java)
+        if (tabListHandler != null) {
+            plugin.server.scheduler.runTaskLater(plugin, { tabListHandler.setSB(e.player) }, 10L)
+        }
+
+        plugin.componentHandler.getComponent(HealthHandler::class.java)?.updateHealth(e.player)
+
         object : BukkitRunnable() {
             override fun run() {
                 if (e.player.isOnline)
-                    plugin.voteHandler.processPlayerLogin(e.player)
+                    plugin.componentHandler.getComponent(VoteHandler::class.java)?.processPlayerLogin(e.player)
 
                 if (plugin.server.hasWhitelist() && e.player.hasPermission("alphheim.mod")) {
                     MessageUtil.sendError(e.player, "Server is whitelisted!")

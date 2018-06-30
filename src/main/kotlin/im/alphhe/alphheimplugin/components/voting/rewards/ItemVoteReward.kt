@@ -12,7 +12,7 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-class ItemVoteReward(voteHandler: VoteHandler, private val itemStack: ItemStack, private var itemDescription: String?) : IVoteReward {
+class ItemVoteReward(@Suppress("UNUSED_PARAMETER") voteHandler: VoteHandler, private val itemStack: ItemStack, private var itemDescription: String?) : IVoteReward {
 
     constructor(voteHandler: VoteHandler, itemStack: ItemStack) : this(voteHandler, itemStack, null)
 

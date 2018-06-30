@@ -9,6 +9,7 @@ package im.alphhe.alphheimplugin.components.voting
 import com.vexsoftware.votifier.Votifier
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.voting.rewards.EcoVoteReward
 import im.alphhe.alphheimplugin.components.voting.rewards.IVoteReward
 import im.alphhe.alphheimplugin.components.voting.rewards.ItemVoteReward
@@ -36,10 +37,10 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
             plugin.logger.warning("Could not find votifier plugin!")
         } else {
 
-            votifier.listeners.removeIf({
+            votifier.listeners.removeIf {
                 val cl = it.javaClass.classLoader as? PluginClassLoader
                 cl != null && cl.plugin.name == plugin.name
-            })
+            }
 
             voteHandler = AVoteListener(this)
             votifier.listeners.add(voteHandler)
@@ -59,13 +60,13 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     fun createVote(username: String, address: String, serviceName: String) {
         MessageUtil.broadcast("$username has voted on $serviceName! Remember to vote to support the server and get cool goodies!")
-        MySQL.executor.execute({
+        MySQL.executor.execute {
 
             val offlinePlayer = plugin.server.getOfflinePlayer(username)
-            val user = plugin.userManager.getUser(offlinePlayer.uniqueId)
-            val task = FutureTask({
+            val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(offlinePlayer.uniqueId)
+            val task = FutureTask {
                 processVote(offlinePlayer)
-            })
+            }
 
             plugin.server.scheduler.runTask(plugin, task)
 
@@ -83,7 +84,7 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
             }
 
-        })
+        }
 
 
     }
@@ -92,8 +93,8 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     fun processPlayerLogin(player: Player) {
         if (player.name != "electronicboy") return
 
-        MySQL.executor.execute({
-            val user = plugin.userManager.getUser(player)
+        MySQL.executor.execute {
+            val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(player)
             MySQL.getConnection().use { conn ->
                 val votes = ArrayList<Int>()
 
@@ -111,9 +112,10 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
                 for (voteID in votes) {
                     if (!player.isOnline) break
 
-                    val task = FutureTask<Boolean>({
+                    val task = FutureTask<Boolean> {
                         processVote(player)
-                    })
+                    }
+
                     plugin.server.scheduler.runTask(plugin, task)
 
                     if (task.get()) {
@@ -130,7 +132,7 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
                 conn.autoCommit = true
 
             }
-        })
+        }
 
     }
 

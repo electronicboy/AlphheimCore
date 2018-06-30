@@ -8,6 +8,8 @@ package im.alphhe.alphheimplugin.commands
 
 import co.aikar.commands.BaseCommand
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.entity.Player
 import java.time.Duration
@@ -26,9 +28,13 @@ abstract class AlphheimCommand(private val plugin: AlphheimCore) : BaseCommand()
     }
 
 
+    // Todo: Move to dedicated manager/permission handler (maybe)
     fun checkCooldown(testUser: Player, metaKey: String): Boolean {
-        val cooldown = plugin.permissionHandler.getLongMetaCached(testUser, metaKey, -1L)
-        val user = plugin.userManager.getUser(testUser)
+        val permissionHandler = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!
+        val userManager = plugin.componentHandler.getComponent(UserManager::class.java)!!
+
+        val cooldown = permissionHandler.getLongMetaCached(testUser, metaKey, -1L)
+        val user = userManager.getUser(testUser)
         val currentTime = System.currentTimeMillis()
 
         if (cooldown == -1L) {
