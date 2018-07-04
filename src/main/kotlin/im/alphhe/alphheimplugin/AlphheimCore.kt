@@ -46,7 +46,6 @@ class AlphheimCore : JavaPlugin() {
 
     public val componentHandler = ComponentHandler(this)
 
-    @Deprecated("Use ComponentHandler!!!")
     lateinit var injector: Injector
         private set
     lateinit var commandManager: BukkitCommandManager
@@ -68,10 +67,13 @@ class AlphheimCore : JavaPlugin() {
         val provider = Bukkit.getServicesManager().getRegistration(LuckPermsApi::class.java)
         if (provider != null) {
             luckPermsApi = provider.provider
+        } else {
+            Bukkit.setWhitelist(true)
+            logger.warning("Missing permission system?!!")
         }
 
-        //userManager = UserManager(this)
         commandManager = BukkitCommandManager(this)
+
         @Suppress("DEPRECATION")
         commandManager.enableUnstableAPI("help")
 
@@ -82,7 +84,6 @@ class AlphheimCore : JavaPlugin() {
 
         commandMap.register("lore", "alphheim", commandLore)
 
-        //val servicesManager = Bukkit.getInternalServices() as CraftInternalServicesManager
         injector = AlphheimModule(this).createInjector()
         injector.injectMembers(this)
 
@@ -144,7 +145,6 @@ class AlphheimCore : JavaPlugin() {
 
     override fun onDisable() {
 
-        //Bukkit.getInternalServices().unregisterService(Chat::class.java, chatHandler)
         Bukkit.getInternalServices().unregisterServices(this)
 
         if (commandLore != null) commandLore!!.unregister(Bukkit.getCommandMap());

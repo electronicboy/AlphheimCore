@@ -58,6 +58,7 @@ class VoteHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         votifier?.listeners?.remove(voteHandler)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun createVote(username: String, address: String, serviceName: String) {
         MessageUtil.broadcast("$username has voted on $serviceName! Remember to vote to support the server and get cool goodies!")
         MySQL.executor.execute {

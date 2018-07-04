@@ -44,7 +44,7 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
     }
 
     @HelpCommand
-    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+    fun unknownCommand(sender: CommandSender, help: CommandHelp) {
         help.showHelp()
     }
 }
