@@ -10,7 +10,7 @@ import im.alphhe.alphheimplugin.components.voting.VoteHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.entity.Player
-import sun.plugin.dom.exception.InvalidStateException
+
 import java.text.NumberFormat
 
 class EcoVoteReward(private val voteHandler: VoteHandler, private val amount: Double) : IVoteReward {
@@ -20,14 +20,14 @@ class EcoVoteReward(private val voteHandler: VoteHandler, private val amount: Do
 
     init {
         if (voteHandler.plugin.server.pluginManager.getPlugin("Vault") == null) {
-            throw InvalidStateException("Vault is not loaded?!")
+            throw IllegalStateException("Vault is not loaded?!")
         }
 
         val registeredServiceProvider = voteHandler.plugin.server.servicesManager.getRegistration(Economy::class.java)
         if (registeredServiceProvider != null) {
             ecoService = registeredServiceProvider.provider
         } else {
-            throw InvalidStateException("Eco plugin is not loaded?!")
+            throw IllegalStateException("Eco plugin is not loaded?!")
         }
 
     }
