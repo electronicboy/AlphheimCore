@@ -8,7 +8,6 @@ package im.alphhe.alphheimplugin.components.voting.rewards
 
 import im.alphhe.alphheimplugin.components.voting.VoteHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
@@ -18,8 +17,7 @@ class ItemVoteReward(@Suppress("UNUSED_PARAMETER") voteHandler: VoteHandler, pri
 
     init {
         if (itemDescription == null) {
-            val nmsCopy = CraftItemStack.asNMSCopy(itemStack)
-            itemDescription = nmsCopy.item.a(nmsCopy)
+            itemDescription = itemStack.i18NDisplayName
         }
     }
 

@@ -61,7 +61,7 @@ class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin) {
     private fun getSign(player: Player) : Sign? {
         val block = player.getTargetBlock(mutableSetOf(Material.AIR), 8)
 
-        if (block.type != Material.WALL_SIGN && block.type != Material.SIGN_POST) {
+        if (block.type != Material.WALL_SIGN && block.type != Material.SIGN) {
             return null
         }
 

@@ -88,11 +88,11 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
                 ItemStack(Material.STONE_SWORD),
                 ItemStack(Material.STONE_AXE),
                 ItemStack(Material.STONE_PICKAXE),
-                ItemStack(Material.STONE_SPADE),
+                ItemStack(Material.STONE_SHOVEL),
                 ItemStack(Material.STONE_HOE),
                 ItemStack(Material.COOKED_BEEF, 16),
                 ItemStack(Material.COMPASS),
-                ItemStack(Material.BOAT)
+                ItemStack(Material.ACACIA_BOAT)
         )
 
         target.player.teleport(worldSpawn)
