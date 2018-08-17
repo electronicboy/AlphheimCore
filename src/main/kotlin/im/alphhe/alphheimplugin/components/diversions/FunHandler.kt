@@ -12,6 +12,7 @@ import im.alphhe.alphheimplugin.components.diversions.commands.CommandRoulette
 import im.alphhe.alphheimplugin.components.diversions.listeners.EdibleListener
 import im.alphhe.alphheimplugin.components.diversions.listeners.FurnaceListener
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 
@@ -27,7 +28,7 @@ class FunHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     }
 
     private fun registerRecipes() {
-        val saddleRecipe = ShapedRecipe(ItemStack(Material.SADDLE))
+        val saddleRecipe = ShapedRecipe(NamespacedKey(plugin, "saddle"), ItemStack(Material.SADDLE))
         saddleRecipe.shape("sll", "lxx", "lll")
         saddleRecipe.setIngredient('s', Material.STRING)
         saddleRecipe.setIngredient('l', Material.LEATHER)
