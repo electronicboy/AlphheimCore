@@ -9,7 +9,6 @@ package im.alphhe.alphheimplugin.commands;
 import net.md_5.bungee.api.ChatColor;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class CommandLore extends Command {
     private HashMap<String, LinkedList<ItemStack>> undo = new HashMap<>();
@@ -62,7 +60,7 @@ public class CommandLore extends Command {
 
         String action = args[0].toLowerCase();
 
-        @SuppressWarnings("deprecation") final String id = player.getName() + "'" + item.getTypeId();
+        final String id = player.getName() + "'" + item.getType();
 
         if (!action.equals("undo")) {
             if (!undo.containsKey(id)) {
@@ -236,7 +234,7 @@ public class CommandLore extends Command {
                     return true;
                 }
                 final ItemStack undoneItem = list2.removeFirst();
-                if (!item.isSimilar(undoneItem) && item.getType() != Material.SKULL_ITEM) {
+                if (!item.isSimilar(undoneItem) && !(item.getItemMeta() instanceof SkullMeta)) {
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4You have not yet modified this Item!"));
                     return true;
                 }

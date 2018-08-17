@@ -8,11 +8,8 @@ package im.alphhe.alphheimplugin.components.donor.handlers
 
 import net.minecraft.server.v1_13_R1.NBTTagCompound
 import net.minecraft.server.v1_13_R1.NBTTagList
-import net.minecraft.server.v1_8_R3.NBTTagCompound
-import net.minecraft.server.v1_8_R3.NBTTagList
 import org.bukkit.Material
 import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack

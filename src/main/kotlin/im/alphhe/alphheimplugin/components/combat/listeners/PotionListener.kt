@@ -12,12 +12,12 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityPotionEffectEvent
 import org.bukkit.event.entity.PotionSplashEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
-import pw.alphheim.api.events.EffectRemovalNotification
 
 class PotionListener(private var plugin: AlphheimCore) : Listener {
 
@@ -26,7 +26,7 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
     }
 
     @EventHandler
-    fun onExpire(e: EffectRemovalNotification) {
+    fun onExpire(e: EntityPotionEffectEvent) {
         if (e.entity !is Player) return
         val racialHandler = plugin.componentHandler.getComponent(RacialHandler::class.java) ?: return
         object : BukkitRunnable() {
