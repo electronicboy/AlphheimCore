@@ -39,12 +39,6 @@ permissions:
     default: op
   alphheim.lores.lore:
     default: op
-  alphheim.human:
-    default: false
-  alphheim.elf:
-    default: false
-  alphheim.dwarf:
-    default: false
 
   alphheim.owner:
     default: false
