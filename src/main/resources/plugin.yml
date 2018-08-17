@@ -4,6 +4,8 @@ version: 1.0
 author: electronicboy
 website: alphheimmc.enjin.com
 
+api-version: 1.13
+
 depend: [Towny, Vault, LuckPerms]
 
 permissions:
