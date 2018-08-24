@@ -32,7 +32,7 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
     fun give(sender: CommandSender, target: OnlinePlayer, perk: IDonorHandler, @Optional args: String?) {
 
         val processedArgs = if (args == null) {
-            mutableMapOf<String, String>()
+            mutableMapOf()
         } else {
             val arguments = mutableMapOf<String, String>()
             for (splitArgs in args.split(",")) {
@@ -98,7 +98,6 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
             }
 
         }
-        tag.setString("purchaser", player.uniqueId.toString())
     }
 
     @HelpCommand
