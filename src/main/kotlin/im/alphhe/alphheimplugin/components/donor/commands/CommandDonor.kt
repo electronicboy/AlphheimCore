@@ -98,7 +98,6 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
             }
 
         }
-        tag.setString("purchaser", player.uniqueId.toString())
     }
 
     @HelpCommand
