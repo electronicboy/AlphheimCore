@@ -45,10 +45,10 @@ repositories {
         name = "Valaria"
         url = "https://repo.valaria.pw/repository/maven-public/"
     }
-    maven {
-        name = "vault"
-        url = "http://nexus.hc.to/content/repositories/pub_releases"
-    }
+    //maven {
+    //    name = "vault"
+    //    url = "http://nexus.hc.to/content/repositories/pub_releases"
+    //}
     maven {
         name = "valaria-private"
         url = "https://repo.valaria.pw/repository/valaria-private/"
