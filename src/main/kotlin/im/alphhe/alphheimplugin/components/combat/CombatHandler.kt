@@ -28,10 +28,9 @@ class CombatHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         while (recipeIterator.hasNext()) {
             val recipe = recipeIterator.next()
             if (toRemove.contains(recipe.result.type)) {
-                recipeIterator.remove();
+                recipeIterator.remove()
             }
         }
-
     }
 
 

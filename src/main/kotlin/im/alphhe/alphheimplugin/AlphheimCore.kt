@@ -155,6 +155,8 @@ class AlphheimCore : JavaPlugin() {
 
         componentHandler.disable()
 
+        Bukkit.resetRecipes() // Cleanup...
+
         MySQL.kill()
         killConsolePerms();
     }
