@@ -13,10 +13,13 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityPotionEffectEvent
+import org.bukkit.event.entity.LingeringPotionSplashEvent
 import org.bukkit.event.entity.PotionSplashEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.meta.PotionMeta
+import org.bukkit.potion.PotionData
 import org.bukkit.potion.PotionEffectType
+import org.bukkit.potion.PotionType
 import org.bukkit.scheduler.BukkitRunnable
 
 class PotionListener(private var plugin: AlphheimCore) : Listener {
@@ -25,7 +28,6 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
         plugin.server.pluginManager.registerEvents(this, plugin)
     }
 
-    @EventHandler
     fun onExpire(e: EntityPotionEffectEvent) {
         if (e.entity !is Player) return
         val racialHandler = plugin.componentHandler.getComponent(RacialHandler::class.java) ?: return
@@ -37,7 +39,6 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
     }
 
 
-    @EventHandler
     fun playerSplash(e: PotionSplashEvent) {
         // Handle reapplication of status effects
 
@@ -88,7 +89,6 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
 
     }
 
-    @EventHandler
     fun potionConsume(e: PlayerItemConsumeEvent) {
         if (e.item.type != Material.POTION) return
 
@@ -123,8 +123,40 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
             e.item.itemMeta = potionMeta
 
         }
-
-
     }
+
+    fun potionSpawnEffect(e: LingeringPotionSplashEvent) {
+        val areaEffectCloud = e.areaEffectCloud
+        if (areaEffectCloud.basePotionData?.type == PotionType.INVISIBILITY) {
+            if (!areaEffectCloud.hasCustomEffects()) {
+                e.isCancelled = true
+            } else {
+                // get the first effect and remove it
+                val effect = areaEffectCloud.customEffects[0]
+                areaEffectCloud.removeCustomEffect(effect.type)
+                areaEffectCloud.removeCustomEffect(PotionEffectType.INVISIBILITY) // Just to be safe...
+                areaEffectCloud.basePotionData = PotionData(PotionType.getByEffect(effect.type))
+            }
+        } else if (areaEffectCloud.hasCustomEffects()) {
+            areaEffectCloud.removeCustomEffect(PotionEffectType.INVISIBILITY)
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun potionEffectApply(e: EntityPotionEffectEvent) {
+        if (e.entity !is Player) return
+        if (e.action == EntityPotionEffectEvent.Action.ADDED) {
+            val type = e.newEffect?.type
+            // check type and that this isn't being added by a plugin
+            if (type == PotionEffectType.INVISIBILITY && e.cause != EntityPotionEffectEvent.Cause.PLUGIN) {
+                e.isCancelled = true
+            }
+        } else if (e.action == EntityPotionEffectEvent.Action.REMOVED) {
+
+        }
+
+        plugin.componentHandler.getComponent(RacialHandler::class.java)?.applyEffects(e.entity as Player)
+    }
+
 
 }
