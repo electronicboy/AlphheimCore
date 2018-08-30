@@ -144,18 +144,17 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
 
     @EventHandler(ignoreCancelled = true)
     fun potionEffectApply(e: EntityPotionEffectEvent) {
-        if (e.entity !is Player) return
+        if (e.entity !is Player || e.cause == EntityPotionEffectEvent.Cause.PLUGIN) return
         if (e.action == EntityPotionEffectEvent.Action.ADDED) {
             val type = e.newEffect?.type
             // check type and that this isn't being added by a plugin
-            if (type == PotionEffectType.INVISIBILITY && e.cause != EntityPotionEffectEvent.Cause.PLUGIN) {
+            if (type == PotionEffectType.INVISIBILITY) {
                 e.isCancelled = true
             }
         } else if (e.action == EntityPotionEffectEvent.Action.REMOVED) {
-
+            plugin.componentHandler.getComponent(RacialHandler::class.java)?.applyEffects(e.entity as Player)
         }
 
-        plugin.componentHandler.getComponent(RacialHandler::class.java)?.applyEffects(e.entity as Player)
     }
 
 

@@ -102,7 +102,10 @@ class PermissionHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         val user = plugin.luckPermsApi.getUser(player.uniqueId) ?: return ImmutableList.of()
 
         val builder = ImmutableList.builder<Group>()
-        user.ownNodes.filter { it.isGroupNode }.map { getGroup(it.groupName)!! }.forEach { builder.add(it) }
+        user.ownNodes
+                .filter { it.isGroupNode }
+                .map { getGroup(it.groupName)!! }
+                .forEach { builder.add(it) }
 
         return builder.build();
     }
