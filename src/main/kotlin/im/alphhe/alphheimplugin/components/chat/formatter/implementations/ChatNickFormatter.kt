@@ -8,7 +8,6 @@ package im.alphhe.alphheimplugin.components.chat.formatter.implementations
 
 import com.google.inject.Inject
 import im.alphhe.alphheimplugin.AlphheimCore
-import im.alphhe.alphheimplugin.append
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatChannel
 import im.alphhe.alphheimplugin.components.chat.formatter.AbstractChatFormatter

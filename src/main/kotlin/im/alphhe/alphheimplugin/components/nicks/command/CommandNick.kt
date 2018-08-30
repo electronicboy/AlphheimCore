@@ -10,7 +10,6 @@ import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.addComponent
-import im.alphhe.alphheimplugin.append
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager

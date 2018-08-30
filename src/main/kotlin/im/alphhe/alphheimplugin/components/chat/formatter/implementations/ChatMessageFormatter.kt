@@ -7,7 +7,6 @@
 package im.alphhe.alphheimplugin.components.chat.formatter.implementations
 
 import im.alphhe.alphheimplugin.AlphheimCore
-import im.alphhe.alphheimplugin.append
 import im.alphhe.alphheimplugin.components.chat.ChatChannel
 import im.alphhe.alphheimplugin.components.chat.formatter.AbstractChatFormatter
 import net.md_5.bungee.api.chat.ComponentBuilder
