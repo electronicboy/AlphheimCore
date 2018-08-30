@@ -34,11 +34,11 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     fun list(sender: CommandSender) {
         MySQL.executor.execute {
 
-            MySQL.getConnection().use {
-                val stmt = it.prepareStatement("SELECT PLAYER_UUID, REQUESTED, STATUS, NICKNAME FROM player_data INNER JOIN player_nicks pn on player_data.PLAYER_ID = pn.PLAYER_ID WHERE pn.REQUESTED IS NOT NULL AND pn.STATUS = 0")
+            MySQL.getConnection().use { conn ->
+                val stmt = conn.prepareStatement("SELECT PLAYER_UUID, REQUESTED, STATUS, NICKNAME FROM player_data INNER JOIN player_nicks pn on player_data.PLAYER_ID = pn.PLAYER_ID WHERE pn.REQUESTED IS NOT NULL AND pn.STATUS = 0")
 
-                stmt.use {
-                    val rs = it.executeQuery()
+                stmt.use { statement ->
+                    val rs = statement.executeQuery()
                     rs.use {
 
                         rs.last()
