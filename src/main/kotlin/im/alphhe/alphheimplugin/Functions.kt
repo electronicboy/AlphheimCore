@@ -30,8 +30,8 @@ fun ComponentBuilder.addComponent(component: BaseComponent) {
 
 }
 
-public fun ComponentBuilder.append(components: Array<out BaseComponent>) {
-    components.forEach { component -> addComponent(component) }
-}
+//public fun ComponentBuilder.append(components: Array<out BaseComponent>) {
+//    components.forEach { component -> addComponent(component) }
+//}
 
 fun ChatColor.color(text: String) : String  = ChatColor.translateAlternateColorCodes('&', text)
