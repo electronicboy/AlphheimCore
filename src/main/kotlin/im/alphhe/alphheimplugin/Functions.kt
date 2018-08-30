@@ -6,6 +6,7 @@
 
 package im.alphhe.alphheimplugin
 
+import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
@@ -32,3 +33,5 @@ fun ComponentBuilder.addComponent(component: BaseComponent) {
 public fun ComponentBuilder.append(components: Array<out BaseComponent>) {
     components.forEach { component -> addComponent(component) }
 }
+
+fun ChatColor.color(text: String) : String  = ChatColor.translateAlternateColorCodes('&', text)

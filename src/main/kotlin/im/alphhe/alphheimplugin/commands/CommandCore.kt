@@ -43,12 +43,13 @@ class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @CommandPermission("alphheim.admin")
     @Subcommand("reloadTab")
-    fun reloadTab(sender: Player) {
+    fun reloadTab(sender: CommandSender) {
         val tabHandler = plugin.componentHandler.getComponent(TabHandler::class.java)
         if (tabHandler == null) {
             MessageUtil.sendError(sender, "TabHandler is null?!")
         } else {
             tabHandler.reset()
+            MessageUtil.sendInfo(sender, "tab reset")
         }
     }
 

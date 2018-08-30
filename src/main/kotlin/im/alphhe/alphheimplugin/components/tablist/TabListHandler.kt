@@ -8,7 +8,7 @@ package im.alphhe.alphheimplugin.components.tablist
 
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
-import net.md_5.bungee.api.ChatColor
+import org.bukkit.ChatColor
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scoreboard.Scoreboard
@@ -28,33 +28,33 @@ class TabListHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
         sb = manager.newScoreboard
 
-        teams["owner"] = getTeam("a_owner", "&1&4[&8Owner&4] &4")
-        teams["coowner"] = getTeam("b_coowner", "&1&4[&8Owner&4] &4")
-        teams["dev"] = getTeam("c_dev", "&a&4[&8Dev&4] &9")
-        teams["ha"] = getTeam("d_cm", "&c&4[&8HA&4] &9")
-        teams["admin"] = getTeam("e_staff", "&4[&8Admin&4] &9")
-        teams["mod"] = getTeam("f_mod", "&4[&8Mod&4] &9")
+        teams["owner"] = getTeam("a_owner", "&1&4[&8Owner&4] &4", ChatColor.WHITE)
+        teams["coowner"] = getTeam("b_coowner", "&1&4[&8Owner&4] &4", ChatColor.WHITE)
+        teams["dev"] = getTeam("c_dev", "&a&4[&8Dev&4] &9", ChatColor.RED)
+        teams["ha"] = getTeam("d_cm", "&c&4[&8HA&4] &9", ChatColor.WHITE)
+        teams["admin"] = getTeam("e_staff", "&4[&8Admin&4] &9", ChatColor.WHITE)
+        teams["mod"] = getTeam("f_mod", "&4[&8Mod&4] &9", ChatColor.WHITE)
 
 
         // humans
-        teams["hleader"] = getTeam("g_hleader", "&3[&bH&3]&6 ")
-        teams["hroyal"] = getTeam("h_hroyal", "&3[&bH&3]&3 ")
-        teams["hplayer"] = getTeam("i_hplayer", "&3[&bH&3]&7 ")
+        teams["hleader"] = getTeam("g_hleader", "&3[&bH&3]&6 ", ChatColor.WHITE)
+        teams["hroyal"] = getTeam("h_hroyal", "&3[&bH&3]&3 ", ChatColor.WHITE)
+        teams["hplayer"] = getTeam("i_hplayer", "&3[&bH&3]&7 ", ChatColor.WHITE)
 
         // Dwarfs
-        teams["dleader"] = getTeam("j_dleader", "&4[&cD&4]&6 ")
-        teams["droyal"] = getTeam("k_droyal", "&4[&cD&4]&3 ")
-        teams["dplayer"] = getTeam("l_dplayer", "&4[&cD&4]&7 ")
+        teams["dleader"] = getTeam("j_dleader", "&4[&cD&4]&6 ", ChatColor.WHITE)
+        teams["droyal"] = getTeam("k_droyal", "&4[&cD&4]&3 ", ChatColor.WHITE)
+        teams["dplayer"] = getTeam("l_dplayer", "&4[&cD&4]&7 ", ChatColor.WHITE)
 
         // Elfs
-        teams["eleader"] = getTeam("m_dleader", "&2[&aE&2]&6 ")
-        teams["eroyal"] = getTeam("n_droyal", "&2[&aE&2]&3 ")
-        teams["eplayer"] = getTeam("o_dplayer", "&2[&aE&2]&7 ")
+        teams["eleader"] = getTeam("m_dleader", "&2[&aE&2]&6 ", ChatColor.WHITE)
+        teams["eroyal"] = getTeam("n_droyal", "&2[&aE&2]&3 ", ChatColor.WHITE)
+        teams["eplayer"] = getTeam("o_dplayer", "&2[&aE&2]&7 ", ChatColor.WHITE)
 
 
         // misc
-        teams["exile"] = getTeam("y_exile", "&8[Exile]&m ")
-        teams["zpm"] = getTeam("z_permless", "&7 ")
+        teams["exile"] = getTeam("y_exile", "&8[Exile]&m ", ChatColor.WHITE)
+        teams["zpm"] = getTeam("z_permless", "&7 ", ChatColor.WHITE)
 
         plugin.server.onlinePlayers.forEach { setSB(it) }
     }
@@ -150,10 +150,10 @@ class TabListHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     }
 
 
-    private fun getTeam(name: String, prefixArg: String): Team {
+    private fun getTeam(name: String, prefixArg: String, color: ChatColor): Team {
 
         var prefix = prefixArg
-        var team: Team? = sb.getTeam(name) ?: createTeam(name, prefixArg)
+        var team: Team? = sb.getTeam(name) ?: createTeam(name, prefixArg, color)
 
         if (team == null) {
             team = sb.registerNewTeam(name)
@@ -169,13 +169,14 @@ class TabListHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         return team
     }
 
-    private fun createTeam(name: String, prefix: String): Team {
+    private fun createTeam(name: String, prefix: String, color: ChatColor): Team {
         val team = sb.registerNewTeam(name)
         var newPrefix = ChatColor.translateAlternateColorCodes('&', prefix)
         if (newPrefix.length > 16) {
             newPrefix = newPrefix.substring(0, 16)
         }
         team.prefix = newPrefix
+        team.color = color;
         return team
     }
 }
