@@ -182,7 +182,7 @@ class TabListHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         if (localColor == null && newPrefix != null && prefix.isNotEmpty()) {
             val components = TextComponent.fromLegacyText(newPrefix)
             val lastComponent = components[components.size-1]
-            localColor = ChatColor.valueOf(lastComponent.color.getName());
+            localColor = ChatColor.valueOf(lastComponent.color.getName().toUpperCase());
 
         }
         team.color = localColor;
