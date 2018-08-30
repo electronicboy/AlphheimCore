@@ -78,7 +78,8 @@ class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         val headerComponent = TextComponent.fromLegacyText(header)
         val footerComponent = TextComponent.fromLegacyText(footer)
 
-        player.setPlayerListHeaderFooter(headerComponent, footerComponent)
+        //player.setPlayerListHeaderFooter(headerComponent, footerComponent)
+        player.setPlayerListHeaderFooter(header, footer)
 
     }
 
