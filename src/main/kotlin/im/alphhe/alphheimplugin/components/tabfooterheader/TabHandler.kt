@@ -11,6 +11,9 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.FrameBuilder
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.TabFrame
+import im.alphhe.alphheimplugin.toComponents
+import net.md_5.bungee.api.chat.BaseComponent
+import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.chat.ComponentSerializer
 import net.minecraft.server.v1_13_R1.IChatBaseComponent
@@ -76,10 +79,7 @@ class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         val footer = processReplacements(frame.footer, player)
 
 
-        val headerComponent = TextComponent.fromLegacyText(header)
-        val footerComponent = TextComponent.fromLegacyText(footer)
-
-        player.setPlayerListHeaderFooter(headerComponent, footerComponent)
+        player.setPlayerListHeaderFooter(header.toComponents(), footer.toComponents())
 
     }
 
@@ -113,6 +113,5 @@ class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
                 .replace("{DISPLAYNAME}", target.displayName)
         return ChatColor.translateAlternateColorCodes('&', output)
     }
-
 
 }
