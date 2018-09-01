@@ -12,16 +12,13 @@ import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.FrameBuilder
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.TabFrame
 import im.alphhe.alphheimplugin.toComponents
-import net.md_5.bungee.api.chat.BaseComponent
-import net.md_5.bungee.api.chat.ClickEvent
-import net.md_5.bungee.api.chat.TextComponent
-import net.md_5.bungee.chat.ComponentSerializer
-import net.minecraft.server.v1_13_R1.IChatBaseComponent
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
-import java.io.*
-import java.nio.charset.Charset
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileWriter
+import java.io.InputStreamReader
 import java.util.*
 
 class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {

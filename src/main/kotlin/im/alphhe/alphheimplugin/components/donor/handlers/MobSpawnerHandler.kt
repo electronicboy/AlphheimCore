@@ -6,13 +6,12 @@
 
 package im.alphhe.alphheimplugin.components.donor.handlers
 
-import net.minecraft.server.v1_13_R1.NBTTagCompound
-import net.minecraft.server.v1_13_R1.NBTTagList
 import org.bukkit.Material
-import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack
+import org.bukkit.block.CreatureSpawner
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.BlockStateMeta
 
 class MobSpawnerHandler() : IDonorHandler() {
     override val name: String
@@ -22,49 +21,30 @@ class MobSpawnerHandler() : IDonorHandler() {
         val spawnerType = args["spawnerType"]
                 ?: throw IllegalArgumentException("Missing spawner type!!")
 
+        val entityType = EntityType.fromName(spawnerType);
         @Suppress("DEPRECATION")
-        if (EntityType.fromName(spawnerType) == null) throw IllegalArgumentException("invalid spawner type!!")
+        if (entityType == null) throw IllegalArgumentException("invalid spawner type!!")
 
-        val items = player.inventory.addItem(getSpawner(spawnerType, args["displayName"]))
+        val items = player.inventory.addItem(getSpawner(entityType, args["displayName"]))
         for (item in items) {
             player.location.world.dropItemNaturally(player.location, item.value)
         }
     }
 
-    private fun getSpawner(mobType: String, name: String?): ItemStack {
+    private fun getSpawner(mobType: EntityType, name: String?): ItemStack {
 
-        val stack = CraftItemStack.asNMSCopy(ItemStack(Material.SPAWNER))
+        val item = ItemStack(Material.SPAWNER)
+        val itemmeta = item.itemMeta as BlockStateMeta
 
-        val tag = stack.tag ?: NBTTagCompound()
+        val spawner = itemmeta.blockState as CreatureSpawner
+        spawner.spawnedType = mobType
 
-        val blockEntityTag = if (tag.hasKeyOfType("BlockEntityTag", 10)) {
-            tag.getCompound("BlockEntityTag")
-        } else {
+        itemmeta.blockState = spawner
 
-            NBTTagCompound()
-        }
+        itemmeta.displayName = if (name != null) name  else mobType.name
+        item.itemMeta = itemmeta
 
-        blockEntityTag.setString("id", "MobSpawner")
-        blockEntityTag.setString("EntityId", mobType)
+        return item;
 
-        val spawnData = NBTTagCompound()
-        spawnData.setString("id", mobType)
-
-        blockEntityTag.set("SpawnData", spawnData)
-        blockEntityTag.set("SpawnPotentials", NBTTagList())
-
-        tag.set("BlockEntityTag", blockEntityTag)
-
-        stack.tag = tag;
-
-        val bukkitStack = CraftItemStack.asCraftMirror(stack)
-
-        if (name != null) {
-            val meta = bukkitStack.itemMeta
-            meta.displayName = name.replace("_", " ")
-            bukkitStack.itemMeta = meta
-        }
-
-        return bukkitStack
     }
 }
