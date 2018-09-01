@@ -12,6 +12,8 @@ import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.FrameBuilder
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.TabFrame
 import net.md_5.bungee.api.chat.TextComponent
+import net.md_5.bungee.chat.ComponentSerializer
+import net.minecraft.server.v1_13_R1.IChatBaseComponent
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
@@ -77,6 +79,8 @@ class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         val headerComponent = TextComponent.fromLegacyText(header)
         val footerComponent = TextComponent.fromLegacyText(footer)
 
+        ComponentSerializer.toString(headerComponent)
+        ComponentSerializer.toString(footerComponent)
         player.setPlayerListHeaderFooter(headerComponent, footerComponent)
 
     }
