@@ -15,9 +15,8 @@ import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
-import java.io.File
-import java.io.FileReader
-import java.io.FileWriter
+import java.io.*
+import java.nio.charset.Charset
 import java.util.*
 
 class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
@@ -87,8 +86,9 @@ class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         synchronized(lock) {
             frame.clear() // because people aren't going to always be looking at the first...
             try {
-                val fileReader = FileReader(tabFile)
-                val loadFrames: List<TabFrame> = gson.fromJson(fileReader, Array<TabFrame>::class.java).toList()
+                val fileReader = FileInputStream(tabFile)
+                val inputStreamReader = InputStreamReader(fileReader, Charsets.UTF_8);
+                val loadFrames: List<TabFrame> = gson.fromJson(inputStreamReader, Array<TabFrame>::class.java).toList()
 
                 frames = FrameBuilder(loadFrames).build()
 
