@@ -74,11 +74,7 @@ class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
     fun sendFrame(player: Player, frame: TabFrame) {
         val header = processReplacements(frame.header, player)
         val footer = processReplacements(frame.footer, player)
-        player.playerListHeader = header
-        player.playerListFooter = footer
-
-
-        player.setPlayerListHeaderFooter(header.toComponents(), footer.toComponents())
+        player.setPlayerListHeaderFooter(header, footer)
 
     }
 
