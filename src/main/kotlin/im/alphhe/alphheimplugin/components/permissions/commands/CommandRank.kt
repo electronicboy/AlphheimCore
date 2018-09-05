@@ -23,8 +23,6 @@ import org.bukkit.inventory.ItemStack
 @CommandAlias("rank")
 class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
-    private val worldSpawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
-
     @Default
     @Subcommand("list|l")
     @CommandPermission("alphheim.mod")
@@ -95,7 +93,7 @@ class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
                 ItemStack(Material.ACACIA_BOAT)
         )
 
-        target.player.teleport(worldSpawn)
+        target.player.teleport(Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f))
 
 
     }

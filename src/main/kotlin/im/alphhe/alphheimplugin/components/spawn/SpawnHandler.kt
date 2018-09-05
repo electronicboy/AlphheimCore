@@ -24,10 +24,6 @@ import org.bukkit.inventory.meta.BookMeta
 
 class SpawnHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
-
-    private val worldSpawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
-    private val selectSpawn = Location(Bukkit.getWorlds()[0], 723.0, 6.0, -1692.0, 0f, 0f)
-
     private var spawnBook: ItemStack
 
     init {
@@ -88,6 +84,9 @@ class SpawnHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
 
     internal fun resolveSpawn(player: Player): Location {
+        val worldSpawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
+        val selectSpawn = Location(Bukkit.getWorlds()[0], 723.0, 6.0, -1692.0, 0f, 0f)
+
         return if (player.hasPermission("alphheim.raceselected"))
             worldSpawn
         else
