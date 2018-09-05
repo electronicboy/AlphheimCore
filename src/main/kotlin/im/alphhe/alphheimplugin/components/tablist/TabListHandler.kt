@@ -16,51 +16,71 @@ import org.bukkit.scoreboard.Scoreboard
 import org.bukkit.scoreboard.ScoreboardManager
 import org.bukkit.scoreboard.Team
 import java.util.*
+import java.util.concurrent.atomic.AtomicBoolean
 
 class TabListHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
-    private val manager: ScoreboardManager
-    private val sb: Scoreboard
-    private val teams: MutableMap<String, Team>
+    private lateinit var manager: ScoreboardManager
+    private lateinit var sb: Scoreboard
+    private lateinit var teams: MutableMap<String, Team>
+    @Volatile
+    private var hasInit = false
 
     init {
-        teams = HashMap()
-        manager = Bukkit.getScoreboardManager()
-
-        sb = manager.newScoreboard
-
-        teams["owner"] = getTeam("a_owner", "&1&4[&8Owner&4] &4")
-        teams["coowner"] = getTeam("b_coowner", "&1&4[&8Owner&4] &4")
-        teams["dev"] = getTeam("c_dev", "&a&4[&8Dev&4] &9")
-        teams["ha"] = getTeam("d_cm", "&c&4[&8HA&4] &9")
-        teams["admin"] = getTeam("e_staff", "&4[&8Admin&4] &9")
-        teams["mod"] = getTeam("f_mod", "&4[&8Mod&4] &9")
+        plugin.server.scheduler.runTask(plugin) {
+            init()
+        }
+    }
 
 
-        // humans
-        teams["hleader"] = getTeam("g_hleader", "&3[&bH&3]&6 ")
-        teams["hroyal"] = getTeam("h_hroyal", "&3[&bH&3]&3 ")
-        teams["hplayer"] = getTeam("i_hplayer", "&3[&bH&3]&7 ")
+    fun init() {
+        if (!hasInit) {
 
-        // Dwarfs
-        teams["dleader"] = getTeam("j_dleader", "&4[&cD&4]&6 ")
-        teams["droyal"] = getTeam("k_droyal", "&4[&cD&4]&3 ")
-        teams["dplayer"] = getTeam("l_dplayer", "&4[&cD&4]&7 ")
+            synchronized(this) {
+                if (!hasInit) {
+                    teams = HashMap()
+                    manager = Bukkit.getScoreboardManager()
 
-        // Elfs
-        teams["eleader"] = getTeam("m_dleader", "&2[&aE&2]&6 ")
-        teams["eroyal"] = getTeam("n_droyal", "&2[&aE&2]&3 ")
-        teams["eplayer"] = getTeam("o_dplayer", "&2[&aE&2]&7 ")
+                    sb = manager.newScoreboard
+
+                    teams["owner"] = getTeam("a_owner", "&1&4[&8Owner&4] &4")
+                    teams["coowner"] = getTeam("b_coowner", "&1&4[&8Owner&4] &4")
+                    teams["dev"] = getTeam("c_dev", "&a&4[&8Dev&4] &9")
+                    teams["ha"] = getTeam("d_cm", "&c&4[&8HA&4] &9")
+                    teams["admin"] = getTeam("e_staff", "&4[&8Admin&4] &9")
+                    teams["mod"] = getTeam("f_mod", "&4[&8Mod&4] &9")
 
 
-        // misc
-        teams["exile"] = getTeam("y_exile", "&8[Exile]&m ")
-        teams["zpm"] = getTeam("z_permless", "&7 ")
+                    // humans
+                    teams["hleader"] = getTeam("g_hleader", "&3[&bH&3]&6 ")
+                    teams["hroyal"] = getTeam("h_hroyal", "&3[&bH&3]&3 ")
+                    teams["hplayer"] = getTeam("i_hplayer", "&3[&bH&3]&7 ")
 
-        plugin.server.onlinePlayers.forEach { setSB(it) }
+                    // Dwarfs
+                    teams["dleader"] = getTeam("j_dleader", "&4[&cD&4]&6 ")
+                    teams["droyal"] = getTeam("k_droyal", "&4[&cD&4]&3 ")
+                    teams["dplayer"] = getTeam("l_dplayer", "&4[&cD&4]&7 ")
+
+                    // Elfs
+                    teams["eleader"] = getTeam("m_dleader", "&2[&aE&2]&6 ")
+                    teams["eroyal"] = getTeam("n_droyal", "&2[&aE&2]&3 ")
+                    teams["eplayer"] = getTeam("o_dplayer", "&2[&aE&2]&7 ")
+
+
+                    // misc
+                    teams["exile"] = getTeam("y_exile", "&8[Exile]&m ")
+                    teams["zpm"] = getTeam("z_permless", "&7 ")
+
+                    plugin.server.onlinePlayers.forEach { setSB(it) }
+                }
+            }
+
+        }
     }
 
     fun setSB(player: Player): Unit {
+        init()
+
         player.scoreboard = sb
         sb.teams.forEach { t ->
             if (t.hasEntry(player.name))

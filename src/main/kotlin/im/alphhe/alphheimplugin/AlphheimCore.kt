@@ -14,7 +14,6 @@ import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandSign
 import im.alphhe.alphheimplugin.componenthandler.ComponentHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
-import im.alphhe.alphheimplugin.components.chat.ChatHandlerService
 import im.alphhe.alphheimplugin.components.combat.CombatHandler
 import im.alphhe.alphheimplugin.components.diversions.FunHandler
 import im.alphhe.alphheimplugin.components.donor.DonorManager
@@ -31,6 +30,7 @@ import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
 import im.alphhe.alphheimplugin.components.voting.VoteHandler
+import im.alphhe.alphheimplugin.components.worldgen.WorldGenHandler
 import im.alphhe.alphheimplugin.listeners.PlayerListener
 import im.alphhe.alphheimplugin.listeners.SignListener
 import im.alphhe.alphheimplugin.utils.MessageUtil
@@ -38,6 +38,7 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
+import org.bukkit.generator.ChunkGenerator
 import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -118,6 +119,7 @@ class AlphheimCore : JavaPlugin() {
         componentHandler.registerComponent(VoteHandler::class.java)
         componentHandler.registerComponent(MMOCreditsHandler::class.java)
         componentHandler.registerComponent(RestartHandler::class.java)
+        componentHandler.registerComponent(WorldGenHandler::class.java)
     }
 
     private fun registerCommands() {
@@ -163,6 +165,10 @@ class AlphheimCore : JavaPlugin() {
 
     fun restart(message: String = "We'll see you on the other side!") {
         server.onlinePlayers.forEach { it.kickPlayer(message) }
+    }
+
+    override fun getDefaultWorldGenerator(worldName: String?, id: String?): ChunkGenerator? {
+        return componentHandler.getComponent(WorldGenHandler::class.java)?.getGenerator(worldName, id)
     }
 
 

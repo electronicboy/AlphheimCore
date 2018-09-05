@@ -6,6 +6,8 @@
 
 package im.alphhe.alphheimplugin
 
+import im.alphhe.alphheimplugin.componenthandler.ComponentHandler
+import im.alphhe.alphheimplugin.components.worldgen.WorldGenHandler
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ClickEvent
@@ -13,6 +15,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 import java.util.ArrayList
 import java.util.regex.Pattern
+import kotlin.reflect.KClass
 
 private val url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$")
 
@@ -43,4 +46,8 @@ fun ChatColor.color(text: String) : String  = ChatColor.translateAlternateColorC
 
 fun String.toComponents(): Array<BaseComponent> {
     return TextComponent.fromLegacyText(this)
+}
+
+fun ComponentHandler.getComponent(kClass: KClass<WorldGenHandler>) {
+    getComponent(kClass.java)
 }
