@@ -3,6 +3,7 @@ main: im.alphhe.alphheimplugin.AlphheimCore
 version: 1.0
 author: electronicboy
 website: alphheimmc.enjin.com
+load: STARTUP
 
 api-version: 1.13
 
