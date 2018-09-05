@@ -168,7 +168,10 @@ class AlphheimCore : JavaPlugin() {
     }
 
     override fun getDefaultWorldGenerator(worldName: String?, id: String?): ChunkGenerator? {
-        return componentHandler.getComponent(WorldGenHandler::class.java)?.getGenerator(worldName, id)
+        val worldGenHandler = componentHandler.getComponent(WorldGenHandler::class.java)
+        return if (worldGenHandler != null) {
+            worldGenHandler.getGenerator(worldName, id) ?: worldGenHandler.emptyWorldGenerator
+        } else null
     }
 
 
