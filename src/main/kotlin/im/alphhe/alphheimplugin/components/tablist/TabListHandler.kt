@@ -71,6 +71,7 @@ class TabListHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
                     teams["exile"] = getTeam("y_exile", "&8[Exile]&m ")
                     teams["zpm"] = getTeam("z_permless", "&7 ")
 
+                    hasInit = true
                     plugin.server.onlinePlayers.forEach { setSB(it) }
                 }
             }
