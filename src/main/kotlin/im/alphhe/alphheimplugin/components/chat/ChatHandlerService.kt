@@ -8,12 +8,13 @@ package im.alphhe.alphheimplugin.components.chat
 
 import com.google.inject.Inject
 import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.data.AlphheimUser
 import org.bukkit.entity.Player
 
 
-class ChatHandlerService(val alphheimCore: AlphheimCore) : pw.alphheim.api.services.Chat {
+class ChatHandlerService(alphheimCore: AlphheimCore) : AbstractHandler(alphheimCore),  pw.alphheim.api.services.Chat {
 
     @Inject
     lateinit var userManager: UserManager
