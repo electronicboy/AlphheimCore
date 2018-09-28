@@ -42,5 +42,5 @@ class ChatHandlerService(alphheimCore: AlphheimCore) : AbstractHandler(alphheimC
 
     }
 
-
+    override fun onDisable() {}
 }
