@@ -7,15 +7,16 @@
 package im.alphhe.alphheimplugin.components.chat
 
 import im.alphhe.alphheimplugin.components.chat.formatter.IChatFormatter
+import im.alphhe.alphheimplugin.data.AlphheimUser
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.entity.Player
 import java.util.*
 
-abstract class ChatChannel(val name: String, val chatColor: ChatColor, val shortName: String, chatHandler: ChatHandlerService) {
+abstract class ChatChannel(val name: String, val chatColor: ChatColor, val shortName: String, @Suppress("UNUSED_PARAMETER") chatHandler: ChatHandlerService) {
 
     var chatFormatter = LinkedList<IChatFormatter>()
-    val chatMembers = HashMap<Player, ChatStatus>()
+    val chatMembers = HashMap<AlphheimUser, ChatStatus>()
 
     fun processChat(sender: Player, message: String) {
         val components = ComponentBuilder("")
@@ -24,11 +25,12 @@ abstract class ChatChannel(val name: String, val chatColor: ChatColor, val short
 
     }
 
-    abstract fun canJoin(player: Player): Boolean
-    abstract fun canLeave(player: Player): Boolean
-    abstract fun join(player: Player, force: Boolean = false): Boolean
-    abstract fun leave(player: Player, force: Boolean = false): Boolean
+    abstract fun canJoin(user: AlphheimUser): Boolean
+    abstract fun canLeave(user: AlphheimUser): Boolean
+    abstract fun join(user: AlphheimUser, force: Boolean = false): Boolean
+    abstract fun leave(user: AlphheimUser, force: Boolean = false): Boolean
 
     abstract fun sendChat(components: ComponentBuilder)
+
 
 }

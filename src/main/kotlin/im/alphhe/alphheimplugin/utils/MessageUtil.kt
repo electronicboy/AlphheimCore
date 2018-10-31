@@ -12,9 +12,9 @@ import org.bukkit.command.CommandSender
 
 
 object MessageUtil {
-    public val default = ChatColor.GREEN
-    public val error = ChatColor.DARK_RED
-    public val prefix = "${ChatColor.DARK_GRAY}[${ChatColor.RED}A${ChatColor.DARK_GRAY}]"
+    private val prefix = "${ChatColor.DARK_GRAY}E"
+    private val default = "$prefix${ChatColor.GREEN}>"
+    private val error = "$prefix${ChatColor.DARK_RED}>"
 
     private fun send(player: CommandSender, s: String) {
         player.sendMessage("$prefix $s")

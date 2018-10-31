@@ -14,8 +14,9 @@ import co.aikar.commands.annotation.Subcommand
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
-import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.inventory.meta.Damageable
+import org.bukkit.inventory.meta.ItemMeta
 
 @CommandAlias("fix|repair")
 class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
@@ -24,14 +25,23 @@ class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     @CommandAlias("fixhand")
     @CommandPermission("alphheim.fix")
     fun onHand(sender: Player) {
-        val item = sender.itemInHand
-        if (item == null || item.type.isBlock || item.durability == 0.toShort() || item.type.maxDurability < 1) {
+        val item = sender.inventory.itemInMainHand
+        if (item == null || item !is Damageable) {
             MessageUtil.sendError(sender, "You cannot repair this item!")
             return
         }
+
         if (checkCooldown(sender, "fixCooldown")) {
-            item.durability = 0
-            sender.itemInHand = item // This item is already there, but this solves issues with updates
+            val damageableMeta = item.itemMeta as Damageable
+
+            if (damageableMeta.hasDamage()) {
+                damageableMeta.damage = 0
+                // This is stupid.
+                if (damageableMeta is ItemMeta) {
+                    item.itemMeta = damageableMeta
+                }
+            }
+
         }
 
     }
@@ -44,15 +54,16 @@ class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
         if (!checkCooldown(sender, "fixCooldown")) return
 
         // This command currently isn't given out to the public, so...
-        sender.inventory.contents.forEach {
-            if (it != null && !it.type.isBlock && it.durability != 0.toShort() && it.type.maxDurability > 0.toShort()) {
-                it.durability = 0
-            }
-        }
+        sender.inventory.contents.forEach { item ->
+            val damagableMeta = item.itemMeta as? Damageable
 
-        sender.inventory.armorContents.forEach {
-            if (it != null && !it.type.isBlock && it.durability != 0.toShort() && it.type.maxDurability > 0.toShort()) {
-                it.durability = 0
+            if (damagableMeta != null) {
+                if (damagableMeta.hasDamage()) {
+                    damagableMeta.damage = 0
+                    if (damagableMeta is ItemMeta) {
+                        item.itemMeta = damagableMeta
+                    }
+                }
             }
         }
 
@@ -63,7 +74,7 @@ class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     }
 
     @HelpCommand
-    fun unknownCommand(sender: CommandSender, help: CommandHelp) {
+    fun unknownCommand(help: CommandHelp) {
         help.showHelp()
     }
 

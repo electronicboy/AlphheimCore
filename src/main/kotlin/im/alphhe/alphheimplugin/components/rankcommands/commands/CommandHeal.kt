@@ -12,11 +12,12 @@ import co.aikar.commands.contexts.OnlinePlayer
 import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
+import org.bukkit.attribute.Attribute
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("aheal")
-class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandHeal(plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @Subcommand("heal")
     @CommandAlias("heal")
@@ -26,9 +27,9 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     fun onHeal(sender: Player, @Optional target: OnlinePlayer?) {
         if (checkCooldown(sender, "healCooldown")) {
             if (target == null) {
-                sender.health = sender.maxHealth
+                sender.health = sender.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
             } else {
-                target.player.health = target.player.maxHealth
+                target.player.health = target.player.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
             }
             MessageUtil.sendInfo(sender, "The spell was casted successfully!")
 
@@ -44,7 +45,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
             val location = sender.location
             for (nearbyEntity in location.world.getNearbyEntities(location, 7.0, 7.0, 7.0)) {
                 if (nearbyEntity is Player) {
-                    nearbyEntity.health = nearbyEntity.maxHealth
+                    nearbyEntity.health = nearbyEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
                 }
             }
             MessageUtil.sendInfo(sender, "The spell was casted successfully!")
@@ -61,7 +62,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
             target != null -> {
                 target.player.foodLevel = 20
                 target.player.saturation = 20f
-                target.player.health = target.player.maxHealth
+                target.player.health = target.player.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
                 MessageUtil.sendInfo(target.player, "You have been healed")
                 MessageUtil.sendInfo(sender, "You have healed ${target.player.name}")
 
@@ -69,7 +70,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
             sender is Player -> {
                 sender.foodLevel = 20
                 sender.player.saturation = 20f
-                sender.health = sender.maxHealth
+                sender.health = sender.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
                 MessageUtil.sendInfo(sender, "You have been healed")
             }
             else -> MessageUtil.sendError(sender, "Missing target?!")
@@ -100,7 +101,7 @@ class CommandHeal(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
     }
 
     @HelpCommand
-    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+    fun unknownCommand(help: CommandHelp) {
         help.showHelp()
     }
 

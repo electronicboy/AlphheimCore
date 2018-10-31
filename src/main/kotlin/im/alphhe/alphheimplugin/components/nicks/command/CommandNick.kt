@@ -251,7 +251,7 @@ class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
 
     @HelpCommand
-    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+    fun unknownCommand(help: CommandHelp) {
         help.showHelp()
     }
 }

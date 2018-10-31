@@ -20,19 +20,20 @@ class CommandHat(private var plugin: AlphheimCore) : AlphheimCommand(plugin) {
 
     @Default
     @CommandPermission("alphheim.hat")
-    fun onHat(player: Player, @Default("wear") action: String) {
+    @Suppress("UNUSED_PARAMETER")
+    fun onHat(player: Player /*, @Default("wear") action: String  -- restore me in future*/) {
         // TODO: Handle remove?
-        if (player.itemInHand?.type != Material.AIR) {
+        if (player.inventory.itemInMainHand?.type != Material.AIR) {
             val inventory = player.inventory
 
             // Get items....
-            val handItem = inventory.itemInHand
+            val handItem = inventory.itemInMainHand
             val hatItem = inventory.helmet
 
 
             // hand to helmet, helmet to hand; This should technically be safe.
             inventory.helmet = handItem
-            inventory.itemInHand = hatItem
+            inventory.itemInMainHand = hatItem
 
             MessageUtil.sendInfo(player, "Lookin' pretty good!")
 

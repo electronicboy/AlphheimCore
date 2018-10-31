@@ -37,7 +37,7 @@ public class CommandLore extends Command {
         }
 
         final Player player = (Player) sender;
-        final ItemStack item = player.getInventory().getItemInHand();
+        final ItemStack item = player.getInventory().getItemInMainHand();
         ItemMeta meta = item.getItemMeta();
 
         if (meta == null) {

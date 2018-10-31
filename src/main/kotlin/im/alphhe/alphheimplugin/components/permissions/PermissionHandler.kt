@@ -76,13 +76,6 @@ class PermissionHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
         return plugin.luckPermsApi.getGroup(group)
     }
 
-    fun updateGroup(player: OfflinePlayer, rank: String): Boolean {
-        val user = this.plugin.luckPermsApi.userManager.getUser(player.uniqueId)
-                ?: throw IllegalArgumentException("Attempted to set rank ($rank) for ${player.name} but we didn't find them!")
-
-        return true
-    }
-
     fun getGroupsForUser(player: Player): ImmutableList<Group> {
         val groups = ImmutableList.builder<Group>()
         val user = plugin.luckPermsApi.getUser(player.uniqueId) ?: return ImmutableList.of()

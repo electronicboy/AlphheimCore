@@ -16,7 +16,6 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import java.io.File
 
 @CommandAlias("credits|mmocredits")
 class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin) {
@@ -26,20 +25,20 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
     @CommandPermission("alphheim.admin")
     @Subcommand("credits|check")
     fun creditCheck(sender: CommandSender, target: OfflinePlayer) {
-        MySQL.executor.execute({
+        MySQL.executor.execute {
             val credits = handler.getCredits(target)
             MessageUtil.sendInfo(sender, "${target.name} has $credits credits!")
-        })
+        }
 
     }
 
     @Default
     @Subcommand("credits|check")
     fun creditCheck(sender: Player) {
-        MySQL.executor.execute({
+        MySQL.executor.execute {
             val credits = handler.getCredits(sender)
             MessageUtil.sendInfo(sender, "You have $credits credits to redeem!")
-        })
+        }
 
     }
 
@@ -52,14 +51,14 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
             MessageUtil.sendError(sender, "Specify a value greater than 0!")
             return
         }
-        MySQL.executor.execute({
+        MySQL.executor.execute {
 
             if (handler.giveCredits(target, amount)) {
                 if (target.isOnline) MessageUtil.sendInfo(target.player, "You have received $amount credits!")
 
                 MessageUtil.sendInfo(sender, "You have given ${target.name} $amount credits!")
             }
-        })
+        }
 
     }
 
@@ -72,14 +71,14 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
             MessageUtil.sendError(sender, "Specify a value greater than 0!")
             return
         }
-        MySQL.executor.execute({
+        MySQL.executor.execute {
 
             if (handler.takeCredits(target, amount)) {
                 if (target.isOnline) MessageUtil.sendInfo(target.player, "You have lost $amount credits!")
 
                 MessageUtil.sendInfo(sender, "You have taken $amount credits from ${target.name}!")
             }
-        })
+        }
 
     }
 
@@ -92,19 +91,19 @@ class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOC
             return
         }
 
-        MySQL.executor.execute({
+        MySQL.executor.execute {
             if (handler.redeemCredits(sender, skill, amount)) {
                 MessageUtil.sendInfo(sender, "You have successfully redeemed your credits!")
             } else {
                 MessageUtil.sendError(sender, "You do not have enough credits!")
             }
 
-        })
+        }
 
     }
 
     @HelpCommand
-    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+    fun unknownCommand(help: CommandHelp) {
         help.showHelp()
     }
 

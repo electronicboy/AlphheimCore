@@ -30,7 +30,7 @@ class CombatListener(private val plugin: AlphheimCore) : Listener {
 
     @EventHandler
     fun gapple(e: PlayerItemConsumeEvent) {
-        if (e.item.type == Material.GOLDEN_APPLE && e.item.durability == 1.toShort()) {
+        if (e.item.type == Material.ENCHANTED_GOLDEN_APPLE) {
             if (!checkCooldown(e.player, "gappleCooldown")) {
                 e.isCancelled = true
 

@@ -23,6 +23,7 @@ class RestartListener(private val handler: RestartHandler) : Listener {
     }
 
     @EventHandler
+    @Suppress("UNUSED_PARAMETER")
     fun playerLogout(e: PlayerQuitEvent) {
         if (handler.getStatus()) {
             shutdownRunnanble = object : BukkitRunnable() {
@@ -40,6 +41,7 @@ class RestartListener(private val handler: RestartHandler) : Listener {
     }
 
     @EventHandler
+    @Suppress("UNUSED_PARAMETER")
     fun playerLogin(e: PlayerJoinEvent) {
         val runnable = shutdownRunnanble;
         if (runnable != null) {

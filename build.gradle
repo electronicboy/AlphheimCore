@@ -72,6 +72,7 @@ dependencies {
     compile "com.google.inject:guice:4.1.0"
     compile "com.zaxxer:HikariCP:2.7.4"
     compile "co.aikar:minecraft-timings:1.0.4"
+    compile "co.aikar:taskchain-bukkit:3.7.2"
     compileOnly ("net.milkbowl.vault:VaultAPI:1.6") {
         exclude group: "org.bukkit", module: "bukkit"
     }

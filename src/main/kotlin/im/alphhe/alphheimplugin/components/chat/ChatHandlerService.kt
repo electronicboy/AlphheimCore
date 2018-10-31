@@ -30,9 +30,9 @@ class ChatHandlerService(alphheimCore: AlphheimCore) : AbstractHandler(alphheimC
 
     public fun addUser(player: Player) {
         val user = userManager.getUser(player)
-        channels.forEach { name, chan ->
-            if (chan.canJoin(player)) {
-                chan.join(player)
+        channels.forEach { _, chan ->
+            if (chan.canJoin(user)) {
+                chan.join(user)
             }
         }
 

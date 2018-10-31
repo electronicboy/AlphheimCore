@@ -21,7 +21,7 @@ class MobSpawnerHandler() : IDonorHandler() {
         val spawnerType = args["spawnerType"]
                 ?: throw IllegalArgumentException("Missing spawner type!!")
 
-        val entityType = EntityType.fromName(spawnerType);
+        @Suppress("DEPRECATION") val entityType = EntityType.fromName(spawnerType)
         @Suppress("DEPRECATION")
         if (entityType == null) throw IllegalArgumentException("invalid spawner type!!")
 

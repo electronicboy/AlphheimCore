@@ -34,7 +34,7 @@ class CommandRestart(private val handler: RestartHandler, plugin: AlphheimCore) 
 
     @CommandPermission("alphheim.admin")
     @Subcommand("now")
-    fun restartNow(sender: CommandSender, @Optional reason: String?) {
+    fun restartNow(@Optional reason: String?) {
         if (reason == null) {
             handler.plugin.restart()
         } else {
@@ -43,7 +43,7 @@ class CommandRestart(private val handler: RestartHandler, plugin: AlphheimCore) 
     }
 
     @HelpCommand
-    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+    fun unknownCommand(help: CommandHelp) {
         help.showHelp()
     }
 

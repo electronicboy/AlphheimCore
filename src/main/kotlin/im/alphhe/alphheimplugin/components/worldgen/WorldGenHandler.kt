@@ -14,6 +14,7 @@ class WorldGenHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     val emptyWorldGenerator: EmptyWorldGenerator = EmptyWorldGenerator()
 
+    @Suppress("UNUSED_PARAMETER")
     fun getGenerator(worldName: String?, id: String?): ChunkGenerator? {
 
         return if (id != null) {

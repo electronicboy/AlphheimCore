@@ -10,6 +10,7 @@ import im.alphhe.alphheimplugin.AlphheimCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import me.lucko.luckperms.api.Contexts
 import net.md_5.bungee.api.ChatColor
+import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
 import java.util.*
 
@@ -38,9 +39,9 @@ class HealthHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
 
     private fun applyHealth(player: Player) {
         val health = playerHealth[player.uniqueId] ?: return
-
-        if (player.maxHealth != health) {
-            player.maxHealth = health
+        val healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)
+        if (healthAttribute.baseValue != health) {
+            healthAttribute.baseValue = health
         }
 
     }

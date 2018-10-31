@@ -58,7 +58,7 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
     @CommandPermission("alphheim.admin")
     @Subcommand("check")
     fun check(player: Player) {
-        val bukkitStack = player.itemInHand
+        val bukkitStack = player.inventory.itemInMainHand
         if (bukkitStack == null || bukkitStack.type == Material.AIR) {
             MessageUtil.sendError(player, "You cannot check air!")
             return
@@ -101,7 +101,7 @@ class CommandDonor(plugin: AlphheimCore, private val manager: DonorManager) : Al
     }
 
     @HelpCommand
-    fun unknownCommand( sender: CommandSender, help: CommandHelp) {
+    fun unknownCommand(help: CommandHelp) {
         help.showHelp()
     }
 
