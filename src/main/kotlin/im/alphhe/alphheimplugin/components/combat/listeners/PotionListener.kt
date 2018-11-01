@@ -28,7 +28,7 @@ class PotionListener(private var plugin: AlphheimCore) : Listener {
         plugin.server.pluginManager.registerEvents(this, plugin)
     }
 
-    @EventHandler
+    //@EventHandler
     fun onExpire(e: EntityPotionEffectEvent) {
         if (e.entity !is Player) return
         val racialHandler = plugin.componentHandler.getComponent(RacialHandler::class.java) ?: return
