@@ -6,7 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.nicks.listeners
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import im.alphhe.alphheimplugin.utils.MySQL
@@ -17,7 +17,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
-class NickListener(private val plugin: AlphheimCore) : Listener {
+class NickListener(private val plugin: EladriaCore) : Listener {
 
     init {
         plugin.server.pluginManager.registerEvents(this, plugin)

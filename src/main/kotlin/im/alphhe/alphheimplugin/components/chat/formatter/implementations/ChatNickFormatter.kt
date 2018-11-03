@@ -7,7 +7,7 @@
 package im.alphhe.alphheimplugin.components.chat.formatter.implementations
 
 import com.google.inject.Inject
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatChannel
 import im.alphhe.alphheimplugin.components.chat.formatter.AbstractChatFormatter
@@ -16,7 +16,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.entity.Player
 
-class ChatNickFormatter(channel: ChatChannel, plugin: AlphheimCore) : AbstractChatFormatter(channel, plugin) {
+class ChatNickFormatter(channel: ChatChannel, plugin: EladriaCore) : AbstractChatFormatter(channel, plugin) {
 
     @Inject
     lateinit var vaultModule: VaultModule

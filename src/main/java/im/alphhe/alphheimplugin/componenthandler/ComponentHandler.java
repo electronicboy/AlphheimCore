@@ -14,15 +14,15 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import im.alphhe.alphheimplugin.AlphheimCore;
+import im.alphhe.alphheimplugin.EladriaCore;
 import im.alphhe.alphheimplugin.components.AbstractHandler;
 
 public class ComponentHandler {
     private Map<Class<? extends AbstractHandler>, ComponentHolder<? extends AbstractHandler>> component = new HashMap<>();
-    private AlphheimCore plugin;
+    private EladriaCore plugin;
 
 
-    public ComponentHandler(AlphheimCore plugin) {
+    public ComponentHandler(EladriaCore plugin) {
         this.plugin = plugin;
     }
 
@@ -32,7 +32,7 @@ public class ComponentHandler {
             throw new IllegalArgumentException(handlerClass.getCanonicalName() + " has already been registered!");
 
         try {
-            Constructor<T> constructor = handlerClass.getConstructor(AlphheimCore.class);
+            Constructor<T> constructor = handlerClass.getConstructor(EladriaCore.class);
 
             T t = constructor.newInstance(plugin);
             component.put(handlerClass, new ComponentHolder<>(t));

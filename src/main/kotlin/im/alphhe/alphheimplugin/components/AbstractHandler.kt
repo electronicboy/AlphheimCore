@@ -6,9 +6,9 @@
 
 package im.alphhe.alphheimplugin.components
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 
-abstract class AbstractHandler(open val plugin: AlphheimCore) {
+abstract class AbstractHandler(open val plugin: EladriaCore) {
 
     open fun onDisable(){};
 }

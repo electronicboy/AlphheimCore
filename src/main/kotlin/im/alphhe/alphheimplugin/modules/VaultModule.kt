@@ -6,14 +6,14 @@
 
 package im.alphhe.alphheimplugin.modules
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import net.milkbowl.vault.chat.Chat
 import net.milkbowl.vault.economy.Economy
 import net.milkbowl.vault.permission.Permission
 import org.bukkit.Bukkit
 import org.bukkit.plugin.RegisteredServiceProvider
 
-class VaultModule(alphheimCore: AlphheimCore) {
+class VaultModule(alphheimCore: EladriaCore) {
 
     var economy: Economy? = null
         private set

@@ -9,14 +9,14 @@ package im.alphhe.alphheimplugin.components.donor.commands
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.Material
 import org.bukkit.entity.Player
 
 @CommandAlias("hat")
-class CommandHat(private var plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandHat(private var plugin: EladriaCore) : AlphheimCommand(plugin) {
 
     @Default
     @CommandPermission("alphheim.hat")

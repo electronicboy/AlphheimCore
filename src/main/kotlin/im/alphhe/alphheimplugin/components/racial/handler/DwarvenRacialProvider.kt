@@ -6,12 +6,12 @@
 
 package im.alphhe.alphheimplugin.components.racial.handler
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
 
-class DwarvenRacialProvider(private var plugin: AlphheimCore) : IRacialProcessor {
+class DwarvenRacialProvider(private var plugin: EladriaCore) : IRacialProcessor {
     override fun getEnchants(player: Player): Map<PotionEffectType, Int> {
         val groupsForUser = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getOwnGroupsForUser(player)
 

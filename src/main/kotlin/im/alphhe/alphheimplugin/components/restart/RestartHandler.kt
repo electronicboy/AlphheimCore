@@ -6,12 +6,12 @@
 
 package im.alphhe.alphheimplugin.components.restart
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.restart.command.CommandRestart
 import im.alphhe.alphheimplugin.components.restart.listener.RestartListener
 
-class RestartHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class RestartHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     init {
         RestartListener(this)

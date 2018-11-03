@@ -6,13 +6,13 @@
 
 package im.alphhe.alphheimplugin.components.diversions.listeners
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemConsumeEvent
 
-class EdibleListener(val plugin: AlphheimCore) : Listener {
+class EdibleListener(val plugin: EladriaCore) : Listener {
 
     @EventHandler
     fun onConsume(e: PlayerItemConsumeEvent) {

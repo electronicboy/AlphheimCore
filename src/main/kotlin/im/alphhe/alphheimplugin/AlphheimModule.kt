@@ -11,7 +11,7 @@ import com.google.inject.Guice
 import com.google.inject.Injector
 import com.google.inject.Module
 
-class AlphheimModule(private val alphheimCore: AlphheimCore) : Module {
+class AlphheimModule(private val alphheimCore: EladriaCore) : Module {
     lateinit var injector: Injector
 
     fun createInjector(): Injector {
@@ -20,7 +20,7 @@ class AlphheimModule(private val alphheimCore: AlphheimCore) : Module {
     }
 
     override fun configure(binder: Binder) {
-        binder.bind(AlphheimCore::class.java).toInstance(alphheimCore);
+        binder.bind(EladriaCore::class.java).toInstance(alphheimCore);
         //binder.bind(UserManager::class.java).to(UserManager::class.java)
     }
 }

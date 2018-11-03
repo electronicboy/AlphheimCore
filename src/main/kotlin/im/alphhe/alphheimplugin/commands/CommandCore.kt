@@ -10,7 +10,7 @@ import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
 import co.aikar.commands.contexts.OnlinePlayer
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
@@ -26,7 +26,7 @@ import org.bukkit.plugin.java.PluginClassLoader
 import java.util.*
 
 @CommandAlias("alphheim")
-class CommandCore(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandCore(private val plugin: EladriaCore) : AlphheimCommand(plugin) {
     private val colorString: String
 
 

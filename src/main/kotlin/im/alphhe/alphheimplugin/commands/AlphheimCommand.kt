@@ -7,7 +7,7 @@
 package im.alphhe.alphheimplugin.commands
 
 import co.aikar.commands.BaseCommand
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.utils.MessageUtil
@@ -17,7 +17,7 @@ import java.time.Period
 import java.util.concurrent.TimeUnit
 import java.util.logging.Level
 
-abstract class AlphheimCommand(private val plugin: AlphheimCore) : BaseCommand() {
+abstract class AlphheimCommand(private val plugin: EladriaCore) : BaseCommand() {
     init {
         try {
             plugin.commandManager.registerCommand(this, true)

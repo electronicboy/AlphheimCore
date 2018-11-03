@@ -6,7 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.combat.listeners
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.utils.MessageUtil
@@ -22,7 +22,7 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 import java.util.logging.Level
 
-class CombatListener(private val plugin: AlphheimCore) : Listener {
+class CombatListener(private val plugin: EladriaCore) : Listener {
 
     init {
         Bukkit.getPluginManager().registerEvents(this, plugin)

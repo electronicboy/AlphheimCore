@@ -9,7 +9,7 @@ package im.alphhe.alphheimplugin.components.permissions.commands
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
@@ -21,7 +21,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.inventory.ItemStack
 
 @CommandAlias("rank")
-class CommandRank(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandRank(private val plugin: EladriaCore) : AlphheimCommand(plugin) {
 
     @Default
     @Subcommand("list|l")

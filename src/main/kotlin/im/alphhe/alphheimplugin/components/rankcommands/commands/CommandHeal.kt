@@ -9,7 +9,7 @@ package im.alphhe.alphheimplugin.components.rankcommands.commands
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.attribute.Attribute
@@ -17,7 +17,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("aheal")
-class CommandHeal(plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandHeal(plugin: EladriaCore) : AlphheimCommand(plugin) {
 
     @Subcommand("heal")
     @CommandAlias("heal")

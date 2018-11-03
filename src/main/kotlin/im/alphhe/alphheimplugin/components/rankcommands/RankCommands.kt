@@ -6,12 +6,12 @@
 
 package im.alphhe.alphheimplugin.components.rankcommands
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.rankcommands.commands.CommandFix
 import im.alphhe.alphheimplugin.components.rankcommands.commands.CommandHeal
 
-class RankCommands(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class RankCommands(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     init {
         CommandFix(plugin)

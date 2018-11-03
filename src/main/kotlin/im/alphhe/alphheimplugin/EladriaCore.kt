@@ -43,7 +43,7 @@ import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
 
 
-class AlphheimCore : JavaPlugin() {
+class EladriaCore : JavaPlugin() {
 
     public val componentHandler = ComponentHandler(this)
 
@@ -83,7 +83,7 @@ class AlphheimCore : JavaPlugin() {
         val commandMap = (Bukkit.getCommandMap() as SimpleCommandMap)
         commandMap.getCommand("lore")?.unregister(Bukkit.getCommandMap())
 
-        commandMap.register("lore", "alphheim", commandLore)
+        commandMap.register("lore", "eladria", commandLore)
 
         injector = AlphheimModule(this).createInjector()
         injector.injectMembers(this)
@@ -94,7 +94,7 @@ class AlphheimCore : JavaPlugin() {
 
         for (player in Bukkit.getOnlinePlayers()) {
             if (player.hasPermission("alphheim.admin"))
-                MessageUtil.sendError(player, "AlphheimCore has successfully reloaded!")
+                MessageUtil.sendError(player, "successfully reloaded!")
         }
 
         //chatHandler = ChatHandlerService(this)

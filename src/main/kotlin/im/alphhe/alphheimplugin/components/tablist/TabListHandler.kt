@@ -6,7 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.tablist
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
@@ -18,7 +18,7 @@ import org.bukkit.scoreboard.Team
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
-class TabListHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class TabListHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     private lateinit var manager: ScoreboardManager
     private lateinit var sb: Scoreboard

@@ -6,7 +6,7 @@
 
 package im.alphhe.alphheimplugin.listeners
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.health.HealthHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
@@ -18,7 +18,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.scheduler.BukkitRunnable
 
-class PlayerListener(private val plugin: AlphheimCore) : Listener {
+class PlayerListener(private val plugin: EladriaCore) : Listener {
 
     init {
         plugin.server.pluginManager.registerEvents(this, plugin)

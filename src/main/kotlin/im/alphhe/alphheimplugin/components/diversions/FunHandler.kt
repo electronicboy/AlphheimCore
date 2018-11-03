@@ -6,7 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.diversions
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.diversions.commands.CommandRoulette
 import im.alphhe.alphheimplugin.components.diversions.listeners.EdibleListener
@@ -16,7 +16,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 
-class FunHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class FunHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     init {
         plugin.server.pluginManager.registerEvents(FurnaceListener(), plugin)

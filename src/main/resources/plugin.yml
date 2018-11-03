@@ -1,5 +1,5 @@
 name: AlphheimCore
-main: im.alphhe.alphheimplugin.AlphheimCore
+main: im.alphhe.alphheimplugin.EladriaCore
 version: 1.0
 author: electronicboy
 website: alphheimmc.enjin.com

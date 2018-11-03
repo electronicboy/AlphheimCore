@@ -8,7 +8,7 @@ package im.alphhe.alphheimplugin.utils
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import java.sql.Connection
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -19,7 +19,7 @@ object MySQL {
     val executor = Executors.newCachedThreadPool(com.google.common.util.concurrent.ThreadFactoryBuilder().setNameFormat("MySQL Executor Thread - %1\$d").build())!!
 
     @Suppress("UNUSED_PARAMETER")
-    fun init(plugin: AlphheimCore) {
+    fun init(plugin: EladriaCore) {
         val config = HikariConfig()
         config.jdbcUrl = "jdbc:mysql://localhost:3306/alphheim"
         config.username = "alphheim"

@@ -6,10 +6,10 @@
 
 package im.alphhe.alphheimplugin.components.chat.formatter
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.chat.ChatChannel
 
-abstract class AbstractChatFormatter(@Suppress("UNUSED_PARAMETER") channel: ChatChannel, plugin: AlphheimCore) : IChatFormatter {
+abstract class AbstractChatFormatter(@Suppress("UNUSED_PARAMETER") channel: ChatChannel, plugin: EladriaCore) : IChatFormatter {
     init {
         plugin.injector.injectMembers(this)
     }

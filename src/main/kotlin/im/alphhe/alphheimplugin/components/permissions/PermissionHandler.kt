@@ -9,7 +9,7 @@ package im.alphhe.alphheimplugin.components.permissions
 import co.aikar.commands.BukkitCommandCompletionContext
 import com.google.common.collect.HashBasedTable
 import com.google.common.collect.ImmutableList
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.health.HealthHandler
 import im.alphhe.alphheimplugin.components.permissions.commands.CommandRank
@@ -25,7 +25,7 @@ import org.bukkit.plugin.java.PluginClassLoader
 import org.bukkit.util.StringUtil
 import java.util.*
 
-class PermissionHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     private val userMetaCache: HashBasedTable<UUID, String, String> = HashBasedTable.create<UUID, String, String>(100, 20)
 

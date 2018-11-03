@@ -8,7 +8,7 @@ package im.alphhe.alphheimplugin.components.mmocredits.commands
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.mmocredits.MMOCreditsHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
@@ -18,7 +18,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("credits|mmocredits")
-class CommandCredits(private val plugin: AlphheimCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin) {
+class CommandCredits(private val plugin: EladriaCore, private val handler: MMOCreditsHandler) : AlphheimCommand(plugin) {
 
 
     @CommandCompletion("@players")

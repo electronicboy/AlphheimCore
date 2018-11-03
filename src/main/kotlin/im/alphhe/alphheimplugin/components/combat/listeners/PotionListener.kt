@@ -6,7 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.combat.listeners
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.racial.RacialHandler
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -22,7 +22,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.potion.PotionType
 import org.bukkit.scheduler.BukkitRunnable
 
-class PotionListener(private var plugin: AlphheimCore) : Listener {
+class PotionListener(private var plugin: EladriaCore) : Listener {
 
     init {
         plugin.server.pluginManager.registerEvents(this, plugin)

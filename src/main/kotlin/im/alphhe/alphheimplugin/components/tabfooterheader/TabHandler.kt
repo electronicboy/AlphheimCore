@@ -7,7 +7,7 @@
 package im.alphhe.alphheimplugin.components.tabfooterheader
 
 import com.google.gson.GsonBuilder
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.FrameBuilder
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.TabFrame
@@ -21,7 +21,7 @@ import java.io.FileWriter
 import java.io.InputStreamReader
 import java.util.*
 
-class TabHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class TabHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
 
     private var frames = ArrayList<TabFrame>()

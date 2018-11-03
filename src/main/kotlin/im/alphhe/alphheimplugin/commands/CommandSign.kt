@@ -8,7 +8,7 @@ package im.alphhe.alphheimplugin.commands
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -17,7 +17,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("editsign")
-class CommandSign(plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandSign(plugin: EladriaCore) : AlphheimCommand(plugin) {
 
     @CatchUnknown
     @CommandPermission("alphheim.mod")

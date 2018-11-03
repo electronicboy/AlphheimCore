@@ -8,7 +8,7 @@ package im.alphhe.alphheimplugin.components.nicks.command
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.addComponent
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
@@ -26,7 +26,7 @@ import org.bukkit.entity.Player
 import java.util.*
 
 @CommandAlias("nick|nickname")
-class CommandNick(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandNick(private val plugin: EladriaCore) : AlphheimCommand(plugin) {
 
     @Subcommand("list")
     @CommandPermission("alphheim.mod")

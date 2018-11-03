@@ -6,7 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.combat
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.combat.listeners.CombatListener
 import im.alphhe.alphheimplugin.components.combat.listeners.PotionListener
@@ -14,7 +14,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Keyed
 import org.bukkit.Material
 
-class CombatHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class CombatHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
     val toRemove: Set<Material>
 
 

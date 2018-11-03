@@ -7,14 +7,14 @@
 package im.alphhe.alphheimplugin.components.chat
 
 import com.google.inject.Inject
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.data.AlphheimUser
 import org.bukkit.entity.Player
 
 
-class ChatHandlerService(alphheimCore: AlphheimCore) : AbstractHandler(alphheimCore),  pw.alphheim.api.services.Chat {
+class ChatHandlerService(eladriaCore: EladriaCore) : AbstractHandler(eladriaCore),  pw.alphheim.api.services.Chat {
 
     @Inject
     lateinit var userManager: UserManager
@@ -24,7 +24,7 @@ class ChatHandlerService(alphheimCore: AlphheimCore) : AbstractHandler(alphheimC
     //val tempChannel = ChatChannel()
 
     init {
-        alphheimCore.injector.injectMembers(this)
+        eladriaCore.injector.injectMembers(this)
     }
 
 

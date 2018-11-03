@@ -6,11 +6,11 @@
 
 package im.alphhe.alphheimplugin.components.worldgen
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import org.bukkit.generator.ChunkGenerator
 
-class WorldGenHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class WorldGenHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     val emptyWorldGenerator: EmptyWorldGenerator = EmptyWorldGenerator()
 

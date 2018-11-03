@@ -6,7 +6,7 @@
 
 package im.alphhe.alphheimplugin.components.spawn
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.spawn.command.CommandSpawn
 import im.alphhe.alphheimplugin.components.spawn.listeners.SpawnListener
@@ -22,7 +22,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
 
-class SpawnHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class SpawnHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     private var spawnBook: ItemStack
 

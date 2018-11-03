@@ -6,13 +6,13 @@
 
 package im.alphhe.alphheimplugin.listeners
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import org.bukkit.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.SignChangeEvent
 
-class SignListener(plugin: AlphheimCore) : Listener {
+class SignListener(plugin: EladriaCore) : Listener {
 
     init {
         plugin.server.pluginManager.registerEvents(this, plugin)

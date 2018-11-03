@@ -7,7 +7,7 @@
 package im.alphhe.alphheimplugin.components.mmocredits
 
 import com.gmail.nossr50.api.ExperienceAPI
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.mmocredits.commands.CommandCredits
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
@@ -15,7 +15,7 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
-class MMOCreditsHandler(plugin: AlphheimCore) : AbstractHandler(plugin) {
+class MMOCreditsHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
     private val validSkills = setOf("TAMING", "SWORDS", "ALCHEMY", "UNARMED", "ARCHERY", "AXES", "ACROBATICS", "FISHING", "EXCAVATION", "MINING", "HERBALISM", "REPAIR", "WOODCUTTING")
 
     init {

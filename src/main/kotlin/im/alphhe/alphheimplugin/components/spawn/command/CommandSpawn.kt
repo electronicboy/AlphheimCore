@@ -9,14 +9,14 @@ package im.alphhe.alphheimplugin.components.spawn.command
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("spawn")
-class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: EladriaCore) : AlphheimCommand(plugin) {
 
     @Default
     @CommandPermission("alphheim.spawn")

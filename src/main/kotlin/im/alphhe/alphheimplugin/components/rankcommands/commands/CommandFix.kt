@@ -11,7 +11,7 @@ import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.HelpCommand
 import co.aikar.commands.annotation.Subcommand
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.entity.Player
@@ -19,7 +19,7 @@ import org.bukkit.inventory.meta.Damageable
 import org.bukkit.inventory.meta.ItemMeta
 
 @CommandAlias("fix|repair")
-class CommandFix(private val plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandFix(private val plugin: EladriaCore) : AlphheimCommand(plugin) {
 
     @Subcommand("hand")
     @CommandAlias("fixhand")

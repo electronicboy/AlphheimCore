@@ -6,14 +6,14 @@
 
 package im.alphhe.alphheimplugin.components.chat.formatter.implementations
 
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.chat.ChatChannel
 import im.alphhe.alphheimplugin.components.chat.formatter.AbstractChatFormatter
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.entity.Player
 
-class ChatInfoFormatter(private val channel: ChatChannel, private val plugin: AlphheimCore) : AbstractChatFormatter(channel, plugin) {
+class ChatInfoFormatter(private val channel: ChatChannel, private val plugin: EladriaCore) : AbstractChatFormatter(channel, plugin) {
 
 
     override fun process(sender: Player, message: String, components: ComponentBuilder) {

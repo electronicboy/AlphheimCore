@@ -8,14 +8,14 @@ package im.alphhe.alphheimplugin.components.restart.command
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
-import im.alphhe.alphheimplugin.AlphheimCore
+import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.restart.RestartHandler
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.command.CommandSender
 
 @CommandAlias("restart")
-class CommandRestart(private val handler: RestartHandler, plugin: AlphheimCore) : AlphheimCommand(plugin) {
+class CommandRestart(private val handler: RestartHandler, plugin: EladriaCore) : AlphheimCommand(plugin) {
 
     @CommandPermission("alphheim.admin")
     @Subcommand("get|status")
