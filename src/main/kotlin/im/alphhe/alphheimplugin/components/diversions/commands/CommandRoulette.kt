@@ -11,6 +11,7 @@ import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
 import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.commands.AlphheimCommand
+import im.alphhe.alphheimplugin.kick
 import im.alphhe.alphheimplugin.utils.MessageUtil
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -27,7 +28,7 @@ class CommandRoulette(val plugin: EladriaCore) : AlphheimCommand(plugin) {
     fun roulette(self: Player) {
         if (random.nextFloat() > 0.8) {
             broadcast(self.location, self.name + " pulls the trigger *BANG*")
-            Bukkit.getScheduler().runTaskLater(plugin, { self.kickPlayer("*BANG*") }, 2L)
+            Bukkit.getScheduler().runTaskLater(plugin, { self.kick("*BANG*") }, 2L)
         } else {
             broadcast(self.location, self.name + " pulls the trigger *CLICK*")
         }
