@@ -6,6 +6,8 @@
 
 package im.alphhe.alphheimplugin.componenthandler;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -16,6 +18,8 @@ import javax.annotation.Nullable;
 
 import im.alphhe.alphheimplugin.EladriaCore;
 import im.alphhe.alphheimplugin.components.AbstractHandler;
+import im.alphhe.alphheimplugin.components.permissions.PermissionHandler;
+import kotlin.reflect.KClass;
 
 public class ComponentHandler {
     private Map<Class<? extends AbstractHandler>, ComponentHolder<? extends AbstractHandler>> component = new HashMap<>();
@@ -59,5 +63,14 @@ public class ComponentHandler {
 
     public void disable() {
 
+    }
+
+    @NotNull
+    public <T extends AbstractHandler> T getComponentOrThrow(@NotNull Class<T> java) {
+        final T component = getComponent(java);
+        if (component == null) {
+            throw new IllegalStateException(java.getName() + " is not loaded, bailing!");
+        }
+        return component;
     }
 }

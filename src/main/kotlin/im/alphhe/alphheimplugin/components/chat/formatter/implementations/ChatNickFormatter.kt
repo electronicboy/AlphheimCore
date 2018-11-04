@@ -11,6 +11,8 @@ import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatChannel
 import im.alphhe.alphheimplugin.components.chat.formatter.AbstractChatFormatter
+import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
+import im.alphhe.alphheimplugin.data.AlphheimUser
 import im.alphhe.alphheimplugin.modules.VaultModule
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
@@ -18,15 +20,13 @@ import org.bukkit.entity.Player
 
 class ChatNickFormatter(channel: ChatChannel, plugin: EladriaCore) : AbstractChatFormatter(channel, plugin) {
 
-    @Inject
-    lateinit var vaultModule: VaultModule
+    private val permissionHandler = plugin.componentHandler.getComponentOrThrow(PermissionHandler::class.java)
+    private val userManager = plugin.componentHandler.getComponentOrThrow(UserManager::class.java)
 
-    @Inject
-    lateinit var userManager: UserManager
 
     override fun process(sender: Player, message: String, components: ComponentBuilder) {
-        val prefix: String? = vaultModule.chat?.getPlayerPrefix(sender);
-        val suffix: String? = vaultModule.chat?.getPlayerSuffix(sender);
+        val prefix: String? = permissionHandler.getPlayerPrefix(sender)
+        val suffix: String? = permissionHandler.getPlayerSuffix(sender)
 
         if (prefix != null) {
             components.append(TextComponent.fromLegacyText(prefix))

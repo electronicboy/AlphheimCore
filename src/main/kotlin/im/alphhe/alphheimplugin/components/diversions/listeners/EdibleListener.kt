@@ -14,13 +14,15 @@ import org.bukkit.event.player.PlayerItemConsumeEvent
 
 class EdibleListener(val plugin: EladriaCore) : Listener {
 
+    private val regex = "([sS])hane(')?(s)? ([Cc])ooking".toRegex()
+
     @EventHandler
     fun onConsume(e: PlayerItemConsumeEvent) {
         val item = e.item
-        if (item.itemMeta?.displayName?.contains("([sS])hane(')?(s)? ([Cc])ooking".toRegex()) == true) {
-            plugin.server.scheduler.runTask(plugin, {
+        if (item.itemMeta?.displayName?.contains(regex) == true) { // Don't think about it
+            plugin.server.scheduler.runTask(plugin) {
                 e.player.kickPlayer("You have died a dreadful death...")
-            })
+            }
         }
     }
 }

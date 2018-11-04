@@ -56,6 +56,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                 }
             }
         }
+
         if (userID == -1) {
             firstJoin = true
             MySQL.getConnection().use { connection ->
@@ -79,16 +80,16 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     }
 
     fun updateData() {
-        if (System.currentTimeMillis() <= lastUpdated + TimeUnit.MINUTES.toMillis(2)) return
+        if (System.currentTimeMillis() <= lastUpdated + TimeUnit.SECONDS.toMillis(10)) return
 
         MySQL.getConnection().use { conn ->
             conn.prepareStatement("SELECT NAME, EXPIRY FROM cooldowns WHERE PLAYER_ID = ?").use { stmt ->
                 stmt.setInt(1, userID)
-                stmt.executeQuery().use {
-                    while (it.next()) {
+                stmt.executeQuery().use { rs ->
+                    while (rs.next()) {
                         try {
-                            val string = it.getString("NAME")
-                            val timestamp = it.getLong("EXPIRY")
+                            val string = rs.getString("NAME")
+                            val timestamp = rs.getLong("EXPIRY")
                             cooldowns[string] = timestamp
                         } catch (ignored: Exception) {
                         } // this should never happen, but I really don't wanna deal with the potential that it does...
@@ -96,11 +97,11 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                 }
             }
 
-            conn.prepareStatement("SELECT NICKNAME FROM player_nicks WHERE PLAYER_ID = ?").use {
-                it.setInt(1, userID)
-                it.executeQuery().use {
-                    if (it.next()) {
-                        nickname = it.getString("NICKNAME");
+            conn.prepareStatement("SELECT NICKNAME FROM player_nicks WHERE PLAYER_ID = ?").use { stmt ->
+                stmt.setInt(1, userID)
+                stmt.executeQuery().use { rs ->
+                    if (rs.next()) {
+                        nickname = rs.getString("NICKNAME");
                         if (nickname != null) {
                             getPlayer()?.displayName = ChatColor.translateAlternateColorCodes('&', nickname!!.replace(' ', '_'))
                         }
@@ -120,7 +121,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     fun setCooldown(name: String, expiry: Long) {
         cooldowns[name] = expiry
 
-        MySQL.executor.execute({
+        MySQL.executor.execute {
             MySQL.getConnection().use { conn ->
                 val statement = conn.prepareStatement("INSERT INTO cooldowns (PLAYER_ID, NAME, EXPIRY) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE EXPIRY = VALUES(EXPIRY)")
                 statement.use { stmt ->
@@ -130,7 +131,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                     stmt.execute()
                 }
             }
-        })
+        }
     }
 
     fun hasOverrides(): Boolean = overrides
@@ -206,7 +207,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     }
 
     fun setLastNick(name: String) {
-        MySQL.executor.execute({
+        MySQL.executor.execute {
             MySQL.getConnection().use {conn ->
                 conn.prepareStatement("UPDATE player_data SET PLAYER_LAST_NAME = ? WHERE PLAYER_ID = ?").use {stmt ->
                     stmt.setString(1, name)
@@ -214,7 +215,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                     stmt.executeUpdate()
                 }
             }
-        })
+        }
     }
 
 }

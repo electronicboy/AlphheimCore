@@ -162,5 +162,20 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     }
 
+    fun getPlayerPrefix(sender: Player, allowSlow: Boolean = false): String {
+        val user = plugin.luckPermsApi.getUser(sender.uniqueId)
+        if (user == null) {
+            if (allowSlow) {
+                val loadUserFuture = plugin.luckPermsApi.userManager.loadUser(sender.uniqueId)
+                loadUserFuture.get()
+            }
+
+        }
+    }
+
+    fun getPlayerSuffix(sender: Player, allowSlow: Boolean): String? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
 }

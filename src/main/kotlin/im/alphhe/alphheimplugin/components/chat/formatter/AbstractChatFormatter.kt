@@ -9,9 +9,6 @@ package im.alphhe.alphheimplugin.components.chat.formatter
 import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.chat.ChatChannel
 
-abstract class AbstractChatFormatter(@Suppress("UNUSED_PARAMETER") channel: ChatChannel, plugin: EladriaCore) : IChatFormatter {
-    init {
-        plugin.injector.injectMembers(this)
-    }
+abstract class AbstractChatFormatter(val channel: ChatChannel, val plugin: EladriaCore) : IChatFormatter {
 
 }
