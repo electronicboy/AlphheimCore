@@ -10,11 +10,9 @@ import im.alphhe.alphheimplugin.componenthandler.ComponentHandler
 import im.alphhe.alphheimplugin.components.worldgen.WorldGenHandler
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.BaseComponent
-import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.entity.Player
-import java.util.ArrayList
 import java.util.regex.Pattern
 import kotlin.reflect.KClass
 
@@ -43,7 +41,7 @@ fun ComponentBuilder.addComponent(component: BaseComponent) {
 //    components.forEach { component -> addComponent(component) }
 //}
 
-fun ChatColor.color(text: String) : String  = ChatColor.translateAlternateColorCodes('&', text)
+fun ChatColor.color(text: String): String = ChatColor.translateAlternateColorCodes('&', text)
 
 fun String.toComponents(): Array<BaseComponent> {
     return TextComponent.fromLegacyText(this)
@@ -51,9 +49,4 @@ fun String.toComponents(): Array<BaseComponent> {
 
 fun ComponentHandler.getComponent(kClass: KClass<WorldGenHandler>) {
     getComponent(kClass.java)
-}
-
-
-internal fun Player.kick(s: String) {
-    this.kickPlayer("[Elaria]\nYou have been kicked from the server:\n $s")
 }

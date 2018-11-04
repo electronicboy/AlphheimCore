@@ -12,10 +12,12 @@ import im.alphhe.alphheimplugin.components.tablist.TabListHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.voting.VoteHandler
 import im.alphhe.alphheimplugin.utils.MessageUtil
+import net.md_5.bungee.api.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.scheduler.BukkitRunnable
 
 class PlayerListener(private val plugin: EladriaCore) : Listener {
@@ -53,6 +55,21 @@ class PlayerListener(private val plugin: EladriaCore) : Listener {
 
         }.runTaskLater(plugin, 10)
 
+
+    }
+
+    @EventHandler
+    fun kickBeautifier(e: PlayerKickEvent) {
+        val reason = e.reason ?: ""
+
+
+        e.reason = "${ChatColor.DARK_GRAY}[${ChatColor.RED}Eladria${ChatColor.DARK_GRAY}]" +
+                "\n\n" +
+                "${ChatColor.RED}You have been kicked from the server" +
+
+                if (reason != "") {
+                    ":\n $reason"
+                } else ""
 
     }
 }

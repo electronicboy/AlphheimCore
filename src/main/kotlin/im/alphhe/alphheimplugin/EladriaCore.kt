@@ -13,7 +13,6 @@ import im.alphhe.alphheimplugin.commands.CommandEnderChest
 import im.alphhe.alphheimplugin.commands.CommandLore
 import im.alphhe.alphheimplugin.commands.CommandSign
 import im.alphhe.alphheimplugin.componenthandler.ComponentHandler
-import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.combat.CombatHandler
 import im.alphhe.alphheimplugin.components.diversions.FunHandler
 import im.alphhe.alphheimplugin.components.donor.DonorManager
@@ -29,6 +28,7 @@ import im.alphhe.alphheimplugin.components.restart.RestartHandler
 import im.alphhe.alphheimplugin.components.spawn.SpawnHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.TabHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.voting.VoteHandler
 import im.alphhe.alphheimplugin.components.worldgen.WorldGenHandler
 import im.alphhe.alphheimplugin.listeners.PlayerListener
@@ -38,7 +38,6 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
-import org.bukkit.entity.Player
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
@@ -184,7 +183,7 @@ class EladriaCore : JavaPlugin() {
         logger.info("Server is entering whitelist mode!")
         Bukkit.setWhitelist(true)
         Bukkit.getOnlinePlayers().forEach { player ->
-            player.kick("An internal error has occurred and the server has now entered a lockdown state, please contact staff!")
+            player.kickPlayer("An internal error has occurred and the server has now entered a lockdown state, please contact staff!")
         }
     }
 
