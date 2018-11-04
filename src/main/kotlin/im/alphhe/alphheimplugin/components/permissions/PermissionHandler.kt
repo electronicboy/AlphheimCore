@@ -189,7 +189,7 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
         }
     }
 
-    fun getPlayerSuffix(player: Player, allowSlow: Boolean): String {
+    fun getPlayerSuffix(player: Player, allowSlow: Boolean = false): String {
         var user = plugin.luckPermsApi.getUser(player.uniqueId)
         if (user == null) {
             if (allowSlow) {

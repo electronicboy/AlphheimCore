@@ -16,29 +16,19 @@ import java.util.*
 
 class HealthHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
-    private val playerHealth: MutableMap<UUID, Double>
-
-    init {
-        playerHealth = HashMap()
-    }
-
     fun updateHealth(player: Player) {
-        val pUUID = player.uniqueId
-        val health = workHealth(player)
+        var health = workHealth(player)
 
         if (health == -1.0) {
             plugin.logger.info(ChatColor.DARK_RED.toString() + "Health not registered under user: " + player.name)
-            playerHealth[pUUID] = 10.0
-        } else {
-            playerHealth[pUUID] = health
+            health = 20.0
         }
 
-        applyHealth(player)
+        applyHealth(player, health)
     }
 
 
-    private fun applyHealth(player: Player) {
-        val health = playerHealth[player.uniqueId] ?: return
+    private fun applyHealth(player: Player, health: Double) {
         val healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)
         if (healthAttribute.baseValue != health) {
             healthAttribute.baseValue = health
@@ -47,8 +37,10 @@ class HealthHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
     }
 
     private fun workHealth(player: Player): Double {
-        val user = this.plugin.luckPermsApi.userManager.getUser(player.uniqueId) ?: return -1.0
-        val health = user.cachedData.getMetaData(Contexts.global()).meta.getOrDefault("health", "20")
+        val user = this.plugin.luckPermsApi.userManager.getUser(player.uniqueId) ?: plugin.luckPermsApi.userManager.loadUser(player.uniqueId).join()
+        val contextsForPlayer = plugin.luckPermsApi.getContextsForPlayer(player)
+
+        val health = user.cachedData.getMetaData(contextsForPlayer).meta.getOrDefault("health", "20")
         return health.toDouble()
     }
 

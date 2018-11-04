@@ -38,6 +38,7 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
+import org.bukkit.entity.Player
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
@@ -59,42 +60,47 @@ class EladriaCore : JavaPlugin() {
 
     override fun onEnable() {
 
-        registerConsolePerm("alphheim.admin")
-        registerConsolePerm("alphheim.mod")
-        registerConsolePerm("alphheim.dev")
+        try {
+            registerConsolePerm("alphheim.admin")
+            registerConsolePerm("alphheim.mod")
+            registerConsolePerm("alphheim.dev")
 
-        MySQL.init(this)
+            MySQL.init(this)
 
-        val provider = Bukkit.getServicesManager().getRegistration(LuckPermsApi::class.java)
-        if (provider != null) {
-            luckPermsApi = provider.provider
-        } else {
-            Bukkit.setWhitelist(true)
-            logger.warning("Missing permission system?!!")
-        }
+            val provider = Bukkit.getServicesManager().getRegistration(LuckPermsApi::class.java)
+            if (provider != null) {
+                luckPermsApi = provider.provider
+            } else {
+                Bukkit.setWhitelist(true)
+                logger.warning("Missing permission system?!!")
+            }
 
-        commandManager = BukkitCommandManager(this)
+            commandManager = BukkitCommandManager(this)
 
-        @Suppress("DEPRECATION")
-        commandManager.enableUnstableAPI("help")
+            @Suppress("DEPRECATION")
+            commandManager.enableUnstableAPI("help")
 
-        val commandLore = CommandLore()
+            val commandLore = CommandLore()
 
-        val commandMap = (Bukkit.getCommandMap() as SimpleCommandMap)
-        commandMap.getCommand("lore")?.unregister(Bukkit.getCommandMap())
+            val commandMap = (Bukkit.getCommandMap() as SimpleCommandMap)
+            commandMap.getCommand("lore")?.unregister(Bukkit.getCommandMap())
 
-        commandMap.register("lore", "eladria", commandLore)
+            commandMap.register("lore", "eladria", commandLore)
 
-        injector = AlphheimModule(this).createInjector()
-        injector.injectMembers(this)
+            injector = AlphheimModule(this).createInjector()
+            injector.injectMembers(this)
 
-        registerCommands()
-        registerListeners()
-        enableComponents()
+            registerCommands()
+            registerListeners()
+            enableComponents()
 
-        for (player in Bukkit.getOnlinePlayers()) {
-            if (player.hasPermission("alphheim.admin"))
-                MessageUtil.sendError(player, "successfully reloaded!")
+            for (player in Bukkit.getOnlinePlayers()) {
+                if (player.hasPermission("alphheim.admin"))
+                    MessageUtil.sendError(player, "successfully reloaded!")
+            }
+        } catch (ex: Exception ) {
+            ex.printStackTrace()
+            safeLockdown()
         }
 
         //chatHandler = ChatHandlerService(this)
@@ -172,6 +178,14 @@ class EladriaCore : JavaPlugin() {
         return if (worldGenHandler != null) {
             worldGenHandler.getGenerator(worldName, id) ?: worldGenHandler.emptyWorldGenerator
         } else null
+    }
+
+    fun safeLockdown() {
+        logger.info("Server is entering whitelist mode!")
+        Bukkit.setWhitelist(true)
+        Bukkit.getOnlinePlayers().forEach { player ->
+            player.kick("An internal error has occurred and the server has now entered a lockdown state, please contact staff!")
+        }
     }
 
 

@@ -13,6 +13,7 @@ import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
+import org.bukkit.entity.Player
 import java.util.ArrayList
 import java.util.regex.Pattern
 import kotlin.reflect.KClass
@@ -50,4 +51,9 @@ fun String.toComponents(): Array<BaseComponent> {
 
 fun ComponentHandler.getComponent(kClass: KClass<WorldGenHandler>) {
     getComponent(kClass.java)
+}
+
+
+internal fun Player.kick(s: String) {
+    this.kickPlayer("[Elaria]\nYou have been kicked from the server:\n $s")
 }

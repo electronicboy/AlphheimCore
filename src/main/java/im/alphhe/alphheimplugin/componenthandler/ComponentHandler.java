@@ -12,11 +12,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import im.alphhe.alphheimplugin.EladriaCore;
+import im.alphhe.alphheimplugin.componenthandler.annotations.Required;
 import im.alphhe.alphheimplugin.components.AbstractHandler;
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler;
 import kotlin.reflect.KClass;
@@ -35,6 +37,9 @@ public class ComponentHandler {
         if (component.get(handlerClass) != null)
             throw new IllegalArgumentException(handlerClass.getCanonicalName() + " has already been registered!");
 
+        boolean isRequired = handlerClass.getAnnotation(Required.class) != null;
+
+
         try {
             Constructor<T> constructor = handlerClass.getConstructor(EladriaCore.class);
 
@@ -43,10 +48,14 @@ public class ComponentHandler {
             plugin.getLogger().info("Registered component: " + handlerClass.getCanonicalName());
             return t;
 
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (Exception e) {
             plugin.getLogger().warning("Failed to register component: " + handlerClass.getCanonicalName());
-            e.printStackTrace();
-            return null;
+            if (isRequired) {
+                plugin.safeLockdown();
+                throw new IllegalStateException("Missing dependencies", e);
+            } else {
+                return null;
+            }
         }
     }
 
