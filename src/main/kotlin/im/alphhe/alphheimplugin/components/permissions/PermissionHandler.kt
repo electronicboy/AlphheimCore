@@ -19,11 +19,11 @@ import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import me.lucko.luckperms.api.Contexts
 import me.lucko.luckperms.api.Group
 import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent
-import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.PluginClassLoader
 import org.bukkit.util.StringUtil
 import java.util.*
+import java.util.concurrent.CompletionException
 
 class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
@@ -157,24 +157,64 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     fun getMeta(player: Player, key: String, default: String): String {
         val user = plugin.luckPermsApi.getUser(player.uniqueId) ?: return default
-        val meta = user.cachedData.getMetaData(Contexts.global()).meta
+        val meta = user.cachedData.getMetaData(plugin.luckPermsApi.getContextsForPlayer(player)).meta
         return meta[key] ?: default
 
     }
 
-    fun getPlayerPrefix(sender: Player, allowSlow: Boolean = false): String {
-        val user = plugin.luckPermsApi.getUser(sender.uniqueId)
+    fun getPlayerPrefix(player: Player, allowSlow: Boolean = false): String {
+        var user = plugin.luckPermsApi.getUser(player.uniqueId)
         if (user == null) {
             if (allowSlow) {
-                val loadUserFuture = plugin.luckPermsApi.userManager.loadUser(sender.uniqueId)
-                loadUserFuture.get()
+                val loadUserFuture = plugin.luckPermsApi.userManager.loadUser(player.uniqueId)
+                try {
+                    user = loadUserFuture.join()
+                } catch (ex: CompletionException) {
+                    plugin.logger.warning("Failed to load user data for: $player")
+                    ex.printStackTrace()
+                }
             }
+        }
 
+        if (user == null) {
+            return ""
+        }
+
+        val metadata = user.cachedData.getMetaData(plugin.luckPermsApi.getContextsForPlayer(player))
+
+        return if (metadata.prefix != null) {
+            metadata.prefix!!
+        } else {
+            ""
         }
     }
 
-    fun getPlayerSuffix(sender: Player, allowSlow: Boolean): String? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    fun getPlayerSuffix(player: Player, allowSlow: Boolean): String {
+        var user = plugin.luckPermsApi.getUser(player.uniqueId)
+        if (user == null) {
+            if (allowSlow) {
+                val loadUserFuture = plugin.luckPermsApi.userManager.loadUser(player.uniqueId)
+                try {
+                    user = loadUserFuture.join()
+                } catch (ex: CompletionException) {
+                    plugin.logger.warning("Failed to load user data for: $player")
+                    ex.printStackTrace()
+                }
+            }
+        }
+
+        if (user == null) {
+            return ""
+        }
+
+        val metadata = user.cachedData.getMetaData(plugin.luckPermsApi.getContextsForPlayer(player))
+
+
+        return if (metadata.suffix != null) {
+            metadata.suffix!!
+        } else {
+            ""
+        }
     }
 
 
