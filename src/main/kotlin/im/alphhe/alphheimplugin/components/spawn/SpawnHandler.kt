@@ -84,7 +84,7 @@ class SpawnHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
 
     internal fun resolveSpawn(player: Player): Location {
-        val worldSpawn = Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f)
+        val worldSpawn = Location(Bukkit.getWorlds()[0], -12450.0, 59.0, -1563.0, 0f, 0f)
         val selectSpawn = Location(Bukkit.getWorlds()[0], 723.0, 6.0, -1692.0, 0f, 0f)
 
         return if (player.hasPermission("alphheim.raceselected"))
