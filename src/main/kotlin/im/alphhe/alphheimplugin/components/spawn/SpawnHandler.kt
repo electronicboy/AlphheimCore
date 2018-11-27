@@ -45,13 +45,6 @@ class SpawnHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
                 ChatColor.translateAlternateColorCodes('&', "&nHelpful Commands&0\n&0\n&5/nick request&0\n&0Request a nickname&0\n&3/vote&0\n&0Vote daily for rewards&0\n&6/bal&0\n&0Check your balance&0\n&a/warp&0\n&0Our free warps&0\n&c/mcmmo&0\n&0McMMO info page&0\n&d/realname&0\n&0Helps with rp names"),
                 ChatColor.translateAlternateColorCodes('&', "&nDonation Store&0\n&0\n&0If you wish to &2help &0the server, stop by the &6donation store&0. You can buy &ccommands&0, &9in game items&0, &0and &5donor ranks &0which come with &8kits &0and &3more&0!"),
                 ChatColor.translateAlternateColorCodes('&', "&nStaff&0\n&0\n&0If you need help, contact the staff!&0\n" +
-                        "&c_Breakdown&0\n" +
-                        "&cTera_Doc&0\n" +
-                        "&5electronicboy&0\n" +
-                        "&5pickypikachuu&0\n" +
-                        "&3ShadowOG&0\n" +
-                        "&dZundrin&0\n" +
-                        "&dBiznitcash&0\n" +
                         "\n" +
                         "&1&lEnjoy Alphheim!")
         )
