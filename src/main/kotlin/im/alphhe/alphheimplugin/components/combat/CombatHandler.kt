@@ -13,16 +13,17 @@ import im.alphhe.alphheimplugin.components.combat.listeners.PotionListener
 import org.bukkit.Bukkit
 import org.bukkit.Keyed
 import org.bukkit.Material
+import java.util.*
 
 class CombatHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
-    val toRemove: Set<Material>
+    val toRemove = EnumSet.noneOf(Material::class.java)
 
 
     init {
         CombatListener(plugin)
         PotionListener(plugin)
 
-        toRemove = setOf(Material.ELYTRA)
+        toRemove.add(Material.ELYTRA)
 
         val recipeIterator = Bukkit.getServer().recipeIterator();
         while (recipeIterator.hasNext()) {
