@@ -16,7 +16,6 @@ import org.bukkit.scoreboard.Scoreboard
 import org.bukkit.scoreboard.ScoreboardManager
 import org.bukkit.scoreboard.Team
 import java.util.*
-import java.util.concurrent.atomic.AtomicBoolean
 
 class TabListHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 

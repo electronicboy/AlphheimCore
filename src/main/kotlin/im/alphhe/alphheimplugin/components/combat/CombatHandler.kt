@@ -11,12 +11,11 @@ import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.combat.listeners.CombatListener
 import im.alphhe.alphheimplugin.components.combat.listeners.PotionListener
 import org.bukkit.Bukkit
-import org.bukkit.Keyed
 import org.bukkit.Material
 import java.util.*
 
 class CombatHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
-    val toRemove = EnumSet.noneOf(Material::class.java)
+    val toRemove: EnumSet<Material> = EnumSet.noneOf(Material::class.java)
 
 
     init {

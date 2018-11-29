@@ -6,7 +6,6 @@
 
 package im.alphhe.alphheimplugin.components.worldgen
 
-import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.generator.ChunkGenerator

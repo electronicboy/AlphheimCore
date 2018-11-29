@@ -6,14 +6,11 @@
 
 package im.alphhe.alphheimplugin.components.chat.formatter.implementations
 
-import com.google.inject.Inject
 import im.alphhe.alphheimplugin.EladriaCore
-import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import im.alphhe.alphheimplugin.components.chat.ChatChannel
 import im.alphhe.alphheimplugin.components.chat.formatter.AbstractChatFormatter
 import im.alphhe.alphheimplugin.components.permissions.PermissionHandler
-import im.alphhe.alphheimplugin.data.AlphheimUser
-import im.alphhe.alphheimplugin.modules.VaultModule
+import im.alphhe.alphheimplugin.components.usermanagement.UserManager
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.entity.Player

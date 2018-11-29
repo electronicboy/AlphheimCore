@@ -11,7 +11,6 @@ import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.FrameBuilder
 import im.alphhe.alphheimplugin.components.tabfooterheader.data.TabFrame
-import im.alphhe.alphheimplugin.toComponents
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable

@@ -8,18 +8,11 @@ package im.alphhe.alphheimplugin.components.combat.listeners
 
 import im.alphhe.alphheimplugin.EladriaCore
 import im.alphhe.alphheimplugin.components.racial.RacialHandler
-import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityPotionEffectEvent
-import org.bukkit.event.entity.LingeringPotionSplashEvent
-import org.bukkit.event.entity.PotionSplashEvent
-import org.bukkit.event.player.PlayerItemConsumeEvent
-import org.bukkit.inventory.meta.PotionMeta
-import org.bukkit.potion.PotionData
 import org.bukkit.potion.PotionEffectType
-import org.bukkit.potion.PotionType
 import org.bukkit.scheduler.BukkitRunnable
 
 class PotionListener(private var plugin: EladriaCore) : Listener {
