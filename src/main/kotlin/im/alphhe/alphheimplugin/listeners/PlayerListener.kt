@@ -16,6 +16,7 @@ import net.md_5.bungee.api.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
+import org.bukkit.event.player.PlayerCommandSendEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.scheduler.BukkitRunnable
@@ -71,5 +72,12 @@ class PlayerListener(private val plugin: EladriaCore) : Listener {
                     ":\n $reason"
                 } else ""
 
+    }
+
+    @EventHandler
+    fun cleanCommands(e: PlayerCommandSendEvent) {
+        if (e.player.hasPermission("group.admin")) return // groups, yay
+
+        e.commands.removeIf { command -> command.contains(':', false)}
     }
 }
