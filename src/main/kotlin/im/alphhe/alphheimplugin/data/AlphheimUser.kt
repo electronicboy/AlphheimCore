@@ -66,10 +66,10 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                     insertStatement.setString(1, uuid.toString())
                     insertStatement.executeUpdate()
 
-                    insertStatement.use {
-                        it.generatedKeys.use {
-                            if (it.next())
-                                userID = it.getInt(1)
+                    insertStatement.use { ps ->
+                        ps.generatedKeys.use { rs ->
+                            if (rs.next())
+                                userID = rs.getInt(1)
                         }
                     }
                 }
@@ -79,6 +79,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
         updateData()
     }
 
+    @Synchronized()
     fun updateData() {
         if (System.currentTimeMillis() <= lastUpdated + TimeUnit.SECONDS.toMillis(10)) return
 
