@@ -87,7 +87,7 @@ class CommandRank(private val plugin: EladriaCore) : AlphheimCommand(plugin) {
         user.primaryGroup = group.name
 
         plugin.luckPermsApi.userManager.saveUser(user).thenRunAsync { user.refreshCachedData() }.thenRunAsync {
-            MessageUtil.sendInfo(sender, "Added group ${group.name}; All set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
+            MessageUtil.sendInfo(sender, "Added group ${group.name} to ${user.name}; All set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
         }
 
         if (!firstSet) return
