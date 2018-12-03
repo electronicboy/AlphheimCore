@@ -109,19 +109,16 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
             DonorTier.values().reversedArray().forEach { tier ->
                 run {
                     if (tier != DonorTier.NONE) {
-                        user.ownNodes.forEach { node ->
-                            run {
-                                if (node.isGroupNode && node.groupName.equals(tier.name, true)) {
-
-                                    MySQL.getConnection().use { conn ->
-                                        {
-                                            conn.prepareStatement("UPDATE player_data SET PLAYER_DONATION_TIER = ? WHERE PLAYER_UUID = ?").use { ps ->
-                                                {
-                                                    ps.setInt(1, tier.level)
-                                                    ps.setString(2, uuid.toString())
-                                                    if (ps.executeUpdate() == 0) {
-                                                        plugin.logger.warning("FAILED TO TRANSLATE DATA FOR: $uuid")
-                                                    }
+                        getOwnGroupsForOfflineUser(uuid).forEach {group ->
+                            if (group.name == tier.name.toLowerCase()) {
+                                MySQL.getConnection().use { conn ->
+                                    {
+                                        conn.prepareStatement("UPDATE player_data SET PLAYER_DONATION_TIER = ? WHERE PLAYER_UUID = ?").use { ps ->
+                                            {
+                                                ps.setInt(1, tier.level)
+                                                ps.setString(2, uuid.toString())
+                                                if (ps.executeUpdate() == 0) {
+                                                    plugin.logger.warning("FAILED TO TRANSLATE DATA FOR: $uuid")
                                                 }
                                             }
                                         }
