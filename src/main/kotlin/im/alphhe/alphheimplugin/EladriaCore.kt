@@ -108,7 +108,8 @@ class EladriaCore : JavaPlugin() {
 
     private fun enableComponents() {
         componentHandler.registerComponent(UserManager::class.java)
-        componentHandler.registerComponent(PermissionHandler::class.java)
+        val ph = componentHandler.registerComponent(PermissionHandler::class.java)
+
         componentHandler.registerComponent(PluginCommandPermHandler::class.java)
         componentHandler.registerComponent(MotdHandler::class.java)
         componentHandler.registerComponent(FunHandler::class.java)
@@ -125,6 +126,8 @@ class EladriaCore : JavaPlugin() {
         componentHandler.registerComponent(MMOCreditsHandler::class.java)
         componentHandler.registerComponent(RestartHandler::class.java)
         componentHandler.registerComponent(WorldGenHandler::class.java)
+
+        try { ph.migrate() } catch (ex: Exception) { ex.printStackTrace()}
     }
 
     private fun registerCommands() {

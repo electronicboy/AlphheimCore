@@ -16,9 +16,13 @@ import im.alphhe.alphheimplugin.components.permissions.commands.CommandRank
 import im.alphhe.alphheimplugin.components.racial.RacialHandler
 import im.alphhe.alphheimplugin.components.tablist.TabListHandler
 import im.alphhe.alphheimplugin.components.usermanagement.UserManager
+import im.alphhe.alphheimplugin.data.DonorTier
+import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.Contexts
 import me.lucko.luckperms.api.Group
+import me.lucko.luckperms.api.NodeFactory
 import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.PluginClassLoader
 import org.bukkit.util.StringUtil
@@ -28,6 +32,7 @@ import java.util.concurrent.CompletionException
 class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     private val userMetaCache: HashBasedTable<UUID, String, String> = HashBasedTable.create<UUID, String, String>(100, 20)
+    private val commandRank: CommandRank
 
     init {
         plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java) {
@@ -53,8 +58,80 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
             getGroups().filter { group -> StringUtil.startsWithIgnoreCase(group, it.input) }.toMutableSet()
         }
 
-        plugin.commandManager.registerCommand(CommandRank(plugin))
+        commandRank = CommandRank(plugin) //temp extract
+        plugin.commandManager.registerCommand(commandRank)
 
+    }
+
+    fun migrate() : Boolean {
+
+        val uuids = mutableListOf<UUID>()
+
+        MySQL.getConnection().use test@ { conn ->
+            run {
+                conn.prepareStatement("SELECT uuid FROM luckperms_players").use { ps ->
+                    ps.executeQuery().use { rs ->
+                        if (rs.fetchSize == 0) {
+                            plugin.logger.warning("MIGRATION FAILED!")
+                             throw IllegalStateException();
+                        } else {
+                            while (rs.next()) {
+                                uuids.add(UUID.fromString(rs.getString("uuid")))
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+        uuids.forEach { uuid ->
+            run {
+                try {
+                    commandRank.setRank(Bukkit.getConsoleSender(), uuid, "default", false)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
+
+        uuids.forEach { uuid ->
+            var user = plugin.luckPermsApi.getUser(uuid)
+            if (user == null) {
+                user = plugin.luckPermsApi.userManager.loadUser(uuid).join()
+            }
+
+            if (user == null) {
+                plugin.logger.warning("Could not attempt to fetch donar tier info for $uuid")
+                return@forEach
+            }
+
+            DonorTier.values().reversedArray().forEach { tier ->
+                run {
+                    if (tier != DonorTier.NONE) {
+                        val result = user.hasPermission(plugin.luckPermsApi.nodeFactory.makeGroupNode(getGroup(tier.name.toLowerCase())!!).build())
+                        if (result.asBoolean()) {
+
+                            MySQL.getConnection().use { conn -> {
+                                conn.prepareStatement("UPDATE player_data SET PLAYER_DONATION_TIER = ? WHERE PLAYER_UUID = ?").use { ps -> {
+                                    ps.setInt(1, tier.level)
+                                    ps.setString(2, uuid.toString())
+                                    if (ps.executeUpdate() == 0) {
+                                        plugin.logger.warning("FAILED TO TRANSLATE DATA FOR: $uuid")
+                                    }
+                                }}
+                            }}
+
+                        }
+                    }
+                }
+
+        }
+
+        }
+
+    return true;
     }
 
     fun destruct() {

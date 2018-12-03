@@ -151,8 +151,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
     fun setDisplayName(nick: String?) {
         val p = getPlayer() ?: return
         if (nick != null) {
-            p.displayName = (getTier()?.color
-                    ?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick)
+            p.displayName = (getTier()?.color?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick)
         } else {
             p.displayName = (getTier()?.color ?: "").toString() + p.name
         }
@@ -168,7 +167,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
             p.hasPermission("group.emerald") -> DonorTier.EMERALD
             p.hasPermission("group.topaz") -> DonorTier.TOPAZ
             p.hasPermission("group.ruby") -> DonorTier.RUBY
-            else -> null
+            else -> DonorTier.NONE
 
         }
 
