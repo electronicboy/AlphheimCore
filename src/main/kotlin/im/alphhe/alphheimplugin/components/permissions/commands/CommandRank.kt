@@ -36,7 +36,7 @@ class CommandRank(private val plugin: EladriaCore) : AlphheimCommand(plugin) {
     @Subcommand("set|s")
     @CommandPermission("alphheim.mod")
     @CommandCompletion("@players @groups")
-    public fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String, @Optional @Default("false") firstSet: Boolean) {
+    fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String, @Optional @Default("false") firstSet: Boolean) {
         setRank(sender, target.player.uniqueId, rank, firstSet)
 
     }

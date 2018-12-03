@@ -113,7 +113,7 @@ class EladriaCore : JavaPlugin() {
 
     private fun enableComponents() {
         componentHandler.registerComponent(UserManager::class.java)
-        val ph = componentHandler.registerComponent(PermissionHandler::class.java)
+        componentHandler.registerComponent(PermissionHandler::class.java)
 
         componentHandler.registerComponent(PluginCommandPermHandler::class.java)
         componentHandler.registerComponent(MotdHandler::class.java)
@@ -131,11 +131,6 @@ class EladriaCore : JavaPlugin() {
         componentHandler.registerComponent(MMOCreditsHandler::class.java)
         componentHandler.registerComponent(RestartHandler::class.java)
         componentHandler.registerComponent(WorldGenHandler::class.java)
-
-
-        Bukkit.getPluginManager().registerEvent(ServerLoadEvent::class.java, object : Listener {
-
-        }, EventPriority.NORMAL, { _, _ -> try { ph.migrate() } catch (ex: Exception) { ex.printStackTrace()} }, this )
     }
 
 
