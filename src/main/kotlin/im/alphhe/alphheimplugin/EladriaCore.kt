@@ -38,8 +38,13 @@ import im.alphhe.alphheimplugin.utils.MySQL
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
+import org.bukkit.event.Event
+import org.bukkit.event.EventPriority
+import org.bukkit.event.Listener
+import org.bukkit.event.server.ServerLoadEvent
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.permissions.PermissionAttachment
+import org.bukkit.plugin.EventExecutor
 import org.bukkit.plugin.java.JavaPlugin
 
 
@@ -127,8 +132,12 @@ class EladriaCore : JavaPlugin() {
         componentHandler.registerComponent(RestartHandler::class.java)
         componentHandler.registerComponent(WorldGenHandler::class.java)
 
-        try { ph.migrate() } catch (ex: Exception) { ex.printStackTrace()}
+
+        Bukkit.getPluginManager().registerEvent(ServerLoadEvent::class.java, object : Listener {
+
+        }, EventPriority.NORMAL, { _, _ -> try { ph.migrate() } catch (ex: Exception) { ex.printStackTrace()} }, this )
     }
+
 
     private fun registerCommands() {
         CommandCore(this)
