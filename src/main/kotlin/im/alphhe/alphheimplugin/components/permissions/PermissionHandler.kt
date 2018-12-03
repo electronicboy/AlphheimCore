@@ -71,19 +71,18 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
             run {
                 conn.prepareStatement("SELECT uuid FROM luckperms_players WHERE 1").use { ps ->
                     ps.executeQuery().use { rs ->
-                        if (rs.fetchSize == 0) {
-                            plugin.logger.warning("MIGRATION FAILED!")
-                             throw IllegalStateException();
-                        } else {
+
                             while (rs.next()) {
-                                uuids.add(UUID.fromString(rs.getString("uuid")))
+                                val stringUUID = rs.getString("uuid")
+                                val uuid = UUID.fromString(stringUUID)
+                                plugin.logger.info("got UUID: $stringUUID")
+                                uuids.add(uuid)
                             }
                         }
                     }
                 }
 
             }
-        }
 
 
         uuids.forEach { uuid ->
