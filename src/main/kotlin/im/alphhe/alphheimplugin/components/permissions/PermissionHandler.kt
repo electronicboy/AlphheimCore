@@ -69,7 +69,7 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
         MySQL.getConnection().use test@ { conn ->
             run {
-                conn.prepareStatement("SELECT uuid FROM luckperms_players").use { ps ->
+                conn.prepareStatement("SELECT uuid FROM luckperms_players WHERE 1").use { ps ->
                     ps.executeQuery().use { rs ->
                         if (rs.fetchSize == 0) {
                             plugin.logger.warning("MIGRATION FAILED!")
