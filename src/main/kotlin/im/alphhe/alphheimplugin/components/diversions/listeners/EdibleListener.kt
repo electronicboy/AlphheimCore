@@ -17,11 +17,13 @@ class EdibleListener(val plugin: EladriaCore) : Listener {
 
     @EventHandler
     fun onConsume(e: PlayerItemConsumeEvent) {
-        val item = e.item
-        if (item.itemMeta?.displayName?.contains(regex) == true) { // Don't think about it
-            plugin.server.scheduler.runTask(plugin,  {
-                e.player.kickPlayer("You have died a dreadful death...")
-            } as Runnable)
+        Runnable {
+            val item = e.item
+            if (item.itemMeta?.displayName?.contains(regex) == true) { // Don't think about it
+                plugin.server.scheduler.runTask(plugin, Runnable {
+                    e.player.kickPlayer("You have died a dreadful death...")
+                })
+            }
         }
     }
 }

@@ -37,8 +37,8 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
     init {
         plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java) {
             if (!plugin.isEnabled) return@subscribe
-            plugin.server.scheduler.runTask(plugin, {
-                val player = this.plugin.server.getPlayer(it.user.uuid)
+            plugin.server.scheduler.runTask(plugin, Runnable {
+                val player = plugin.server.getPlayer(it.user.uuid)
                 if (player != null) {
                     plugin.componentHandler.getComponent(TabListHandler::class.java)?.setSB(player)
                     plugin.componentHandler.getComponent(HealthHandler::class.java)?.updateHealth(player)
@@ -47,7 +47,7 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
                     val user = plugin.componentHandler.getComponent(UserManager::class.java)?.getUser(it.user.uuid)
                     user?.setDisplayName(user.getNickname())
                 }
-            } as Runnable)
+            })
         }
 
         plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java) {

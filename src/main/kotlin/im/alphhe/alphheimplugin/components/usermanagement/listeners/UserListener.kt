@@ -23,7 +23,7 @@ class UserListener(private val userManager: UserManager) : Listener {
 
     @EventHandler
     fun playerJoin(e: PlayerJoinEvent) {
-        userManager.plugin.server.scheduler.runTaskLater(userManager.plugin, {
+        userManager.plugin.server.scheduler.runTaskLater(userManager.plugin, Runnable {
             if (e.player.isOnline) {
                 userManager.plugin.server.onlinePlayers.forEach {
                     if (it.canSee(e.player)) {
@@ -31,7 +31,7 @@ class UserListener(private val userManager: UserManager) : Listener {
                     }
                 }
             }
-        } as Runnable, 10L)
+        }, 10L)
     }
 
     @EventHandler
