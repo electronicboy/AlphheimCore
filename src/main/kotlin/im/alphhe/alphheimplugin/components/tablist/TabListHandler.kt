@@ -26,9 +26,9 @@ class TabListHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
     private var hasInit = false
 
     init {
-        plugin.server.scheduler.runTask(plugin) {
+        plugin.server.scheduler.runTask(plugin, {
             init()
-        }
+        } as Runnable)
     }
 
 

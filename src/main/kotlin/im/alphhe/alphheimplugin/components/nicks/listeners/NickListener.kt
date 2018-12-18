@@ -28,7 +28,7 @@ class NickListener(private val plugin: EladriaCore) : Listener {
         user.setDisplayName(user.getNickname())
 
         if (e.player.hasPermission("alphheim.mod")) {
-            plugin.server.scheduler.runTaskLater(plugin, { showCount(e.player) }, 10L)
+            plugin.server.scheduler.runTaskLater(plugin, { showCount(e.player) } as Runnable, 10L)
         }
 
     }

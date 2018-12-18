@@ -24,13 +24,14 @@ class UserListener(private val userManager: UserManager) : Listener {
     @EventHandler
     fun playerJoin(e: PlayerJoinEvent) {
         userManager.plugin.server.scheduler.runTaskLater(userManager.plugin, {
-            if (!e.player.isOnline) return@runTaskLater // They logged off...
-            userManager.plugin.server.onlinePlayers.forEach {
-                if (it.canSee(e.player)) {
-                    it.sendActionBar(MessageUtil.format( "+", ChatColor.GREEN) + "${ChatColor.GREEN} ${e.player.name}")
+            if (e.player.isOnline) {
+                userManager.plugin.server.onlinePlayers.forEach {
+                    if (it.canSee(e.player)) {
+                        it.sendActionBar(MessageUtil.format("+", ChatColor.GREEN) + "${ChatColor.GREEN} ${e.player.name}")
+                    }
                 }
             }
-        }, 10L)
+        } as Runnable, 10L)
     }
 
     @EventHandler

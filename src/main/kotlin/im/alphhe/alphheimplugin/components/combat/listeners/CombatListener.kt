@@ -45,7 +45,7 @@ class CombatListener(private val plugin: EladriaCore) : Listener {
         if (e.action == Action.RIGHT_CLICK_AIR && e.item?.type == Material.ENDER_PEARL) {
             if (!checkCooldown(e.player, "enderpearlCooldown")) {
                 e.isCancelled = true
-                Bukkit.getScheduler().runTask(plugin, { e.player.updateInventory() })
+                Bukkit.getScheduler().runTask(plugin, { e.player.updateInventory() } as Runnable)
             }
         }
 

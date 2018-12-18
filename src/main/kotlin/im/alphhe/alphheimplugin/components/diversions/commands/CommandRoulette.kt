@@ -27,7 +27,7 @@ class CommandRoulette(val plugin: EladriaCore) : AlphheimCommand(plugin) {
     fun roulette(self: Player) {
         if (random.nextFloat() > 0.8) {
             broadcast(self.location, self.name + " pulls the trigger *BANG*")
-            Bukkit.getScheduler().runTaskLater(plugin, { self.kickPlayer("*BANG*") }, 2L)
+            Bukkit.getScheduler().runTaskLater(plugin, { self.kickPlayer("*BANG*") } as Runnable, 2L)
         } else {
             broadcast(self.location, self.name + " pulls the trigger *CLICK*")
         }

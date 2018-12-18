@@ -14,7 +14,7 @@ import im.alphhe.alphheimplugin.data.AlphheimUser
 import org.bukkit.entity.Player
 
 
-class ChatHandlerService(eladriaCore: EladriaCore) : AbstractHandler(eladriaCore),  pw.alphheim.api.services.Chat {
+class ChatHandlerService(eladriaCore: EladriaCore) : AbstractHandler(eladriaCore),  pw.valaria.api.services.Chat {
 
     @Inject
     lateinit var userManager: UserManager

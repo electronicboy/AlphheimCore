@@ -39,7 +39,7 @@ class PlayerListener(private val plugin: EladriaCore) : Listener {
     fun onJoin(e: PlayerJoinEvent) {
         val tabListHandler = plugin.componentHandler.getComponent(TabListHandler::class.java)
         if (tabListHandler != null) {
-            plugin.server.scheduler.runTaskLater(plugin, { tabListHandler.setSB(e.player) }, 10L)
+            plugin.server.scheduler.runTaskLater(plugin, { tabListHandler.setSB(e.player) } as Runnable, 10L)
         }
 
         plugin.componentHandler.getComponent(HealthHandler::class.java)?.updateHealth(e.player)
