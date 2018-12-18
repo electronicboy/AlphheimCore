@@ -36,6 +36,7 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
 
     init {
         plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java) {
+            if (!plugin.isEnabled) return@subscribe
             plugin.server.scheduler.runTask(plugin, {
                 val player = this.plugin.server.getPlayer(it.user.uuid)
                 if (player != null) {
