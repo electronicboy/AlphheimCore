@@ -141,7 +141,7 @@ class PermissionHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
         val iter = plugin.luckPermsApi.eventBus.getHandlers(UserDataRecalculateEvent::class.java).iterator();
         while (iter.hasNext()) {
             val handler = iter.next()
-            if ((handler.consumer.javaClass.classLoader as PluginClassLoader).plugin.name == "AlphheimCore") {
+            if ((handler.consumer.javaClass.classLoader as PluginClassLoader).plugin == plugin) {
                 handler.unregister()
             }
         }
