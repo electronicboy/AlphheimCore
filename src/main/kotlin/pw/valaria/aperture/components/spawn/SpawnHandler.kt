@@ -37,6 +37,7 @@ class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         var meta = book.itemMeta as BookMeta
         meta.title = "Welcome Guide"
         meta.author = "Esterwilde"
+        //language=TEXT
         meta.addPage(
                 ChatColor.translateAlternateColorCodes('&', "&2&lEsterwilde 1.0\n&0\n&0\n&0&nGetting Started&0\n&0\n&0This book is made to help all new players navigate the server of Esterwilde!&0\n&0Pay close attention to any informaton given to you."),
                 ChatColor.translateAlternateColorCodes('&', "&nWebsite&0\n&0\n&3www.alphhe.im&0\n&0\n&0&nDynmap&0\n&0\n&6www.alphhe.im/dynmap&0\n&0\n&0&nDiscord&0\n&0\n&9https://discord.gg/8FUwt75"),
