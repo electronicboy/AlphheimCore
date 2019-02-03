@@ -15,16 +15,21 @@ import im.alphhe.alphheimplugin.components.AbstractHandler
 import im.alphhe.alphheimplugin.components.signs.data.AbstractSign
 import org.bukkit.Chunk
 import org.bukkit.Location
+import org.bukkit.event.EventHandler
+import org.bukkit.event.world.ChunkLoadEvent
 import kotlin.reflect.KClass
 
 class SignHandler(plugin: EladriaCore) : AbstractHandler(plugin) {
     val signProviders = HashMap<String, KClass<AbstractSign>>()
-    val loadedSigns =  HashMap<Location, AbstractSign>();
+    val loadedSigns =  HashMap<Location, AbstractSign>()
 
     init {
 
 
     }
 
-    fun chunkLoadEvent() {}
+    @EventHandler
+    fun chunkLoadEvent(e: ChunkLoadEvent) {
+
+    }
 }

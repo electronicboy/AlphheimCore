@@ -6,4 +6,6 @@
 
 package im.alphhe.alphheimplugin.utils.chunkdata
 
-abstract class ChunkData
+import java.util.function.Supplier
+
+abstract class ChunkData<D>( val test: Supplier<D>)
