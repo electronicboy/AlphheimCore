@@ -51,6 +51,7 @@ public class ComponentHandler {
 
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to register component: " + handlerClass.getCanonicalName());
+            e.printStackTrace();
             if (isRequired) {
                 plugin.safeLockdown();
                 throw new IllegalStateException("Missing dependencies", e);
