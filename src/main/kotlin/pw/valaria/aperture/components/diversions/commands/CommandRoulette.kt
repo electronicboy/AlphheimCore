@@ -12,7 +12,7 @@ import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
 import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.commands.AlphheimCommand
+import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -20,7 +20,7 @@ import org.bukkit.entity.Player
 import java.util.*
 
 @CommandAlias("roulette")
-class CommandRoulette(val plugin: ApertureCore) : AlphheimCommand(plugin) {
+class CommandRoulette(val plugin: ApertureCore) : CoreCommand(plugin) {
 
     private val random = Random()
 

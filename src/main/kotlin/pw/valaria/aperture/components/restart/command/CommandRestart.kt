@@ -11,13 +11,13 @@ package pw.valaria.aperture.components.restart.command
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.commands.AlphheimCommand
+import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.restart.RestartHandler
 import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.command.CommandSender
 
 @CommandAlias("restart")
-class CommandRestart(private val handler: RestartHandler, plugin: ApertureCore) : AlphheimCommand(plugin) {
+class CommandRestart(private val handler: RestartHandler, plugin: ApertureCore) : CoreCommand(plugin) {
 
     @CommandPermission("alphheim.admin")
     @Subcommand("get|status")

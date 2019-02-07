@@ -13,7 +13,7 @@ import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
 import co.aikar.commands.contexts.OnlinePlayer
 import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.commands.AlphheimCommand
+import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.permissions.PermissionHandler
 import pw.valaria.aperture.utils.MessageUtil
 import me.lucko.luckperms.api.Group
@@ -25,7 +25,7 @@ import org.bukkit.inventory.ItemStack
 import java.util.*
 
 @CommandAlias("rank")
-class CommandRank(private val plugin: ApertureCore) : AlphheimCommand(plugin) {
+class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Default
     @Subcommand("list|l")

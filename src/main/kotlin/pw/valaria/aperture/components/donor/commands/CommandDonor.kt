@@ -13,7 +13,7 @@ import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
 import co.aikar.commands.contexts.OnlinePlayer
 import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.commands.AlphheimCommand
+import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.donor.DonorManager
 import pw.valaria.aperture.components.donor.handlers.IDonorHandler
 import pw.valaria.aperture.utils.MessageUtil
@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @CommandAlias("donate")
-class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : AlphheimCommand(plugin) {
+class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : CoreCommand(plugin) {
 
     @CommandPermission("alphheim.admin")
     @Subcommand("give")

@@ -12,13 +12,13 @@ import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.contexts.OnlinePlayer
 import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.commands.AlphheimCommand
+import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.spawn.SpawnHandler
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @CommandAlias("spawn")
-class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: ApertureCore) : AlphheimCommand(plugin) {
+class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Default
     @CommandPermission("alphheim.spawn")

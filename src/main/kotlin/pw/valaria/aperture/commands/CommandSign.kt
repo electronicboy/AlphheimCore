@@ -18,7 +18,7 @@ import org.bukkit.block.Sign
 import org.bukkit.entity.Player
 
 @CommandAlias("editsign")
-class CommandSign(plugin: ApertureCore) : AlphheimCommand(plugin) {
+class CommandSign(plugin: ApertureCore) : CoreCommand(plugin) {
 
     @CatchUnknown
     @CommandPermission("alphheim.mod")

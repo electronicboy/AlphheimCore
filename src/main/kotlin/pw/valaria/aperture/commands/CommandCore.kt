@@ -21,8 +21,9 @@ import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-@CommandAlias("alphheim")
-class CommandCore(private val plugin: ApertureCore) : AlphheimCommand(plugin) {
+// TODO: Remove reliance on alphheim
+@CommandAlias("alphheim|core")
+class CommandCore(private val plugin: ApertureCore) : CoreCommand(plugin) {
     private val colorString: String
 
 

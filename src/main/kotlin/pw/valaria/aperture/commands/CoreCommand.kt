@@ -18,7 +18,7 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 import java.util.logging.Level
 
-abstract class AlphheimCommand(private val plugin: ApertureCore) : BaseCommand() {
+abstract class CoreCommand(private val plugin: ApertureCore) : BaseCommand() {
     init {
         try {
             plugin.commandManager.registerCommand(this, true)

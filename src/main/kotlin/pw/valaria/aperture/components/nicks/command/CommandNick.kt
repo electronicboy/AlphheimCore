@@ -12,7 +12,7 @@ import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.addComponent
-import pw.valaria.aperture.commands.AlphheimCommand
+import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.permissions.PermissionHandler
 import pw.valaria.aperture.components.usermanagement.UserManager
 import pw.valaria.aperture.utils.MessageUtil
@@ -28,7 +28,7 @@ import org.bukkit.entity.Player
 import java.util.*
 
 @CommandAlias("nick|nickname")
-class CommandNick(private val plugin: ApertureCore) : AlphheimCommand(plugin) {
+class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Subcommand("list")
     @CommandPermission("alphheim.mod")

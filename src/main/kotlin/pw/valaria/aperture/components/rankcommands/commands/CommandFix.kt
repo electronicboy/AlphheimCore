@@ -14,14 +14,14 @@ import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.HelpCommand
 import co.aikar.commands.annotation.Subcommand
 import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.commands.AlphheimCommand
+import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.entity.Player
 import org.bukkit.inventory.meta.Damageable
 import org.bukkit.inventory.meta.ItemMeta
 
 @CommandAlias("fix|repair")
-class CommandFix(private val plugin: ApertureCore) : AlphheimCommand(plugin) {
+class CommandFix(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Subcommand("hand")
     @CommandAlias("fixhand")

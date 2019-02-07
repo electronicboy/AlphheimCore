@@ -24,7 +24,7 @@ import pw.valaria.aperture.ApertureCore;
 import pw.valaria.aperture.componenthandler.annotations.Required;
 import pw.valaria.aperture.components.AbstractHandler;
 
-public class ComponentHandler {
+public final class ComponentHandler {
     private Map<Class<? extends AbstractHandler>, ComponentHolder<? extends AbstractHandler>> component = new HashMap<>();
     private ApertureCore plugin;
 

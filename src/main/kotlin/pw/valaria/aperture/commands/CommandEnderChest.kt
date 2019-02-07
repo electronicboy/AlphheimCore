@@ -14,7 +14,7 @@ import pw.valaria.aperture.ApertureCore
 import org.bukkit.entity.Player
 
 @CommandAlias("enderchest|ec")
-class CommandEnderChest(plugin: ApertureCore) : AlphheimCommand(plugin) {
+class CommandEnderChest(plugin: ApertureCore) : CoreCommand(plugin) {
 
     @CommandPermission("alphheim.enderchest")
     @Default
