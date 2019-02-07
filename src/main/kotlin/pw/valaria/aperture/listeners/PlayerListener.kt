@@ -66,7 +66,7 @@ class PlayerListener(private val plugin: ApertureCore) : Listener {
         val reason = e.reason ?: ""
 
 
-        e.reason = "${ChatColor.DARK_GRAY}[${ChatColor.RED}Eladria${ChatColor.DARK_GRAY}]" +
+        e.reason = "${ChatColor.DARK_GRAY}[${ChatColor.RED}${plugin.getServerName()}${ChatColor.DARK_GRAY}]" +
                 "\n\n" +
                 "${ChatColor.RED}You have been kicked from the server" +
 

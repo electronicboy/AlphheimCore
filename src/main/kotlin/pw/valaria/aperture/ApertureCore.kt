@@ -191,5 +191,10 @@ class ApertureCore : JavaPlugin() {
         }
     }
 
+    // This will probably come in handy...
+    fun getServerName(): String {
+        return "Esterwilde"
+    }
+
 
 }
