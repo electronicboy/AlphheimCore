@@ -19,7 +19,9 @@ import pw.valaria.aperture.components.voting.VoteHandler
 import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
+import org.bukkit.command.PluginIdentifiableCommand
 import org.bukkit.entity.Player
+import org.bukkit.plugin.java.PluginClassLoader
 
 // TODO: Remove reliance on alphheim
 @CommandAlias("alphheim|core")
@@ -121,6 +123,29 @@ class CommandCore(private val plugin: ApertureCore) : CoreCommand(plugin) {
             "disabled"
         }
         MessageUtil.sendInfo(sender, "Staff overrides are $newMode for ${user.getNickname()}")
+    }
+
+    @Subcommand("which")
+    @CommandPermission("roles.admin")
+    fun whichPlugin(sender: CommandSender, @Single commandName: String) {
+        val command = plugin.server.commandMap.getCommand(commandName)
+        if (command == null) {
+            MessageUtil.sendError(sender, "Command does not exist!")
+        } else {
+            if (command is PluginIdentifiableCommand) {
+                MessageUtil.sendInfo(sender, "Command $commandName belongs to ${command.plugin.name}")
+                return
+            } else {
+                val classLoader = command.javaClass.classLoader
+                if (classLoader is PluginClassLoader) {
+                    MessageUtil.sendInfo(sender, "Command $commandName belongs to *${classLoader.plugin.name}")
+                    return
+                }
+            }
+
+        }
+
+        MessageUtil.sendError(sender, "Command is not identifiable!")
     }
 
     @HelpCommand
