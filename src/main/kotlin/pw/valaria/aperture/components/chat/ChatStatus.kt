@@ -6,4 +6,9 @@
  *
  */
 
-rootProject.name = 'aperture-core'
+package pw.valaria.aperture.components.chat
+
+enum class ChatStatus {
+    ACTIVE,
+    PARTED
+}

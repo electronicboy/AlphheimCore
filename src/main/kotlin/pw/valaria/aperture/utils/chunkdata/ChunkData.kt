@@ -6,4 +6,8 @@
  *
  */
 
-rootProject.name = 'aperture-core'
+package pw.valaria.aperture.utils.chunkdata
+
+import java.util.function.Supplier
+
+abstract class ChunkData<D>( val test: Supplier<D>)

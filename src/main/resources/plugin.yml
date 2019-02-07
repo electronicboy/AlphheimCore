@@ -1,5 +1,5 @@
-name: AlphheimCore
-main: im.alphhe.alphheimplugin.EladriaCore
+name: Aperture
+main: pw.valaria.aperture.ApertureCore
 version: "1.1"
 author: electronicboy
 website: alphheimmc.enjin.com
