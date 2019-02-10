@@ -52,10 +52,10 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class ApertureCore : JavaPlugin() {
 
-    public val componentHandler = pw.valaria.aperture.componenthandler.ComponentHandler(this)
+    val componentHandler = ComponentHandler(this)
 
     lateinit var commandManager: BukkitCommandManager
-    var commandLore: pw.valaria.aperture.commands.CommandLore? = null
+    var commandLore: CommandLore? = null
 
     lateinit var luckPermsApi: LuckPermsApi
 
@@ -84,7 +84,7 @@ class ApertureCore : JavaPlugin() {
             @Suppress("DEPRECATION")
             commandManager.enableUnstableAPI("help")
 
-            val commandLore = pw.valaria.aperture.commands.CommandLore()
+            val commandLore = CommandLore()
 
             val commandMap = (Bukkit.getCommandMap() as SimpleCommandMap)
             commandMap.getCommand("lore")?.unregister(Bukkit.getCommandMap())

@@ -23,7 +23,7 @@ object MySQL {
     @Suppress("UNUSED_PARAMETER")
     fun init(plugin: ApertureCore) {
         val config = HikariConfig()
-        config.jdbcUrl = "jdbc:mysql://localhost:3306/alphheim"
+        config.jdbcUrl = "jdbc:mysql://localhost:3306/core"
         config.username = "alphheim"
         config.password = "S92ns902nas"
         config.addDataSourceProperty("cachePrepStmts", "true")
