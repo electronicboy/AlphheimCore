@@ -9,7 +9,12 @@
 package pw.valaria.aperture
 
 import co.aikar.commands.BukkitCommandManager
-import com.google.inject.Injector
+import me.lucko.luckperms.api.LuckPermsApi
+import org.bukkit.Bukkit
+import org.bukkit.command.SimpleCommandMap
+import org.bukkit.generator.ChunkGenerator
+import org.bukkit.permissions.PermissionAttachment
+import org.bukkit.plugin.java.JavaPlugin
 import pw.valaria.aperture.commands.CommandCore
 import pw.valaria.aperture.commands.CommandEnderChest
 import pw.valaria.aperture.commands.CommandLore
@@ -37,17 +42,6 @@ import pw.valaria.aperture.listeners.PlayerListener
 import pw.valaria.aperture.listeners.SignListener
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.MySQL
-import me.lucko.luckperms.api.LuckPermsApi
-import org.bukkit.Bukkit
-import org.bukkit.command.SimpleCommandMap
-import org.bukkit.event.Event
-import org.bukkit.event.EventPriority
-import org.bukkit.event.Listener
-import org.bukkit.event.server.ServerLoadEvent
-import org.bukkit.generator.ChunkGenerator
-import org.bukkit.permissions.PermissionAttachment
-import org.bukkit.plugin.EventExecutor
-import org.bukkit.plugin.java.JavaPlugin
 
 
 class ApertureCore : JavaPlugin() {
@@ -99,7 +93,7 @@ class ApertureCore : JavaPlugin() {
                 if (player.hasPermission("alphheim.admin"))
                     MessageUtil.sendError(player, "successfully reloaded!")
             }
-        } catch (ex: Exception ) {
+        } catch (ex: Exception) {
             ex.printStackTrace()
             safeLockdown()
         }
@@ -156,7 +150,12 @@ class ApertureCore : JavaPlugin() {
 
     override fun onDisable() {
 
-        Bukkit.getInternalServices().unregisterServices(this)
+        try {
+            Bukkit.getInternalServices().unregisterServices(this)
+        } catch (ex: NoSuchMethodError) {
+            // Don't log
+        }
+
 
         if (commandLore != null) commandLore!!.unregister(Bukkit.getCommandMap());
         commandManager.unregisterCommands()
