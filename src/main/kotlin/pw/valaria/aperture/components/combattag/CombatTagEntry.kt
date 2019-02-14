@@ -6,8 +6,8 @@
 
 package pw.valaria.aperture.components.combattag
 
+import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.NamespacedKey
 import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle
@@ -27,7 +27,7 @@ class CombatTagEntry(val player: Player, val expiry: Long) {
     private var bossBar: BossBar
 
     init {
-        bossBar = Bukkit.createBossBar(key, "Combat tagged!", BarColor.RED, BarStyle.SEGMENTED_20)
+        bossBar = Bukkit.createBossBar(key, "Combat tagged!", BarColor.RED, BarStyle.SEGMENTED_12)
         bossBar.addPlayer(player)
     }
 
@@ -55,31 +55,28 @@ class CombatTagEntry(val player: Player, val expiry: Long) {
         val progress = mult * remaining.toMillis()
         bossBar.progress = 1 - progress
 
-        bossBar.title = ChatColor.RED + "combat tagged: ${ChatColor.BLUE}${remaining.toRemainingString()}"
+        bossBar.title = "${ChatColor.RED}combat tagged: ${ChatColor.BLUE}${remaining.toRemainingString()}"
 
         return true
 
     }
 
 
-
 }
 
-private operator fun Any.plus(s: String): String {
-    return this.toString() + s
-}
+
 
 private fun Duration.toRemainingString(): String {
     val sb = StringBuilder()
 
     if (this.toHours() % 24 != 0L) {
-        sb.append("${this.toHours() % 24}H")
+        sb.append("${this.toHours() % 24}h")
     }
 
     if (sb.isNotEmpty() || this.toMinutes() % 60 != 0L) {
-        sb.append(", ${this.toMinutes() % 60}M")
+        sb.append(", ${this.toMinutes() % 60}m")
     }
-    sb.append("${this.seconds}S")
+    sb.append("${this.seconds}s")
 
     return sb.toString()
 }

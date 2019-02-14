@@ -21,6 +21,7 @@ import pw.valaria.aperture.commands.CommandLore
 import pw.valaria.aperture.commands.CommandSign
 import pw.valaria.aperture.componenthandler.ComponentHandler
 import pw.valaria.aperture.components.combat.CombatHandler
+import pw.valaria.aperture.components.combattag.CombatTagHandler
 import pw.valaria.aperture.components.diversions.FunHandler
 import pw.valaria.aperture.components.donor.DonorManager
 import pw.valaria.aperture.components.health.HealthHandler
@@ -122,6 +123,7 @@ class ApertureCore : JavaPlugin() {
         componentHandler.registerComponent(MMOCreditsHandler::class.java)
         componentHandler.registerComponent(RestartHandler::class.java)
         componentHandler.registerComponent(WorldGenHandler::class.java)
+        componentHandler.registerComponent(CombatTagHandler::class.java)
     }
 
 

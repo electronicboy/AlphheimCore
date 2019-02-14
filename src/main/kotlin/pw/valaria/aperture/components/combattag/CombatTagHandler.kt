@@ -6,18 +6,24 @@
 
 package pw.valaria.aperture.components.combattag
 
+import org.bukkit.Bukkit
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.scheduler.BukkitRunnable
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
+import java.time.Duration
 import java.util.*
 
-sealed class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
+class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener {
 
     private val activeTimers = LinkedHashMap<UUID, CombatTagEntry>()
-    private val timer: BukkitRunnable
+    private val timerTask: BukkitRunnable
 
     init {
-        timer = object : BukkitRunnable() {
+        Bukkit.getPluginManager().registerEvents(this, plugin)
+        timerTask = object : BukkitRunnable() {
             override fun run() {
                 val iter = activeTimers.iterator()
 
@@ -29,7 +35,21 @@ sealed class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
                 }
             }
         }
+
+        timerTask.runTaskTimer(plugin, 2, 5)
     }
 
+    @EventHandler
+    fun playerLogged(e: PlayerJoinEvent) {
+        activeTimers.put(e.player.uniqueId, CombatTagEntry(e.player, System.currentTimeMillis() + Duration.ofSeconds(50).toMillis()))
+    }
+
+    override fun onDisable() {
+        timerTask.cancel()
+        for (timer in activeTimers) {
+            timer.value.remove()
+        }
+        activeTimers.clear()
+    }
 
 }
