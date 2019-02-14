@@ -138,6 +138,9 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     return true;
     }
 
+    override fun onDisable() {
+        destruct()
+    }
     fun destruct() {
         val iter = plugin.luckPermsApi.eventBus.getHandlers(UserDataRecalculateEvent::class.java).iterator();
         while (iter.hasNext()) {

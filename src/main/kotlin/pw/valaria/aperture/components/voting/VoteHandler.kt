@@ -56,6 +56,10 @@ class VoteHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     }
 
+    override fun onDisable() {
+        destruct()
+    }
+
     fun destruct() {
         votifier?.listeners?.remove(voteHandler)
     }

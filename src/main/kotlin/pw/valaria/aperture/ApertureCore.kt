@@ -160,9 +160,6 @@ class ApertureCore : JavaPlugin() {
         if (commandLore != null) commandLore!!.unregister(Bukkit.getCommandMap());
         commandManager.unregisterCommands()
 
-        componentHandler.getComponent(VoteHandler::class.java)?.destruct()
-        componentHandler.getComponent(PermissionHandler::class.java)!!.destruct()
-
         componentHandler.disable()
 
         Bukkit.resetRecipes() // Cleanup...

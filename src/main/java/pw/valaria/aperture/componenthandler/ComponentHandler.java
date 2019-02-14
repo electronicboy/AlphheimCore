@@ -11,8 +11,10 @@ package pw.valaria.aperture.componenthandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,12 +22,9 @@ import javax.annotation.Nullable;
 import pw.valaria.aperture.ApertureCore;
 import pw.valaria.aperture.componenthandler.annotations.Required;
 import pw.valaria.aperture.components.AbstractHandler;
-import pw.valaria.aperture.ApertureCore;
-import pw.valaria.aperture.componenthandler.annotations.Required;
-import pw.valaria.aperture.components.AbstractHandler;
 
 public final class ComponentHandler {
-    private Map<Class<? extends AbstractHandler>, ComponentHolder<? extends AbstractHandler>> component = new HashMap<>();
+    private LinkedHashMap<Class<? extends AbstractHandler>, ComponentHolder<? extends AbstractHandler>> component = new LinkedHashMap<>();
     private ApertureCore plugin;
 
 
@@ -73,7 +72,23 @@ public final class ComponentHandler {
     }
 
     public void disable() {
+        List<Class<? extends AbstractHandler>> registeredComponents = new ArrayList<>(component.keySet());
+        Collections.reverse(registeredComponents);
+        registeredComponents.forEach((componentClass) -> {
+            AbstractHandler handler;
+            try {
+                handler = getComponentOrThrow(componentClass);
+            } catch (IllegalArgumentException ex) {
+                new Throwable("handler went missing? " + componentClass.getName(), ex).printStackTrace();
+                return;
+            }
+            try {
+                handler.onDisable();
+            } catch (Throwable ex) {
+                ex.printStackTrace();
 
+            }
+        });
     }
 
     @NotNull
