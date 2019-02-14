@@ -17,7 +17,7 @@ import org.bukkit.Material
 import java.util.*
 
 class CombatHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
-    val toRemove: EnumSet<Material> = EnumSet.noneOf(Material::class.java)
+    private val toRemove: EnumSet<Material> = EnumSet.noneOf(Material::class.java)
 
 
     init {

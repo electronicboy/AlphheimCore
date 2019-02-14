@@ -12,5 +12,5 @@ import pw.valaria.aperture.ApertureCore
 
 abstract class AbstractHandler(open val plugin: ApertureCore) {
 
-    open fun onDisable(){};
+    open fun onDisable(){}
 }
