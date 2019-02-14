@@ -8,7 +8,7 @@
 
 package pw.valaria.aperture
 
-import co.aikar.commands.BukkitCommandManager
+import co.aikar.commands.PaperCommandManager
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
@@ -48,7 +48,7 @@ class ApertureCore : JavaPlugin() {
 
     val componentHandler = ComponentHandler(this)
 
-    lateinit var commandManager: BukkitCommandManager
+    lateinit var commandManager: PaperCommandManager
     var commandLore: CommandLore? = null
 
     lateinit var luckPermsApi: LuckPermsApi
@@ -73,7 +73,7 @@ class ApertureCore : JavaPlugin() {
                 logger.warning("Missing permission system?!!")
             }
 
-            commandManager = BukkitCommandManager(this)
+            commandManager = PaperCommandManager(this)
 
             @Suppress("DEPRECATION")
             commandManager.enableUnstableAPI("help")
