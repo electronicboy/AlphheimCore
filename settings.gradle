@@ -7,3 +7,4 @@
  */
 
 rootProject.name = 'aperture-core'
+enableFeaturePreview('STABLE_PUBLISHING')
