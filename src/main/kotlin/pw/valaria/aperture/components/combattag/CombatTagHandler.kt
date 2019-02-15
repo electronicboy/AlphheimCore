@@ -7,6 +7,7 @@
 package pw.valaria.aperture.components.combattag
 
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -25,25 +26,49 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
         Bukkit.getPluginManager().registerEvents(this, plugin)
         timerTask = object : BukkitRunnable() {
             override fun run() {
-                val iter = activeTimers.iterator()
+                var timers: LinkedHashMap<UUID, CombatTagEntry>
+                synchronized(this) {
+                    @Suppress("UNCHECKED_CAST")
+                    timers = activeTimers.clone() as LinkedHashMap<UUID, CombatTagEntry>
+                }
 
-                for (entry in iter) {
+                for (entry in timers) {
                     if (!entry.value.update()) {
-                        entry.value.remove()
-                        iter.remove()
+                        synchronized(this) {
+                            entry.value.remove()
+                            activeTimers.remove(entry.key)
+                            return // We're not returning anything kotlin....
+                        }
                     }
                 }
             }
         }
 
-        timerTask.runTaskTimer(plugin, 2, 5)
+        timerTask.runTaskTimerAsynchronously(plugin, 1, 1)
     }
+
+
+
+
+
+    @Synchronized
+    fun startOrUpdateTimer(player: Player, duration: Duration) {
+        val current = activeTimers[player.uniqueId]
+        if (current != null && current.getRemainingDuration().toMillis() < duration.toMillis()) {
+            current.bump(duration)
+        }
+
+        val ret = CombatTagEntry(player, duration)
+        activeTimers.putIfAbsent(player.uniqueId, ret)
+    }
+
 
     @EventHandler
     fun playerLogged(e: PlayerJoinEvent) {
-        activeTimers.put(e.player.uniqueId, CombatTagEntry(e.player, System.currentTimeMillis() + Duration.ofSeconds(50).toMillis()))
+        activeTimers.put(e.player.uniqueId, CombatTagEntry(e.player, Duration.ofSeconds(70).toMillis()))
     }
 
+    @Synchronized
     override fun onDisable() {
         timerTask.cancel()
         for (timer in activeTimers) {
