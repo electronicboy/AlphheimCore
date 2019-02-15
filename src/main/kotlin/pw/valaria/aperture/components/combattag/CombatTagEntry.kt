@@ -92,5 +92,9 @@ private fun Duration.toRemainingString(): String {
     if (sb.isNotEmpty()) sb.append(", ")
     sb.append("${this.seconds % 60}s")
 
+    if (this.seconds == 0L) {
+        sb.append(this.toMillis()).append("ms")
+    }
+
     return sb.toString()
 }
