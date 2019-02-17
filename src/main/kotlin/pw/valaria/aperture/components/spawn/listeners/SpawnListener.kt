@@ -11,6 +11,7 @@ package pw.valaria.aperture.components.spawn.listeners
 import pw.valaria.aperture.components.spawn.SpawnHandler
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
@@ -24,7 +25,7 @@ class SpawnListener(private val spawnHandler: SpawnHandler) : Listener {
         spawnHandler.plugin.server.pluginManager.registerEvents(this, spawnHandler.plugin)
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     fun onJoin(e: PlayerJoinEvent) {
         if (!e.player.hasPlayedBefore()) {
             spawnHandler.goSpawn(e.player, null, true)
