@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.scheduler.BukkitRunnable
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
+import pw.valaria.aperture.components.combattag.commands.CommandCombatTag
 import java.time.Duration
 import java.util.*
 
@@ -45,6 +46,8 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
         }
 
         timerTask.runTaskTimerAsynchronously(plugin, 1, 1)
+
+        plugin.commandManager.registerCommand(CommandCombatTag(plugin), true)
     }
 
 

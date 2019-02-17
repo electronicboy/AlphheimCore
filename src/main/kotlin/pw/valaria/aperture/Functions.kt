@@ -47,7 +47,3 @@ fun ChatColor.color(text: String): String = ChatColor.translateAlternateColorCod
 fun String.toComponents(): Array<BaseComponent> {
     return TextComponent.fromLegacyText(this)
 }
-
-fun pw.valaria.aperture.componenthandler.ComponentHandler.getComponent(kClass: KClass<WorldGenHandler>) {
-    getComponent(kClass.java)
-}

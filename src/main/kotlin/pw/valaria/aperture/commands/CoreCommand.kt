@@ -9,6 +9,8 @@
 package pw.valaria.aperture.commands
 
 import co.aikar.commands.BaseCommand
+import co.aikar.commands.CommandHelp
+import co.aikar.commands.annotation.HelpCommand
 import org.bukkit.entity.Player
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.permissions.PermissionHandler

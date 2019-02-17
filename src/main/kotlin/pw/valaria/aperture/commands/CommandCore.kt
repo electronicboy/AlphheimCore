@@ -148,10 +148,7 @@ class CommandCore(private val plugin: ApertureCore) : CoreCommand(plugin) {
         MessageUtil.sendError(sender, "Command is not identifiable!")
     }
 
-    @HelpCommand
-    fun unknownCommand(help: CommandHelp) {
-        help.showHelp()
-    }
+
 }
 
 
