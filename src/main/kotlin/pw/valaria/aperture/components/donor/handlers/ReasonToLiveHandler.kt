@@ -11,11 +11,10 @@ package pw.valaria.aperture.components.donor.handlers
 import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import pw.valaria.aperture.components.donor.DonorManager
 
 
-class ReasonToLiveHandler : IDonorHandler() {
-    override val name: String
-        get() = "ReasonToLive"
+class ReasonToLiveHandler(donorManager: DonorManager) : IDonorHandler(donorManager, "ReasonToLive") {
 
     override fun handle(player: Player, args: Map<String, String>) {
         for (tPlayer in Bukkit.getOnlinePlayers()) {

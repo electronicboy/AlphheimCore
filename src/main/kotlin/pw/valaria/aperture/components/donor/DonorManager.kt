@@ -25,10 +25,10 @@ class DonorManager(plugin: ApertureCore) : AbstractHandler(plugin){
 
     init {
 
-        plugin.commandManager.commandContexts.registerContext(IDonorHandler::class.java, { c ->
+        plugin.commandManager.commandContexts.registerContext(IDonorHandler::class.java) { c ->
             val type = c.popFirstArg().toLowerCase()
             getHandler(type) ?: throw InvalidCommandArgument("The $type handler does not exist!")
-        })
+        }
 
         plugin.commandManager.commandCompletions.registerCompletion("donorhandler", { _ ->
             handlers.keys
@@ -39,9 +39,9 @@ class DonorManager(plugin: ApertureCore) : AbstractHandler(plugin){
         CommandCraft(plugin)
         CommandHat(plugin)
 
-        registerHandler("spawner", MobSpawnerHandler())
-        registerHandler("lorebag", LorebagHandler())
-        registerHandler("reasontolive", ReasonToLiveHandler())
+        registerHandler("spawner", MobSpawnerHandler(this))
+        registerHandler("lorebag", LorebagHandler(this))
+        registerHandler("reasontolive", ReasonToLiveHandler(this))
 
     }
 

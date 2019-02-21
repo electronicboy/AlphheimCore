@@ -14,10 +14,9 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BlockStateMeta
+import pw.valaria.aperture.components.donor.DonorManager
 
-class MobSpawnerHandler() : IDonorHandler() {
-    override val name: String
-        get() = "MobSpawner"
+class MobSpawnerHandler(donorManager: DonorManager) : IDonorHandler(donorManager, "MobSpawner") {
 
     override fun handle(player: Player, args: Map<String, String>) {
         val spawnerType = args["spawnerType"]
