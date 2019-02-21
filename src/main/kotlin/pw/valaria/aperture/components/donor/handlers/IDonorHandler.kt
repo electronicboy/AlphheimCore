@@ -9,9 +9,9 @@
 package pw.valaria.aperture.components.donor.handlers
 
 import org.bukkit.entity.Player
+import pw.valaria.aperture.components.donor.DonorManager
 
-abstract class IDonorHandler {
-    abstract val name: String
+abstract class IDonorHandler(val donorManager: DonorManager, val name: String) {
 
     abstract fun handle(player: Player, args: Map<String, String>)
 
