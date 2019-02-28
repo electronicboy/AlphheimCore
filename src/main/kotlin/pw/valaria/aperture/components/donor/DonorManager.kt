@@ -30,9 +30,9 @@ class DonorManager(plugin: ApertureCore) : AbstractHandler(plugin){
             getHandler(type) ?: throw InvalidCommandArgument("The $type handler does not exist!")
         }
 
-        plugin.commandManager.commandCompletions.registerCompletion("donorhandler", { _ ->
+        plugin.commandManager.commandCompletions.registerCompletion("donorhandler") {
             handlers.keys
-        })
+        }
 
         CommandDonor(plugin, this)
 

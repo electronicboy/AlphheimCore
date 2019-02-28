@@ -43,37 +43,6 @@ class LorebagHandler(donorManager: DonorManager) : IDonorHandler(donorManager, "
         itemstack.itemMeta = itemmeta
 
         return itemstack
-        /*
-        val itemstack = CraftItemStack.asNMSCopy(Dye(DyeColor.LIME).toItemStack(1))
-
-        val tag = itemstack.tag ?: NBTTagCompound()
-
-
-        if (args["transaction"] != null) {
-            tag.setString("transaction", args["transaction"])
-        }
-
-        val cal = GregorianCalendar()
-        cal.set(Calendar.MILLISECOND, 0)
-        cal.set(Calendar.SECOND, 0)
-
-        tag.setLong("timestamp", cal.timeInMillis )
-        tag.setString("purchaser", player.uniqueId.toString())
-
-
-        itemstack.tag = tag;
-
-        val giveStack = CraftItemStack.asCraftMirror(itemstack)
-
-        val meta = giveStack.itemMeta
-        meta.displayName = ChatColor.BOLD.toString() + "Lorebag Token"
-        meta.lore = mutableListOf("Speak to staff to redeem")
-
-        giveStack.itemMeta = meta
-        return giveStack
-
-         */
-
     }
 
 }

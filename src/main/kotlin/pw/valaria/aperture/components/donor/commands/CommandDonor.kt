@@ -82,11 +82,11 @@ class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : Co
         val donatorInfo = if (container) {
             itemMeta.customTagContainer.getCustomTag(DonationInfoTagType.key, DonationInfoTagType())
         } else  {
-            val info =checkNbt(player, bukkitStack)
+            val info = checkNbt(player, bukkitStack)
             if (info != null) {
                 wasLegacy = true
             }
-            info
+            info // "return"
         }
 
         if (donatorInfo != null) {
