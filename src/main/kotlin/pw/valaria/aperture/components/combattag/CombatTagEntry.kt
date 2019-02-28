@@ -51,6 +51,17 @@ class CombatTagEntry(val player: Player, duration: Duration) {
         removed = true
     }
 
+    fun isActive(): Boolean {
+        if (removed) return false
+
+        val remaining = getRemainingDuration()
+        // if expired, return false and clean above
+        if (remaining.isZero || remaining.isNegative) {
+            return false
+        }
+
+        return true
+    }
     fun update(): Boolean {
         if (removed) return false // Allow mid tick removal
 

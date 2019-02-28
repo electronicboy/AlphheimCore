@@ -8,13 +8,12 @@ package pw.valaria.aperture.components.combattag
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.scheduler.BukkitRunnable
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.combattag.commands.CommandCombatTag
+import pw.valaria.aperture.components.combattag.listeners.CombatTagListener
 import java.time.Duration
 import java.util.*
 
@@ -48,11 +47,9 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
         timerTask.runTaskTimerAsynchronously(plugin, 1, 1)
 
         plugin.commandManager.registerCommand(CommandCombatTag(plugin), true)
+
+        Bukkit.getPluginManager().registerEvents(CombatTagListener(this), plugin)
     }
-
-
-
-
 
     @Synchronized
     fun startOrUpdateTimer(player: Player, duration: Duration) {
@@ -63,6 +60,14 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
 
         val ret = CombatTagEntry(player, duration)
         activeTimers.putIfAbsent(player.uniqueId, ret)
+    }
+
+    fun getTag(player: Player): CombatTagEntry? {
+        return getTag(player.uniqueId)
+    }
+
+    fun getTag(player: UUID): CombatTagEntry? {
+        return activeTimers[player]
     }
 
 
