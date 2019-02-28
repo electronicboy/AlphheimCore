@@ -66,11 +66,6 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
     }
 
 
-    @EventHandler
-    fun playerLogged(e: PlayerJoinEvent) {
-        activeTimers.put(e.player.uniqueId, CombatTagEntry(e.player, Duration.ofSeconds(70).toMillis()))
-    }
-
     @Synchronized
     override fun onDisable() {
         timerTask.cancel()
