@@ -7,6 +7,7 @@
 package pw.valaria.aperture.components.combattag
 
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.scheduler.BukkitRunnable
@@ -52,14 +53,17 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
     }
 
     @Synchronized
-    fun startOrUpdateTimer(player: Player, duration: Duration) {
+    fun startOrUpdateTimer(player: Player, duration: Duration): CombatTagEntry {
         val current = activeTimers[player.uniqueId]
         if (current != null && current.getRemainingDuration().toMillis() < duration.toMillis()) {
             current.bump(duration)
+        } else {
+            player.sendActionBar("${ChatColor.RED}- You have been tagged! -")
         }
 
         val ret = CombatTagEntry(player, duration)
         activeTimers.putIfAbsent(player.uniqueId, ret)
+        return ret
     }
 
     fun getTag(player: Player): CombatTagEntry? {
