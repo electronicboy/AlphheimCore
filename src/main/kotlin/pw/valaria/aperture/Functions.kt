@@ -14,6 +14,7 @@ import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
+import java.time.Duration
 import java.util.regex.Pattern
 import kotlin.reflect.KClass
 
@@ -46,4 +47,25 @@ fun ChatColor.color(text: String): String = ChatColor.translateAlternateColorCod
 
 fun String.toComponents(): Array<BaseComponent> {
     return TextComponent.fromLegacyText(this)
+}
+
+fun Duration.toRemainingString(): String {
+    val sb = StringBuilder()
+
+    if (this.toHours() % 24 != 0L) {
+        sb.append("${this.toHours() % 24}h")
+    }
+
+    if (sb.isNotEmpty() || this.toMinutes() % 60 != 0L) {
+        if (sb.isNotEmpty()) sb.append(", ")
+        sb.append("${this.toMinutes() % 60}m")
+    }
+    if (sb.isNotEmpty()) sb.append(", ")
+    sb.append("${this.seconds % 60}s")
+
+    if (this.seconds == 0L) {
+        sb.append(this.toMillis()).append("ms")
+    }
+
+    return sb.toString()
 }

@@ -14,6 +14,7 @@ import org.bukkit.boss.BarStyle
 import org.bukkit.boss.BossBar
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
+import pw.valaria.aperture.toRemainingString
 import java.time.Duration
 
 class CombatTagEntry(val player: Player, duration: Duration) {
@@ -75,26 +76,4 @@ class CombatTagEntry(val player: Player, duration: Duration) {
     }
 
 
-}
-
-
-private fun Duration.toRemainingString(): String {
-    val sb = StringBuilder()
-
-    if (this.toHours() % 24 != 0L) {
-        sb.append("${this.toHours() % 24}h")
-    }
-
-    if (sb.isNotEmpty() || this.toMinutes() % 60 != 0L) {
-        if (sb.isNotEmpty()) sb.append(", ")
-        sb.append("${this.toMinutes() % 60}m")
-    }
-    if (sb.isNotEmpty()) sb.append(", ")
-    sb.append("${this.seconds % 60}s")
-
-    if (this.seconds == 0L) {
-        sb.append(this.toMillis()).append("ms")
-    }
-
-    return sb.toString()
 }
