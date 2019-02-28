@@ -46,7 +46,7 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
 
         timerTask.runTaskTimerAsynchronously(plugin, 1, 1)
 
-        plugin.commandManager.registerCommand(CommandCombatTag(plugin), true)
+        plugin.commandManager.registerCommand(CommandCombatTag(plugin, this), true)
 
         Bukkit.getPluginManager().registerEvents(CombatTagListener(this), plugin)
     }
