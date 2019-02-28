@@ -11,6 +11,7 @@ import org.bukkit.entity.Player
 import org.bukkit.entity.Projectile
 import org.bukkit.entity.Tameable
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerKickEvent
@@ -20,7 +21,7 @@ import java.time.Duration
 
 class CombatTagListener(val handler: CombatTagHandler) : Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun playerHitPlayer(ev: EntityDamageByEntityEvent) {
         val target = ev.entity as? Player ?: return
 
