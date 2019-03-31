@@ -10,22 +10,30 @@ package pw.valaria.aperture.components.nicks.command
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.addComponent
-import pw.valaria.aperture.commands.CoreCommand
-import pw.valaria.aperture.components.permissions.PermissionHandler
-import pw.valaria.aperture.components.usermanagement.UserManager
-import pw.valaria.aperture.utils.MessageUtil
-import pw.valaria.aperture.utils.MySQL
+import net.kyori.text.TextComponent
+import net.kyori.text.adapter.bukkit.TextAdapter
+import net.kyori.text.event.ClickEvent
+import net.kyori.text.event.HoverEvent
+import net.kyori.text.format.TextColor
+import net.kyori.text.format.TextDecoration
+import net.kyori.text.serializer.legacy.LegacyComponentSerializer
 import net.md_5.bungee.api.ChatColor
-import net.md_5.bungee.api.chat.ClickEvent
-import net.md_5.bungee.api.chat.ComponentBuilder
-import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.checkerframework.checker.nullness.qual.NonNull
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.commands.CoreCommand
+import pw.valaria.aperture.components.permissions.PermissionHandler
+import pw.valaria.aperture.components.usermanagement.UserManager
+import pw.valaria.aperture.translateColors
+import pw.valaria.aperture.utils.MessageUtil
+import pw.valaria.aperture.utils.MySQL
 import java.util.*
+
+val DENY_CHAR = "✗"
+val ACCEPT_CHAR = "✓"
 
 @CommandAlias("nick|nickname")
 class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
@@ -57,54 +65,49 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
                             val nickRequest = rs.getString("REQUESTED")
                             val playerUuid = UUID.fromString(rs.getString("PLAYER_UUID"))
                             val userName = Bukkit.getOfflinePlayer(playerUuid).name
-                            val nick = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', nickRequest))
 
-                            val request = TextComponent(" requested by: ")
-                            request.color = ChatColor.DARK_RED
+                            val groupsRaw = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getOwnGroupsForOfflineUser(playerUuid)
 
-                            val groups = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getOwnGroupsForOfflineUser(playerUuid).joinToString { group -> group.name }
+                            val text = TextComponent.builder().content("").color(TextColor.RED)
+                                    .append(LegacyComponentSerializer.INSTANCE.deserialize(nickRequest.translateColors()))
+                                    .append(TextComponent.of(" requested by: ", TextColor.DARK_RED))
+                                    .append(TextComponent.of(userName)
+                                            .hoverEvent(
+                                                    HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.builder().content("Groups:")
+                                                            .color(TextColor.GOLD)
+                                                            .decoration(TextDecoration.UNDERLINED, TextDecoration.State.TRUE)
+                                                            .apply {
+                                                                for (group in groupsRaw) {
+                                                                    it.append(TextComponent.of("\n")
+                                                                            .append(
+                                                                                    TextComponent.of(group.name)
+                                                                                            .color(TextColor.RED)
+                                                                                            .decoration(TextDecoration.UNDERLINED, TextDecoration.State.FALSE)))
+                                                                }
+                                                            }.build()
+                                                    )
 
-                            val playerData = TextComponent("$userName ($groups) ")
-                            playerData.color = ChatColor.RED
+                                            )
 
-                            val openBracket = TextComponent("[")
-                            openBracket.color = ChatColor.DARK_RED
+                                    )
+                                    .append(TextComponent.of(" "))
+                                    .append(TextComponent.of(" [", TextColor.DARK_RED))
+                                    .append(
+                                            TextComponent.of(ACCEPT_CHAR)
+                                                    .clickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick accept $userName"))
+                                                    .color(TextColor.GREEN)
+                                                    .decoration(TextDecoration.BOLD, TextDecoration.State.TRUE)
+                                    )
+                                    .append(TextComponent.of("|", TextColor.DARK_RED))
+                                    .append(
+                                            TextComponent.of(DENY_CHAR)
+                                                    .clickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick reject $userName"))
+                                                    .color(TextColor.GREEN)
+                                                    .decoration(TextDecoration.BOLD, TextDecoration.State.TRUE)
+                                    )
+                                    .append(TextComponent.of("]", TextColor.DARK_RED))
 
-
-                            val accept = TextComponent("✓")
-                            accept.isBold = true
-                            accept.color = ChatColor.GREEN
-                            accept.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick accept $userName")
-
-                            val separator = TextComponent("|")
-                            separator.color = ChatColor.DARK_RED
-
-                            // ✗ ✘
-                            val deny = TextComponent("✗")
-                            deny.isBold = true
-                            deny.color = ChatColor.GREEN
-                            deny.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick reject $userName")
-
-                            val closeBracket = TextComponent("]")
-                            closeBracket.color = ChatColor.DARK_RED
-
-                            val builder = ComponentBuilder("* ")
-                            builder.color(ChatColor.RED)
-                            builder.append(nick)
-                            builder.addComponent(request)
-                            builder.addComponent(playerData)
-                            builder.addComponent(openBracket)
-                            builder.addComponent(accept)
-                            builder.addComponent(separator)
-                            builder.addComponent(deny)
-                            builder.addComponent(closeBracket)
-
-                            if (sender is Player) {
-                                sender.spigot().sendMessage(*builder.create())
-                            } else {
-                                sender.sendMessage(TextComponent.toLegacyText(*builder.create()))
-                            }
-
+                            MessageUtil.sendInfo(sender, text.build())
 
                         }
 

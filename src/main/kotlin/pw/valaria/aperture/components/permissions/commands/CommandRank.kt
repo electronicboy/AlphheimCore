@@ -11,7 +11,7 @@ package pw.valaria.aperture.components.permissions.commands
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
-import co.aikar.commands.contexts.OnlinePlayer
+import co.aikar.commands.bukkit.contexts.OnlinePlayer
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.permissions.PermissionHandler

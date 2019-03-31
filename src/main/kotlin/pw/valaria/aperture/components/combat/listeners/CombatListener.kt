@@ -37,8 +37,6 @@ class CombatListener(private val plugin: ApertureCore) : Listener {
                 e.isCancelled = true
 
             }
-
-
         }
     }
 

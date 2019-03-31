@@ -10,7 +10,7 @@ package pw.valaria.aperture.commands
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
-import co.aikar.commands.contexts.OnlinePlayer
+import co.aikar.commands.bukkit.contexts.OnlinePlayer
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.spawn.SpawnHandler
 import pw.valaria.aperture.components.tabfooterheader.TabHandler

@@ -95,6 +95,7 @@ dependencies {
         exclude group: "com.turt2live.metrics", module: "MetricsExtension"
     }
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile "net.kyori:text-adapter-bukkit:2.0.0-SNAPSHOT"
 }
 
 compileKotlin {
@@ -102,6 +103,7 @@ compileKotlin {
         javaParameters = true
         targetCompatibility = JavaVersion.VERSION_1_8
         sourceCompatibility = JavaVersion.VERSION_1_8
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 }
 

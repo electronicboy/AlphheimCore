@@ -11,7 +11,7 @@ package pw.valaria.aperture.components.donor.commands
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
-import co.aikar.commands.contexts.OnlinePlayer
+import co.aikar.commands.bukkit.contexts.OnlinePlayer
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.command.CommandSender
