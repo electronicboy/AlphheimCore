@@ -175,10 +175,8 @@ class ApertureCore : JavaPlugin() {
     }
 
     override fun getDefaultWorldGenerator(worldName: String, id: String?): ChunkGenerator? {
-        val worldGenHandler = componentHandler.getComponent(WorldGenHandler::class.java)
-        return if (worldGenHandler != null) {
-            worldGenHandler.getGenerator(worldName, id) ?: worldGenHandler.emptyWorldGenerator
-        } else null
+        val worldGenHandler = componentHandler.getComponent(WorldGenHandler::class.java)!!
+        return worldGenHandler.getGenerator(worldName, id) ?: worldGenHandler.emptyWorldGenerator
     }
 
     fun safeLockdown() {
