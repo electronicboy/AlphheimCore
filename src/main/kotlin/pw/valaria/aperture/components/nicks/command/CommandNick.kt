@@ -64,7 +64,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
                         while (rs.next()) {
                             val nickRequest = rs.getString("REQUESTED")
                             val playerUuid = UUID.fromString(rs.getString("PLAYER_UUID"))
-                            val userName = Bukkit.getOfflinePlayer(playerUuid).name
+                            val userName = Bukkit.getOfflinePlayer(playerUuid).name ?: "Unknown-$playerUuid".substring(0..15)
 
                             val groupsRaw = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getOwnGroupsForOfflineUser(playerUuid)
 

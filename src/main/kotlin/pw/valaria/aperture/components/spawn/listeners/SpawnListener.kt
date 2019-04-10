@@ -41,15 +41,15 @@ class SpawnListener(private val spawnHandler: SpawnHandler) : Listener {
 
     @EventHandler
     fun openBookCheck(e: PlayerInteractEvent) {
-        if (!e.hasItem() || e.hasBlock() && e.clickedBlock.type.isInteractable) return
+        if (!e.hasItem() || e.hasBlock() && e.clickedBlock!!.type.isInteractable) return
 
-        if (e.item.type != Material.WRITTEN_BOOK) return
+        if (e.item!!.type != Material.WRITTEN_BOOK) return
 
-        val bookMeta = e.item.itemMeta as BookMeta
-        if (!bookMeta.hasTitle() || !bookMeta.title.contains("Welcome Guide", true)) return
+        val bookMeta = e.item!!.itemMeta as BookMeta
+        if (!bookMeta.hasTitle() || !bookMeta.title!!.contains("Welcome Guide", true)) return
 
         if (bookMeta.author == "Alphheim" || bookMeta.author == "Esterwilde") {
-            e.player.inventory.setItem(e.hand, spawnHandler.getBook());
+            e.player.inventory.setItem(e.hand!!, spawnHandler.getBook())
         }
 
     }

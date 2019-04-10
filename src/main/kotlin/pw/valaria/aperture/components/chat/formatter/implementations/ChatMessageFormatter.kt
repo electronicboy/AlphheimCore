@@ -24,7 +24,7 @@ class ChatMessageFormatter(channel: ChatChannel, plugin: ApertureCore) : Abstrac
             msg = ChatColor.translateAlternateColorCodes('&', msg)
         }
 
-        components.append(TextComponent.fromLegacyText(msg));
+        components.append(TextComponent.fromLegacyText(msg))
 
 
     }

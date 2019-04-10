@@ -9,7 +9,6 @@
 package pw.valaria.aperture.componenthandler;
 
 import pw.valaria.aperture.components.AbstractHandler;
-import pw.valaria.aperture.components.AbstractHandler;
 
 public class ComponentHolder<T extends AbstractHandler> {
 

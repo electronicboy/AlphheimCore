@@ -26,7 +26,7 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
     //val tempChannel = ChatChannel()
 
 
-    public fun addUser(player: Player) {
+    fun addUser(player: Player) {
         val user = userManager.getUser(player)
         channels.forEach { _, chan ->
             if (chan.canJoin(user)) {

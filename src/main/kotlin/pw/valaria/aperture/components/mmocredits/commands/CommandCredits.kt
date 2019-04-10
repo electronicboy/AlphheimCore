@@ -56,7 +56,7 @@ class CommandCredits(private val plugin: ApertureCore, private val handler: MMOC
         MySQL.executor.execute {
 
             if (handler.giveCredits(target, amount)) {
-                if (target.isOnline) MessageUtil.sendInfo(target.player, "You have received $amount credits!")
+                if (target.isOnline) MessageUtil.sendInfo(target.player!!, "You have received $amount credits!")
 
                 MessageUtil.sendInfo(sender, "You have given ${target.name} $amount credits!")
             }
@@ -76,7 +76,7 @@ class CommandCredits(private val plugin: ApertureCore, private val handler: MMOC
         MySQL.executor.execute {
 
             if (handler.takeCredits(target, amount)) {
-                if (target.isOnline) MessageUtil.sendInfo(target.player, "You have lost $amount credits!")
+                if (target.isOnline) MessageUtil.sendInfo(target.player!!, "You have lost $amount credits!")
 
                 MessageUtil.sendInfo(sender, "You have taken $amount credits from ${target.name}!")
             }

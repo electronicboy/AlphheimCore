@@ -187,7 +187,7 @@ class TabListHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
                 prefix = prefix.substring(0, 16)
             }
 
-            team!!.prefix = prefix
+            team.prefix = prefix
         }
 
         return team
@@ -204,10 +204,10 @@ class TabListHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         if (localColor == null && newPrefix != null && prefix.isNotEmpty()) {
             val components = TextComponent.fromLegacyText(newPrefix)
             val lastComponent = components[components.size-1]
-            localColor = ChatColor.valueOf(lastComponent.color.getName().toUpperCase());
+            localColor = ChatColor.valueOf(lastComponent.color.getName().toUpperCase())
 
         }
-        team.color = localColor;
+        team.color = localColor!!
         return team
     }
 }

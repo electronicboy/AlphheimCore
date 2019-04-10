@@ -29,7 +29,7 @@ class HealthHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
 
     private fun applyHealth(player: Player, health: Double) {
-        val healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)
+        val healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!
         if (healthAttribute.baseValue != health) {
             healthAttribute.baseValue = health
         }

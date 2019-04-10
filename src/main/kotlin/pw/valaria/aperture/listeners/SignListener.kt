@@ -24,7 +24,7 @@ class SignListener(plugin: ApertureCore) : Listener {
     fun onSignUpdate(e: SignChangeEvent) {
         if (!e.player.hasPermission("alphheim.mod")) return
         for (line in 0..3) {
-            e.setLine(line, ChatColor.translateAlternateColorCodes('&', e.getLine(line)))
+            e.setLine(line, ChatColor.translateAlternateColorCodes('&', e.getLine(line) ?: ""))
         }
     }
 

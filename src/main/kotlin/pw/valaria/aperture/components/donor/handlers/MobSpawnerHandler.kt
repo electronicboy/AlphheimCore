@@ -42,10 +42,10 @@ class MobSpawnerHandler(donorManager: DonorManager) : IDonorHandler(donorManager
 
         itemmeta.blockState = spawner
 
-        itemmeta.displayName = if (name != null) name  else mobType.name
+        itemmeta.setDisplayName(name ?: mobType.name)
         item.itemMeta = itemmeta
 
-        return item;
+        return item
 
     }
 }

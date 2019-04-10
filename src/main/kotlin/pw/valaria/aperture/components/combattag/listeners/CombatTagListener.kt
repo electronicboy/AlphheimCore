@@ -29,7 +29,7 @@ class CombatTagListener(val handler: CombatTagHandler) : Listener {
 
         if (target.gameMode == GameMode.CREATIVE) return // Don't tag creative players
 
-        var damager: Player? = null;
+        var damager: Player? = null
 
         if (damagingEntity is Player) {
             damager = damagingEntity

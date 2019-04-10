@@ -72,7 +72,7 @@ class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             val spawn = resolveSpawn(teleportee)
             TeleportUtil(teleportee, spawn, -1, plugin).process()
             MessageUtil.sendInfo(teleportee, "You have been teleported to spawn by ${teleporter.name}")
-            MessageUtil.sendInfo(teleporter, "Teleported ${teleportee.player.name} to spawn!")
+            MessageUtil.sendInfo(teleporter, "Teleported ${teleportee.player!!.name} to spawn!")
         }
 
 

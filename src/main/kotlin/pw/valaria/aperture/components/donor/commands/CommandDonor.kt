@@ -65,7 +65,7 @@ class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : Co
     @Subcommand("check")
     fun check(player: Player) {
         val bukkitStack = player.inventory.itemInMainHand
-        if (bukkitStack == null || bukkitStack.type == Material.AIR) {
+        if (bukkitStack.type == Material.AIR) {
             MessageUtil.sendError(player, "You cannot check air!")
             return
         }

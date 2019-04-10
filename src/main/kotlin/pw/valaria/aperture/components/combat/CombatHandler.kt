@@ -26,7 +26,7 @@ class CombatHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
         toRemove.add(Material.ELYTRA)
 
-        val recipeIterator = Bukkit.getServer().recipeIterator();
+        val recipeIterator = Bukkit.getServer().recipeIterator()
         while (recipeIterator.hasNext()) {
             val recipe = recipeIterator.next()
             if (toRemove.contains(recipe.result.type)) {

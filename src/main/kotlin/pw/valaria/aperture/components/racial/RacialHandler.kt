@@ -31,7 +31,7 @@ class RacialHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     init {
         addHandler(DwarvenRacialProvider(plugin))
         addHandler(RacialEffectsProvider(plugin))
-        RacialPlayerListener(this);
+        RacialPlayerListener(this)
 
         if (plugin.server.onlinePlayers.isNotEmpty()) {
             object : BukkitRunnable() {

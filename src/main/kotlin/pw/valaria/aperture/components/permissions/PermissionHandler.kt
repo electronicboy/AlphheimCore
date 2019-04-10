@@ -56,7 +56,7 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             userMetaCache.row(it.user.uuid).clear()
         }
 
-        plugin.commandManager.commandCompletions.registerCompletion("groups") { it: BukkitCommandCompletionContext ->
+        plugin.commandManager.commandCompletions.registerCompletion("groups") {
             getGroups().filter { group -> StringUtil.startsWithIgnoreCase(group, it.input) }.toMutableSet()
         }
 
@@ -135,14 +135,14 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
         }
 
-    return true;
+    return true
     }
 
     override fun onDisable() {
         destruct()
     }
     fun destruct() {
-        val iter = plugin.luckPermsApi.eventBus.getHandlers(UserDataRecalculateEvent::class.java).iterator();
+        val iter = plugin.luckPermsApi.eventBus.getHandlers(UserDataRecalculateEvent::class.java).iterator()
         while (iter.hasNext()) {
             val handler = iter.next()
             if ((handler.consumer.javaClass.classLoader as PluginClassLoader).plugin == plugin) {
@@ -184,7 +184,7 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
                 .map { getGroup(it.groupName)!! }
                 .forEach { builder.add(it) }
 
-        return builder.build();
+        return builder.build()
     }
 
     fun getOwnGroupsForOfflineUser(uuid: UUID): ImmutableList<Group> {

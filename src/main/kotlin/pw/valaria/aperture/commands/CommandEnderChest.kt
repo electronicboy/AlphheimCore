@@ -19,7 +19,7 @@ class CommandEnderChest(plugin: ApertureCore) : CoreCommand(plugin) {
     @CommandPermission("alphheim.enderchest")
     @Default
     fun enderChest(sender: Player, @Flags("defaultself") target: Player) {
-        sender.openInventory(target.player.enderChest)
+        sender.openInventory(target.player!!.enderChest)
     }
 
     @HelpCommand

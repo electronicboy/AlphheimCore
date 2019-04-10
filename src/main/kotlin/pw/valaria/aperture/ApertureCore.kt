@@ -159,7 +159,7 @@ class ApertureCore : JavaPlugin() {
         }
 
 
-        if (commandLore != null) commandLore!!.unregister(Bukkit.getCommandMap());
+        if (commandLore != null) commandLore!!.unregister(Bukkit.getCommandMap())
         commandManager.unregisterCommands()
 
         componentHandler.disable()
@@ -167,14 +167,14 @@ class ApertureCore : JavaPlugin() {
         Bukkit.resetRecipes() // Cleanup...
 
         MySQL.kill()
-        killConsolePerms();
+        killConsolePerms()
     }
 
     fun restart(message: String = "We'll see you on the other side!") {
         server.onlinePlayers.forEach { it.kickPlayer(message) }
     }
 
-    override fun getDefaultWorldGenerator(worldName: String?, id: String?): ChunkGenerator? {
+    override fun getDefaultWorldGenerator(worldName: String, id: String?): ChunkGenerator? {
         val worldGenHandler = componentHandler.getComponent(WorldGenHandler::class.java)
         return if (worldGenHandler != null) {
             worldGenHandler.getGenerator(worldName, id) ?: worldGenHandler.emptyWorldGenerator

@@ -29,9 +29,9 @@ class CommandHeal(plugin: ApertureCore) : CoreCommand(plugin) {
     fun onHeal(sender: Player, @Optional target: OnlinePlayer?) {
         if (checkCooldown(sender, "healCooldown")) {
             if (target == null) {
-                sender.health = sender.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
+                sender.health = sender.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
             } else {
-                target.player.health = target.player.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
+                target.player.health = target.player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
             }
             MessageUtil.sendInfo(sender, "The spell was casted successfully!")
 
@@ -47,7 +47,7 @@ class CommandHeal(plugin: ApertureCore) : CoreCommand(plugin) {
             val location = sender.location
             for (nearbyEntity in location.world.getNearbyEntities(location, 7.0, 7.0, 7.0)) {
                 if (nearbyEntity is Player) {
-                    nearbyEntity.health = nearbyEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
+                    nearbyEntity.health = nearbyEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
                 }
             }
             MessageUtil.sendInfo(sender, "The spell was casted successfully!")
@@ -64,15 +64,15 @@ class CommandHeal(plugin: ApertureCore) : CoreCommand(plugin) {
             target != null -> {
                 target.player.foodLevel = 20
                 target.player.saturation = 20f
-                target.player.health = target.player.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
+                target.player.health = target.player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
                 MessageUtil.sendInfo(target.player, "You have been healed")
                 MessageUtil.sendInfo(sender, "You have healed ${target.player.name}")
 
             }
             sender is Player -> {
                 sender.foodLevel = 20
-                sender.player.saturation = 20f
-                sender.health = sender.getAttribute(Attribute.GENERIC_MAX_HEALTH).value
+                sender.saturation = 20f
+                sender.health = sender.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
                 MessageUtil.sendInfo(sender, "You have been healed")
             }
             else -> MessageUtil.sendError(sender, "Missing target?!")
@@ -94,7 +94,7 @@ class CommandHeal(plugin: ApertureCore) : CoreCommand(plugin) {
             }
             sender is Player -> {
                 sender.foodLevel = 20
-                sender.player.saturation = 20f
+                sender.saturation = 20f
                 MessageUtil.sendInfo(sender, "You feel as if you've had the feast of a king!")
             }
             else -> MessageUtil.sendError(sender, "Missing target?!")

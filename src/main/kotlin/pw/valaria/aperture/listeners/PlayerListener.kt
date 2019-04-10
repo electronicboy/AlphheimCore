@@ -63,7 +63,7 @@ class PlayerListener(private val plugin: ApertureCore) : Listener {
 
     @EventHandler
     fun kickBeautifier(e: PlayerKickEvent) {
-        val reason = e.reason ?: ""
+        val reason = e.reason
 
 
         e.reason = "${ChatColor.DARK_GRAY}[${ChatColor.RED}${plugin.getServerName()}${ChatColor.DARK_GRAY}]" +

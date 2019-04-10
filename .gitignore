@@ -14,8 +14,6 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 ### Kotlin template
 # Compiled class file
-*.class
-
 # Log file
 *.log
 

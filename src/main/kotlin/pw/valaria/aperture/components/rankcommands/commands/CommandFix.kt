@@ -13,12 +13,12 @@ import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.HelpCommand
 import co.aikar.commands.annotation.Subcommand
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.commands.CoreCommand
-import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.entity.Player
 import org.bukkit.inventory.meta.Damageable
 import org.bukkit.inventory.meta.ItemMeta
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.commands.CoreCommand
+import pw.valaria.aperture.utils.MessageUtil
 
 @CommandAlias("fix|repair")
 class CommandFix(private val plugin: ApertureCore) : CoreCommand(plugin) {
@@ -28,20 +28,19 @@ class CommandFix(private val plugin: ApertureCore) : CoreCommand(plugin) {
     @CommandPermission("alphheim.fix")
     fun onHand(sender: Player) {
         val item = sender.inventory.itemInMainHand
-        if (item == null || item !is Damageable) {
+        val damageableMeta = item.itemMeta as Damageable
+
+        if (!damageableMeta.hasDamage()) {
             MessageUtil.sendError(sender, "You cannot repair this item!")
             return
         }
 
-        if (checkCooldown(sender, "fixCooldown")) {
-            val damageableMeta = item.itemMeta as Damageable
 
-            if (damageableMeta.hasDamage()) {
-                damageableMeta.damage = 0
-                // This is stupid.
-                if (damageableMeta is ItemMeta) {
-                    item.itemMeta = damageableMeta
-                }
+        if (checkCooldown(sender, "fixCooldown")) {
+            damageableMeta.damage = 0
+            // This is stupid.
+            if (damageableMeta is ItemMeta) {
+                item.itemMeta = damageableMeta
             }
 
         }

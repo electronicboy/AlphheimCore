@@ -17,7 +17,7 @@ import pw.valaria.aperture.components.nicks.listeners.NickListener
 class NickManager(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     init {
-        CommandNick(plugin);
+        CommandNick(plugin)
         NickListener(plugin)
     }
 

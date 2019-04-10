@@ -104,7 +104,9 @@ compileKotlin {
         targetCompatibility = JavaVersion.VERSION_1_8
         sourceCompatibility = JavaVersion.VERSION_1_8
         jvmTarget = JavaVersion.VERSION_1_8
-    }
+        freeCompilerArgs = ["-Xjsr305=strict"]
+
+}
 }
 
 shadowJar {

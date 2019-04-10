@@ -21,7 +21,7 @@ class MMOCreditsHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     private val validSkills = setOf("TAMING", "SWORDS", "ALCHEMY", "UNARMED", "ARCHERY", "AXES", "ACROBATICS", "FISHING", "EXCAVATION", "MINING", "HERBALISM", "REPAIR", "WOODCUTTING")
 
     init {
-        plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills", { _ ->
+        plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills", {
             validSkills.map { it.toLowerCase() }
         })
 

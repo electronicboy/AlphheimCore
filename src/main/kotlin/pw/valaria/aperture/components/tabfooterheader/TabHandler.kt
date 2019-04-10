@@ -84,7 +84,7 @@ class TabHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             frame.clear() // because people aren't going to always be looking at the first...
             try {
                 val fileReader = FileInputStream(tabFile)
-                val inputStreamReader = InputStreamReader(fileReader, Charsets.UTF_8);
+                val inputStreamReader = InputStreamReader(fileReader, Charsets.UTF_8)
                 val loadFrames: List<TabFrame> = gson.fromJson(inputStreamReader, Array<TabFrame>::class.java).toList()
 
                 frames = FrameBuilder(loadFrames).build()

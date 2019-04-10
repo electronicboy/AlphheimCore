@@ -16,7 +16,7 @@ import org.bukkit.ChatColor
  * This class is used to store configurables that are accessed in more than one location
  * but inherently dont justify getting a class dedicated for their entire operation.
  */
-public class ConfigurableData {
+class ConfigurableData {
 
 
     val noPerms = ChatColor.RED.toString() + "You do not have permission to use this!"

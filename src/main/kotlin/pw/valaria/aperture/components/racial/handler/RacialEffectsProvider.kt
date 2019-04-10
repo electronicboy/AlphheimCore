@@ -15,7 +15,7 @@ import org.bukkit.potion.PotionEffectType
 
 class RacialEffectsProvider(private val plugin: ApertureCore) : IRacialProcessor {
     override fun getEnchants(player: Player): Map<PotionEffectType, Int> {
-        val race = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getMeta(player, "race", "unknown");
+        val race = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getMeta(player, "race", "unknown")
 
         return when (race) {
             "elf" -> mutableMapOf(PotionEffectType.SPEED to 0)

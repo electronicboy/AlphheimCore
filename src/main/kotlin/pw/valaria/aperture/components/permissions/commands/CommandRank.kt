@@ -93,7 +93,7 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
         if (!firstSet) return
 
-        val inventory = if (targetBukkit.isOnline) { targetBukkit.player.inventory} else { return}
+        val inventory = if (targetBukkit.isOnline) { targetBukkit.player!!.inventory} else { return}
         if (inventory.helmet == null && inventory.chestplate == null && inventory.leggings == null && inventory.boots == null) {
 
             inventory.helmet = ItemStack(Material.CHAINMAIL_HELMET)
@@ -113,7 +113,7 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
                 ItemStack(Material.ACACIA_BOAT)
         )
 
-        targetBukkit.player.teleport(Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f))
+        targetBukkit.player!!.teleport(Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f))
 
 
     }

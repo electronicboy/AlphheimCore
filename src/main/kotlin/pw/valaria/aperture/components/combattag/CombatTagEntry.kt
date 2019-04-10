@@ -75,7 +75,7 @@ class CombatTagEntry(val player: Player, duration: Duration) {
         val progress = multi * remaining.toMillis()
         bossBar.progress = 1 - progress
 
-        bossBar.title = "${ChatColor.RED}combat tagged: ${ChatColor.BLUE}${remaining.toRemainingString()}"
+        bossBar.setTitle("${ChatColor.RED}combat tagged: ${ChatColor.BLUE}${remaining.toRemainingString()}")
 
         return true
 

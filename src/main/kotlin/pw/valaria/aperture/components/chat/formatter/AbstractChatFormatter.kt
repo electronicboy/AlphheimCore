@@ -11,6 +11,4 @@ package pw.valaria.aperture.components.chat.formatter
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.chat.ChatChannel
 
-abstract class AbstractChatFormatter(val channel: ChatChannel, val plugin: ApertureCore) : IChatFormatter {
-
-}
+abstract class AbstractChatFormatter(val channel: ChatChannel, val plugin: ApertureCore) : IChatFormatter

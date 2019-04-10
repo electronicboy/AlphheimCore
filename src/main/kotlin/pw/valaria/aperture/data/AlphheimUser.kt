@@ -44,7 +44,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
 
     init {
         MySQL.getConnection().use { conn ->
-            val prepareStatement = conn.prepareStatement("SELECT PLAYER_ID FROM player_data WHERE PLAYER_UUID = ?");
+            val prepareStatement = conn.prepareStatement("SELECT PLAYER_ID FROM player_data WHERE PLAYER_UUID = ?")
             prepareStatement.use { statement ->
                 statement.setString(1, uuid.toString())
                 if (statement.execute()) {
@@ -104,9 +104,9 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
                 stmt.setInt(1, userID)
                 stmt.executeQuery().use { rs ->
                     if (rs.next()) {
-                        nickname = rs.getString("NICKNAME");
+                        nickname = rs.getString("NICKNAME")
                         if (nickname != null) {
-                            getPlayer()?.displayName = ChatColor.translateAlternateColorCodes('&', nickname!!.replace(' ', '_'))
+                            getPlayer()?.setDisplayName(ChatColor.translateAlternateColorCodes('&', nickname!!.replace(' ', '_')))
                         }
                     }
                 }
@@ -147,16 +147,16 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
             Bukkit.getOfflinePlayer(uuid).name
         }
 
-        return ChatColor.translateAlternateColorCodes('&', nick)
+        return ChatColor.translateAlternateColorCodes('&', nick!!)
     }
 
 
     fun setDisplayName(nick: String?) {
         val p = getPlayer() ?: return
         if (nick != null) {
-            p.displayName = (getTier()?.color?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick)
+            p.setDisplayName((getTier()?.color?: "").toString() + ChatColor.translateAlternateColorCodes('&', nick))
         } else {
-            p.displayName = (getTier()?.color ?: "").toString() + p.name
+            p.setDisplayName((getTier()?.color ?: "").toString() + p.name)
         }
 
     }

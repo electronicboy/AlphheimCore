@@ -25,7 +25,7 @@ class CommandHat(private var plugin: ApertureCore) : CoreCommand(plugin) {
     @Suppress("UNUSED_PARAMETER")
     fun onHat(player: Player /*, @Default("wear") action: String  -- restore me in future*/) {
         // TODO: Handle remove?
-        if (player.inventory.itemInMainHand?.type != Material.AIR) {
+        if (player.inventory.itemInMainHand.type != Material.AIR) {
             val inventory = player.inventory
 
             // Get items....
@@ -35,7 +35,7 @@ class CommandHat(private var plugin: ApertureCore) : CoreCommand(plugin) {
 
             // hand to helmet, helmet to hand; This should technically be safe.
             inventory.helmet = handItem
-            inventory.itemInMainHand = hatItem
+            inventory.setItemInMainHand(hatItem)
 
             MessageUtil.sendInfo(player, "Lookin' pretty good!")
 

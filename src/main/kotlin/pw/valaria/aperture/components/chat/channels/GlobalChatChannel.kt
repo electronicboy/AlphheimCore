@@ -29,11 +29,11 @@ class GlobalChatChannel(name: String, color: ChatColor, shortName: String, priva
 
 
     override fun canJoin(user: AlphheimUser): Boolean {
-        return true;
+        return true
     }
 
     override fun canLeave(user: AlphheimUser): Boolean {
-        return false;
+        return false
     }
 
     override fun join(user: AlphheimUser, force: Boolean): Boolean {
@@ -41,7 +41,7 @@ class GlobalChatChannel(name: String, color: ChatColor, shortName: String, priva
         val chatStatus = user.channelData[name] ?: ChatStatus.ACTIVE
         chatMembers[user] = chatStatus
 
-        return true;
+        return true
     }
 
 }

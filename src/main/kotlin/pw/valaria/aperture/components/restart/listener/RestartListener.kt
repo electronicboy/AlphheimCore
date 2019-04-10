@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit
 
 class RestartListener(private val handler: RestartHandler) : Listener {
 
-    private var shutdownRunnanble: BukkitRunnable? = null;
+    private var shutdownRunnanble: BukkitRunnable? = null
 
     init {
-        handler.plugin.server.pluginManager.registerEvents(this, handler.plugin);
+        handler.plugin.server.pluginManager.registerEvents(this, handler.plugin)
     }
 
     @EventHandler
@@ -45,7 +45,7 @@ class RestartListener(private val handler: RestartHandler) : Listener {
     @EventHandler
     @Suppress("UNUSED_PARAMETER")
     fun playerLogin(e: PlayerJoinEvent) {
-        val runnable = shutdownRunnanble;
+        val runnable = shutdownRunnanble
         if (runnable != null) {
             runnable.cancel()
             shutdownRunnanble = null
