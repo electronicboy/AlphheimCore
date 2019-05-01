@@ -8,7 +8,6 @@
 
 package pw.valaria.aperture.components.permissions
 
-import co.aikar.commands.BukkitCommandCompletionContext
 import com.google.common.collect.HashBasedTable
 import com.google.common.collect.ImmutableList
 import pw.valaria.aperture.ApertureCore
@@ -65,7 +64,7 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     }
 
-    fun migrate() : Boolean {
+    /*fun migrate() : Boolean {
 
         val uuids = mutableListOf<UUID>()
 
@@ -136,7 +135,7 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         }
 
     return true
-    }
+    }*/
 
     override fun onDisable() {
         destruct()
@@ -160,9 +159,11 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         return plugin.luckPermsApi.getGroup(group)
     }
 
-    fun getGroupsForUser(player: Player): ImmutableList<Group> {
+
+    fun getGroupsForUser(player: Player): ImmutableList<Group> = getGroupsForUser(player.uniqueId)
+    fun getGroupsForUser(uuid: UUID): ImmutableList<Group> {
         val groups = ImmutableList.builder<Group>()
-        val user = plugin.luckPermsApi.getUser(player.uniqueId) ?: return ImmutableList.of()
+        val user = plugin.luckPermsApi.getUser(uuid) ?: return ImmutableList.of()
 
         for (resolveInheritance in user.resolveInheritances(Contexts.global())) {
             if (resolveInheritance.isGroupNode) {
@@ -175,8 +176,10 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     }
 
-    fun getOwnGroupsForUser(player: Player): ImmutableList<Group> {
-        val user = plugin.luckPermsApi.getUser(player.uniqueId) ?: return ImmutableList.of()
+    fun getOwnGroupsForUser(player: Player, shouldLoad: Boolean = false): ImmutableList<Group> = getOwnGroupsForUser(player.uniqueId, shouldLoad)
+    fun getOwnGroupsForUser(uuid: UUID, shouldLoad: Boolean = false): ImmutableList<Group> {
+        val user = plugin.luckPermsApi.getUser(uuid) ?: if (shouldLoad) plugin.luckPermsApi.userManager.loadUser(uuid).join()  else null
+                ?: return ImmutableList.of()
 
         val builder = ImmutableList.builder<Group>()
         user.ownNodes
@@ -208,8 +211,9 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     }
 
-    fun getLongMeta(player: Player, key: String, default: Long): Long {
-        val groupsForUser = this.getGroupsForUser(player)
+    fun getLongMeta(player: Player, key: String, default: Long): Long = getLongMeta(player.uniqueId, key, default)
+    fun getLongMeta(uuid: UUID, key: String, default: Long): Long {
+        val groupsForUser = this.getGroupsForUser(uuid)
         var value: Long? = null
         for (group in groupsForUser) {
             val mappedValue = group.cachedData.getMetaData(Contexts.global()).meta[key]

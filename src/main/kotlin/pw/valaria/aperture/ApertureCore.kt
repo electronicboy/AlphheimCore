@@ -9,6 +9,9 @@
 package pw.valaria.aperture
 
 import co.aikar.commands.PaperCommandManager
+import co.aikar.taskchain.BukkitTaskChainFactory
+import co.aikar.taskchain.TaskChain
+import co.aikar.taskchain.TaskChainFactory
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
 import org.bukkit.command.SimpleCommandMap
@@ -43,10 +46,12 @@ import pw.valaria.aperture.listeners.PlayerListener
 import pw.valaria.aperture.listeners.SignListener
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.MySQL
+import kotlin.reflect.full.functions
 
 
 class ApertureCore : JavaPlugin() {
 
+    lateinit var taskChainFactory: TaskChainFactory
     val componentHandler = ComponentHandler(this)
 
     lateinit var commandManager: PaperCommandManager
@@ -58,6 +63,7 @@ class ApertureCore : JavaPlugin() {
 
 
     override fun onEnable() {
+        taskChainFactory = BukkitTaskChainFactory.create(this)
 
         try {
             registerConsolePerm("alphheim.admin")
@@ -108,20 +114,27 @@ class ApertureCore : JavaPlugin() {
         componentHandler.registerComponent(PermissionHandler::class.java)
 
         componentHandler.registerComponent(PluginCommandPermHandler::class.java)
+
         componentHandler.registerComponent(MotdHandler::class.java)
+
         componentHandler.registerComponent(FunHandler::class.java)
         componentHandler.registerComponent(SpawnHandler::class.java)
+
         componentHandler.registerComponent(TabHandler::class.java)
         componentHandler.registerComponent(TabListHandler::class.java)
+
         componentHandler.registerComponent(HealthHandler::class.java)
         componentHandler.registerComponent(RacialHandler::class.java)
         componentHandler.registerComponent(RankCommands::class.java)
         componentHandler.registerComponent(NickManager::class.java)
         componentHandler.registerComponent(DonorManager::class.java)
         componentHandler.registerComponent(CombatHandler::class.java)
+
         componentHandler.registerComponent(VoteHandler::class.java)
         componentHandler.registerComponent(MMOCreditsHandler::class.java)
+
         componentHandler.registerComponent(RestartHandler::class.java)
+
         componentHandler.registerComponent(WorldGenHandler::class.java)
         componentHandler.registerComponent(CombatTagHandler::class.java)
     }
