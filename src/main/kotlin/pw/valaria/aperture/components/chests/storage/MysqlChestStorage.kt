@@ -26,7 +26,7 @@ class MysqlChestStorage(val plugin: ApertureCore) : IChestStorage {
 
                     conn.prepareStatement("SELECT CHEST_NAME FROM player_chests INNER JOIN player_data pd on player_chests.PLAYER_ID = pd.PLAYER_ID WHERE pd.PLAYER_UUID = ? ")
                             .use { stmt ->
-                                stmt.setString(0, uuid.toString())
+                                stmt.setString(1, uuid.toString())
                                 stmt.executeQuery().use { rs ->
 
                                     while (rs.next()) {
@@ -41,11 +41,12 @@ class MysqlChestStorage(val plugin: ApertureCore) : IChestStorage {
 
                 future.complete(list)
             } catch (ex: Exception) {
+                ex.printStackTrace()
                 future.completeExceptionally(ex)
             }
 
 
-        }
+        }.execute()
 
         return future
 
