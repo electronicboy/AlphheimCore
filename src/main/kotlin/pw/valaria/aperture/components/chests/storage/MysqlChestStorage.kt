@@ -21,25 +21,30 @@ class MysqlChestStorage(val plugin: ApertureCore) : IChestStorage {
 
         getChain(uuid).asyncFirst {
             val list = ArrayList<String>()
-            MySQL.getConnection().use { conn ->
+            try {
+                MySQL.getConnection().use { conn ->
 
-                conn.prepareStatement("SELECT CHEST_NAME FROM player_chests INNER JOIN player_data pd on player_chests.PLAYER_ID = pd.PLAYER_ID WHERE pd.PLAYER_UUID = ? ")
-                        .use { stmt ->
-                            stmt.setString(0, uuid.toString())
-                            stmt.executeQuery().use { rs ->
+                    conn.prepareStatement("SELECT CHEST_NAME FROM player_chests INNER JOIN player_data pd on player_chests.PLAYER_ID = pd.PLAYER_ID WHERE pd.PLAYER_UUID = ? ")
+                            .use { stmt ->
+                                stmt.setString(0, uuid.toString())
+                                stmt.executeQuery().use { rs ->
 
-                                while (rs.next()) {
-                                    val chestName = rs.getString("CHEST_NAME")
-                                    list.add(chestName)
+                                    while (rs.next()) {
+                                        val chestName = rs.getString("CHEST_NAME")
+                                        list.add(chestName)
+                                    }
+
+
                                 }
-
-
-
                             }
-                        }
+                }
+
+                future.complete(list)
+            } catch (ex: Exception) {
+                future.completeExceptionally(ex)
             }
 
-            future.complete(list)
+
         }
 
         return future

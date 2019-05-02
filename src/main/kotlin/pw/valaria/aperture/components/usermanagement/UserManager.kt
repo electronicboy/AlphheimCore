@@ -11,7 +11,6 @@ package pw.valaria.aperture.components.usermanagement
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
-import com.google.inject.Singleton
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.usermanagement.listeners.UserListener
@@ -21,7 +20,6 @@ import org.bukkit.entity.Player
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-@Singleton
 class UserManager(plugin: ApertureCore) : AbstractHandler(plugin){
     private val userCache: LoadingCache<UUID, AlphheimUser>
 

@@ -8,7 +8,6 @@
 
 package pw.valaria.aperture.components.chat
 
-import com.google.inject.Inject
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.usermanagement.UserManager
@@ -18,7 +17,6 @@ import org.bukkit.entity.Player
 
 class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureCore),  pw.valaria.api.services.Chat {
 
-    @Inject
     var userManager: UserManager = apertureCore.componentHandler.getComponentOrThrow(UserManager::class.java)
     val channels: Map<String, ChatChannel> = mutableMapOf()
     val users: Set<AlphheimUser> = linkedSetOf()

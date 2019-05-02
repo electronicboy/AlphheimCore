@@ -13,12 +13,13 @@ import pw.valaria.aperture.components.chests.storage.MysqlChestStorage
 import pw.valaria.aperture.components.permissions.PermissionHandler
 import java.util.*
 
-class ChestManager(plugin: ApertureCore) : AbstractHandler(plugin) {
+class ChestHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     public val chestStorage: IChestStorage;
 
     init {
         chestStorage = MysqlChestStorage(plugin);
+        plugin.commandManager.registerCommand(ChestCommands(plugin, this), true)
     }
 
 

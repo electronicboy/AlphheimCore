@@ -8,27 +8,41 @@ package pw.valaria.aperture.components.chests
 
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
+import net.kyori.text.TextComponent
+import net.kyori.text.format.TextColor
 import org.bukkit.OfflinePlayer
-import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.utils.MessageUtil
 
-class ChestCommands(val plugin: ApertureCore, val chestManager: ChestManager) : CoreCommand(plugin) {
+class ChestCommands(val plugin: ApertureCore, val chestHandler: ChestHandler) : CoreCommand(plugin) {
 
 
     @CommandAlias("chests|listchests")
     fun listChests(sender: Player) {
-        chestManager.chestStorage.getChestsForUser(sender.uniqueId).whenCompleteAsync() { chests, exception ->
+        chestHandler.chestStorage.getChestsForUser(sender.uniqueId).whenCompleteAsync() { chests, exception ->
             if (exception != null) {
                 MessageUtil.sendError(sender, "An error occured while attempting to access your chest information, please contact staff for support")
                 plugin.logger.severe("An error occured while attempting to read chest information for ${sender.uniqueId}")
-                exception.printStackTrace()
-                return@whenCompleteAsync
+                throw exception
             }
 
-            net.kyori.text.TextComponent.builder()
+            if (chests.isEmpty()) {
+                MessageUtil.sendInfo(sender, "You have no chests!")
+            } else {
+                MessageUtil.sendInfo(sender, "chests:")
+
+                for (chest in chests) {
+                            val text = TextComponent.builder()
+                            .content("- ")
+                            .color(TextColor.RED)
+                            .append(TextComponent.of(chest, TextColor.GOLD))
+                            .build()
+                    MessageUtil.sendInfo(sender, text)
+                }
+
+            }
 
         }
     }

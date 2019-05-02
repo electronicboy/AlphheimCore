@@ -10,7 +10,6 @@ package pw.valaria.aperture
 
 import co.aikar.commands.PaperCommandManager
 import co.aikar.taskchain.BukkitTaskChainFactory
-import co.aikar.taskchain.TaskChain
 import co.aikar.taskchain.TaskChainFactory
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
@@ -23,6 +22,7 @@ import pw.valaria.aperture.commands.CommandEnderChest
 import pw.valaria.aperture.commands.CommandLore
 import pw.valaria.aperture.commands.CommandSign
 import pw.valaria.aperture.componenthandler.ComponentHandler
+import pw.valaria.aperture.components.chests.ChestHandler
 import pw.valaria.aperture.components.combat.CombatHandler
 import pw.valaria.aperture.components.combattag.CombatTagHandler
 import pw.valaria.aperture.components.diversions.FunHandler
@@ -46,7 +46,6 @@ import pw.valaria.aperture.listeners.PlayerListener
 import pw.valaria.aperture.listeners.SignListener
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.MySQL
-import kotlin.reflect.full.functions
 
 
 class ApertureCore : JavaPlugin() {
@@ -129,6 +128,7 @@ class ApertureCore : JavaPlugin() {
         componentHandler.registerComponent(NickManager::class.java)
         componentHandler.registerComponent(DonorManager::class.java)
         componentHandler.registerComponent(CombatHandler::class.java)
+        componentHandler.registerComponent(ChestHandler::class.java)
 
         componentHandler.registerComponent(VoteHandler::class.java)
         componentHandler.registerComponent(MMOCreditsHandler::class.java)
