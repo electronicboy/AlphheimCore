@@ -7,46 +7,57 @@
 package pw.valaria.aperture.components.chests.storage
 
 import co.aikar.taskchain.TaskChain
+import com.google.common.cache.CacheBuilder
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.chests.inventory.PlayerChest
 import pw.valaria.aperture.utils.MySQL
 import java.util.*
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
 
 class MysqlChestStorage(val plugin: ApertureCore) : IChestStorage {
 
+    val playerChestListCache = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.SECONDS).expireAfterAccess(10, TimeUnit.SECONDS).build<UUID, List<String>>()
 
     override fun getChestsForUser(uuid: UUID): CompletableFuture<List<String>> {
         val future = CompletableFuture<List<String>>()
 
-        getChain(uuid).asyncFirst {
-            val list = ArrayList<String>()
-            try {
-                MySQL.getConnection().use { conn ->
+        val cacheEntry = playerChestListCache.getIfPresent(uuid)
 
-                    conn.prepareStatement("SELECT CHEST_NAME FROM player_chests INNER JOIN player_data pd on player_chests.PLAYER_ID = pd.PLAYER_ID WHERE pd.PLAYER_UUID = ? ")
-                            .use { stmt ->
-                                stmt.setString(1, uuid.toString())
-                                stmt.executeQuery().use { rs ->
+        if (cacheEntry != null) {
+            future.complete(cacheEntry)
+        } else {
 
-                                    while (rs.next()) {
-                                        val chestName = rs.getString("CHEST_NAME")
-                                        list.add(chestName)
+            getChain(uuid).asyncFirst {
+                val list = ArrayList<String>()
+                try {
+                    MySQL.getConnection().use { conn ->
+
+                        conn.prepareStatement("SELECT CHEST_NAME FROM player_chests INNER JOIN player_data pd on player_chests.PLAYER_ID = pd.PLAYER_ID WHERE pd.PLAYER_UUID = ? ")
+                                .use { stmt ->
+                                    stmt.setString(1, uuid.toString())
+                                    stmt.executeQuery().use { rs ->
+
+                                        while (rs.next()) {
+                                            val chestName = rs.getString("CHEST_NAME")
+                                            list.add(chestName)
+                                        }
+
+
                                     }
-
-
                                 }
-                            }
+                    }
+
+                    playerChestListCache.put(uuid, list)
+                    future.complete(list)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                    future.completeExceptionally(ex)
                 }
 
-                future.complete(list)
-            } catch (ex: Exception) {
-                ex.printStackTrace()
-                future.completeExceptionally(ex)
-            }
 
-
-        }.execute()
+            }.execute()
+        }
 
         return future
 
