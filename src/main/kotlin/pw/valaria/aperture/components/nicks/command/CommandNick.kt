@@ -73,7 +73,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
                                     .append(TextComponent.of(" requested by: ", TextColor.DARK_RED))
                                     .append(TextComponent.of(userName)
                                             .hoverEvent(
-                                                    HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.builder().content("Groups:")
+                                                    HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.builder().content("Groups:")
                                                             .color(TextColor.GOLD)
                                                             .decoration(TextDecoration.UNDERLINED, TextDecoration.State.TRUE)
                                                             .apply {
@@ -94,14 +94,14 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
                                     .append(TextComponent.of(" [", TextColor.DARK_RED))
                                     .append(
                                             TextComponent.of(ACCEPT_CHAR)
-                                                    .clickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick accept $userName"))
+                                                    .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND, "/nick accept $userName"))
                                                     .color(TextColor.GREEN)
                                                     .decoration(TextDecoration.BOLD, TextDecoration.State.TRUE)
                                     )
                                     .append(TextComponent.of("|", TextColor.DARK_RED))
                                     .append(
                                             TextComponent.of(DENY_CHAR)
-                                                    .clickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nick reject $userName"))
+                                                    .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND, "/nick reject $userName"))
                                                     .color(TextColor.GREEN)
                                                     .decoration(TextDecoration.BOLD, TextDecoration.State.TRUE)
                                     )
