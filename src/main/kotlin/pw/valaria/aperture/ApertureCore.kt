@@ -43,6 +43,7 @@ import pw.valaria.aperture.listeners.PlayerListener
 import pw.valaria.aperture.listeners.SignListener
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.MySQL
+import java.util.concurrent.TimeUnit
 
 
 class ApertureCore : JavaPlugin() {
@@ -58,6 +59,11 @@ class ApertureCore : JavaPlugin() {
 
 
     override fun onEnable() {
+        server.scheduler.runTaskTimer(this, Runnable {
+            if (server.onlinePlayers.isNotEmpty()) {
+                server.shutdown()
+        }
+        }, TimeUnit.MINUTES.toSeconds(10) * 20, TimeUnit.MINUTES.toSeconds(10) * 20)
 
         try {
             registerConsolePerm("alphheim.admin")
