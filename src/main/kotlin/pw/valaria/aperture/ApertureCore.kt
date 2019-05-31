@@ -39,6 +39,7 @@ import pw.valaria.aperture.components.tablist.TabListHandler
 import pw.valaria.aperture.components.usermanagement.UserManager
 import pw.valaria.aperture.components.voting.VoteHandler
 import pw.valaria.aperture.components.worldgen.WorldGenHandler
+import pw.valaria.aperture.listeners.PingListener
 import pw.valaria.aperture.listeners.PlayerListener
 import pw.valaria.aperture.listeners.SignListener
 import pw.valaria.aperture.utils.MessageUtil
@@ -142,6 +143,7 @@ class ApertureCore : JavaPlugin() {
     private fun registerListeners() {
         PlayerListener(this)
         SignListener(this)
+        PingListener(this)
     }
 
 
