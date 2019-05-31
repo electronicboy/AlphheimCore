@@ -10,6 +10,7 @@ package pw.valaria.aperture.commands
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
+import com.destroystokyo.paper.MaterialTags
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.ChatColor
@@ -62,7 +63,7 @@ class CommandSign(plugin: ApertureCore) : CoreCommand(plugin) {
     private fun getSign(player: Player) : Sign? {
         val block = player.getTargetBlock(mutableSetOf(Material.AIR), 8)
 
-        if (block.type != Material.WALL_SIGN && block.type != Material.SIGN) {
+        if (!MaterialTags.SIGNS.isTagged(block)) {
             return null
         }
 

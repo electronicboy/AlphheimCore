@@ -38,7 +38,7 @@ class LorebagHandler(donorManager: DonorManager) : IDonorHandler(donorManager, "
 
         val donorInfo = DonationInfo(purchaser, timestamp, transaction)
         @Suppress("UNCHECKED_CAST") // stupid.
-        itemmeta.customTagContainer.setCustomTag(DonationInfoTagType.key, DonationInfoTagType.INSTANCE, donorInfo)
+        itemmeta.persistentDataContainer.set(DonationInfoTagType.key, DonationInfoTagType.INSTANCE, donorInfo)
 
         itemstack.itemMeta = itemmeta
 

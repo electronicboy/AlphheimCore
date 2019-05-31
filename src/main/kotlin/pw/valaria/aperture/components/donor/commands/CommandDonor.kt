@@ -15,7 +15,7 @@ import co.aikar.commands.bukkit.contexts.OnlinePlayer
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.command.CommandSender
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack
+import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import pw.valaria.aperture.ApertureCore
@@ -76,11 +76,11 @@ class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : Co
             return
         }
 
-        val container = itemMeta.customTagContainer.hasCustomTag(DonationInfoTagType.key, DonationInfoTagType())
+        val container = itemMeta.persistentDataContainer.has(DonationInfoTagType.key, DonationInfoTagType())
         var wasLegacy = false
 
         val donatorInfo = if (container) {
-            itemMeta.customTagContainer.getCustomTag(DonationInfoTagType.key, DonationInfoTagType())
+            itemMeta.persistentDataContainer.get(DonationInfoTagType.key, DonationInfoTagType())
         } else  {
             val info = checkNbt(player, bukkitStack)
             if (info != null) {

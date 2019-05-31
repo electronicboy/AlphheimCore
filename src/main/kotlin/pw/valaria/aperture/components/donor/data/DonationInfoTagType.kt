@@ -10,8 +10,8 @@ import com.google.common.io.ByteStreams
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufUtil
 import org.bukkit.NamespacedKey
-import org.bukkit.inventory.meta.tags.ItemTagAdapterContext
-import org.bukkit.inventory.meta.tags.ItemTagType
+import org.bukkit.persistence.PersistentDataAdapterContext
+import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 /**
@@ -23,7 +23,7 @@ import java.util.*
  * boolean (boolean) // contains transaction?
  * String (string) // transaction
  */
-class DonationInfoTagType : ItemTagType<ByteArray, DonationInfo> {
+class DonationInfoTagType : PersistentDataType<ByteArray, DonationInfo> {
 
     companion object {
         @Suppress("DEPRECATION")
@@ -45,7 +45,7 @@ class DonationInfoTagType : ItemTagType<ByteArray, DonationInfo> {
         return DonationInfo::class.java
     }
 
-    override fun toPrimitive(donationInfo: DonationInfo, tagAdaptor: ItemTagAdapterContext): ByteArray {
+    override fun toPrimitive(donationInfo: DonationInfo, tagAdaptor: PersistentDataAdapterContext): ByteArray {
         @Suppress("UnstableApiUsage") val bytes = ByteStreams.newDataOutput()
         // purchaser - UUID [long + long]
         bytes.writeLong(donationInfo.purchaser.mostSignificantBits)
@@ -68,7 +68,7 @@ class DonationInfoTagType : ItemTagType<ByteArray, DonationInfo> {
 
     }
 
-    override fun fromPrimitive(bytes: ByteArray, tagAdaptor: ItemTagAdapterContext): DonationInfo {
+    override fun fromPrimitive(bytes: ByteArray, tagAdaptor: PersistentDataAdapterContext): DonationInfo {
         @Suppress("UnstableApiUsage") val byteStream = ByteStreams.newDataInput(bytes)
 
         val purchaser = UUID(byteStream.readLong(), byteStream.readLong())
