@@ -60,11 +60,6 @@ class ApertureCore : JavaPlugin() {
 
 
     override fun onEnable() {
-        server.scheduler.runTaskTimer(this, Runnable {
-            if (server.onlinePlayers.isNotEmpty()) {
-                server.shutdown()
-        }
-        }, TimeUnit.MINUTES.toSeconds(10) * 20, TimeUnit.MINUTES.toSeconds(10) * 20)
 
         try {
             registerConsolePerm("alphheim.admin")
