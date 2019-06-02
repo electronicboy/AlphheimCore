@@ -43,14 +43,13 @@ class CommandGC(val core: ApertureCore) : CoreCommand(core) {
     private fun getTps(): TextComponent {
         val tps = core.server.tps
         return TextComponent.builder("TPS: ").color(TextColor.GRAY)
-                .append(tps[0].toString()).color(getTPSTextColor(tps[0]))
+                .append(Math.min(Math.round(tps[0] * 100.0) / 100.0, 20.0).toString()).color(getTPSTextColor(tps[0]))
                 .append(", ").color(TextColor.DARK_GRAY)
-                .append(tps[1].toString()).color(getTPSTextColor(tps[1]))
+                .append(Math.min(Math.round(tps[1] * 100.0) / 100.0, 20.0).toString()).color(getTPSTextColor(tps[1]))
                 .append(", ").color(TextColor.DARK_GRAY)
-                .append(tps[2].toString()).color(getTPSTextColor(tps[2]))
+                .append(Math.min(Math.round(tps[2] * 100.0) / 100.0, 20.0).toString()).color(getTPSTextColor(tps[2]))
                 .build()
     }
-
 
     private fun keyToValString(key: String, value: String): TextComponent {
         return TextComponent.builder("$key: ").color(TextColor.GRAY).append(value).color(TextColor.DARK_GREEN).build()
