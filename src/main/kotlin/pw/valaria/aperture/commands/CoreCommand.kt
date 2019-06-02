@@ -32,7 +32,7 @@ abstract class CoreCommand(private val plugin: ApertureCore) : BaseCommand() {
 
 
     // Todo: Move to dedicated manager/permission handler (maybe)
-    fun checkCooldown(testUser: Player, metaKey: String): Boolean {
+    fun checkCooldown(testUser: Player, metaKey: String, silent: Boolean = false): Boolean {
         val permissionHandler = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!
         val userManager = plugin.componentHandler.getComponent(UserManager::class.java)!!
 
@@ -59,36 +59,20 @@ abstract class CoreCommand(private val plugin: ApertureCore) : BaseCommand() {
             if (time == null || currentTime + 500 >= time) {
                 user.setCooldown(metaKey, currentTime + TimeUnit.SECONDS.toMillis(cooldown))
             } else {
-                val duration = Duration.ofMillis(time - currentTime)
-                val seconds = (duration.toMillis() / 1000) % 60
-                val minutes = duration.toMinutes() % 60
-                val hours = duration.toHours() % 24
-
-                val sb = StringBuilder("You cannot cast this spell for another ")
-                var hasAppended = false
-                if (hours != 0L) {
-                    sb.append("$hours hour")
-                    hasAppended = true
+                if (!silent) {
+                    val sb = StringBuilder("You cannot cast this spell for another ")
+                    sb.append(MessageUtil.durationToString(Duration.ofMillis(time - currentTime)))
+                    MessageUtil.sendInfo(testUser, sb.toString())
                 }
-                if (minutes != 0L || hasAppended) {
-                    if (hasAppended) sb.append(", ")
-                    sb.append("$minutes minutes")
-                    hasAppended = true
-                }
-                if (seconds != 0L || hasAppended || (!hasAppended && seconds == 0L)) {
-                    if (hasAppended) sb.append(", ")
-                    val secondsToDis = if (seconds == 0L) {
-                        1L
-                    } else seconds
-
-                    sb.append("$secondsToDis seconds")
-                }
-
-                MessageUtil.sendInfo(testUser, sb.toString())
                 return false
 
             }
         }
         return true
+    }
+
+
+    companion object {
+
     }
 }

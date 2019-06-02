@@ -15,6 +15,8 @@ import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.checkerframework.checker.nullness.qual.NonNull
+import java.time.Duration
+
 
 
 object MessageUtil {
@@ -62,6 +64,33 @@ object MessageUtil {
                 .append(component)
                 .build()
         TextAdapter.sendComponent(player, toSend)
+    }
+
+    fun durationToString(duration: Duration): String {
+        val seconds = (duration.toMillis() / 1000) % 60
+        val minutes = duration.toMinutes() % 60
+        val hours = duration.toHours() % 24
+
+        val sb = StringBuilder("")
+        var hasAppended = false
+        if (hours != 0L) {
+            sb.append("$hours hour")
+            hasAppended = true
+        }
+        if (minutes != 0L || hasAppended) {
+            if (hasAppended) sb.append(", ")
+            sb.append("$minutes minutes")
+            hasAppended = true
+        }
+        if (seconds != 0L || hasAppended || (!hasAppended && seconds == 0L)) {
+            if (hasAppended) sb.append(", ")
+            val secondsToDis = if (seconds == 0L) {
+                1L
+            } else seconds
+
+            sb.append("$secondsToDis seconds")
+        }
+        return sb.toString()
     }
 
 }

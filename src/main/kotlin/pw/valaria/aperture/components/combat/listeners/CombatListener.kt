@@ -53,7 +53,7 @@ class CombatListener(private val plugin: ApertureCore) : Listener {
     }
 
 
-    fun checkCooldown(testUser: Player, metaKey: String): Boolean {
+    fun checkCooldown(testUser: Player, metaKey: String, silent: Boolean = false): Boolean {
         val cooldown = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getLongMetaCached(testUser, metaKey, -1L)
         val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(testUser)
         val currentTime = System.currentTimeMillis()
@@ -77,32 +77,13 @@ class CombatListener(private val plugin: ApertureCore) : Listener {
             if (time == null || currentTime + 500 >= time) {
                 user.setCooldown(metaKey, currentTime + TimeUnit.SECONDS.toMillis(cooldown))
             } else {
-                val duration = Duration.ofMillis(time - currentTime)
-                val seconds = (duration.toMillis() / 1000) % 60
-                val minutes = duration.toMinutes() % 60
-                val hours = duration.toHours() % 24
+                if (!silent) {
+                    val duration = Duration.ofMillis(time - currentTime)
 
-                val sb = StringBuilder("You cannot consume this item for another ")
-                var hasAppended = false
-                if (hours != 0L) {
-                    sb.append("$hours hour")
-                    hasAppended = true
+                    val sb = StringBuilder("You cannot consume this item for another ")
+                    sb.append(MessageUtil.durationToString(duration))
+                    MessageUtil.sendInfo(testUser, sb.toString())
                 }
-                if (minutes != 0L || hasAppended) {
-                    if (hasAppended) sb.append(", ")
-                    sb.append("$minutes minutes")
-                    hasAppended = true
-                }
-                if (seconds != 0L || hasAppended || (!hasAppended && seconds == 0L)) {
-                    if (hasAppended) sb.append(", ")
-                    val secondsToDis = if (seconds == 0L) {
-                        1L
-                    } else seconds
-
-                    sb.append("$secondsToDis seconds")
-                }
-
-                MessageUtil.sendInfo(testUser, sb.toString())
                 return false
 
             }
