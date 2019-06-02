@@ -41,7 +41,7 @@ abstract class CoreCommand(private val plugin: ApertureCore) : BaseCommand() {
         val currentTime = System.currentTimeMillis()
 
         if (cooldown == -1L) {
-            if (!user.hasOverrides()) {
+            if (!user.hasOverrides() && testUser.hasPermission("aperture.cooldowns.override.$metaKey")) {
                 MessageUtil.sendError(testUser, "An internal error has occurred, Please contact electronicboy!")
                 plugin.logger.log(Level.WARNING, "User ${testUser.name} attempted to use command, but could not find cooldown key! ")
                 return false
