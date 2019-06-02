@@ -15,10 +15,7 @@ import org.bukkit.command.SimpleCommandMap
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
-import pw.valaria.aperture.commands.CommandCore
-import pw.valaria.aperture.commands.CommandEnderChest
-import pw.valaria.aperture.commands.CommandLore
-import pw.valaria.aperture.commands.CommandSign
+import pw.valaria.aperture.commands.*
 import pw.valaria.aperture.componenthandler.ComponentHandler
 import pw.valaria.aperture.components.combat.CombatHandler
 import pw.valaria.aperture.components.combattag.CombatTagHandler
@@ -133,6 +130,7 @@ class ApertureCore : JavaPlugin() {
         CommandCore(this)
         CommandSign(this)
         CommandEnderChest(this)
+        CommandGC(this)
     }
 
     private fun registerListeners() {
