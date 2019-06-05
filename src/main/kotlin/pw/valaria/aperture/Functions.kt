@@ -8,18 +8,13 @@
 
 package pw.valaria.aperture
 
-import pw.valaria.aperture.componenthandler.ComponentHandler
-import pw.valaria.aperture.components.worldgen.WorldGenHandler
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
-import org.bukkit.command.CommandSender
 import org.checkerframework.checker.nullness.qual.NonNull
-import pw.valaria.aperture.utils.MessageUtil
 import java.time.Duration
 import java.util.regex.Pattern
-import kotlin.reflect.KClass
 
 private val url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$")
 
@@ -52,7 +47,7 @@ fun String.toComponents(): Array<BaseComponent> {
     return TextComponent.fromLegacyText(this)
 }
 
-fun Duration.toRemainingString(): String {
+fun Duration.toRemainingString(showMillis: Boolean = false): String {
     val sb = StringBuilder()
 
     if (this.toHours() % 24 != 0L) {
@@ -66,7 +61,7 @@ fun Duration.toRemainingString(): String {
     if (sb.isNotEmpty()) sb.append(", ")
     sb.append("${this.seconds % 60}s")
 
-    if (this.seconds == 0L) {
+    if (showMillis && this.seconds == 0L) {
         sb.append(this.toMillis()).append("ms")
     }
 
