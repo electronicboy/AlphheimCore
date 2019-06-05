@@ -27,14 +27,13 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
         Bukkit.getPluginManager().registerEvents(this, plugin)
         timerTask = object : BukkitRunnable() {
             override fun run() {
-                var timers: LinkedHashMap<UUID, CombatTagEntry>
-                timers = activeTimers.clone() as LinkedHashMap<UUID, CombatTagEntry>
-
-                for (entry in timers) {
-                    if (!entry.value.update()) {
-                        entry.value.remove()
-                        activeTimers.remove(entry.key)
-                        return // We're not returning anything kotlin....
+                synchronized(activeTimers) {
+                    for (entry in activeTimers) {
+                        if (!entry.value.update()) {
+                            entry.value.remove()
+                            activeTimers.remove(entry.key)
+                            return // We're not returning anything kotlin....
+                        }
                     }
                 }
             }
@@ -48,16 +47,19 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
     }
 
     fun startOrUpdateTimer(player: Player, duration: Duration): CombatTagEntry {
-        val current = activeTimers[player.uniqueId]
-        if (current != null && current.getRemainingDuration().toMillis() < duration.toMillis()) {
-            current.bump(duration)
-        } else {
-            player.sendActionBar("${ChatColor.RED}- You have been tagged! -")
-        }
+        synchronized(activeTimers) {
+            val current = activeTimers[player.uniqueId]
+            if (current != null && current.getRemainingDuration().toMillis() < duration.toMillis()) {
+                current.bump(duration)
+                return current
+            } else {
+                player.sendActionBar("${ChatColor.RED}- You have been tagged! -")
+            }
 
-        val ret = CombatTagEntry(player, duration)
-        activeTimers.putIfAbsent(player.uniqueId, ret)
-        return ret
+            val ret = CombatTagEntry(player, duration)
+            activeTimers.putIfAbsent(player.uniqueId, ret)
+            return ret
+        }
     }
 
     fun getTag(player: Player): CombatTagEntry? {
