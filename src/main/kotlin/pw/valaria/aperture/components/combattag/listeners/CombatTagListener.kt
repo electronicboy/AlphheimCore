@@ -60,6 +60,7 @@ class CombatTagListener(val handler: CombatTagHandler) : Listener {
 
         // RIP
         ev.player.health = 0.0
+        tag.remove()
     }
 
 
