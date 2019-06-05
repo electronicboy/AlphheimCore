@@ -65,7 +65,12 @@ class CombatTagEntry(val player: Player, duration: Duration) {
     @Synchronized
     fun update(): Boolean {
         if (!isActive()) {
-            bossbarFuture?.getNow(null)?.removePlayer(player)
+            synchronized(this) {
+                if (bossbarFuture != null) {
+                    val bossBar = bossbarFuture!!.getNow(null) ?: return true // Don't remove yet
+                    bossBar.removePlayer(player)
+                }
+            }
             return false // Allow mid tick removal
         }
 
@@ -75,7 +80,6 @@ class CombatTagEntry(val player: Player, duration: Duration) {
                     bossbarFuture = createFuture(key, player);
                 }
             }
-
         }
 
         updateDisplay()
@@ -108,14 +112,14 @@ class CombatTagEntry(val player: Player, duration: Duration) {
     private fun createFuture(key: NamespacedKey, player: Player): CompletableFuture<BossBar> {
         val future = CompletableFuture<BossBar>();
 
-        val runnable = object: BukkitRunnable() {
+        object : BukkitRunnable() {
             override fun run() {
                 val bossBar = Bukkit.createBossBar(key, "Combat tagged!", BarColor.RED, BarStyle.SEGMENTED_12)
                 future.complete(bossBar)
                 this@CombatTagEntry.updateDisplay()
             }
 
-        }
+        }.runTask(JavaPlugin.getProvidingPlugin(this.javaClass))
 
         return future
     }
