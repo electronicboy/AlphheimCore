@@ -28,18 +28,13 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
         timerTask = object : BukkitRunnable() {
             override fun run() {
                 var timers: LinkedHashMap<UUID, CombatTagEntry>
-                synchronized(this) {
-                    @Suppress("UNCHECKED_CAST")
-                    timers = activeTimers.clone() as LinkedHashMap<UUID, CombatTagEntry>
-                }
+                timers = activeTimers.clone() as LinkedHashMap<UUID, CombatTagEntry>
 
                 for (entry in timers) {
                     if (!entry.value.update()) {
-                        synchronized(this) {
-                            entry.value.remove()
-                            activeTimers.remove(entry.key)
-                            return // We're not returning anything kotlin....
-                        }
+                        entry.value.remove()
+                        activeTimers.remove(entry.key)
+                        return // We're not returning anything kotlin....
                     }
                 }
             }
@@ -52,7 +47,6 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
         Bukkit.getPluginManager().registerEvents(CombatTagListener(this), plugin)
     }
 
-    @Synchronized
     fun startOrUpdateTimer(player: Player, duration: Duration): CombatTagEntry {
         val current = activeTimers[player.uniqueId]
         if (current != null && current.getRemainingDuration().toMillis() < duration.toMillis()) {
@@ -75,7 +69,6 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
     }
 
 
-    @Synchronized
     override fun onDisable() {
         timerTask.cancel()
         for (timer in activeTimers) {

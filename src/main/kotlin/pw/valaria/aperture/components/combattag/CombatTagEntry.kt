@@ -22,12 +22,11 @@ class CombatTagEntry(val player: Player, duration: Duration) {
     constructor(player: Player, duration: Long) : this(player, Duration.ofMillis(duration))
 
 
-
     private val key = NamespacedKey(JavaPlugin.getProvidingPlugin(this.javaClass), "ct-${player.name}")
     private var created: Long = -1
 
     private var expiry: Long = -1
-    private var bossBar: BossBar
+    private var bossBar: BossBar? = null
     private var removed = false
 
     var duration = duration
@@ -35,9 +34,7 @@ class CombatTagEntry(val player: Player, duration: Duration) {
 
     init {
         bump(duration)
-        bossBar = Bukkit.createBossBar(key, "Combat tagged!", BarColor.RED, BarStyle.SEGMENTED_12)
         update()
-        bossBar.addPlayer(player)
     }
 
 
@@ -46,8 +43,8 @@ class CombatTagEntry(val player: Player, duration: Duration) {
     }
 
 
+    @Synchronized
     fun remove() {
-        bossBar.removePlayer(player)
         removed = true
     }
 
@@ -62,25 +59,34 @@ class CombatTagEntry(val player: Player, duration: Duration) {
 
         return true
     }
-    fun update(): Boolean {
-        if (removed) return false // Allow mid tick removal
 
+    @Synchronized
+    fun update(): Boolean {
         val remaining = getRemainingDuration()
-        // if expired, return false and clean above
-        if (remaining.isZero || remaining.isNegative) {
-            return false
+
+        if (!isActive()) {
+            if (bossBar != null) {
+                bossBar!!.removePlayer(this.player)
+                bossBar = null
+            }
+            return false // Allow mid tick removal
         }
 
         val multi = 1 / duration.toMillis().toDouble()
         val progress = multi * remaining.toMillis()
-        bossBar.progress = 1 - progress
+        if (bossBar == null) {
+            bossBar = Bukkit.createBossBar(key, "Combat tagged!", BarColor.RED, BarStyle.SEGMENTED_12)
+            bossBar!!.addPlayer(player)
+        }
+        bossBar!!.progress = 1 - progress
 
-        bossBar.setTitle("${ChatColor.RED}combat tagged: ${ChatColor.BLUE}${remaining.toRemainingString()}")
+        bossBar!!.setTitle("${ChatColor.RED}combat tagged: ${ChatColor.BLUE}${remaining.toRemainingString()}")
 
         return true
 
     }
 
+    @Synchronized
     fun bump(duration: Duration) {
         created = System.currentTimeMillis()
         expiry = created + duration.toMillis()
