@@ -14,8 +14,10 @@ import org.bukkit.boss.BarStyle
 import org.bukkit.boss.BossBar
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.scheduler.BukkitRunnable
 import pw.valaria.aperture.toRemainingString
 import java.time.Duration
+import java.util.concurrent.CompletableFuture
 
 class CombatTagEntry(val player: Player, duration: Duration) {
 
@@ -26,7 +28,7 @@ class CombatTagEntry(val player: Player, duration: Duration) {
     private var created: Long = -1
 
     private var expiry: Long = -1
-    private var bossBar: BossBar? = null
+    private var bossbarFuture: CompletableFuture<BossBar>? = null
     private var removed = false
 
     var duration = duration
@@ -62,34 +64,60 @@ class CombatTagEntry(val player: Player, duration: Duration) {
 
     @Synchronized
     fun update(): Boolean {
-        val remaining = getRemainingDuration()
-
         if (!isActive()) {
-            if (bossBar != null) {
-                bossBar!!.removePlayer(this.player)
-                bossBar = null
-            }
+            bossbarFuture?.getNow(null)?.removePlayer(player)
             return false // Allow mid tick removal
         }
 
-        val multi = 1 / duration.toMillis().toDouble()
-        val progress = multi * remaining.toMillis()
-        if (bossBar == null) {
-            bossBar = Bukkit.createBossBar(key, "Combat tagged!", BarColor.RED, BarStyle.SEGMENTED_12)
-            bossBar!!.addPlayer(player)
+        if (bossbarFuture == null) {
+            synchronized(this) {
+                if (bossbarFuture == null) {
+                    bossbarFuture = createFuture(key, player);
+                }
+            }
+
         }
-        bossBar!!.progress = 1 - progress
 
-        bossBar!!.setTitle("${ChatColor.RED}combat tagged: ${ChatColor.BLUE}${remaining.toRemainingString()}")
-
+        updateDisplay()
         return true
 
+    }
+
+    private fun updateDisplay() {
+        val bossBar = bossbarFuture?.getNow(null) ?: return;
+
+        val remaining = getRemainingDuration()
+
+        val multi = 1 / duration.toMillis().toDouble()
+        val progress = multi * remaining.toMillis()
+        bossBar.progress = 1 - progress
+
+        if (bossBar.players.isEmpty()) {
+            bossBar.addPlayer(player)
+        }
+
+        bossBar.setTitle("${ChatColor.RED}combat tagged: ${ChatColor.BLUE}${remaining.toRemainingString()}")
     }
 
     @Synchronized
     fun bump(duration: Duration) {
         created = System.currentTimeMillis()
         expiry = created + duration.toMillis()
+    }
+
+    private fun createFuture(key: NamespacedKey, player: Player): CompletableFuture<BossBar> {
+        val future = CompletableFuture<BossBar>();
+
+        val runnable = object: BukkitRunnable() {
+            override fun run() {
+                val bossBar = Bukkit.createBossBar(key, "Combat tagged!", BarColor.RED, BarStyle.SEGMENTED_12)
+                future.complete(bossBar)
+                this@CombatTagEntry.updateDisplay()
+            }
+
+        }
+
+        return future
     }
 
 
