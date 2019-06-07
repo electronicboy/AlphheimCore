@@ -29,7 +29,7 @@ class NickListener(private val plugin: ApertureCore) : Listener {
         val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(e.player.uniqueId)
         user.setDisplayName(user.getNickname())
 
-        if (e.player.hasPermission("alphheim.mod")) {
+        if (e.player.hasPermission("group.mod")) {
             plugin.server.scheduler.runTaskLater(plugin, Runnable { showCount(e.player) }, 10L)
         }
 

@@ -41,7 +41,7 @@ class CommandCombatTag(plugin: ApertureCore, private val handler: CombatTagHandl
     }
 
     @Subcommand("check")
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @CommandCompletion("@players")
     fun check(issuer: CommandSender, target: OnlinePlayer) {
 
@@ -57,7 +57,7 @@ class CommandCombatTag(plugin: ApertureCore, private val handler: CombatTagHandl
     }
 
     @Subcommand("set|tag")
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @CommandCompletion("@players")
     fun set(issuer: CommandSender, target: OnlinePlayer, duration: Long?) {
         if (duration == null) return // This shouldn't ever happen, this just keeps kotlin happy
@@ -74,7 +74,7 @@ class CommandCombatTag(plugin: ApertureCore, private val handler: CombatTagHandl
 
 
     @Subcommand("remove|untag|unset")
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @CommandCompletion("@players")
     fun remove(issuer: CommandSender, target: OnlinePlayer) {
         val tag = handler.getTag(target.player)

@@ -29,13 +29,13 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Default
     @Subcommand("list|l")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     fun listRanks(sender: CommandSender) {
         sender.sendMessage(plugin.componentHandler.getComponent(PermissionHandler::class.java)!!.getGroups().joinToString(","))
     }
 
     @Subcommand("set|s")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     @CommandCompletion("@players @groups")
     fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String, @Optional @Default("false") firstSet: Boolean) {
         setRank(sender, target.player.uniqueId, rank, firstSet)
@@ -119,7 +119,7 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     }
 
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     @Subcommand("inspect|info|i")
     @CommandCompletion("@players")
     fun inspect(sender: CommandSender, target: OnlinePlayer) {

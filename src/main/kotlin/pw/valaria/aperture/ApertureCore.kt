@@ -58,9 +58,9 @@ class ApertureCore : JavaPlugin() {
     override fun onEnable() {
 
         try {
-            registerConsolePerm("alphheim.admin")
-            registerConsolePerm("alphheim.mod")
-            registerConsolePerm("alphheim.dev")
+            registerConsolePerm("group.admin")
+            registerConsolePerm("group.mod")
+            registerConsolePerm("group.developer")
 
             MySQL.init(this)
 
@@ -89,7 +89,7 @@ class ApertureCore : JavaPlugin() {
             enableComponents()
 
             for (player in Bukkit.getOnlinePlayers()) {
-                if (player.hasPermission("alphheim.admin"))
+                if (player.hasPermission("group.admin"))
                     MessageUtil.sendError(player, "successfully reloaded!")
             }
         } catch (ex: Exception) {

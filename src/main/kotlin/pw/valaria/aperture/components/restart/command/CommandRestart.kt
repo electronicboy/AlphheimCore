@@ -19,22 +19,22 @@ import org.bukkit.command.CommandSender
 @CommandAlias("restart")
 class CommandRestart(private val handler: RestartHandler, plugin: ApertureCore) : CoreCommand(plugin) {
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @Subcommand("get|status")
     @Default
     fun getStatus(sender: CommandSender) {
         MessageUtil.sendInfo(sender, "pending restart status: ${handler.getStatus()}" )
     }
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @Subcommand("set")
     fun setStatus(sender: CommandSender, newStatus: Boolean ) {
         handler.setStatus(newStatus)
         MessageUtil.sendInfo(sender, "pending restart status: ${handler.getStatus()}" )
-        MessageUtil.broadcast("alphheim.admin", "pending restart status: ${handler.getStatus()}")
+        MessageUtil.broadcast("group.admin", "pending restart status: ${handler.getStatus()}")
     }
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @Subcommand("now")
     fun restartNow(@Optional reason: String?) {
         if (reason == null) {

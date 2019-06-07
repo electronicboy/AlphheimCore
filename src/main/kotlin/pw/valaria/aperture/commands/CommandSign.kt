@@ -22,7 +22,7 @@ import org.bukkit.entity.Player
 class CommandSign(plugin: ApertureCore) : CoreCommand(plugin) {
 
     @CatchUnknown
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     fun editSign(sender: Player, line: Int, text: String) {
         val sign = getSign(sender)
 
@@ -43,7 +43,7 @@ class CommandSign(plugin: ApertureCore) : CoreCommand(plugin) {
 
 
     @Subcommand("list")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     fun getLines(sender: Player) {
         val sign = getSign(sender)
 

@@ -94,7 +94,7 @@ class TabListHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             return
         }
 
-        if (player.hasPermission("group.dev")) {
+        if (player.hasPermission("group.developer")) {
             teams["dev"]?.addEntry(player.name)
             return
         }

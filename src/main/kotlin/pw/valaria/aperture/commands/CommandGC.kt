@@ -22,7 +22,7 @@ import java.time.Duration
 class CommandGC(val core: ApertureCore) : CoreCommand(core) {
 
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @CommandAlias("gc|mem")
     fun execute(sender: CommandSender) {
         val uptime = Duration.ofMillis(ManagementFactory.getRuntimeMXBean().startTime - System.currentTimeMillis())

@@ -40,7 +40,7 @@ class CommandCore(private val plugin: ApertureCore) : CoreCommand(plugin) {
     }
 
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @Subcommand("reloadTab")
     fun reloadTab(sender: CommandSender) {
         val tabHandler = plugin.componentHandler.getComponent(TabHandler::class.java)
@@ -83,7 +83,7 @@ class CommandCore(private val plugin: ApertureCore) : CoreCommand(plugin) {
     }
 
     @Subcommand("fakevote")
-    @CommandPermission("alphheim.developer")
+    @CommandPermission("group.developer")
     fun fakevote(sender: CommandSender, @Single target: String, @Single address: String, @Single service: String) {
         val handler = plugin.componentHandler.getComponent(VoteHandler::class.java)
         if (handler != null) {
@@ -95,7 +95,7 @@ class CommandCore(private val plugin: ApertureCore) : CoreCommand(plugin) {
     }
 
     @Subcommand("toggleoverrides")
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     fun toggleOverrides(sender: Player) {
         val user = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(sender.uniqueId)
         user.overrides = !user.hasOverrides()
@@ -105,11 +105,11 @@ class CommandCore(private val plugin: ApertureCore) : CoreCommand(plugin) {
             "disabled"
         }
 
-        MessageUtil.broadcast("alphheim.admin", "${sender.name} has $newMode staff overrides!")
+        MessageUtil.broadcast("group.admin", "${sender.name} has $newMode staff overrides!")
     }
 
     @Subcommand("checkoverrides")
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     fun checkOverrides(sender: Player, @Optional target: OnlinePlayer?) {
         val userManager = plugin.componentHandler.getComponent(UserManager::class.java)!!
         val user = if (target == null) {
@@ -126,7 +126,7 @@ class CommandCore(private val plugin: ApertureCore) : CoreCommand(plugin) {
     }
 
     @Subcommand("which")
-    @CommandPermission("roles.admin")
+    @CommandPermission("group.admin")
     fun whichPlugin(sender: CommandSender, @Single commandName: String) {
         val command = plugin.server.commandMap.getCommand(commandName)
         if (command == null) {

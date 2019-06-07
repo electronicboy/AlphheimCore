@@ -24,7 +24,7 @@ class CommandCredits(private val plugin: ApertureCore, private val handler: MMOC
 
 
     @CommandCompletion("@players")
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @Subcommand("credits|check")
     fun creditCheck(sender: CommandSender, target: OfflinePlayer) {
         MySQL.executor.execute {
@@ -45,7 +45,7 @@ class CommandCredits(private val plugin: ApertureCore, private val handler: MMOC
     }
 
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @CommandCompletion("@players")
     @Subcommand("give")
     fun giveCredits(sender: CommandSender, target: OfflinePlayer, amount: Int?) {
@@ -65,7 +65,7 @@ class CommandCredits(private val plugin: ApertureCore, private val handler: MMOC
     }
 
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @CommandCompletion("@players")
     @Subcommand("take")
     fun takeCredits(sender: CommandSender, target: OfflinePlayer, amount: Int?) {

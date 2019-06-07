@@ -56,7 +56,7 @@ class CommandHeal(plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Subcommand("force")
     @CommandAlias("fheal")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     @CommandCompletion("@players")
     @Description("staff force heal command")
     fun onStaffHeal(sender: CommandSender, @Optional target: OnlinePlayer?) {
@@ -82,7 +82,7 @@ class CommandHeal(plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Subcommand("feed")
     @CommandAlias("feed")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     @CommandCompletion("@players")
     @Description("staff force heal command")
     fun onFeed(sender: CommandSender, @Optional target: OnlinePlayer?) {

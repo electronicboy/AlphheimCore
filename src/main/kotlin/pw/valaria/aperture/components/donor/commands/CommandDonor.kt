@@ -32,7 +32,7 @@ import java.util.*
 @CommandAlias("donate")
 class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : CoreCommand(plugin) {
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @Subcommand("give")
     @CommandCompletion("@players @donorhandler @nothing")
     fun give(sender: CommandSender, target: OnlinePlayer, perk: IDonorHandler, @Optional args: String?) {
@@ -61,7 +61,7 @@ class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : Co
     }
 
 
-    @CommandPermission("alphheim.admin")
+    @CommandPermission("group.admin")
     @Subcommand("check")
     fun check(player: Player) {
         val bukkitStack = player.inventory.itemInMainHand

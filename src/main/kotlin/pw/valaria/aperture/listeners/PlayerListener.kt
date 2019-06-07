@@ -51,7 +51,7 @@ class PlayerListener(private val plugin: ApertureCore) : Listener {
                 if (e.player.isOnline)
                     plugin.componentHandler.getComponent(VoteHandler::class.java)?.processPlayerLogin(e.player)
 
-                if (plugin.server.hasWhitelist() && e.player.hasPermission("alphheim.mod")) {
+                if (plugin.server.hasWhitelist() && e.player.hasPermission("group.mod")) {
                     MessageUtil.sendError(e.player, "Server is whitelisted!")
                 }
             }

@@ -39,7 +39,7 @@ val ACCEPT_CHAR = "✓"
 class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Subcommand("list")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     @Description("list pending nick requests")
     fun list(sender: CommandSender) {
         MySQL.executor.execute {
@@ -121,7 +121,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Subcommand("set")
     @Description("set the nickname for a player")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     @CommandCompletion("@players")
     fun set(sender: CommandSender, target: OfflinePlayer, nick: String) {
         val uTarget = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(target.uniqueId)
@@ -132,7 +132,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Subcommand("accept")
     @Description("accept pending nick request")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     @CommandCompletion("@players")
     fun accept(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(target.uniqueId)
@@ -146,7 +146,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
                         if (it.next()) {
                             val nick = it.getString("REQUESTED")
                             uTarget.setNickname(nick)
-                            MessageUtil.broadcast("alphheim.mod", "${sender.name} has accepted ${uTarget.getOfflinePlayer().name}'s nickname")
+                            MessageUtil.broadcast("group.mod", "${sender.name} has accepted ${uTarget.getOfflinePlayer().name}'s nickname")
                         } else {
                             MessageUtil.sendError(sender, "The user did not have a pending request")
                         }
@@ -160,7 +160,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
     @Subcommand("reject")
     @Description("reject pending nick request")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     @CommandCompletion("@players")
     fun reject(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(target.uniqueId)
@@ -177,7 +177,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
                                     conn.prepareStatement("UPDATE player_nicks SET STATUS = 2 WHERE PLAYER_ID = ?").use {
                                         it.setInt(1, uTarget.userID)
                                         if (it.executeUpdate() != 0) {
-                                            MessageUtil.broadcast("alphheim.mod", "${sender.name} has declined ${uTarget.getOfflinePlayer().name}'s nickname")
+                                            MessageUtil.broadcast("group.mod", "${sender.name} has declined ${uTarget.getOfflinePlayer().name}'s nickname")
                                             val player = uTarget.getOfflinePlayer().player
                                             if (player != null) {
                                                 MessageUtil.sendError(player, "Your nickname has been declined!")
@@ -210,7 +210,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
 
                     if (it.executeUpdate() != 0) {
                         MessageUtil.sendInfo(sender, "Your nickname has been requested!")
-                        MessageUtil.broadcast("alphheim.mod", "${sender.name} has requested the nickname ${ChatColor.translateAlternateColorCodes('&', requested)}")
+                        MessageUtil.broadcast("group.mod", "${sender.name} has requested the nickname ${ChatColor.translateAlternateColorCodes('&', requested)}")
                     }
                 }
             }
@@ -247,7 +247,7 @@ class CommandNick(private val plugin: ApertureCore) : CoreCommand(plugin) {
     @Subcommand("reset")
     @Description("remove a players nickname")
     @CommandCompletion("@players")
-    @CommandPermission("alphheim.mod")
+    @CommandPermission("group.mod")
     fun reset(sender: CommandSender, target: OfflinePlayer) {
         val uTarget = plugin.componentHandler.getComponent(UserManager::class.java)!!.getUser(target.uniqueId)
         uTarget.setNickname(null)

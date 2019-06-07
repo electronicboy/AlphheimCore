@@ -40,7 +40,7 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
     }
 
     @Subcommand("book")
-    @CommandPermission("alphheim.dev")
+    @CommandPermission("group.developer")
     fun getBook(sender: Player) {
         sender.inventory.addItem(spawnHandler.getBook())
     }
