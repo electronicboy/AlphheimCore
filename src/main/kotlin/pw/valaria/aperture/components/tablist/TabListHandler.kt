@@ -89,44 +89,44 @@ class TabListHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
                 t.removeEntry(player.name)
         }
 
-        if (player.hasPermission("alphheim.owner")) {
+        if (player.hasPermission("group.owner")) {
             teams["owner"]?.addEntry(player.name)
             return
         }
 
-        if (player.hasPermission("alphheim.dev")) {
+        if (player.hasPermission("group.dev")) {
             teams["dev"]?.addEntry(player.name)
             return
         }
 
-        if (player.hasPermission("alphheim.coowner")) {
+        if (player.hasPermission("group.coowner")) {
             teams["coowner"]?.addEntry(player.name)
             return
         }
 
-        if (player.hasPermission("alphheim.ha")) {
+        if (player.hasPermission("group.headadmin")) {
             teams["ha"]?.addEntry(player.name)
             return
         }
 
-        if (player.hasPermission("alphheim.admin")) {
+        if (player.hasPermission("group.admin")) {
             teams["admin"]?.addEntry(player.name)
             return
         }
 
-        if (player.hasPermission("alphheim.mod")) {
+        if (player.hasPermission("group.mod")) {
             teams["mod"]?.addEntry(player.name)
             return
         }
 
         // Human
-        if (player.hasPermission("alphheim.human")) {
-            if (player.hasPermission("alphheim.leader")) {
+        if (player.hasPermission("group.human")) {
+            if (player.hasPermission("ranktrait.leader")) {
                 teams["hleader"]?.addEntry(player.name)
                 return
             }
 
-            if (player.hasPermission("alphheim.royal")) {
+            if (player.hasPermission("ranktrait.royal")) {
                 teams["hroyal"]?.addEntry(player.name)
                 return
             }
@@ -136,13 +136,13 @@ class TabListHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         }
 
         // Elf
-        if (player.hasPermission("alphheim.elf")) {
-            if (player.hasPermission("alphheim.leader")) {
+        if (player.hasPermission("group.elf")) {
+            if (player.hasPermission("ranktrait.leader")) {
                 teams["eleader"]?.addEntry(player.name)
                 return
             }
 
-            if (player.hasPermission("alphheim.royal")) {
+            if (player.hasPermission("ranktrait.royal")) {
                 teams["eroyal"]?.addEntry(player.name)
                 return
             }
@@ -152,13 +152,13 @@ class TabListHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         }
 
         // Dwarf
-        if (player.hasPermission("alphheim.dwarf")) {
-            if (player.hasPermission("alphheim.leader")) {
+        if (player.hasPermission("group.dwarf")) {
+            if (player.hasPermission("ranktrait.leader")) {
                 teams["dleader"]?.addEntry(player.name)
                 return
             }
 
-            if (player.hasPermission("alphheim.royal")) {
+            if (player.hasPermission("ranktrait.royal")) {
                 teams["droyal"]?.addEntry(player.name)
                 return
             }

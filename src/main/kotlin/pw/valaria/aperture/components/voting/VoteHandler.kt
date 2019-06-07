@@ -8,60 +8,38 @@
 
 package pw.valaria.aperture.components.voting
 
-import com.vexsoftware.votifier.Votifier
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.AbstractHandler
-import pw.valaria.aperture.components.usermanagement.UserManager
-import pw.valaria.aperture.components.voting.rewards.EcoVoteReward
-import pw.valaria.aperture.components.voting.rewards.IVoteReward
-import pw.valaria.aperture.components.voting.rewards.ItemVoteReward
-import pw.valaria.aperture.components.voting.rewards.MMOCreditReward
-import pw.valaria.aperture.components.voting.votelistener.AVoteListener
-import pw.valaria.aperture.utils.MessageUtil
-import pw.valaria.aperture.utils.MySQL
+import com.vexsoftware.votifier.NuVotifierBukkit
 import org.bukkit.Material
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import org.bukkit.plugin.java.PluginClassLoader
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.components.AbstractHandler
+import pw.valaria.aperture.components.usermanagement.UserManager
+import pw.valaria.aperture.components.voting.listeners.VoteListener
+import pw.valaria.aperture.components.voting.rewards.EcoVoteReward
+import pw.valaria.aperture.components.voting.rewards.IVoteReward
+import pw.valaria.aperture.components.voting.rewards.ItemVoteReward
+import pw.valaria.aperture.components.voting.rewards.MMOCreditReward
+import pw.valaria.aperture.utils.MessageUtil
+import pw.valaria.aperture.utils.MySQL
 import java.sql.Timestamp
 import java.util.concurrent.FutureTask
 
 class VoteHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
-    private val votifier = plugin.server.pluginManager.getPlugin("Votifier") as? Votifier
+    private val votifier = plugin.server.pluginManager.getPlugin("Votifier") as? NuVotifierBukkit
     private val rewards = ArrayList<IVoteReward>()
-    var voteHandler: AVoteListener? = null
 
     init {
 
-        if (votifier == null) {
-            plugin.logger.warning("Could not find votifier plugin!")
-        } else {
-
-            votifier.listeners.removeIf {
-                val cl = it.javaClass.classLoader as? PluginClassLoader
-                cl != null && cl.plugin.name == plugin.name
-            }
-
-            voteHandler = AVoteListener(this)
-            votifier.listeners.add(voteHandler)
-            plugin.logger.info("registered vote listener!")
-        }
+        VoteListener(this)
 
         rewards.add(EcoVoteReward(this, 2000.0))
         rewards.add(ItemVoteReward(this, ItemStack(Material.DIAMOND, 5)))
         rewards.add(MMOCreditReward(this, 2))
 
 
-    }
-
-    override fun onDisable() {
-        destruct()
-    }
-
-    fun destruct() {
-        votifier?.listeners?.remove(voteHandler)
     }
 
     @Suppress("UNUSED_PARAMETER")

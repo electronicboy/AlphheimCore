@@ -406,6 +406,15 @@ lp group equeen meta addprefix 30 &2[&aQueen&2]
 lp group eemperor parent add 40 &2[&aEmperor&2]
 lp group eempress parent add 40 &2[&aEmpress&2]
 
+# leadership
+lp group king permission set ranktrait.leader
+lp group eking permission set ranktrait.leader
+lp group dking permission set ranktrait.leader
+
+lp group chief permission set ranktrait.royal
+lp group echief permission set ranktrait.royal
+lp group dchief permission set ranktrait.royal
+
 # persist
 
 lp group human meta set persistSet false
