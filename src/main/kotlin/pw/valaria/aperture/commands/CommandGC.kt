@@ -25,7 +25,7 @@ class CommandGC(val core: ApertureCore) : CoreCommand(core) {
     @CommandPermission("group.admin")
     @CommandAlias("gc|mem")
     fun execute(sender: CommandSender) {
-        val uptime = Duration.ofMillis(ManagementFactory.getRuntimeMXBean().startTime - System.currentTimeMillis())
+        val uptime = Duration.ofMillis(System.currentTimeMillis() - ManagementFactory.getRuntimeMXBean().startTime)
 
 
         val messages = ArrayList<TextComponent>()

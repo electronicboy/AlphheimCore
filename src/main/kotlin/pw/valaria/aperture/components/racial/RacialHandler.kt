@@ -9,6 +9,7 @@
 package pw.valaria.aperture.components.racial
 
 import com.palmergames.bukkit.towny.Towny
+import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.racial.handler.MinerSkillProvider
@@ -43,6 +44,10 @@ class RacialHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             }.runTask(plugin)
         }
 
+        plugin.luckPermsApi.eventBus.subscribe(UserDataRecalculateEvent::class.java) { e ->
+            val player = plugin.server.getPlayer(e.user.uuid)
+            player?.let { applyEffects(it) }
+        }
 
     }
 
