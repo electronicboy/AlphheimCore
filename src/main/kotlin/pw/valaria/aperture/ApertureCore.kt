@@ -41,7 +41,6 @@ import pw.valaria.aperture.listeners.PlayerListener
 import pw.valaria.aperture.listeners.SignListener
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.MySQL
-import java.util.concurrent.TimeUnit
 
 
 class ApertureCore : JavaPlugin() {
