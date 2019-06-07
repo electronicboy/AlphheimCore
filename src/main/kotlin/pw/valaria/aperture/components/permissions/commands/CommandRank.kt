@@ -74,10 +74,11 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
             return
         }
 
-        val groups = user.ownNodes.filter { it.isGroupNode }.map { permHandler.getGroup(it.groupName)!! }.toMutableList()
-        val toRemove = mutableListOf<Group>()
+        val groups = user.ownNodes.filter { it.isGroupNode }.map { it.groupName }.toMutableList()
+        val toRemove = mutableListOf<String>()
         groups.forEach {
-            if (!permHandler.getBooleanMeta(it, "persistSet")) toRemove.add(it)
+            val groupIn = permHandler.getGroup(it)
+            if (groupIn == null || !permHandler.getBooleanMeta(groupIn, "persistSet")) toRemove.add(it)
         }
 
         for (remove in toRemove) {
