@@ -21,9 +21,9 @@ class MinerSkillProvider(private var plugin: ApertureCore) : IRacialProcessor {
 
 
         return if (groups.contains("miner") || groups.contains("eminer") || groups.contains("dminer")) {
-            mutableMapOf(PotionEffectType.FAST_DIGGING to 1)
+            mutableMapOf(PotionEffectType.FAST_DIGGING to 0)
         } else if (groups.contains("grandminer") || groups.contains("egrandminer") || groups.contains("dgrandminer")) {
-            mutableMapOf(PotionEffectType.FAST_DIGGING to 2)
+            mutableMapOf(PotionEffectType.FAST_DIGGING to 1)
         } else mutableMapOf()
 
     }
