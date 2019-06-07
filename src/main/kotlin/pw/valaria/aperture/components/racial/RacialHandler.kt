@@ -11,9 +11,8 @@ package pw.valaria.aperture.components.racial
 import com.palmergames.bukkit.towny.Towny
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
-import pw.valaria.aperture.components.racial.handler.DwarvenRacialProvider
+import pw.valaria.aperture.components.racial.handler.MinerSkillProvider
 import pw.valaria.aperture.components.racial.handler.IRacialProcessor
-import pw.valaria.aperture.components.racial.handler.RacialEffectsProvider
 import pw.valaria.aperture.components.racial.listeners.RacialPlayerListener
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
@@ -29,8 +28,8 @@ class RacialHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     private val towny: Towny = plugin.server.pluginManager.getPlugin("Towny") as Towny
 
     init {
-        addHandler(DwarvenRacialProvider(plugin))
-        addHandler(RacialEffectsProvider(plugin))
+        addHandler(MinerSkillProvider(plugin))
+        //addHandler(RacialEffectsProvider(plugin))
         RacialPlayerListener(this)
 
         if (plugin.server.onlinePlayers.isNotEmpty()) {

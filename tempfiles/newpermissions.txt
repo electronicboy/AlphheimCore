@@ -293,6 +293,8 @@ lp group coowner meta addsuffix 0 &6[&4Coowner&6]
 lp group owner meta addsuffix 0 &6[&4Owner&6]
 lp group developer meta addsuffix 0 &6[&4Dev&6]
 
+lp group headadmin permission set bukkit.command.plugins
+lp group coowner permission set minecraft.command.op
 
 # Export group: group
 lp group global permission set towny.wild.* true
