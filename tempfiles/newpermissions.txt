@@ -280,7 +280,7 @@ lp creategroup owner
 lp creategroup developer
 
 
-lp group developer parent add owner
+lp group developer parent add coowner
 lp group owner parent add coowner
 lp group coowner parent add headadmin
 lp group headadmin parent add admin
