@@ -9,6 +9,7 @@
 package pw.valaria.aperture.components.mmocredits
 
 import com.gmail.nossr50.api.ExperienceAPI
+import com.gmail.nossr50.api.SkillAPI
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.mmocredits.commands.CommandCredits
@@ -18,7 +19,7 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
 class MMOCreditsHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
-    private val validSkills = setOf("TAMING", "SWORDS", "ALCHEMY", "UNARMED", "ARCHERY", "AXES", "ACROBATICS", "FISHING", "EXCAVATION", "MINING", "HERBALISM", "REPAIR", "WOODCUTTING")
+    private val validSkills = SkillAPI.getSkills()
 
     init {
         plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills", {
