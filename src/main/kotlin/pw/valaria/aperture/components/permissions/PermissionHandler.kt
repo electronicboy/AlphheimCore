@@ -181,8 +181,8 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         val builder = ImmutableList.builder<Group>()
         user.ownNodes
                 .filter { it.isGroupNode }
-                .map { getGroup(it.groupName)!! }
-                .forEach { builder.add(it) }
+                .map { getGroup(it.groupName) }
+                .forEach { if (it != null) builder.add(it) }
 
         return builder.build()
     }
