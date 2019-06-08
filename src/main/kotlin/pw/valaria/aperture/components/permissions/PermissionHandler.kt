@@ -8,9 +8,16 @@
 
 package pw.valaria.aperture.components.permissions
 
-import co.aikar.commands.BukkitCommandCompletionContext
 import com.google.common.collect.HashBasedTable
 import com.google.common.collect.ImmutableList
+import me.lucko.luckperms.api.Contexts
+import me.lucko.luckperms.api.Group
+import me.lucko.luckperms.api.caching.MetaData
+import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent
+import org.bukkit.Bukkit
+import org.bukkit.entity.Player
+import org.bukkit.plugin.java.PluginClassLoader
+import org.bukkit.util.StringUtil
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.health.HealthHandler
@@ -20,13 +27,6 @@ import pw.valaria.aperture.components.tablist.TabListHandler
 import pw.valaria.aperture.components.usermanagement.UserManager
 import pw.valaria.aperture.data.DonorTier
 import pw.valaria.aperture.utils.MySQL
-import me.lucko.luckperms.api.Contexts
-import me.lucko.luckperms.api.Group
-import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent
-import org.bukkit.Bukkit
-import org.bukkit.entity.Player
-import org.bukkit.plugin.java.PluginClassLoader
-import org.bukkit.util.StringUtil
 import java.util.*
 import java.util.concurrent.CompletionException
 
@@ -65,26 +65,26 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     }
 
-    fun migrate() : Boolean {
+    fun migrate(): Boolean {
 
         val uuids = mutableListOf<UUID>()
 
-        MySQL.getConnection().use test@ { conn ->
+        MySQL.getConnection().use test@{ conn ->
             run {
                 conn.prepareStatement("SELECT uuid FROM luckperms_players WHERE 1").use { ps ->
                     ps.executeQuery().use { rs ->
 
-                            while (rs.next()) {
-                                val stringUUID = rs.getString("uuid")
-                                val uuid = UUID.fromString(stringUUID)
-                                plugin.logger.info("got UUID: $stringUUID")
-                                uuids.add(uuid)
-                            }
+                        while (rs.next()) {
+                            val stringUUID = rs.getString("uuid")
+                            val uuid = UUID.fromString(stringUUID)
+                            plugin.logger.info("got UUID: $stringUUID")
+                            uuids.add(uuid)
                         }
                     }
                 }
-
             }
+
+        }
 
 
         uuids.forEach { uuid ->
@@ -111,7 +111,7 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             DonorTier.values().reversedArray().forEach { tier ->
                 run {
                     if (tier != DonorTier.NONE) {
-                        getOwnGroupsForOfflineUser(uuid).forEach {group ->
+                        getOwnGroupsForOfflineUser(uuid).forEach { group ->
                             if (group.name == tier.name.toLowerCase()) {
                                 MySQL.getConnection().use { conn ->
                                     {
@@ -131,17 +131,14 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
                     }
                 }
 
-        }
+            }
 
         }
 
-    return true
+        return true
     }
 
     override fun onDisable() {
-        destruct()
-    }
-    fun destruct() {
         val iter = plugin.luckPermsApi.eventBus.getHandlers(UserDataRecalculateEvent::class.java).iterator()
         while (iter.hasNext()) {
             val handler = iter.next()
@@ -247,33 +244,16 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     }
 
     fun getPlayerPrefix(player: Player, allowSlow: Boolean = false): String {
-        var user = plugin.luckPermsApi.getUser(player.uniqueId)
-        if (user == null) {
-            if (allowSlow) {
-                val loadUserFuture = plugin.luckPermsApi.userManager.loadUser(player.uniqueId)
-                try {
-                    user = loadUserFuture.join()
-                } catch (ex: CompletionException) {
-                    plugin.logger.warning("Failed to load user data for: $player")
-                    ex.printStackTrace()
-                }
-            }
-        }
-
-        if (user == null) {
-            return ""
-        }
-
-        val metadata = user.cachedData.getMetaData(plugin.luckPermsApi.getContextsForPlayer(player))
-
-        return if (metadata.prefix != null) {
-            metadata.prefix!!
-        } else {
-            ""
-        }
+        val metadata = getMetadata(player, allowSlow)
+        return metadata?.prefix ?: ""
     }
 
     fun getPlayerSuffix(player: Player, allowSlow: Boolean = false): String {
+        val metadata = getMetadata(player, allowSlow)
+        return metadata?.suffix ?: ""
+    }
+
+    fun getMetadata(player: Player, allowSlow: Boolean = false): MetaData? {
         var user = plugin.luckPermsApi.getUser(player.uniqueId)
         if (user == null) {
             if (allowSlow) {
@@ -288,18 +268,15 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         }
 
         if (user == null) {
-            return ""
+            return null
         }
 
-        val metadata = user.cachedData.getMetaData(plugin.luckPermsApi.getContextsForPlayer(player))
+        return user.cachedData.getMetaData(plugin.luckPermsApi.getContextsForPlayer(player))
 
-
-        return if (metadata.suffix != null) {
-            metadata.suffix!!
-        } else {
-            ""
-        }
     }
 
+    fun setRetainedGroup(player: Player, group: Group) {
+
+    }
 
 }

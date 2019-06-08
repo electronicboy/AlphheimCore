@@ -8,25 +8,54 @@
 
 package pw.valaria.aperture.components.signs
 
+import org.bukkit.NamespacedKey
+import org.bukkit.block.BlockState
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
-import pw.valaria.aperture.components.signs.data.AbstractSign
-import org.bukkit.Location
+import pw.valaria.aperture.components.signs.provider.AbstractSign
+import org.bukkit.block.Sign
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.world.ChunkLoadEvent
-import kotlin.reflect.KClass
+import org.bukkit.persistence.PersistentDataType
+import pw.valaria.aperture.components.signs.provider.RankSign
 
 class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
-    val signProviders = HashMap<String, KClass<AbstractSign>>()
-    val loadedSigns =  HashMap<Location, AbstractSign>()
+    val signKey = NamespacedKey(plugin, "signProvider")
+    val signTypeKey = NamespacedKey(plugin,  "signType")
+    val signProviders = HashMap<String, AbstractSign>()
 
     init {
 
 
+        RankSign(this).let {
+            signProviders.put(it.providerName, it)
+        }
     }
 
-    @EventHandler
-    fun chunkLoadEvent(e: ChunkLoadEvent) {
+    fun interact(sign: Sign, player: Player) {
+        val dataContainer = sign.persistentDataContainer.get(signKey, PersistentDataType.TAG_CONTAINER) ?: return
+
+        val type = dataContainer.get(signTypeKey, PersistentDataType.STRING) ?: return
+
+        val provider = signProviders[type] ?: return
+
+        provider.interact(player, sign)
+
+    }
+
+    fun render(sign: Sign): List<String>? {
+
+        val dataContainer = sign.persistentDataContainer.get(signKey, PersistentDataType.TAG_CONTAINER) ?: return null
+
+        val type = dataContainer.get(signTypeKey, PersistentDataType.STRING) ?: return null
+
+        val provider = signProviders[type] ?: return null
+
+        return provider.render(sign)
+    }
+
+    fun create(player: Player, sign: Sign) {
 
     }
 }

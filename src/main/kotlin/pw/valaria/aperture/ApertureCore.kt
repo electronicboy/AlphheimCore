@@ -54,6 +54,8 @@ class ApertureCore : JavaPlugin() {
 
     private var consolePerms = mutableListOf<PermissionAttachment>()
 
+    public val serverIntName = lazy { System.getProperty("serverName")}
+
 
     override fun onEnable() {
 

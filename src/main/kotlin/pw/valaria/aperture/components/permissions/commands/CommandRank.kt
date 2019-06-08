@@ -91,32 +91,6 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
         plugin.luckPermsApi.userManager.saveUser(user).thenRunAsync { user.refreshCachedData() }.thenRunAsync {
             MessageUtil.sendInfo(sender, "Added group ${group.name} to ${user.name}; All set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
         }
-
-        if (!firstSet) return
-
-        val inventory = if (targetBukkit.isOnline) { targetBukkit.player!!.inventory} else { return}
-        if (inventory.helmet == null && inventory.chestplate == null && inventory.leggings == null && inventory.boots == null) {
-
-            inventory.helmet = ItemStack(Material.CHAINMAIL_HELMET)
-            inventory.chestplate = ItemStack(Material.CHAINMAIL_CHESTPLATE)
-            inventory.leggings = ItemStack(Material.CHAINMAIL_LEGGINGS)
-            inventory.boots = ItemStack(Material.CHAINMAIL_BOOTS)
-        }
-
-        inventory.addItem(
-                ItemStack(Material.STONE_SWORD),
-                ItemStack(Material.STONE_AXE),
-                ItemStack(Material.STONE_PICKAXE),
-                ItemStack(Material.STONE_SHOVEL),
-                ItemStack(Material.STONE_HOE),
-                ItemStack(Material.COOKED_BEEF, 16),
-                ItemStack(Material.COMPASS),
-                ItemStack(Material.ACACIA_BOAT)
-        )
-
-        targetBukkit.player!!.teleport(Location(Bukkit.getWorlds()[0], 850.0, 37.0, -1696.0, 180f, 0f))
-
-
     }
 
     @CommandPermission("group.mod")
