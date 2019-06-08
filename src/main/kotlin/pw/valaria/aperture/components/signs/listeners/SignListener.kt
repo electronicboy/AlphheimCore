@@ -10,8 +10,10 @@ import com.destroystokyo.paper.block.SendSignEvent
 import org.bukkit.block.Sign
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.Action
 import org.bukkit.event.block.SignChangeEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.EquipmentSlot
 import pw.valaria.aperture.components.signs.SignHandler
 
 class SignListener(val handler: SignHandler) : Listener {
@@ -22,6 +24,8 @@ class SignListener(val handler: SignHandler) : Listener {
 
     @EventHandler
     fun signInteract(e: PlayerInteractEvent) {
+        if (e.action != Action.RIGHT_CLICK_BLOCK || e.hand != EquipmentSlot.HAND) return
+
         val clicked = e.clickedBlock ?: return
 
         val sign = clicked.state as? Sign ?: return
