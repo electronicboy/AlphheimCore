@@ -23,7 +23,7 @@ class BuyShop(handler: SignHandler) : AbstractSign(handler, "buy") {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    val header = "&6[&cBut&6]".translateColors()
+    val header = "&6[&cBuy&6]".translateColors()
 
     override fun render(sign: Sign): List<String> {
         val lines = ArrayList<String>()
