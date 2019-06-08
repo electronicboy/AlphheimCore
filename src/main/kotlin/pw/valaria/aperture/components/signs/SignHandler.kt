@@ -35,7 +35,7 @@ class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     }
 
     fun interact(sign: Sign, player: Player) {
-        val dataContainer = sign.persistentDataContainer.get(signKey, PersistentDataType.TAG_CONTAINER) ?: return
+        val dataContainer = sign.persistentDataContainer
 
         val type = dataContainer.get(signTypeKey, PersistentDataType.STRING) ?: return
 
@@ -47,7 +47,7 @@ class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     fun render(sign: Sign): List<String>? {
 
-        val dataContainer = sign.persistentDataContainer.get(signKey, PersistentDataType.TAG_CONTAINER) ?: return null
+        val dataContainer = sign.persistentDataContainer
 
         val type = dataContainer.get(signTypeKey, PersistentDataType.STRING) ?: return null
 
