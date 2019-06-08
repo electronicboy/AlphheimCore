@@ -8,26 +8,29 @@
 
 package pw.valaria.aperture.components.signs
 
+import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
-import org.bukkit.block.BlockState
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.AbstractHandler
-import pw.valaria.aperture.components.signs.provider.AbstractSign
 import org.bukkit.block.Sign
 import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
-import org.bukkit.event.world.ChunkLoadEvent
 import org.bukkit.persistence.PersistentDataType
+import org.bukkit.scheduler.BukkitRunnable
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.signs.listeners.SignListener
+import pw.valaria.aperture.components.signs.provider.AbstractSign
+import pw.valaria.aperture.components.signs.provider.BuyShop
 import pw.valaria.aperture.components.signs.provider.RankSign
 
 class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     val signKey = NamespacedKey(plugin, "signProvider")
-    val signTypeKey = NamespacedKey(plugin,  "signType")
+    val signTypeKey = NamespacedKey(plugin, "signType")
     val signProviders = HashMap<String, AbstractSign>()
 
     init {
         RankSign(this).let {
+            signProviders.put(it.providerName, it)
+        }
+        BuyShop(this).let {
             signProviders.put(it.providerName, it)
         }
 
@@ -56,7 +59,30 @@ class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         return provider.render(sign)
     }
 
-    fun create(player: Player, sign: Sign) {
+    fun create(player: Player, sign: Sign, lines: Array<String>) {
+
+        var topLine = lines[0]
+        if (topLine.startsWith("[") && topLine.endsWith("]")) {
+            topLine = topLine.subSequence(1, topLine.length - 1).toString()
+        }
+
+        val handler = signProviders[topLine]
+
+        if (handler != null) {
+            handler.create(player, sign, lines.toList())
+            object : BukkitRunnable() {
+                override fun run() {
+                    handler.render(sign)?.let {
+                        Bukkit.getOnlinePlayers().forEach { p ->
+                            if (p.location.distanceSquared(sign.location) < 100) {
+                                p.sendSignChange(sign.location, it.toTypedArray())
+                            }
+                        }
+                    }
+                }
+
+            }.runTaskLater(this.plugin, 5L)
+        }
 
     }
 }

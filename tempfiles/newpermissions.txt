@@ -269,6 +269,10 @@ lp group dempress parent add dempress
 lp creategroup builder
 lp group builder permission set worldedit.*
 
+lp group default meta set towny_default_modes outofcharacter
+lp group global meta set towny_default_modes outofcharacter
+lp group mod meta set towny_default_modes outofcharacter
+
 
 # staff
 

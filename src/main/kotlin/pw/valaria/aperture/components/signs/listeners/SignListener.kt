@@ -44,6 +44,7 @@ class SignListener(val handler: SignHandler) : Listener {
         val topLine = e.lines[0]
         if (topLine.startsWith("[") && topLine.endsWith("]")) {
 
+            handler.create(e.player, e.block.state as Sign, e.lines)
             val handler = handler.signProviders[topLine.subSequence(1, topLine.length - 1)]?.let {
                 it.create(e.player, e.block.state as Sign, e.lines.toList())
             }

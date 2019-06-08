@@ -52,13 +52,6 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
                 newSign.persistentDataContainer.set(handler.signKey, RankSignDataType.INSTANCE, RankSignDataType.RankSignData(group.name))
                 newSign.update()
 
-                handler.render(newSign)?.let {
-                    Bukkit.getOnlinePlayers().forEach { p ->
-                        if (p.location.distanceSquared(newSign.location) < 100) {
-                            p.sendSignChange(newSign.location, it.toTypedArray())
-                        }
-                    }
-                }
             }
 
         })
