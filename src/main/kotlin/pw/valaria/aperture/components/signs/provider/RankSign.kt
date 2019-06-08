@@ -8,9 +8,7 @@ package pw.valaria.aperture.components.signs.provider
 
 import com.google.common.cache.CacheBuilder
 import me.lucko.luckperms.api.Contexts
-import net.kyori.text.TextComponent
-import net.kyori.text.format.TextColor
-import net.kyori.text.serializer.legacy.LegacyComponentSerializer
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.block.Sign
@@ -47,13 +45,28 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
             MessageUtil.sendError(player, "Unsupported group! (Does not persist?)")
         }
 
-        sign.persistentDataContainer.set(handler.signKey, RankSignDataType.INSTANCE, RankSignDataType.RankSignData(rankName))
-        sign.persistentDataContainer.set(handler.signTypeKey, PersistentDataType.STRING, providerName)
+        handler.plugin.server.scheduler.runTask(handler.plugin, Runnable {
+            val newSign = sign.block.state as? Sign
+            if (newSign != null) {
+                newSign.persistentDataContainer.set(handler.signKey, RankSignDataType.INSTANCE, RankSignDataType.RankSignData(rankName))
+                newSign.persistentDataContainer.set(handler.signTypeKey, PersistentDataType.STRING, providerName)
+                newSign.update()
+
+                handler.render(newSign)?.let {
+                    Bukkit.getOnlinePlayers().forEach { p ->
+                        if (p.location.distanceSquared(newSign.location) < 100) {
+                            p.sendSignChange(newSign.location, lines.toTypedArray())
+                        }
+                    }
+                }
+            }
+        })
 
 
     }
 
     private val rankKey = NamespacedKey(handler.plugin, "rank")
+
     companion object {
         val lac = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.MINUTES).build<UUID, Boolean>()
     }
@@ -61,7 +74,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
     val header = "&6[&cRace Selection&6]".translateColors()
 
     override fun interact(player: Player, sign: Sign) {
-        val interacted = lac.get(player.uniqueId) { false}
+        val interacted = lac.get(player.uniqueId) { false }
 
         if (!interacted) {
             MessageUtil.sendInfo(player, "Click again to confirm your selection")
@@ -75,7 +88,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
 
         val permHandler = handler.plugin.componentHandler.getComponent(PermissionHandler::class.java)
 
-        permHandler?.let {permissionHandler ->
+        permHandler?.let { permissionHandler ->
             val group = permHandler.getGroup(rank)
             val targetBukkit = player
 
@@ -118,7 +131,11 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
 
             if (!firstSet) return
 
-            val inventory = if (targetBukkit.isOnline) { targetBukkit.player!!.inventory} else { return}
+            val inventory = if (targetBukkit.isOnline) {
+                targetBukkit.player!!.inventory
+            } else {
+                return
+            }
             if (inventory.helmet == null && inventory.chestplate == null && inventory.leggings == null && inventory.boots == null) {
 
                 inventory.helmet = ItemStack(Material.CHAINMAIL_HELMET)
@@ -138,27 +155,28 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
                     ItemStack(Material.ACACIA_BOAT)
             )
 
-            handler.plugin.componentHandler.getComponent(SpawnHandler::class.java)?.let {spawnHandler ->
+            handler.plugin.componentHandler.getComponent(SpawnHandler::class.java)?.let { spawnHandler ->
                 spawnHandler.goSpawn(targetBukkit, null, true)
             }
 
         }
 
 
-
     }
 
     override fun render(sign: Sign): List<String> {
-        val signData = sign.persistentDataContainer.get(handler.signKey, RankSignDataType.INSTANCE) ?: throw IllegalStateException("Called render on sign missing data?")
+        val signData = sign.persistentDataContainer.get(handler.signKey, RankSignDataType.INSTANCE)
+                ?: throw IllegalStateException("Called render on sign missing data?")
 
-        val prefix = handler.plugin.luckPermsApi.getGroup(signData.rank)?.cachedData?.getMetaData(Contexts.global())?.prefix ?: signData.rank
+        val prefix = handler.plugin.luckPermsApi.getGroup(signData.rank)?.cachedData?.getMetaData(Contexts.global())?.prefix
+                ?: signData.rank
         val lines = ArrayList<String>()
 
 
-        lines+ header
-        lines+ prefix
-        lines+ ""
-        lines+ ""
+        lines + header
+        lines + prefix
+        lines + ""
+        lines + ""
 
         return lines
     }
