@@ -15,7 +15,6 @@ import pw.valaria.aperture.components.signs.SignHandler
 import pw.valaria.aperture.components.signs.data.ShopSignDataType
 import pw.valaria.aperture.translateColors
 import pw.valaria.aperture.utils.MessageUtil
-import java.lang.IllegalStateException
 import java.math.BigDecimal
 
 class BuyShop(handler: SignHandler) : AbstractSign(handler, "buy") {
@@ -29,7 +28,8 @@ class BuyShop(handler: SignHandler) : AbstractSign(handler, "buy") {
         val lines = ArrayList<String>()
 
 
-        val data = sign.persistentDataContainer.get(handler.signKey, ShopSignDataType()) ?: throw IllegalStateException("Missing sign data?!")
+        val data = sign.persistentDataContainer.get(handler.signKey, ShopSignDataType())
+                ?: throw IllegalStateException("Missing sign data?!")
 
         lines.add(header)
         lines.add(data.amount.toString())
@@ -74,9 +74,14 @@ class BuyShop(handler: SignHandler) : AbstractSign(handler, "buy") {
 
         val data = ShopSignDataType.ShopSignData(amount, price, material)
 
-        sign.persistentDataContainer.set(handler.signTypeKey, PersistentDataType.STRING, providerName)
-        sign.persistentDataContainer.set(handler.signKey, ShopSignDataType(), data)
+        handler.plugin.server.scheduler.runTask(handler.plugin, Runnable {
+            val newSign = sign.block.state as? Sign
+            if (newSign != null) {
+                newSign.persistentDataContainer.set(handler.signTypeKey, PersistentDataType.STRING, providerName)
+                newSign.persistentDataContainer.set(handler.signKey, ShopSignDataType(), data)
+                newSign.update()
+            }
+        })
 
     }
-
 }
