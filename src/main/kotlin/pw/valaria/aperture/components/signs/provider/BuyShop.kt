@@ -6,6 +6,7 @@
 
 package pw.valaria.aperture.components.signs.provider
 
+import net.milkbowl.vault.economy.Economy
 import org.bukkit.Material
 import org.bukkit.block.Sign
 import org.bukkit.entity.Player
@@ -19,7 +20,28 @@ import java.math.BigDecimal
 
 class BuyShop(handler: SignHandler) : AbstractSign(handler, "buy") {
     override fun interact(player: Player, sign: Sign) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val ecoReg = handler.plugin.server.servicesManager.getRegistration(Economy::class.java) ?: throw java.lang.IllegalStateException("Vault?!")
+        val eco = ecoReg.provider
+
+        val data = sign.persistentDataContainer.get(handler.signKey, ShopSignDataType())
+                ?: throw IllegalStateException("Missing sign data?!")
+
+        val hasDosh = eco.has(player, data.price.toDouble())
+        if (hasDosh) {
+            val itemstack = ItemStack(data.item).apply {
+                amount = data.amount.toInt()
+            }
+
+            val remaining = player.inventory.addItem(itemstack)
+
+            if (remaining.isNotEmpty()) {
+                val lost = data.amount - remaining[0]?.amount!!
+                itemstack.amount = lost
+                player.inventory.removeItem(itemstack)
+            } else {
+                val result = eco.withdrawPlayer(player, data.price.toDouble())
+            }
+        }
     }
 
     val header = "&6[&cBuy&6]".translateColors()
