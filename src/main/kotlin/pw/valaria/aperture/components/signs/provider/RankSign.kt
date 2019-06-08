@@ -58,9 +58,10 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
                             p.sendSignChange(newSign.location, it.toTypedArray())
                         }
                     }
+                }
             }
-        })
 
+        })
 
     }
 
