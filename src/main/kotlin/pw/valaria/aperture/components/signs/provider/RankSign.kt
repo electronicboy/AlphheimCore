@@ -92,7 +92,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
             val group = permHandler.getGroup(rank)
             val targetBukkit = player
 
-            val firstSet = player.hasPermission("group.default")
+            val firstSet = !(player.hasPermission("race.human") || player.hasPermission("race.elf") || player.hasPermission("race.dwarf"))
 
             if (group == null) {
                 return
@@ -108,10 +108,6 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
                 throw IllegalStateException("Offline player interacted with sign?! ${targetBukkit.uniqueId}|${targetBukkit.name}")
             }
 
-            val context = handler.plugin.luckPermsApi.getContextsForPlayer(player)
-            val metadata = user.cachedData.getMetaData(context)
-
-            metadata.meta.get("raceselected")
             val groups = user.ownNodes.filter { it.isGroupNode }.map { it.groupName }.toMutableList()
             val toRemove = mutableListOf<String>()
             groups.forEach {
