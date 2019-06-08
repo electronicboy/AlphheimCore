@@ -40,6 +40,7 @@ class SignListener(val handler: SignHandler) : Listener {
         }
     }
 
+    @EventHandler
     fun signUpdate(e: SignChangeEvent) {
         val topLine = e.lines[0]
         if (topLine.startsWith("[") && topLine.endsWith("]")) {
