@@ -72,15 +72,17 @@ class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             handler.create(player, sign, lines.toList())
             object : BukkitRunnable() {
                 override fun run() {
-                    handler.render(sign)?.let {
-                        Bukkit.getOnlinePlayers().forEach { p ->
-                            if (p.location.distanceSquared(sign.location) < 100) {
-                                p.sendSignChange(sign.location, it.toTypedArray())
+                    val nsign = sign.block.state as? Sign
+                    if (nsign != null) {
+                        handler.render(nsign).let {
+                            Bukkit.getOnlinePlayers().forEach { p ->
+                                if (p.location.distanceSquared(nsign.location) < 100) {
+                                    p.sendSignChange(nsign.location, it.toTypedArray())
+                                }
                             }
                         }
                     }
                 }
-
             }.runTaskLater(this.plugin, 5L)
         }
 
