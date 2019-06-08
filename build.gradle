@@ -42,10 +42,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     maven {
-        name = "Aikar"
-        url = "http://repo.aikar.co/nexus/content/groups/aikar/"
-    }
-    maven {
         name = "Spigot"
         url = "https://hub.spigotmc.org/nexus/content/groups/public/"
     }
