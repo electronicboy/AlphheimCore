@@ -18,8 +18,9 @@ import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.signs.listeners.SignListener
 import pw.valaria.aperture.components.signs.provider.AbstractSign
-import pw.valaria.aperture.components.signs.provider.BuyShop
+import pw.valaria.aperture.components.signs.provider.BuySign
 import pw.valaria.aperture.components.signs.provider.RankSign
+import pw.valaria.aperture.components.signs.provider.SellSign
 
 class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     val signKey = NamespacedKey(plugin, "signProvider")
@@ -30,7 +31,10 @@ class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         RankSign(this).let {
             signProviders.put(it.providerName, it)
         }
-        BuyShop(this).let {
+        BuySign(this).let {
+            signProviders.put(it.providerName, it)
+        }
+        SellSign(this).let {
             signProviders.put(it.providerName, it)
         }
 

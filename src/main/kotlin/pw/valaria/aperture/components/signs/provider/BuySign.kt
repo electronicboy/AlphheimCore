@@ -18,7 +18,7 @@ import pw.valaria.aperture.translateColors
 import pw.valaria.aperture.utils.MessageUtil
 import java.math.BigDecimal
 
-class BuyShop(handler: SignHandler) : AbstractSign(handler, "buy") {
+class BuySign(handler: SignHandler) : AbstractSign(handler, "buy") {
     override fun interact(player: Player, sign: Sign) {
         val ecoReg = handler.plugin.server.servicesManager.getRegistration(Economy::class.java) ?: throw java.lang.IllegalStateException("Vault?!")
         val eco = ecoReg.provider
@@ -38,6 +38,7 @@ class BuyShop(handler: SignHandler) : AbstractSign(handler, "buy") {
                 val lost = data.amount - remaining[0]?.amount!!
                 itemstack.amount = lost
                 player.inventory.removeItem(itemstack)
+                MessageUtil.sendError(player, "You do not have enough space to purchase this item!")
             } else {
                 val result = eco.withdrawPlayer(player, data.price.toDouble())
             }
