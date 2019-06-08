@@ -26,7 +26,7 @@ class RankSignDataType : PersistentDataType<ByteArray, RankSignDataType.RankSign
 
     override fun toPrimitive(rankSignData: RankSignData, p1: PersistentDataAdapterContext): ByteArray {
         @Suppress("UnstableApiUsage") val bytes = ByteStreams.newDataOutput()
-        bytes.write(1) // version
+        bytes.writeInt(1) // version
         bytes.writeUTF(rankSignData.rank)
         return bytes.toByteArray()
     }

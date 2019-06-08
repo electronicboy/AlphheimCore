@@ -49,7 +49,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
             val newSign = sign.block.state as? Sign
             if (newSign != null) {
                 newSign.persistentDataContainer.set(handler.signTypeKey, PersistentDataType.STRING, providerName)
-                newSign.persistentDataContainer.set(handler.signKey, RankSignDataType.INSTANCE, RankSignDataType.RankSignData(rankName))
+                newSign.persistentDataContainer.set(handler.signKey, RankSignDataType.INSTANCE, RankSignDataType.RankSignData(group.name))
                 newSign.update()
 
                 handler.render(newSign)?.let {
