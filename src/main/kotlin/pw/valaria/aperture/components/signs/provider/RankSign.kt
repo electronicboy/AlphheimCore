@@ -48,8 +48,8 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
         handler.plugin.server.scheduler.runTask(handler.plugin, Runnable {
             val newSign = sign.block.state as? Sign
             if (newSign != null) {
-                newSign.persistentDataContainer.set(handler.signKey, RankSignDataType.INSTANCE, RankSignDataType.RankSignData(rankName))
                 newSign.persistentDataContainer.set(handler.signTypeKey, PersistentDataType.STRING, providerName)
+                newSign.persistentDataContainer.set(handler.signKey, RankSignDataType.INSTANCE, RankSignDataType.RankSignData(rankName))
                 newSign.update()
 
                 handler.render(newSign)?.let {
@@ -82,8 +82,8 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
             return
         }
         // If we get this far, we shouldn't be null
-        val data = sign.persistentDataContainer.get(handler.signKey, PersistentDataType.TAG_CONTAINER)!!
-        val rank = data.get(rankKey, PersistentDataType.STRING) ?: return
+        val data = sign.persistentDataContainer.get(handler.signKey, RankSignDataType.INSTANCE)!!
+        val rank = data.rank
 
 
         val permHandler = handler.plugin.componentHandler.getComponent(PermissionHandler::class.java)
