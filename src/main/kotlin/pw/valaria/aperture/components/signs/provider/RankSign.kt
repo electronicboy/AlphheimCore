@@ -52,8 +52,6 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
                 newSign.persistentDataContainer.set(handler.signKey, RankSignDataType.INSTANCE, RankSignDataType.RankSignData(group.name))
                 newSign.update()
 
-                val newLinesApparently = handler.render(newSign);
-                println(newLinesApparently)
                 handler.render(newSign)?.let {
                     Bukkit.getOnlinePlayers().forEach { p ->
                         if (p.location.distanceSquared(newSign.location) < 100) {
@@ -169,7 +167,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
         val lines = ArrayList<String>()
 
         lines.add(header)
-        lines.add(prefix)
+        lines.add(prefix.translateColors())
         lines.add("")
         lines.add("")
 
