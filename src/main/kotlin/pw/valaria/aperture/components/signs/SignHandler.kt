@@ -18,6 +18,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.world.ChunkLoadEvent
 import org.bukkit.persistence.PersistentDataType
+import pw.valaria.aperture.components.signs.listeners.SignListener
 import pw.valaria.aperture.components.signs.provider.RankSign
 
 class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
@@ -26,11 +27,11 @@ class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     val signProviders = HashMap<String, AbstractSign>()
 
     init {
-
-
         RankSign(this).let {
             signProviders.put(it.providerName, it)
         }
+
+        SignListener(this)
     }
 
     fun interact(sign: Sign, player: Player) {

@@ -30,6 +30,7 @@ import pw.valaria.aperture.components.plugincommandperms.PluginCommandPermHandle
 import pw.valaria.aperture.components.racial.RacialHandler
 import pw.valaria.aperture.components.rankcommands.RankCommands
 import pw.valaria.aperture.components.restart.RestartHandler
+import pw.valaria.aperture.components.signs.SignHandler
 import pw.valaria.aperture.components.spawn.SpawnHandler
 import pw.valaria.aperture.components.tabfooterheader.TabHandler
 import pw.valaria.aperture.components.tablist.TabListHandler
@@ -124,6 +125,7 @@ class ApertureCore : JavaPlugin() {
         componentHandler.registerComponent(RestartHandler::class.java)
         componentHandler.registerComponent(WorldGenHandler::class.java)
         componentHandler.registerComponent(CombatTagHandler::class.java)
+        componentHandler.registerComponent(SignHandler::class.java)
     }
 
 
