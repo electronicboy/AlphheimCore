@@ -43,8 +43,9 @@ class BuyShop(handler: SignHandler) : AbstractSign(handler, "buy") {
     override fun create(player: Player, sign: Sign, lines: List<String>) {
         if (!player.hasPermission("group.admin")) return
         val amountLine = lines[1]
-        val priceLine = lines[2]
-        val materialLine = lines[3]
+        val materialLine = lines[2]
+        val priceLine = lines[3]
+
 
         val amount = amountLine.toShort()
         val price = BigDecimal(priceLine.removePrefix("$"))
