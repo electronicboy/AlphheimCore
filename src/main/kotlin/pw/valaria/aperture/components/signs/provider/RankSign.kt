@@ -55,10 +55,9 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
                 handler.render(newSign)?.let {
                     Bukkit.getOnlinePlayers().forEach { p ->
                         if (p.location.distanceSquared(newSign.location) < 100) {
-                            p.sendSignChange(newSign.location, lines.toTypedArray())
+                            p.sendSignChange(newSign.location, it.toTypedArray())
                         }
                     }
-                }
             }
         })
 
@@ -104,9 +103,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
 
 
             var user = handler.plugin.luckPermsApi.getUser(player.uniqueId)
-            if (user == null) {
-                throw IllegalStateException("Offline player interacted with sign?! ${targetBukkit.uniqueId}|${targetBukkit.name}")
-            }
+                    ?: throw IllegalStateException("Offline player interacted with sign?! ${targetBukkit.uniqueId}|${targetBukkit.name}")
 
             val groups = user.ownNodes.filter { it.isGroupNode }.map { it.groupName }.toMutableList()
             val toRemove = mutableListOf<String>()

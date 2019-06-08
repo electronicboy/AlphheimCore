@@ -36,7 +36,6 @@ class SignListener(val handler: SignHandler) : Listener {
 
         handler.render(sign)?.forEachIndexed() { index, line ->
             e.setLine(index, line)
-
         }
     }
 
