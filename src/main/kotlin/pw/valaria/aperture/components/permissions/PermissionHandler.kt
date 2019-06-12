@@ -56,7 +56,7 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             userMetaCache.row(it.user.uuid).clear()
         }
 
-        plugin.commandManager.commandCompletions.registerCompletion("groups") {
+        plugin.commandManager.commandCompletions.registerAsyncCompletion("groups") {
             getGroups().filter { group -> StringUtil.startsWithIgnoreCase(group, it.input) }.toMutableSet()
         }
 
@@ -150,7 +150,9 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     }
 
     fun getGroups(): Set<String> {
-        return plugin.luckPermsApi.groups.map { it.name }.toHashSet()
+        return plugin.luckPermsApi.groups.filter {
+            it.cachedData.getMetaData(Contexts.global()).meta.getOrDefault("persistSet", false)
+        }.map { it.name }.toHashSet()
     }
 
     fun getGroup(group: String): Group? {

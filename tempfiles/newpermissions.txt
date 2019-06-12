@@ -235,6 +235,36 @@ lp group dmarketseller parent add dwarf
 lp group dmerchant parent add dmarketseller
 lp group dguildmaster parent add dmerchant
 
+# human farming
+lp creategroup farmhand
+lp creategroup farmer
+lp creategroup herbalist
+
+lp group farmhand parent add human
+lp group farmer parent add farmhand
+lp group herbalist parent add farmer
+
+# elf farming
+lp creategroup efarmhand
+lp creategroup efarmer
+lp creategroup eherbalist
+
+lp group efarmhand parent add elf
+lp group efarmer parent add efarmhand
+lp group eherbalist parent add efarmer
+
+
+# human farming
+lp creategroup dfarmhand
+lp creategroup dfarmer
+lp creategroup dherbalist
+
+lp group dfarmhand parent add dwarf
+lp group dfarmer parent add dfarmhand
+lp group dherbalist parent add dfarmer
+
+
+
 
 # dwarf leadership
 
@@ -272,6 +302,103 @@ lp group builder permission set worldedit.*
 lp group default meta set towny_default_modes outofcharacter
 lp group global meta set towny_default_modes outofcharacter
 lp group mod meta set towny_default_modes outofcharacter
+
+
+# human kits
+lp group child permission set essentials.kit.peasant
+lp group slave permission set essentials.kit.peasant
+lp group peasant permission set essentials.kit.peasant
+lp group servant permission set essentials.kit.peasant
+
+lp group priest permission set essentials.kit.priest
+lp group bishop permission set essentials.kit.priest false
+lp group bishop permission set essentials.kit.bishop
+
+lp group chief permission set essentials.kit.chief
+lp group count permission set essentials.kit.chief false
+lp group count permission set essentials.kit.count
+lp group lord permission set essentials.kit.count false
+lp group lord permission set essentials.kit.lord
+lp group king permission set essentials.kit.lord false
+lp group king permission set essentials.kit.king
+lp group emperor permission set essentials.kit.king false
+lp group emperor permission set essentials.kit.emperor true
+
+# elf kits
+lp group echild permission set essentials.kit.peasant
+lp group eslave permission set essentials.kit.peasant
+lp group epeasant permission set essentials.kit.peasant
+lp group eservant permission set essentials.kit.peasant
+
+lp group epriest permission set essentials.kit.priest
+lp group ebishop permission set essentials.kit.priest false
+lp group ebishop permission set essentials.kit.bishop
+
+lp group echief permission set essentials.kit.chief
+lp group ecount permission set essentials.kit.chief false
+lp group ecount permission set essentials.kit.count
+lp group elord permission set essentials.kit.count false
+lp group elord permission set essentials.kit.lord
+lp group eking permission set essentials.kit.lord false
+lp group eking permission set essentials.kit.king
+lp group eemperor permission set essentials.kit.king false
+lp group eemperor permission set essentials.kit.emperor true
+
+# dwarf kits
+lp group dchild permission set essentials.kit.peasant
+lp group dslave permission set essentials.kit.peasant
+lp group dpeasant permission set essentials.kit.peasant
+lp group dservant permission set essentials.kit.peasant
+
+lp group dpriest permission set essentials.kit.priest
+lp group dbishop permission set essentials.kit.priest false
+lp group dbishop permission set essentials.kit.bishop
+
+lp group dchief permission set essentials.kit.chief
+lp group dcount permission set essentials.kit.chief false
+lp group dcount permission set essentials.kit.count
+lp group dlord permission set essentials.kit.count false
+lp group dlord permission set essentials.kit.lord
+lp group dking permission set essentials.kit.lord false
+lp group dking permission set essentials.kit.king
+lp group demperor permission set essentials.kit.king false
+lp group demperor permission set essentials.kit.emperor true
+
+
+
+# woodsman perks
+lp group woodsman permission set mcmmo.perks.xp.10percentboost.woodcutting
+lp group ewoodsman permission set mcmmo.perks.xp.10percentboost.woodcutting
+lp group dwoodsman permission set mcmmo.perks.xp.10percentboost.woodcutting
+
+#military hearts
+lp group squire meta set health 22
+lp group knight meta set health 24
+lp group general meta set health 26
+
+lp group esquire meta set health 22
+lp group eknight meta set health 24
+lp group egeneral meta set health 26
+
+lp group dsquire meta set health 22
+lp group dknight meta set health 24
+lp group dgeneral meta set health 26
+
+# extra warps
+lp group merchant permission set essentials.warp.merchant
+lp group guildmaster permission set essentials.warp.merchant false
+lp group guildmaster permission set essentials.warp.guildmaster
+lp group herbalist permission set essentials.warp.herbalist
+
+lp group emerchant permission set essentials.warp.merchant
+lp group eguildmaster permission set essentials.warp.merchant false
+lp group eguildmaster permission set essentials.warp.guildmaster
+lp group eherbalist permission set essentials.warp.herbalist
+
+lp group dmerchant permission set essentials.warp.merchant
+lp group dguildmaster permission set essentials.warp.merchant false
+lp group dguildmaster permission set essentials.warp.guildmaster
+lp group dherbalist permission set essentials.warp.herbalist
 
 
 # staff
@@ -335,11 +462,15 @@ lp group general meta addprefix 40 &3[&bGeneral&3]
 lp group priest meta addprefix 10 &3[&bPriest&3]
 lp group bishop meta addprefix 20 &3[&bBishop&3]
 
+lp group farmhand meta addprefix 10 &3[&bFarmhand&3]
+lp group farmer meta addprefix 20 &3[&bFarmer&3]
+lp group herbalist meta addprefix 30 &3[&bHerbalist&3]
+
 lp group marketseller meta addprefix 10 &3[&bMarketseller&3]
 lp group merchant meta addprefix 20 &3[&bMerchant&3]
 lp group guildmaster meta addprefix 30 &3[&bGuildmaster&3]
 
-lp group cheif meta addprefix 10 &3[&bChief&3]
+lp group chief meta addprefix 10 &3[&bChief&3]
 lp group chieftess meta addprefix 10 &3[&bChieftess&3]
 lp group lord meta addprefix 20 &3[&bLord&3]
 lp group lady meta addprefix 20 &3[&bLady&3]
@@ -367,11 +498,16 @@ lp group dgeneral meta addprefix 40 &4[&cGeneral&4]
 lp group dpriest meta addprefix 10 &4[&cPriest&4]
 lp group dbishop meta addprefix 20 &4[&cBishop&4]
 
+
+lp group dfarmhand meta addprefix 10 &4[&cFarmhand&4]
+lp group dfarmer meta addprefix 20 &4[&cFarmer&4]
+lp group dherbalist meta addprefix 30 &4[&cHerbalist&4]
+
 lp group dmarketseller meta addprefix 10 &4[&cMarketseller&4]
 lp group dmerchant meta addprefix 20 &4[&cMerchant&4]
 lp group dguildmaster meta addprefix 30 &4[&cGuildmaster&4]
 
-lp group dcheif meta addprefix 10 &4[&cChief&4]
+lp group dchief meta addprefix 10 &4[&cChief&4]
 lp group dchieftess meta addprefix 10 &4[&cChieftess&4]
 lp group dlord meta addprefix 20 &4[&cLord&4]
 lp group dlady meta addprefix 20 &4[&cLady&4]
@@ -399,11 +535,15 @@ lp group egeneral meta addprefix 40 &2[&aGeneral&2]
 lp group epriest meta addprefix 10 &2[&aPriest&2]
 lp group ebishop meta addprefix 20 &2[&aBishop&2]
 
+lp group efarmhand meta addprefix 10 &2[&aFarmhand&2]
+lp group efarmer meta addprefix 20 &2[&aFarmer&2]
+lp group eherbalist meta addprefix 30 &2[&aHerbalist&2]
+
 lp group emarketseller meta addprefix 10 &2[&aMarketseller&2]
 lp group emerchant meta addprefix 20 &2[&aMerchant&2]
 lp group eguildmaster meta addprefix 30 &2[&aGuildmaster&2]
 
-lp group echeif meta addprefix 10 &2[&aChief&2]
+lp group echief meta addprefix 10 &2[&aChief&2]
 lp group echieftess meta addprefix 10 &2[&aChieftess&2]
 lp group elord meta addprefix 20 &2[&aLord&2]
 lp group elady meta addprefix 20 &2[&aLady&2]

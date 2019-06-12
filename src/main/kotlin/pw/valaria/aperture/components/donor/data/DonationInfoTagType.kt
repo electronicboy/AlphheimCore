@@ -35,8 +35,6 @@ class DonationInfoTagType : PersistentDataType<ByteArray, DonationInfo> {
         val INSTANCE = DonationInfoTagType()
     }
 
-
-
     override fun getPrimitiveType(): Class<ByteArray> {
         return ByteArray::class.java
     }

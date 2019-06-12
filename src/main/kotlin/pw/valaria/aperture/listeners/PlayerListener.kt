@@ -8,6 +8,7 @@
 
 package pw.valaria.aperture.listeners
 
+import com.destroystokyo.paper.event.entity.PhantomPreSpawnEvent
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.health.HealthHandler
 import pw.valaria.aperture.components.tablist.TabListHandler
@@ -15,6 +16,8 @@ import pw.valaria.aperture.components.usermanagement.UserManager
 import pw.valaria.aperture.components.voting.VoteHandler
 import pw.valaria.aperture.utils.MessageUtil
 import net.md_5.bungee.api.ChatColor
+import org.bukkit.GameMode
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
@@ -74,6 +77,13 @@ class PlayerListener(private val plugin: ApertureCore) : Listener {
                     ":\n $reason"
                 } else ""
 
+    }
+
+    @EventHandler
+    fun phantomsNoCreative(e: PhantomPreSpawnEvent) {
+        if (((e.spawningEntity as? Player)?.gameMode) == GameMode.CREATIVE) {
+            e.isCancelled = true
+        }
     }
 
     @EventHandler
