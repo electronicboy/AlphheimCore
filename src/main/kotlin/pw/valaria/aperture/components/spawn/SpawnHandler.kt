@@ -23,6 +23,7 @@ import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
+import java.lang.IllegalStateException
 
 class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
@@ -80,8 +81,9 @@ class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
 
     internal fun resolveSpawn(player: Player): Location {
-        val worldSpawn = Location(Bukkit.getWorlds()[0], -1245.0, 59.0, -1563.0, -90f, 0f)
-        val selectSpawn = Location(Bukkit.getWorlds()[0], -1245.0, 59.0, -1563.0, -90f, 0f)//Location(Bukkit.getWorlds()[0], 723.0, 6.0, -1692.0, 0f, 0f)
+        val spawnWorld = Bukkit.getWorld("spawn")
+        val worldSpawn = Location(spawnWorld, -1244.5, 59.0, -1563.5, -90f, 0f)
+        val selectSpawn = Location(spawnWorld, -1245.0, 59.0, -1563.0, -90f, 0f)//Location(Bukkit.getWorlds()[0], 723.0, 6.0, -1692.0, 0f, 0f)
 
         return if (player.hasPermission("alphheim.raceselected"))
             worldSpawn
