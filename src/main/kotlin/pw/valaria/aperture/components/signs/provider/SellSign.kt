@@ -7,18 +7,15 @@
 package pw.valaria.aperture.components.signs.provider
 
 import net.milkbowl.vault.economy.Economy
-import org.bukkit.Material
 import org.bukkit.block.Sign
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import org.bukkit.persistence.PersistentDataType
 import pw.valaria.aperture.components.signs.SignHandler
 import pw.valaria.aperture.components.signs.data.ShopSignDataType
 import pw.valaria.aperture.translateColors
 import pw.valaria.aperture.utils.MessageUtil
-import java.math.BigDecimal
 
-class SellSign(handler: SignHandler) : ShopSign(handler, "sell") {
+class SellSign(handler: SignHandler) : ItemShopSign(handler, "sell") {
     override val header = "&6[&cSell&6]".translateColors()
     override fun interact(player: Player, sign: Sign) {
         val ecoReg = handler.plugin.server.servicesManager.getRegistration(Economy::class.java) ?: throw java.lang.IllegalStateException("Vault?!")

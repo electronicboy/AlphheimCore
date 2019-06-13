@@ -16,7 +16,7 @@ import pw.valaria.aperture.components.signs.data.ShopSignDataType
 import pw.valaria.aperture.utils.MessageUtil
 import java.math.BigDecimal
 
-abstract class ShopSign(handler: SignHandler, providerName: String) : AbstractSign( handler, providerName){
+abstract class ItemShopSign(handler: SignHandler, providerName: String) : AbstractSign( handler, providerName){
 
     abstract val header: String
 
