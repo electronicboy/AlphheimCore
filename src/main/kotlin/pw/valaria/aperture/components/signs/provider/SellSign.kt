@@ -66,10 +66,10 @@ class SellSign(handler: SignHandler) : AbstractSign(handler, "sell") {
         val price = BigDecimal(priceLine.removePrefix("$"))
 
 
-        val material: Material = if ("hand".equals(materialLine, true)) {
-            player.inventory.itemInMainHand.type
-        } else {
-            Material.matchMaterial(materialLine) ?: Material.AIR
+        val material: Material = when {
+            "hand".equals(materialLine, true) -> player.inventory.itemInMainHand.type
+            "offhand".equals(materialLine, true) -> player.inventory.itemInOffHand.type
+            else -> Material.matchMaterial(materialLine) ?: Material.AIR
         }
 
         if (price < BigDecimal.ZERO) {

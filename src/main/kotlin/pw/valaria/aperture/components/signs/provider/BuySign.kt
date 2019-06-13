@@ -20,7 +20,8 @@ import java.math.BigDecimal
 
 class BuySign(handler: SignHandler) : AbstractSign(handler, "buy") {
     override fun interact(player: Player, sign: Sign) {
-        val ecoReg = handler.plugin.server.servicesManager.getRegistration(Economy::class.java) ?: throw java.lang.IllegalStateException("Vault?!")
+        val ecoReg = handler.plugin.server.servicesManager.getRegistration(Economy::class.java)
+                ?: throw java.lang.IllegalStateException("Vault?!")
         val eco = ecoReg.provider
 
         val data = sign.persistentDataContainer.get(handler.signKey, ShopSignDataType())
@@ -74,10 +75,10 @@ class BuySign(handler: SignHandler) : AbstractSign(handler, "buy") {
         val price = BigDecimal(priceLine.removePrefix("$"))
 
 
-        val material: Material = if ("hand".equals(materialLine, true)) {
-            player.inventory.itemInMainHand.type
-        } else {
-            Material.matchMaterial(materialLine) ?: Material.AIR
+        val material: Material = when {
+            "hand".equals(materialLine, true) -> player.inventory.itemInMainHand.type
+            "offhand".equals(materialLine, true) -> player.inventory.itemInOffHand.type
+            else -> Material.matchMaterial(materialLine) ?: Material.AIR
         }
 
         if (price < BigDecimal.ZERO) {
