@@ -82,7 +82,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
         val permHandler = handler.plugin.componentHandler.getComponent(PermissionHandler::class.java)
 
         permHandler?.let { permissionHandler ->
-            val group = permHandler.getGroup(rank)
+            val group = permissionHandler.getGroup(rank)
             val targetBukkit = player
 
             val firstSet = !(player.hasPermission("race.human") || player.hasPermission("race.elf") || player.hasPermission("race.dwarf"))
@@ -91,7 +91,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
                 return
             }
 
-            if (permHandler.getBooleanMeta(group, "persistSet")) {
+            if (permissionHandler.getBooleanMeta(group, "persistSet")) {
                 throw IllegalStateException("Group does not persist!")
             }
 
@@ -102,8 +102,8 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
             val groups = user.ownNodes.filter { it.isGroupNode }.map { it.groupName }.toMutableList()
             val toRemove = mutableListOf<String>()
             groups.forEach {
-                val groupIn = permHandler.getGroup(it)
-                if (groupIn == null || !permHandler.getBooleanMeta(groupIn, "persistSet")) toRemove.add(it)
+                val groupIn = permissionHandler.getGroup(it)
+                if (groupIn == null || !permissionHandler.getBooleanMeta(groupIn, "persistSet")) toRemove.add(it)
             }
 
             for (remove in toRemove) {

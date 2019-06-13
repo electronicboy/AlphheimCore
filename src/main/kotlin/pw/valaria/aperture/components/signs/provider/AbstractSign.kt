@@ -21,5 +21,7 @@ abstract class AbstractSign(val handler: SignHandler, public val providerName: S
 
     abstract fun create(player: Player, sign: Sign, lines: List<String>)
 
+    fun remove(player: Player?, sign: Sign) {}
+
     fun getProviderKey() = NamespacedKey(handler.plugin, providerName)
 }

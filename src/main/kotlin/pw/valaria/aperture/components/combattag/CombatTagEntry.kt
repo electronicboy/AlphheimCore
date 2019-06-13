@@ -77,7 +77,7 @@ class CombatTagEntry(val player: Player, duration: Duration) {
         if (bossbarFuture == null) {
             synchronized(this) {
                 if (bossbarFuture == null) {
-                    bossbarFuture = createFuture(key, player);
+                    bossbarFuture = createFuture(key);
                 }
             }
         }
@@ -109,7 +109,7 @@ class CombatTagEntry(val player: Player, duration: Duration) {
         expiry = created + duration.toMillis()
     }
 
-    private fun createFuture(key: NamespacedKey, player: Player): CompletableFuture<BossBar> {
+    private fun createFuture(key: NamespacedKey): CompletableFuture<BossBar> {
         val future = CompletableFuture<BossBar>();
 
         object : BukkitRunnable() {

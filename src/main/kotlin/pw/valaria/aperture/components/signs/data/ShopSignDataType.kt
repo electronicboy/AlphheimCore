@@ -14,6 +14,7 @@ import org.bukkit.persistence.PersistentDataType
 import java.math.BigDecimal
 
 class ShopSignDataType : PersistentDataType<ByteArray, ShopSignDataType.ShopSignData> {
+    private val version = 1
     override fun getPrimitiveType(): Class<ByteArray> = ByteArray::class.java
 
     override fun getComplexType(): Class<ShopSignData> =ShopSignData::class.java
@@ -21,7 +22,7 @@ class ShopSignDataType : PersistentDataType<ByteArray, ShopSignDataType.ShopSign
     override fun toPrimitive(data: ShopSignData, p1: PersistentDataAdapterContext): ByteArray {
         val out = ByteStreams.newDataOutput()
 
-        out.writeInt(1)
+        out.writeInt(version)
         out.writeShort(data.amount.toInt())
         out.writeUTF(data.price.toString())
         out.writeUTF(data.item.key.toString())
@@ -32,6 +33,9 @@ class ShopSignDataType : PersistentDataType<ByteArray, ShopSignDataType.ShopSign
         val input = ByteStreams.newDataInput(stream)
 
         val version = input.readInt()
+        if (version > this.version) {
+            throw IllegalArgumentException("Unsupported data version: $version")
+        }
         val amount = input.readShort()
         val price = input.readUTF()
         val materialKey = input.readUTF()

@@ -201,7 +201,7 @@ class TabListHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
             newPrefix = newPrefix.substring(0, 16)
         }
         team.prefix = newPrefix
-        if (localColor == null && newPrefix != null && prefix.isNotEmpty()) {
+        if (localColor == null && prefix.isNotEmpty()) {
             val components = TextComponent.fromLegacyText(newPrefix)
             val lastComponent = components[components.size-1]
             localColor = ChatColor.valueOf(lastComponent.color.getName().toUpperCase())

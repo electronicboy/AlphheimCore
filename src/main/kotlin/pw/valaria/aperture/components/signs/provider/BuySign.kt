@@ -44,6 +44,9 @@ class BuySign(handler: SignHandler) : ShopSign(handler, "buy") {
                 MessageUtil.sendError(player, "You do not have enough space to purchase this item!")
             } else {
                 val result = eco.withdrawPlayer(player, data.price.toDouble())
+                if (!result.transactionSuccess()) {
+                    player.inventory.remove(itemstack) // What?
+                }
             }
         } else {
             MessageUtil.sendError(player, "You do not have $${data.price}!")

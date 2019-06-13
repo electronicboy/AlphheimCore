@@ -16,12 +16,8 @@ import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.permissions.PermissionHandler
 import pw.valaria.aperture.utils.MessageUtil
-import me.lucko.luckperms.api.Group
 import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.Material
 import org.bukkit.command.CommandSender
-import org.bukkit.inventory.ItemStack
 import java.util.*
 
 @CommandAlias("rank")
@@ -37,12 +33,12 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
     @Subcommand("set|s")
     @CommandPermission("group.mod")
     @CommandCompletion("@players @groups")
-    fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String, @Optional @Default("false") firstSet: Boolean) {
-        setRank(sender, target.player.uniqueId, rank, firstSet)
+    fun setRank(sender: CommandSender, target: OnlinePlayer, @Single rank: String) {
+        setRank(sender, target.player.uniqueId, rank)
 
     }
 
-    fun setRank(sender: CommandSender, target: UUID, @Single rank: String, @Optional @Default("false") firstSet: Boolean) {
+    fun setRank(sender: CommandSender, target: UUID, @Single rank: String) {
         val permHandler = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!
         val group = permHandler.getGroup(rank)
         val targetBukkit = Bukkit.getOfflinePlayer(target)

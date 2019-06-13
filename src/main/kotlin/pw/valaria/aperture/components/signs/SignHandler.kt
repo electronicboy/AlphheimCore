@@ -89,6 +89,10 @@ class SignHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
                 }
             }.runTaskLater(this.plugin, 5L)
         }
+    }
+
+    fun remove(player: Player, sign: Sign) {
 
     }
+
 }

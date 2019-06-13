@@ -90,7 +90,7 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         uuids.forEach { uuid ->
             run {
                 try {
-                    commandRank.setRank(Bukkit.getConsoleSender(), uuid, "default", false)
+                    commandRank.setRank(Bukkit.getConsoleSender(), uuid, "default")
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
@@ -274,10 +274,6 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         }
 
         return user.cachedData.getMetaData(plugin.luckPermsApi.getContextsForPlayer(player))
-
-    }
-
-    fun setRetainedGroup(player: Player, group: Group) {
 
     }
 

@@ -31,7 +31,7 @@ class SellSign(handler: SignHandler) : ShopSign(handler, "sell") {
             amount = data.amount.toInt()
         }
         if (player.inventory.containsAtLeast(itemstack, itemstack.amount)) {
-            val failed = player.inventory.removeItem(itemstack)
+            player.inventory.removeItemAnySlot(itemstack)
             eco.depositPlayer(player, data.price.toDouble())
         } else {
             MessageUtil.sendError(player, "You do not have ${itemstack.amount} ${itemstack.i18NDisplayName ?: itemstack.type.name.toLowerCase()}")

@@ -9,8 +9,10 @@ package pw.valaria.aperture.components.signs.data
 import com.google.common.io.ByteStreams
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataType
+import kotlin.IllegalArgumentException
 
 class RankSignDataType : PersistentDataType<ByteArray, RankSignDataType.RankSignData> {
+    private val version = 1
     companion object {
         @JvmStatic
         val INSTANCE = RankSignDataType()
@@ -26,7 +28,7 @@ class RankSignDataType : PersistentDataType<ByteArray, RankSignDataType.RankSign
 
     override fun toPrimitive(rankSignData: RankSignData, p1: PersistentDataAdapterContext): ByteArray {
         @Suppress("UnstableApiUsage") val bytes = ByteStreams.newDataOutput()
-        bytes.writeInt(1) // version
+        bytes.writeInt(version) // version
         bytes.writeUTF(rankSignData.rank)
         return bytes.toByteArray()
     }
@@ -36,6 +38,9 @@ class RankSignDataType : PersistentDataType<ByteArray, RankSignDataType.RankSign
         val stream = ByteStreams.newDataInput(byteArray)
 
         val version = stream.readInt()
+        if (version > this.version) {
+            throw IllegalArgumentException("Unsupported data version: $version")
+        }
         val rank = stream.readUTF()
 
         return RankSignData(rank)

@@ -11,6 +11,7 @@ import org.bukkit.block.Sign
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.SignChangeEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot
@@ -41,6 +42,10 @@ class SignListener(val handler: SignHandler) : Listener {
         handler.render(sign)?.forEachIndexed() { index, line ->
             e.setLine(index, line)
         }
+    }
+
+    fun blockBreak(e: BlockBreakEvent) {
+
     }
 
     @EventHandler
