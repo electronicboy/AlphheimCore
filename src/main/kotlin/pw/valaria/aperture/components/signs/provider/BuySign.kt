@@ -43,6 +43,9 @@ class BuySign(handler: SignHandler) : AbstractSign(handler, "buy") {
             } else {
                 val result = eco.withdrawPlayer(player, data.price.toDouble())
             }
+        } else {
+            MessageUtil.sendError(player, "You do not have $${data.price}!")
+
         }
     }
 
