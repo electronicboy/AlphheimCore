@@ -60,6 +60,22 @@ class CommandSign(plugin: ApertureCore) : CoreCommand(plugin) {
 
     }
 
+
+    @Subcommand("open")
+    @CommandPermission("group.mod")
+    fun openSign(sender: Player) {
+        val sign = getSign(sender)
+
+        if (sign == null) {
+            MessageUtil.sendError(sender, "You must be facing a sign!")
+            return
+        }
+
+        sender.openSign(sign)
+
+
+    }
+
     private fun getSign(player: Player) : Sign? {
         val block = player.getTargetBlock(mutableSetOf(Material.AIR), 8)
 
