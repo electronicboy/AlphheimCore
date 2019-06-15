@@ -417,6 +417,8 @@ lp group coowner parent add headadmin
 lp group headadmin parent add admin
 lp group admin parent add mod
 
+lp group admin parent add builder
+
 lp group mod meta addsuffix 0 &6[&4Mod&6]
 lp group admin meta addsuffix 0 &6[&4Admin&6]
 lp group headadmin meta addsuffix 0 &6[&4HeadAdmin&6]
@@ -770,6 +772,7 @@ lp group global set essentials.spawn
 lp group global set essentials.warp
 lp group global set essentials.warp.list
 lp group global set alphheim.fun
+lp group global set alphheim.spawn
 
 
 
@@ -981,6 +984,7 @@ lp group admin set essentials.enchantments.unsafe
 lp group admin set essentials.fly
 lp group admin set essentials.gamemode
 lp group admin set essentials.gamemode.others
+lp group admin set essentials.all
 lp group admin set essentials.jail
 lp group admin set essentials.joinfullserver
 lp group admin set essentials.kick
@@ -1007,7 +1011,6 @@ lp group admin set essentials.vanish
 lp group admin set itemizer.*
 lp group admin set lores.admin
 lp group admin set mineresetlite.*
-lp group admin set worldguard.region.bypass.flat_world
-lp group admin set worldguard.region.bypass.world
+lp group admin set worldguard.region.bypass.*
 lp group admin set worldguard.region.wand
 
