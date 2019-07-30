@@ -22,12 +22,11 @@ class MMOCreditsHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     private val validSkills = SkillAPI.getSkills()
 
     init {
-        plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills", {
+        plugin.commandManager.commandCompletions.registerAsyncCompletion("mmoskills") {
             validSkills.map { it.toLowerCase() }
-        })
+        }
 
         CommandCredits(plugin, this)
-
 
     }
 

@@ -39,7 +39,6 @@ public final class ComponentHandler {
 
         boolean isRequired = handlerClass.getAnnotation(Required.class) != null;
 
-
         try {
             Constructor<T> constructor = handlerClass.getConstructor(ApertureCore.class);
 

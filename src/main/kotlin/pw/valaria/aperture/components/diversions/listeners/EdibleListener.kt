@@ -21,7 +21,7 @@ class EdibleListener(val plugin: ApertureCore) : Listener {
     fun onConsume(e: PlayerItemConsumeEvent) {
         Runnable {
             val item = e.item
-            if (item.itemMeta?.displayName?.contains(regex) == true) { // Don't think about it
+            if (item.itemMeta?.displayName?.contains(regex) == true) {
                 plugin.server.scheduler.runTask(plugin, Runnable {
                     e.player.kickPlayer("You have died a dreadful death...")
                 })

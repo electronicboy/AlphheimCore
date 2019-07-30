@@ -38,10 +38,10 @@ class NickListener(private val plugin: ApertureCore) : Listener {
     private fun showCount(player: Player) {
         val runnable = Runnable {
             MySQL.getConnection().use { conn ->
-                conn.prepareStatement("SELECT COUNT(*) AS COUNT FROM player_nicks WHERE REQUESTED iS NOT NULL AND STATUS = 0").use {
-                    it.executeQuery().use {
-                        it.next()
-                        val count = it.getInt("COUNT")
+                conn.prepareStatement("SELECT COUNT(*) AS COUNT FROM player_nicks WHERE REQUESTED iS NOT NULL AND STATUS = 0").use {stmt ->
+                    stmt.executeQuery().use { rs ->
+                        rs.next()
+                        val count = rs.getInt("COUNT")
                         val countString = if (count == 0) {
                             "no"
                         } else {

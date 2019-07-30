@@ -32,7 +32,6 @@ class CombatTagHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener
                         if (!entry.value.update()) {
                             entry.value.remove()
                             activeTimers.remove(entry.key)
-                            return // We're not returning anything kotlin....
                         }
                     }
                 }

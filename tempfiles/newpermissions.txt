@@ -971,11 +971,14 @@ lp group admin set credits.add
 lp group admin set deadbolt.admin.*
 lp group admin set deadbolt.admin.break
 lp group admin set essentials.*
+lp group admin set essentials.keepinv false
+lp group admin set essentials.afk
 lp group admin set essentials.ban
 lp group admin set essentials.ban.notify
 lp group admin set essentials.ban.offline
 lp group admin set essentials.banip
 lp group admin set essentials.broadcast
+lp group admin set essentials.broadcastworld
 lp group admin set essentials.chat.ignoreexempt
 lp group admin set essentials.delhome
 lp group admin set essentials.delwarp
@@ -1011,6 +1014,7 @@ lp group admin set essentials.vanish
 lp group admin set itemizer.*
 lp group admin set lores.admin
 lp group admin set mineresetlite.*
+lp group admin permission set multiverse.exempt.*
 lp group admin set worldguard.region.bypass.*
 lp group admin set worldguard.region.wand
 
