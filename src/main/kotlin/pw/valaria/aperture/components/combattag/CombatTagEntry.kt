@@ -21,9 +21,6 @@ import java.util.concurrent.CompletableFuture
 
 class CombatTagEntry(val player: Player, duration: Duration) {
 
-    constructor(player: Player, duration: Long) : this(player, Duration.ofMillis(duration))
-
-
     private val key = NamespacedKey(JavaPlugin.getProvidingPlugin(this.javaClass), "ct-${player.name}")
     private var created: Long = -1
 
@@ -65,20 +62,16 @@ class CombatTagEntry(val player: Player, duration: Duration) {
     @Synchronized
     fun update(): Boolean {
         if (!isActive()) {
-            synchronized(this) {
-                if (bossbarFuture != null) {
-                    val bossBar = bossbarFuture!!.getNow(null) ?: return true // Don't remove yet
-                    bossBar.removePlayer(player)
-                }
+            if (bossbarFuture != null) {
+                val bossBar = bossbarFuture!!.getNow(null) ?: return true
+                bossBar.removePlayer(player)
             }
-            return false // Allow mid tick removal
+            return false
         }
 
         if (bossbarFuture == null) {
-            synchronized(this) {
-                if (bossbarFuture == null) {
-                    bossbarFuture = createFuture(key);
-                }
+            if (bossbarFuture == null) {
+                bossbarFuture = createFuture(key);
             }
         }
 
