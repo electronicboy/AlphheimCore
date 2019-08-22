@@ -97,6 +97,7 @@ dependencies {
         exclude group: "org.bukkit", module: "bukkit"
         exclude group: "com.turt2live.metrics", module: "MetricsExtension"
     }
+    compile "org.flywaydb:flyway-core:6.0.0-beta"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "net.kyori:text-adapter-bukkit:3.0.1"
     //compile "de.themoep:inventorygui:1.3-snapshot"

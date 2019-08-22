@@ -10,6 +10,7 @@ package pw.valaria.aperture.utils
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import org.flywaydb.core.Flyway
 import pw.valaria.aperture.ApertureCore
 import java.sql.Connection
 import java.util.concurrent.Executors
@@ -23,9 +24,14 @@ object MySQL {
     @Suppress("UNUSED_PARAMETER")
     fun init(plugin: ApertureCore) {
         val config = HikariConfig()
-        config.jdbcUrl = "jdbc:mysql://localhost:3306/core"
-        config.username = "alphheim"
-        config.password = "S92ns902nas"
+        config.jdbcUrl = "jdbc:mysql://localhost:3306/vcore"
+        config.username = "valaria"
+        config.password = "9dmfpae22"
+        // We have this info, might as well use it
+        val load = Flyway.configure().dataSource(config.jdbcUrl, config.username, config.password).load()
+
+        load.migrate();
+
         config.addDataSourceProperty("cachePrepStmts", "true")
         config.addDataSourceProperty("prepStmtCacheSize", "250")
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048")
