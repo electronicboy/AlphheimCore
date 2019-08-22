@@ -36,7 +36,7 @@ object MySQL {
         config.password = "9dmfpae22"
         // We have this info, might as well use it
         LogFactory.setLogCreator(JavaUtilLogCreator())
-        val load = Flyway.configure().dataSource(config.jdbcUrl, config.username, config.password).load()
+        val load = Flyway.configure(this.javaClass.classLoader).dataSource(config.jdbcUrl, config.username, config.password).load()
 
         load.migrate();
 
