@@ -25,6 +25,7 @@ class UserListener(private val userManager: UserManager) : Listener {
 
     @EventHandler
     fun playerJoin(e: PlayerJoinEvent) {
+        e.joinMessage = null
         userManager.plugin.server.scheduler.runTaskLater(userManager.plugin, Runnable {
             if (e.player.isOnline) {
                 userManager.plugin.server.onlinePlayers.forEach {
@@ -38,6 +39,7 @@ class UserListener(private val userManager: UserManager) : Listener {
 
     @EventHandler
     fun playerJoin(e: PlayerQuitEvent) {
+        e.quitMessage = null
         userManager.plugin.server.onlinePlayers.forEach {
             if (it.canSee(e.player)) {
                 it.sendActionBar(MessageUtil.format("-", ChatColor.RED) + "${ChatColor.GREEN} ${e.player.name}")

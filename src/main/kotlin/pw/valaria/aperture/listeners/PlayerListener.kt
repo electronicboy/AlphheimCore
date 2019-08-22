@@ -20,10 +20,7 @@ import org.bukkit.GameMode
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent
-import org.bukkit.event.player.PlayerCommandSendEvent
-import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.event.player.PlayerKickEvent
+import org.bukkit.event.player.*
 import org.bukkit.scheduler.BukkitRunnable
 
 class PlayerListener(private val plugin: ApertureCore) : Listener {
@@ -42,7 +39,6 @@ class PlayerListener(private val plugin: ApertureCore) : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
-        e.joinMessage = null
         val tabListHandler = plugin.componentHandler.getComponent(TabListHandler::class.java)
         if (tabListHandler != null) {
             plugin.server.scheduler.runTaskLater(plugin, Runnable { tabListHandler.setSB(e.player) }, 10L)
