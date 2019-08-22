@@ -11,10 +11,17 @@ package pw.valaria.aperture.utils
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.flywaydb.core.Flyway
+import org.flywaydb.core.api.logging.Log
+import org.flywaydb.core.api.logging.LogCreator
+import org.flywaydb.core.api.logging.LogFactory
 import pw.valaria.aperture.ApertureCore
 import java.sql.Connection
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import org.flywaydb.core.internal.logging.javautil.JavaUtilLogCreator
+import org.flywaydb.core.api.logging.LogFactory.setLogCreator
+
+
 
 object MySQL {
 
@@ -28,6 +35,7 @@ object MySQL {
         config.username = "valaria"
         config.password = "9dmfpae22"
         // We have this info, might as well use it
+        LogFactory.setLogCreator(JavaUtilLogCreator())
         val load = Flyway.configure().dataSource(config.jdbcUrl, config.username, config.password).load()
 
         load.migrate();
