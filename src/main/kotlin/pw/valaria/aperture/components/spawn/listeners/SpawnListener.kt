@@ -48,7 +48,7 @@ class SpawnListener(private val spawnHandler: SpawnHandler) : Listener {
         val bookMeta = e.item!!.itemMeta as BookMeta
         if (!bookMeta.hasTitle() || !bookMeta.title!!.contains("Welcome Guide", true)) return
 
-        if (bookMeta.author == "Alphheim" || bookMeta.author == "Esterwilde") {
+        if (bookMeta.author == "Alphheim" || bookMeta.author == "Esterwilde" || bookMeta.author == "Valaria") {
             e.player.inventory.setItem(e.hand!!, spawnHandler.getBook())
         }
 

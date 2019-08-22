@@ -191,9 +191,9 @@ class ApertureCore : JavaPlugin() {
         }
     }
 
-    // This will probably come in handy...
+    // This will probably come in handy... // Called it
     fun getServerName(): String {
-        return "Esterwilde"
+        return "Valaria"
     }
 
 
