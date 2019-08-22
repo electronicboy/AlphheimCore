@@ -78,7 +78,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "pw.valaria:alphheimcraft:1.14.2-R0.1-SNAPSHOT"
+    compileOnly "pw.valaria:alphheimcraft:1.14.4-R0.1-SNAPSHOT"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "com.zaxxer:HikariCP:2.7.4"

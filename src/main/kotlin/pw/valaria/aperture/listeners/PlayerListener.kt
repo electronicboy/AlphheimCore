@@ -42,6 +42,7 @@ class PlayerListener(private val plugin: ApertureCore) : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
+        e.joinMessage = null
         val tabListHandler = plugin.componentHandler.getComponent(TabListHandler::class.java)
         if (tabListHandler != null) {
             plugin.server.scheduler.runTaskLater(plugin, Runnable { tabListHandler.setSB(e.player) }, 10L)
