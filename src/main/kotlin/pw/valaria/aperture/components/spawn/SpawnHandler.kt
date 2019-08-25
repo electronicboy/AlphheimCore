@@ -8,6 +8,7 @@
 
 package pw.valaria.aperture.components.spawn
 
+import co.aikar.timings.Timings
 import org.bukkit.*
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
@@ -25,19 +26,28 @@ import java.lang.IllegalStateException
 class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     private var spawnBook: ItemStack
+    lateinit var spawn: World
 
     init {
 
-        if (plugin.server.getWorld("spawn") == null) {
+        Bukkit.getScheduler().runTask(plugin) { t ->
 
-            val spawn = WorldCreator("spawn")
-                    .environment(World.Environment.NORMAL)
-                    .type(WorldType.FLAT)
-                    .generateStructures(false)
-                    .createWorld();
+            Timings.reset()
+            var spawnWorld =  plugin.server.getWorld("spawn")
+            if (spawnWorld == null) {
+                spawnWorld = WorldCreator("spawn")
+                        .environment(World.Environment.NORMAL)
+                        .type(WorldType.FLAT)
+                        .generateStructures(false)
+                        .createWorld();
+            }
 
-            spawn!!.setSpawnFlags(false, false) // No mobs/animals
-        }
+            spawnWorld!!
+
+            spawnWorld.setSpawnFlags(false, false) // No mobs/animals
+            spawn = spawnWorld
+
+        };
 
         CommandSpawn(this, plugin)
         SpawnListener(this)
@@ -91,8 +101,8 @@ class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     internal fun resolveSpawn(player: Player): Location {
         val spawnWorld = Bukkit.getWorld("spawn")
-        val worldSpawn = Location(spawnWorld, -1244.5, 59.0, -1563.5, -90f, 0f)
-        val selectSpawn = Location(spawnWorld, -1245.0, 59.0, -1563.0, -90f, 0f)//Location(Bukkit.getWorlds()[0], 723.0, 6.0, -1692.0, 0f, 0f)
+        val worldSpawn = Location(spawnWorld, -1244.5, 4.0, -1563.5, -90f, 0f)
+        val selectSpawn = Location(spawnWorld, -1245.0, 4.0, -1563.0, -90f, 0f)//Location(Bukkit.getWorlds()[0], 723.0, 6.0, -1692.0, 0f, 0f)
 
         return if (player.hasPermission("alphheim.raceselected"))
             worldSpawn
