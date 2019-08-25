@@ -62,8 +62,6 @@ class ApertureCore : JavaPlugin() {
 
 
     override fun onEnable() {
-        loadWorlds()
-
         try {
             registerConsolePerm("group.admin")
             registerConsolePerm("group.mod")
