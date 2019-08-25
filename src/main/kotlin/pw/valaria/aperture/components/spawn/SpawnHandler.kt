@@ -8,16 +8,13 @@
 
 package pw.valaria.aperture.components.spawn
 
+import org.bukkit.*
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.spawn.command.CommandSpawn
 import pw.valaria.aperture.components.spawn.listeners.SpawnListener
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.TeleportUtil
-import org.bukkit.Bukkit
-import org.bukkit.ChatColor
-import org.bukkit.Location
-import org.bukkit.Material
 import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.entity.Player
@@ -30,6 +27,18 @@ class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     private var spawnBook: ItemStack
 
     init {
+
+        if (plugin.server.getWorld("spawn") == null) {
+
+            val spawn = WorldCreator("spawn")
+                    .environment(World.Environment.NORMAL)
+                    .type(WorldType.FLAT)
+                    .generateStructures(false)
+                    .createWorld();
+
+            spawn!!.setSpawnFlags(false, false) // No mobs/animals
+        }
+
         CommandSpawn(this, plugin)
         SpawnListener(this)
 

@@ -11,6 +11,9 @@ package pw.valaria.aperture
 import co.aikar.commands.PaperCommandManager
 import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
+import org.bukkit.World
+import org.bukkit.WorldCreator
+import org.bukkit.WorldType
 import org.bukkit.command.SimpleCommandMap
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.permissions.PermissionAttachment
@@ -59,6 +62,7 @@ class ApertureCore : JavaPlugin() {
 
 
     override fun onEnable() {
+        loadWorlds()
 
         try {
             registerConsolePerm("group.admin")
