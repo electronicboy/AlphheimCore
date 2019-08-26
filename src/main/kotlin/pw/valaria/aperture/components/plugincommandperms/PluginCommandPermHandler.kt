@@ -17,7 +17,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.server.PluginEnableEvent
 
-private val NO_PERM_MESSAGE = "${ChatColor.DARK_GRAY}[${ChatColor.RED}A${ChatColor.DARK_GRAY}] ${ChatColor.DARK_RED}You do not have permission to use this command!"
+private val NO_PERM_MESSAGE = "${ChatColor.DARK_GRAY}[${ChatColor.RED}V${ChatColor.DARK_GRAY}] ${ChatColor.DARK_RED}You do not have permission to use this command!"
 
 class PluginCommandPermHandler(plugin: ApertureCore) : AbstractHandler(plugin), Listener {
 

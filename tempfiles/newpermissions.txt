@@ -683,34 +683,6 @@ lp group global set towny.chat.leave.town
 lp group global set towny.chat.leave.trade
 lp group global set towny.chat.leave.whisper
 
-lp group global set towny.chat.character
-lp group global set towny.chat.global
-lp group global set towny.chat.local
-lp group global set towny.chat.nation
-lp group global set towny.chat.outofcharacter
-lp group global set towny.chat.roleplay
-lp group global set towny.chat.town
-lp group global set towny.chat.trade
-lp group global set towny.chat.whisper
-lp group global set towny.chat.join.character
-lp group global set towny.chat.join.global
-lp group global set towny.chat.join.local
-lp group global set towny.chat.join.nation
-lp group global set towny.chat.join.outofcharacter
-lp group global set towny.chat.join.roleplay
-lp group global set towny.chat.join.town
-lp group global set towny.chat.join.trade
-lp group global set towny.chat.join.whisper
-lp group global set towny.chat.leave.character
-lp group global set towny.chat.leave.global
-lp group global set towny.chat.leave.local
-lp group global set towny.chat.leave.nation
-lp group global set towny.chat.leave.outofcharacter
-lp group global set towny.chat.leave.roleplay
-lp group global set towny.chat.leave.town
-lp group global set towny.chat.leave.trade
-lp group global set towny.chat.leave.whisper
-
 lp group global set mcmmo.commands.ptp false
 lp group global set mcmmo.ability.mining.blastmining.biggerbomb false
 lp group global set mcmmo.ability.mining.blastmining.demolitionexpertise false
@@ -720,7 +692,6 @@ lp group global set bukkit.command.kill false
 lp group global set bukkit.command.msg false
 lp group global set bukkit.command.tell false
 lp group global set bukkit.command.plugins false
-lp group global set bukkit.command.version false
 lp group global set bukkit.command.help false
 lp group global set factions.create
 lp group global set essentials.home.bed false
