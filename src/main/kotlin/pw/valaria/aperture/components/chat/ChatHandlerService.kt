@@ -75,7 +75,8 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
                     Bukkit.getOnlinePlayers().forEach {
                         TextAdapter.sendComponent(it, component)
                     }
-                    TextAdapter.sendComponent(Bukkit.getConsoleSender(), component)
+                    val legacyChat = LegacyComponentSerializer.INSTANCE.serialize(component, '&');
+                    plugin.logger.info("[Chat] $legacyChat".replace("&[0-9a-fA-F]".toRegex(), ""))
                 }
     }
 
