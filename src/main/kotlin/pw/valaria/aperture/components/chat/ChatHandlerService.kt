@@ -59,9 +59,9 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
         val displayNameComp = LegacyComponentSerializer.INSTANCE.deserialize(displayName.translateColors())
 
         var messageComponent = if (sender.hasPermission("aperture.color")) {
-            LegacyComponentSerializer.INSTANCE.deserialize(message.translateColors())
+            LegacyComponentSerializer.INSTANCE.deserialize( "&cmessage".translateColors())
         } else {
-            TextComponent.of(message)
+            TextComponent.of(message).color(TextColor.RED)
         }
 
         TextComponent.builder()
@@ -70,12 +70,12 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
                 .append(displayNameComp)
                 .append(":")
                 .color(TextColor.DARK_GRAY)
-                .append(" ").let {
-                    if (sender.hasPermission("aperture.color")) {
-
+                .append(messageComponent)
+                .build().let {component ->
+                    Bukkit.getOnlinePlayers().forEach {
+                        TextAdapter.sendComponent(it, component)
                     }
-
-
+                    TextAdapter.sendComponent(Bukkit.getConsoleSender(), component)
                 }
     }
 
