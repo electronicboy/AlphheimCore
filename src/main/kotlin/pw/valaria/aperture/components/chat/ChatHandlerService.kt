@@ -33,7 +33,7 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
     //val tempChannel = ChatChannel()
 
     init {
-        Bukkit.getServicesManager().register(Chat::class.java, this, apertureCore, ServicePriority.High);
+        Bukkit.getInternalServices().registerService(Chat::class.java, this, apertureCore)
     }
 
     fun addUser(player: Player) {
@@ -80,6 +80,6 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
     }
 
     override fun onDisable() {
-        Bukkit.getServicesManager().unregister(Chat::class.java, this)
+        Bukkit.getInternalServices().unregisterService(Chat::class.java, this)
     }
 }
