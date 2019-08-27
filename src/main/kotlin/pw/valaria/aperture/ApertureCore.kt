@@ -20,6 +20,7 @@ import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
 import pw.valaria.aperture.commands.*
 import pw.valaria.aperture.componenthandler.ComponentHandler
+import pw.valaria.aperture.components.chat.ChatHandlerService
 import pw.valaria.aperture.components.combat.CombatHandler
 import pw.valaria.aperture.components.combattag.CombatTagHandler
 import pw.valaria.aperture.components.diversions.FunHandler
@@ -128,6 +129,8 @@ class ApertureCore : JavaPlugin() {
         componentHandler.registerComponent(WorldGenHandler::class.java)
         componentHandler.registerComponent(CombatTagHandler::class.java)
         componentHandler.registerComponent(SignHandler::class.java)
+
+        componentHandler.registerComponent(ChatHandlerService::class.java)
     }
 
 
