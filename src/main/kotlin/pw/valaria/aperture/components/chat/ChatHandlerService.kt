@@ -68,7 +68,7 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
                 .content("> ")
                 .color(TextColor.DARK_RED)
                 .append(displayNameComp)
-                .append(":")
+                .append(": ")
                 .color(TextColor.DARK_GRAY)
                 .append(messageComponent)
                 .build().let {component ->
