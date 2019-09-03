@@ -101,11 +101,10 @@ class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     internal fun resolveSpawn(player: Player): Location {
         val spawnWorld = Bukkit.getWorld("spawn")
-        val worldSpawn = Location(spawnWorld, -1244.5, 4.0, -1563.5, -90f, 0f)
         val selectSpawn = Location(spawnWorld, -1245.0, 4.0, -1563.0, -90f, 0f)//Location(Bukkit.getWorlds()[0], 723.0, 6.0, -1692.0, 0f, 0f)
 
         return if (player.hasPermission("alphheim.raceselected"))
-            worldSpawn
+            Bukkit.getWorlds()[0].spawnLocation
         else
             selectSpawn
     }
