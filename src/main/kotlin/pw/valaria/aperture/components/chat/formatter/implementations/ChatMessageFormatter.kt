@@ -8,6 +8,7 @@
 
 package pw.valaria.aperture.components.chat.formatter.implementations
 
+import net.kyori.text.serializer.legacy.LegacyComponentSerializer
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.chat.ChatChannel
 import pw.valaria.aperture.components.chat.formatter.AbstractChatFormatter
@@ -17,15 +18,17 @@ import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
 class ChatMessageFormatter(channel: ChatChannel, plugin: ApertureCore) : AbstractChatFormatter(channel, plugin) {
-    override fun process(sender: Player, message: String, components: ComponentBuilder) {
-        var msg: String = message
+    override fun process(sender: Player, message: String, components: net.kyori.text.TextComponent.Builder) {
 
-        if (sender.hasPermission("alphheim.chat.color")) {
-            msg = ChatColor.translateAlternateColorCodes('&', msg)
+        val bukkitComponent = ChatColor.valueOf(channel.chatColor.name)
+
+        val component = if (sender.hasPermission("alphheim.chat.color")) {
+            LegacyComponentSerializer.INSTANCE.deserialize("&" + bukkitComponent.char + message)
+        } else {
+            net.kyori.text.TextComponent.of(message).color(channel.chatColor)
         }
 
-        components.append(TextComponent.fromLegacyText(msg))
-
+        component.append(component)
 
     }
 

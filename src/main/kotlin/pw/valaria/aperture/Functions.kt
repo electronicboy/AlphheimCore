@@ -8,6 +8,7 @@
 
 package pw.valaria.aperture
 
+import net.kyori.text.format.TextColor
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
@@ -70,4 +71,8 @@ fun Duration.toRemainingString(showMillis: Boolean = false): String {
 
 fun String.translateColors(): @NonNull String {
     return ChatColor.translateAlternateColorCodes('&', this)
+}
+
+private fun ChatColor.toColor(): TextColor {
+    return TextColor.valueOf(this.name.toUpperCase())
 }

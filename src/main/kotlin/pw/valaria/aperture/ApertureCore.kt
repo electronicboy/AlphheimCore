@@ -84,10 +84,8 @@ class ApertureCore : JavaPlugin() {
             commandManager.enableUnstableAPI("help")
 
             val commandLore = CommandLore()
-
             val commandMap = (Bukkit.getCommandMap() as SimpleCommandMap)
             commandMap.getCommand("lore")?.unregister(Bukkit.getCommandMap())
-
             commandMap.register("lore", name.toLowerCase(), commandLore)
 
             registerCommands()

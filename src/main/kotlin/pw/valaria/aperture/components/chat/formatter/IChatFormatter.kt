@@ -8,11 +8,11 @@
 
 package pw.valaria.aperture.components.chat.formatter
 
-import net.md_5.bungee.api.chat.ComponentBuilder
+import net.kyori.text.TextComponent
 import org.bukkit.entity.Player
 
 @FunctionalInterface
 interface IChatFormatter {
 
-    fun process(sender: Player, message: String, components: ComponentBuilder)
+    fun process(sender: Player, message: String, components: TextComponent.Builder)
 }

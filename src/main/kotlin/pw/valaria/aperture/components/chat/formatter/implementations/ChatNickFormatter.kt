@@ -8,6 +8,7 @@
 
 package pw.valaria.aperture.components.chat.formatter.implementations
 
+import net.kyori.text.serializer.legacy.LegacyComponentSerializer
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.chat.ChatChannel
 import pw.valaria.aperture.components.chat.formatter.AbstractChatFormatter
@@ -18,28 +19,25 @@ import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.entity.Player
 
 class ChatNickFormatter(channel: ChatChannel, plugin: ApertureCore) : AbstractChatFormatter(channel, plugin) {
-
-    private val permissionHandler = plugin.componentHandler.getComponentOrThrow(PermissionHandler::class.java)
-    private val userManager = plugin.componentHandler.getComponentOrThrow(UserManager::class.java)
-
-
-    override fun process(sender: Player, message: String, components: ComponentBuilder) {
+    override fun process(sender: Player, message: String, components: net.kyori.text.TextComponent.Builder) {
         val prefix: String? = permissionHandler.getPlayerPrefix(sender)
         val suffix: String? = permissionHandler.getPlayerSuffix(sender)
 
         if (prefix != null) {
-            components.append(TextComponent.fromLegacyText(prefix))
+            components.append(LegacyComponentSerializer.INSTANCE.deserialize(prefix))
         }
 
         val user = userManager.getUser(sender)
         // Just because I'd rather not have null show in chat...
         val userName = user.getNickname()
 
-        components.append(TextComponent.fromLegacyText(userName))
+        components.append(LegacyComponentSerializer.INSTANCE.deserialize(userName))
 
         if (suffix != null) {
-            components.append(TextComponent.fromLegacyText(suffix))
+            components.append(LegacyComponentSerializer.INSTANCE.deserialize(suffix))
         }
-
     }
+
+    private val permissionHandler = plugin.componentHandler.getComponentOrThrow(PermissionHandler::class.java)
+    private val userManager = plugin.componentHandler.getComponentOrThrow(UserManager::class.java)
 }

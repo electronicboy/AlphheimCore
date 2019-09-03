@@ -8,6 +8,7 @@
 
 package pw.valaria.aperture.components.chat
 
+import net.kyori.text.Component
 import net.kyori.text.TextComponent
 import net.kyori.text.adapter.bukkit.TextAdapter
 import net.kyori.text.format.TextColor
@@ -27,7 +28,7 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
 
     var useFallback = true;
     var userManager: UserManager = apertureCore.componentHandler.getComponentOrThrow(UserManager::class.java)
-    val channels: Map<String, ChatChannel> = mutableMapOf()
+    val channels: Map<String, ChatChannel> = LinkedHashMap()
     val users: Set<AlphheimUser> = linkedSetOf()
     //val tempChannel = GlobalChatChannel("OOC", ChatColor.RED, "OOC")
     //val tempChannel = ChatChannel()
@@ -49,8 +50,23 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
     override fun process(sender: Player, message: String) {
         if (useFallback) {
             doFallbackChat(sender, message)
-            return;
+            if (sender.name != "electronicboy") return;
         }
+
+         doChat(sender, message)
+
+    }
+
+    private fun doChat(sender: Player, message: String) {
+        val um = plugin.componentHandler.getComponent(UserManager::class.java)
+        if (um == null) {
+            doFallbackChat(sender, message);
+            return
+        }
+
+        val user = um.getUser(sender.uniqueId)
+
+        var channel = user.activeChannel
 
     }
 
@@ -58,8 +74,8 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
         val displayName = sender.displayName ?: sender.name
         val displayNameComp = LegacyComponentSerializer.INSTANCE.deserialize(displayName.translateColors())
 
-        var messageComponent = if (sender.hasPermission("aperture.color")) {
-            LegacyComponentSerializer.INSTANCE.deserialize( "&cmessage".translateColors())
+        val messageComponent = if (sender.hasPermission("aperture.color")) {
+            LegacyComponentSerializer.INSTANCE.deserialize( "&c$message".translateColors())
         } else {
             TextComponent.of(message).color(TextColor.RED)
         }

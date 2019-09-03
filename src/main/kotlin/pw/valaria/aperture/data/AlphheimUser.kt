@@ -14,6 +14,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
+import pw.valaria.aperture.components.chat.ChatChannel
 import java.sql.Statement
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -30,7 +31,7 @@ class AlphheimUser(val uuid: UUID, @Suppress("UNUSED_PARAMETER") isNPC: Boolean 
         private set
     private var nickname: String? = null
 
-    var activeChannel: String? = null
+    var activeChannel: ChatChannel? = null
     var channelData: Map<String, ChatStatus> = mutableMapOf()
 
     private val cooldowns = HashMap<String, Long>()

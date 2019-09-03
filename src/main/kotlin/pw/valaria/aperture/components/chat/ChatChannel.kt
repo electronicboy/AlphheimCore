@@ -8,20 +8,20 @@
 
 package pw.valaria.aperture.components.chat
 
+import net.kyori.text.TextComponent
+import net.kyori.text.format.TextColor
 import pw.valaria.aperture.components.chat.formatter.IChatFormatter
 import pw.valaria.aperture.data.AlphheimUser
-import net.md_5.bungee.api.ChatColor
-import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.entity.Player
 import java.util.*
 
-abstract class ChatChannel(val name: String, val chatColor: ChatColor, val shortName: String, @Suppress("UNUSED_PARAMETER") chatHandler: ChatHandlerService) {
+abstract class ChatChannel(val name: String, val chatColor: TextColor, val shortName: String, @Suppress("UNUSED_PARAMETER") chatHandler: ChatHandlerService) {
 
     var chatFormatter = LinkedList<IChatFormatter>()
     val chatMembers = HashMap<AlphheimUser, ChatStatus>()
 
     fun processChat(sender: Player, message: String) {
-        val components = ComponentBuilder("")
+        val components = TextComponent.builder();
         chatFormatter.forEach { it.process(sender, message, components) }
 
 
@@ -32,7 +32,10 @@ abstract class ChatChannel(val name: String, val chatColor: ChatColor, val short
     abstract fun join(user: AlphheimUser, force: Boolean = false): Boolean
     abstract fun leave(user: AlphheimUser, force: Boolean = false): Boolean
 
-    abstract fun sendChat(components: ComponentBuilder)
+    abstract fun canChat(sender: Player): Boolean
+    open fun isDefault(): Boolean {
+        return false
+    }
 
 
 }
