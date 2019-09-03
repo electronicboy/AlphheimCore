@@ -6,6 +6,7 @@
 
 package pw.valaria.aperture.commands
 
+import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandCompletion
 import co.aikar.commands.annotation.CommandPermission
 import org.bukkit.Bukkit
@@ -16,6 +17,7 @@ import pw.valaria.aperture.utils.MessageUtil
 class CommandWTP(plugin: ApertureCore) : CoreCommand(plugin) {
 
 
+    @CommandAlias("wtp")
     @CommandPermission("aperture.wtp")
     @CommandCompletion("%worlds")
     fun wtp(sender: Player, target: String) {

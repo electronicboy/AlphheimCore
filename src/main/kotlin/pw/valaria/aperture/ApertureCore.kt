@@ -89,6 +89,7 @@ class ApertureCore : JavaPlugin() {
             commandMap.getCommand("lore")?.unregister(Bukkit.getCommandMap())
             commandMap.register("lore", name.toLowerCase(), commandLore)
 
+            globalCompletions()
             registerCommands()
             registerListeners()
             enableComponents()
