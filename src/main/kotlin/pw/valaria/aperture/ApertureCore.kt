@@ -46,6 +46,7 @@ import pw.valaria.aperture.listeners.PlayerListener
 import pw.valaria.aperture.listeners.SignListener
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.MySQL
+import kotlin.streams.toList
 
 
 class ApertureCore : JavaPlugin() {
@@ -137,12 +138,20 @@ class ApertureCore : JavaPlugin() {
         CommandSign(this)
         CommandEnderChest(this)
         CommandGC(this)
+        CommandWTP(this)
     }
 
     private fun registerListeners() {
         PlayerListener(this)
         SignListener(this)
         PingListener(this)
+    }
+
+    private fun globalCompletions() {
+        commandManager.commandCompletions.registerAsyncCompletion("worlds") { _ ->
+            Bukkit.getWorlds().stream().map { it.name }.toList()
+
+        }
     }
 
 
