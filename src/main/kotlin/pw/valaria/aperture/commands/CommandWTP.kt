@@ -19,7 +19,7 @@ class CommandWTP(plugin: ApertureCore) : CoreCommand(plugin) {
 
     @CommandAlias("wtp")
     @CommandPermission("aperture.wtp")
-    @CommandCompletion("%worlds")
+    @CommandCompletion("@worlds")
     fun wtp(sender: Player, target: String) {
         val world = Bukkit.getWorld(target)
         if (world == null) {
