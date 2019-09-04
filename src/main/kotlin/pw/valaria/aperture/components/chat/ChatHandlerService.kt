@@ -96,7 +96,4 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
                 }
     }
 
-    override fun onDisable() {
-        Bukkit.getInternalServices().unregisterService(Chat::class.java, this)
-    }
 }
