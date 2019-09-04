@@ -140,6 +140,7 @@ class ApertureCore : JavaPlugin() {
         CommandEnderChest(this)
         CommandGC(this)
         CommandWTP(this)
+        CommandSpeed(this)
     }
 
     private fun registerListeners() {
