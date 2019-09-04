@@ -96,4 +96,7 @@ class ChatHandlerService(apertureCore: ApertureCore) : AbstractHandler(apertureC
                 }
     }
 
+    override fun onDisable() {
+    }
+
 }
