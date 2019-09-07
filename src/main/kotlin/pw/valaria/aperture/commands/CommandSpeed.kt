@@ -20,7 +20,7 @@ class CommandSpeed(plugin: ApertureCore) : CoreCommand(plugin) {
         if (sender.isFlying) {
             MessageUtil.sendInfo(sender, "current fly speed is ${sender.flySpeed * 10}")
         } else {
-            MessageUtil.sendInfo(sender, "current walking speed is ${sender.flySpeed * 10}")
+            MessageUtil.sendInfo(sender, "current walking speed is ${sender.walkSpeed * 10}")
         }
     }
 
