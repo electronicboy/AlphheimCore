@@ -20,6 +20,7 @@ import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
 import pw.valaria.aperture.commands.*
 import pw.valaria.aperture.componenthandler.ComponentHandler
+import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.chat.ChatHandlerService
 import pw.valaria.aperture.components.combat.CombatHandler
 import pw.valaria.aperture.components.combattag.CombatTagHandler

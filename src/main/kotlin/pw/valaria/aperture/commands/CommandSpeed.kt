@@ -18,9 +18,9 @@ class CommandSpeed(plugin: ApertureCore) : CoreCommand(plugin) {
     @CommandPermission("aperture.speed")
     fun speed(sender: Player) {
         if (sender.isFlying) {
-            MessageUtil.sendInfo(sender, "current fly speed is ${sender.flySpeed}")
+            MessageUtil.sendInfo(sender, "current fly speed is ${sender.flySpeed * 10}")
         } else {
-            MessageUtil.sendInfo(sender, "current walking speed is ${sender.flySpeed}")
+            MessageUtil.sendInfo(sender, "current walking speed is ${sender.flySpeed * 10}")
         }
     }
 
@@ -28,13 +28,13 @@ class CommandSpeed(plugin: ApertureCore) : CoreCommand(plugin) {
     @CommandAlias("speed")
     @CommandPermission("aperture.speed")
     fun speed(sender: Player, value: Float) {
-        var target: Float = value;
+        var target: Float = value / 10;
         if (sender.isFlying) {
             sender.flySpeed = target
-            MessageUtil.sendInfo(sender, "current fly speed is now ${sender.flySpeed}")
+            MessageUtil.sendInfo(sender, "current fly speed is now ${sender.flySpeed * 10}")
         } else {
             sender.walkSpeed = target
-            MessageUtil.sendInfo(sender, "current walking speed is now ${sender.flySpeed}")
+            MessageUtil.sendInfo(sender, "current walking speed is now ${sender.walkSpeed * 10}")
         }
     }
 }
