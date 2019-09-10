@@ -211,5 +211,8 @@ class ApertureCore : JavaPlugin() {
         return "Valaria"
     }
 
+    fun getInstanceName(): String {
+        return System.getProperty("serverName", "Valaria")
+    }
 
 }

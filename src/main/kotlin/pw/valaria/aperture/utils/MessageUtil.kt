@@ -22,7 +22,7 @@ import java.time.Duration
 object MessageUtil {
     private val default = ChatColor.GREEN
     private val error = ChatColor.DARK_RED
-    private val prefix = "${ChatColor.DARK_GRAY}[${ChatColor.RED}E${ChatColor.DARK_GRAY}]"
+    private val prefix = "${ChatColor.DARK_GRAY}[${ChatColor.RED}V${ChatColor.DARK_GRAY}]"
 
     private fun send(player: CommandSender, s: String) {
         player.sendMessage("$prefix $s")
@@ -58,7 +58,7 @@ object MessageUtil {
         val toSend = TextComponent.builder()
                 .content("[")
                 .color(TextColor.DARK_GRAY)
-                .append(TextComponent.of("E").color(TextColor.RED))
+                .append(TextComponent.of("V").color(TextColor.RED))
                 .append(TextComponent.of("]").color(TextColor.DARK_GRAY))
                 .append(TextComponent.of(" ").color(defaultColor))
                 .append(component)
@@ -70,16 +70,31 @@ object MessageUtil {
         val seconds = (duration.toMillis() / 1000) % 60
         val minutes = duration.toMinutes() % 60
         val hours = duration.toHours() % 24
+        val days = hours / 24
 
         val sb = StringBuilder("")
         var hasAppended = false
+        if (days != 0L) {
+            sb.append("$days day")
+            if (days > 1) {
+                sb.append("s")
+            }
+            hasAppended = true
+        }
         if (hours != 0L) {
+            if (hasAppended) sb.append(", ")
             sb.append("$hours hour")
+            if (hours > 1) {
+                sb.append("s")
+            }
             hasAppended = true
         }
         if (minutes != 0L || hasAppended) {
             if (hasAppended) sb.append(", ")
-            sb.append("$minutes minutes")
+            sb.append("$minutes minute")
+            if (minutes > 1) {
+                sb.append("s")
+            }
             hasAppended = true
         }
         if (seconds != 0L || hasAppended || (!hasAppended && seconds == 0L)) {
