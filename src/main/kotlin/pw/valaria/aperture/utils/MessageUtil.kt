@@ -70,7 +70,7 @@ object MessageUtil {
         val seconds = (duration.toMillis() / 1000) % 60
         val minutes = duration.toMinutes() % 60
         val hours = duration.toHours() % 24
-        val days = hours / 24
+        val days = duration.toHours() / 24
 
         val sb = StringBuilder("")
         var hasAppended = false
