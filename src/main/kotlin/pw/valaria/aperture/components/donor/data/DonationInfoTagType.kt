@@ -7,8 +7,6 @@
 package pw.valaria.aperture.components.donor.data
 
 import com.google.common.io.ByteStreams
-import io.netty.buffer.ByteBuf
-import io.netty.buffer.ByteBufUtil
 import org.bukkit.NamespacedKey
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataType

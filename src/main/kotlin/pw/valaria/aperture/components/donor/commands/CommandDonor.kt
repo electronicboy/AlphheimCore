@@ -15,17 +15,13 @@ import co.aikar.commands.bukkit.contexts.OnlinePlayer
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.command.CommandSender
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.donor.DonorManager
-import pw.valaria.aperture.components.donor.data.DonationInfo
 import pw.valaria.aperture.components.donor.data.DonationInfoTagType
 import pw.valaria.aperture.components.donor.handlers.IDonorHandler
 import pw.valaria.aperture.utils.MessageUtil
-import java.lang.ClassCastException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -76,23 +72,9 @@ class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : Co
             return
         }
 
-        val container = itemMeta.persistentDataContainer.has(DonationInfoTagType.key, DonationInfoTagType())
-        var wasLegacy = false
-
-        val donatorInfo = if (container) {
-            itemMeta.persistentDataContainer.get(DonationInfoTagType.key, DonationInfoTagType())
-        } else  {
-            val info = checkNbt(player, bukkitStack)
-            if (info != null) {
-                wasLegacy = true
-            }
-            info // "return"
-        }
+        val donatorInfo = itemMeta.persistentDataContainer.get(DonationInfoTagType.key, DonationInfoTagType())
 
         if (donatorInfo != null) {
-            if (wasLegacy) {
-                // TODO: handle conversion?
-            }
 
             MessageUtil.sendInfo(player, "Transaction ID: + " + donatorInfo.transaction)
 
@@ -121,50 +103,6 @@ class CommandDonor(plugin: ApertureCore, private val manager: DonorManager) : Co
 
 
 
-    }
-
-    fun checkNbt(player: Player, bukkitStack: ItemStack): DonationInfo? {
-
-        val vanillaStack = CraftItemStack.asNMSCopy(bukkitStack)
-
-        val tag = vanillaStack.tag ?: return null
-
-        MessageUtil.sendInfo(player, "Fetching information....")
-
-        var purchaser: UUID? = null
-        var timestamp: Long = -1
-        var transaction: String? = null
-
-        try {
-            transaction = tag.getString("transaction")
-        } catch (ex: ClassCastException) {} // suppress
-
-        if (tag.hasKey("transaction")) {
-            MessageUtil.sendInfo(player, "Transaction ID: ${tag.getString("transaction")}")
-        }
-
-        if (tag.hasKey("timestamp")) {
-            try {
-                timestamp = tag.getLong("timestamp")
-            } catch (ex: Exception) {
-                MessageUtil.sendError(player, "Error occurred while fetching time")
-            }
-        }
-
-        if (tag.hasKey("purchaser")) {
-            try {
-                val stringUUID = tag.getString("purchaser")
-                purchaser = UUID.fromString(stringUUID)
-            } catch (ex: Exception) {
-                MessageUtil.sendError(player, "Error occurred while fetching purchaser")
-            }
-        }
-
-        if (transaction != null && transaction.isNotEmpty() && timestamp != -1L && purchaser != null) {
-            return DonationInfo(purchaser, timestamp, transaction)
-        }
-
-        return null
     }
 
     @HelpCommand
