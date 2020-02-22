@@ -28,7 +28,7 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
 
 
     //@Subcommand("other")
-    @CommandAlias("spawnother")
+    @CommandAlias("spawn")
     @CommandPermission("alphheim.spawn.other")
     @CommandCompletion("@players")
     fun spawn(self: CommandSender, target: OnlinePlayer?) {
@@ -39,11 +39,13 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
         }
     }
 
+    /*
     @Subcommand("book")
     @CommandPermission("group.developer")
     fun getBook(sender: Player) {
         sender.inventory.addItem(spawnHandler.getBook())
     }
+     */
 
     @HelpCommand
     fun unknownCommand(help: CommandHelp) {
