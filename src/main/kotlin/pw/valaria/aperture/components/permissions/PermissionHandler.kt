@@ -248,4 +248,9 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         user.cachedData.invalidate();
     }
 
+    fun addGroup(target: UUID, group: Group) {
+        val user = getUser(target, true)!!
+        user.data().add(luckPerms.nodeBuilderRegistry.forInheritance().group(group).build())
+    }
+
 }

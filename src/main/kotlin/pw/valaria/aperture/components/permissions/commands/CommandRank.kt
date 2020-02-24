@@ -66,6 +66,9 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
         for (remove in toRemove) {
             permHandler.unsetPermission(target, remove)
         }
+
+        permHandler.addGroup(target, group)
+
         permHandler.saveUser(target).thenRunAsync {permHandler.refreshForUserIfOnline(target)} .thenRunAsync {
             MessageUtil.sendInfo(sender, "Added group ${group.name} to ${targetBukkit.name}; All set: ${permHandler.getOwnGroupsForOfflineUser(target).map { it.name }}")
         }
