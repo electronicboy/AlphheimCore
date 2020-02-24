@@ -88,7 +88,7 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
     fun getGroups(): Set<String> {
         return luckPerms.groupManager.loadedGroups.filter {
-            it.cachedData.getMetaData(QueryOptions.defaultContextualOptions()).meta.getOrDefault("persistSet", false) == true;
+            it.cachedData.getMetaData(QueryOptions.nonContextual()).meta.getOrDefault("persistSet", false) == true;
         }.map { it.name }.toHashSet()
     }
 
