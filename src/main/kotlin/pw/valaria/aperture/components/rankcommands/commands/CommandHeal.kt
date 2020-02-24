@@ -90,7 +90,8 @@ class CommandHeal(plugin: ApertureCore) : CoreCommand(plugin) {
             target != null -> {
                 target.player.foodLevel = 20
                 target.player.saturation = 20f
-                MessageUtil.sendInfo(sender, "You feel as if you've had the feast of a king!")
+                MessageUtil.sendInfo(target.player, "You feel as if you've had the feast of a king!")
+                MessageUtil.sendInfo(sender, "You have fed ${target.player.name}!")
             }
             sender is Player -> {
                 sender.foodLevel = 20
