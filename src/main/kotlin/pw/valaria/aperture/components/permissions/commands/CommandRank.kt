@@ -12,6 +12,7 @@ import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.annotation.Optional
 import co.aikar.commands.bukkit.contexts.OnlinePlayer
+import net.luckperms.api.model.group.Group
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.permissions.PermissionHandler
@@ -39,7 +40,7 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
     }
 
     fun setRank(sender: CommandSender, target: UUID, @Single rank: String) {
-        val permHandler = plugin.componentHandler.getComponent(PermissionHandler::class.java)!!
+        val permHandler = plugin.componentHandler.getComponentOrThrow(PermissionHandler::class.java)
         val group = permHandler.getGroup(rank)
         val targetBukkit = Bukkit.getOfflinePlayer(target)
 
@@ -55,51 +56,30 @@ class CommandRank(private val plugin: ApertureCore) : CoreCommand(plugin) {
         }
 
 
-        var user = plugin.luckPermsApi.getUser(target)
-        if (user == null) {
-            MessageUtil.sendError(sender, "Error occured fetching profile for ${targetBukkit.uniqueId}|${targetBukkit.name}")
-            //return TEMP DISABLE...
-        }
+        val groupsForOfflineUser = permHandler.getOwnGroupsForOfflineUser(target)
 
-        if (user == null) {
-            user = plugin.luckPermsApi.userManager.loadUser(target).join()
-        }
-
-        if (user == null) {
-            MessageUtil.sendError(sender, "Still missing?!")
-            return
-        }
-
-        val groups = user.ownNodes.filter { it.isGroupNode }.map { it.groupName }.toMutableList()
-        val toRemove = mutableListOf<String>()
-        groups.forEach {
-            val groupIn = permHandler.getGroup(it)
-            if (groupIn == null || !permHandler.getBooleanMeta(groupIn, "persistSet")) toRemove.add(it)
+        val toRemove = mutableListOf<Group>()
+        groupsForOfflineUser.forEach {
+            if (!permHandler.getBooleanMeta(it, "persistSet")) toRemove.add(it)
         }
 
         for (remove in toRemove) {
-            user.unsetPermission(plugin.luckPermsApi.nodeFactory.makeGroupNode(remove).build())
+            permHandler.unsetPermission(target, remove)
+        }
+        permHandler.saveUser(target).thenRunAsync {permHandler.refreshForUserIfOnline(target)} .thenRunAsync {
+            MessageUtil.sendInfo(sender, "Added group ${group.name} to ${targetBukkit.name}; All set: ${permHandler.getOwnGroupsForOfflineUser(target).map { it.name }}")
         }
 
-        user.setPermission(plugin.luckPermsApi.nodeFactory.makeGroupNode(group).build())
-        user.primaryGroup = group.name
 
-        plugin.luckPermsApi.userManager.saveUser(user).thenRunAsync { user.refreshCachedData() }.thenRunAsync {
-            MessageUtil.sendInfo(sender, "Added group ${group.name} to ${user.name}; All set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
-        }
     }
 
     @CommandPermission("group.mod")
     @Subcommand("inspect|info|i")
     @CommandCompletion("@players")
     fun inspect(sender: CommandSender, target: OnlinePlayer) {
-        val user = plugin.luckPermsApi.getUser(target.player.uniqueId)
-        if (user == null) {
-            MessageUtil.sendError(sender, "Error occured fetching profile for ${target.player.name}")
-            return
-        }
+        val permHandler = plugin.componentHandler.getComponentOrThrow(PermissionHandler::class.java)
 
-        MessageUtil.sendInfo(sender, "groups set for user set: ${user.ownNodes.filter { it.isGroupNode }.map { it.groupName }}")
+        MessageUtil.sendInfo(sender, "groups set for user set: ${permHandler.getOwnGroupsForOfflineUser(target.player.uniqueId).map { it.name }}")
     }
 
     @HelpCommand

@@ -39,16 +39,17 @@ class CommandSpawn(private val spawnHandler: SpawnHandler, private val plugin: A
         }
     }
 
+
     /*
     @Subcommand("book")
     @CommandPermission("group.developer")
     fun getBook(sender: Player) {
         sender.inventory.addItem(spawnHandler.getBook())
     }
-     */
 
     @HelpCommand
     fun unknownCommand(help: CommandHelp) {
         help.showHelp()
     }
+     */
 }

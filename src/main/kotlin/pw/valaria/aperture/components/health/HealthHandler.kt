@@ -13,6 +13,7 @@ import pw.valaria.aperture.components.AbstractHandler
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
+import pw.valaria.aperture.components.permissions.PermissionHandler
 
 class HealthHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 
@@ -37,11 +38,8 @@ class HealthHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     }
 
     private fun workHealth(player: Player): Double {
-        val user = this.plugin.luckPermsApi.userManager.getUser(player.uniqueId) ?: plugin.luckPermsApi.userManager.loadUser(player.uniqueId).join()
-        val contextsForPlayer = plugin.luckPermsApi.getContextsForPlayer(player)
-
-        val health = user.cachedData.getMetaData(contextsForPlayer).meta.getOrDefault("health", "20")
-        return health.toDouble()
+        val permissionHandler = this.plugin.componentHandler.getComponent(PermissionHandler::class.java)!!;
+        return permissionHandler.getLongMetaCached(player, "Health", 20).toDouble();
     }
 
 }

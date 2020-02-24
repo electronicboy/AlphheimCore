@@ -9,18 +9,13 @@
 package pw.valaria.aperture
 
 import co.aikar.commands.PaperCommandManager
-import me.lucko.luckperms.api.LuckPermsApi
 import org.bukkit.Bukkit
-import org.bukkit.World
-import org.bukkit.WorldCreator
-import org.bukkit.WorldType
 import org.bukkit.command.SimpleCommandMap
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.permissions.PermissionAttachment
 import org.bukkit.plugin.java.JavaPlugin
 import pw.valaria.aperture.commands.*
 import pw.valaria.aperture.componenthandler.ComponentHandler
-import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.chat.ChatHandlerService
 import pw.valaria.aperture.components.combat.CombatHandler
 import pw.valaria.aperture.components.combattag.CombatTagHandler
@@ -57,8 +52,6 @@ class ApertureCore : JavaPlugin() {
     lateinit var commandManager: PaperCommandManager
     var commandLore: CommandLore? = null
 
-    lateinit var luckPermsApi: LuckPermsApi
-
     private var consolePerms = mutableListOf<PermissionAttachment>()
 
     public val serverIntName = lazy { System.getProperty("serverName")}
@@ -72,10 +65,8 @@ class ApertureCore : JavaPlugin() {
 
             MySQL.init(this)
 
-            val provider = Bukkit.getServicesManager().getRegistration(LuckPermsApi::class.java)
-            if (provider != null) {
-                luckPermsApi = provider.provider
-            } else {
+            val luckPerms = Bukkit.getPluginManager().getPlugin("LuckPerms");
+            if (luckPerms == null) {
                 Bukkit.setWhitelist(true)
                 logger.warning("Missing permission system?!!")
             }

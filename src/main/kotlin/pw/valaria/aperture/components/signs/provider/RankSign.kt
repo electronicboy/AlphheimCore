@@ -7,7 +7,8 @@
 package pw.valaria.aperture.components.signs.provider
 
 import com.google.common.cache.CacheBuilder
-import me.lucko.luckperms.api.Contexts
+import net.luckperms.api.model.group.Group
+import net.luckperms.api.query.QueryOptions
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -26,20 +27,20 @@ import java.util.concurrent.TimeUnit
 
 class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
     override fun create(player: Player, sign: Sign, lines: List<String>) {
-        val lpapi = handler.plugin.luckPermsApi;
 
         if (!player.hasPermission("group.admin")) return
 
         val rankName = lines[1]
-        val group = lpapi.getGroup(rankName)
+        val permissionHandler = handler.plugin.componentHandler.getComponentOrThrow(PermissionHandler::class.java)
+        val group = permissionHandler.getGroup(rankName)
         if (group == null) {
             MessageUtil.sendError(player, "This group does not exist?")
             return
         }
 
-        val metadata = group.cachedData.getMetaData(Contexts.global())
+        val metadata = group.cachedData.getMetaData(QueryOptions.defaultContextualOptions())
 
-        val persistMeta = metadata.meta["persistSet"]
+        val persistMeta = metadata.getMetaValue("persistSet")
 
         if (persistMeta == null || persistMeta.toBoolean()) {
             MessageUtil.sendError(player, "Unsupported group! (Does not persist?)")
@@ -96,24 +97,17 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
             }
 
 
-            var user = handler.plugin.luckPermsApi.getUser(player.uniqueId)
-                    ?: throw IllegalStateException("Offline player interacted with sign?! ${targetBukkit.uniqueId}|${targetBukkit.name}")
+            val groupsForOfflineUser = permHandler.getOwnGroupsForOfflineUser(player.uniqueId)
 
-            val groups = user.ownNodes.filter { it.isGroupNode }.map { it.groupName }.toMutableList()
-            val toRemove = mutableListOf<String>()
-            groups.forEach {
-                val groupIn = permissionHandler.getGroup(it)
-                if (groupIn == null || !permissionHandler.getBooleanMeta(groupIn, "persistSet")) toRemove.add(it)
+            val toRemove = mutableListOf<Group>()
+            groupsForOfflineUser.forEach {
+                if (!permHandler.getBooleanMeta(it, "persistSet")) toRemove.add(it)
             }
 
             for (remove in toRemove) {
-                user.unsetPermission(handler.plugin.luckPermsApi.nodeFactory.makeGroupNode(remove).build())
+                permHandler.unsetPermission(player.uniqueId, remove)
             }
-
-            user.setPermission(handler.plugin.luckPermsApi.nodeFactory.makeGroupNode(group).build())
-            user.primaryGroup = group.name
-
-            handler.plugin.luckPermsApi.userManager.saveUser(user).thenRunAsync { user.refreshCachedData() }
+            permHandler.saveUser(player.uniqueId).thenRunAsync {permHandler.refreshForUserIfOnline(player.uniqueId)}
 
 
             if (!firstSet) return
@@ -155,7 +149,7 @@ class RankSign(handler: SignHandler) : AbstractSign(handler, "rank") {
         val signData = sign.persistentDataContainer.get(handler.signKey, RankSignDataType.INSTANCE)
                 ?: throw IllegalStateException("Called render on sign missing data?")
 
-        val prefix = handler.plugin.luckPermsApi.getGroup(signData.rank)?.cachedData?.getMetaData(Contexts.global())?.prefix
+        val prefix = handler.plugin.componentHandler.getComponentOrThrow(PermissionHandler::class.java).getGroup(signData.rank)?.cachedData?.getMetaData(QueryOptions.defaultContextualOptions())?.prefix
                 ?: signData.rank
         val lines = ArrayList<String>()
 
