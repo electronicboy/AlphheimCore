@@ -9,7 +9,6 @@ package pw.valaria.aperture.components.signs.data
 import com.google.common.io.ByteStreams
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataType
-import kotlin.IllegalArgumentException
 
 class RankSignDataType : PersistentDataType<ByteArray, RankSignDataType.RankSignData> {
     private val version = 1

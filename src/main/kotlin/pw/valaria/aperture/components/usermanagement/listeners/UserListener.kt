@@ -8,13 +8,13 @@
 
 package pw.valaria.aperture.components.usermanagement.listeners
 
-import pw.valaria.aperture.components.usermanagement.UserManager
-import pw.valaria.aperture.utils.MessageUtil
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import pw.valaria.aperture.components.usermanagement.UserManager
+import pw.valaria.aperture.utils.MessageUtil
 
 class UserListener(private val userManager: UserManager) : Listener {
 

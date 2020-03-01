@@ -8,12 +8,12 @@
 
 package pw.valaria.aperture.modules
 
-import pw.valaria.aperture.ApertureCore
 import net.milkbowl.vault.chat.Chat
 import net.milkbowl.vault.economy.Economy
 import net.milkbowl.vault.permission.Permission
 import org.bukkit.Bukkit
 import org.bukkit.plugin.RegisteredServiceProvider
+import pw.valaria.aperture.ApertureCore
 
 class VaultModule(alphheimCore: ApertureCore) {
 

@@ -10,14 +10,14 @@ package pw.valaria.aperture.components.mmocredits.commands
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
+import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.mmocredits.MMOCreditsHandler
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.MySQL
-import org.bukkit.OfflinePlayer
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
 
 @CommandAlias("credits|mmocredits")
 class CommandCredits(private val plugin: ApertureCore, private val handler: MMOCreditsHandler) : CoreCommand(plugin) {

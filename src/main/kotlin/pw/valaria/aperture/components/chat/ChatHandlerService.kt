@@ -8,18 +8,16 @@
 
 package pw.valaria.aperture.components.chat
 
-import net.kyori.text.Component
 import net.kyori.text.TextComponent
 import net.kyori.text.adapter.bukkit.TextAdapter
 import net.kyori.text.format.TextColor
 import net.kyori.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.usermanagement.UserManager
 import pw.valaria.aperture.data.AlphheimUser
-import org.bukkit.entity.Player
-import org.bukkit.plugin.ServicePriority
 import pw.valaria.aperture.translateColors
 import pw.valaria.api.services.Chat
 

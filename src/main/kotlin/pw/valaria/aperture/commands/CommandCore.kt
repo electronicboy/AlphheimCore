@@ -8,20 +8,19 @@
 
 package pw.valaria.aperture.commands
 
-import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.bukkit.contexts.OnlinePlayer
+import org.bukkit.ChatColor
+import org.bukkit.command.CommandSender
+import org.bukkit.command.PluginIdentifiableCommand
+import org.bukkit.entity.Player
+import org.bukkit.plugin.java.PluginClassLoader
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.spawn.SpawnHandler
 import pw.valaria.aperture.components.tabfooterheader.TabHandler
 import pw.valaria.aperture.components.usermanagement.UserManager
 import pw.valaria.aperture.components.voting.VoteHandler
 import pw.valaria.aperture.utils.MessageUtil
-import org.bukkit.ChatColor
-import org.bukkit.command.CommandSender
-import org.bukkit.command.PluginIdentifiableCommand
-import org.bukkit.entity.Player
-import org.bukkit.plugin.java.PluginClassLoader
 
 // TODO: Remove reliance on alphheim
 @CommandAlias("alphheim|core")

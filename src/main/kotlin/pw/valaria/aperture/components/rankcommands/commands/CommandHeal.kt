@@ -11,12 +11,12 @@ package pw.valaria.aperture.components.rankcommands.commands
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import co.aikar.commands.bukkit.contexts.OnlinePlayer
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.commands.CoreCommand
-import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.attribute.Attribute
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.commands.CoreCommand
+import pw.valaria.aperture.utils.MessageUtil
 
 @CommandAlias("aheal")
 class CommandHeal(plugin: ApertureCore) : CoreCommand(plugin) {

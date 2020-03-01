@@ -10,8 +10,8 @@ package pw.valaria.aperture.commands
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
-import pw.valaria.aperture.ApertureCore
 import org.bukkit.entity.Player
+import pw.valaria.aperture.ApertureCore
 
 @CommandAlias("enderchest|ec")
 class CommandEnderChest(plugin: ApertureCore) : CoreCommand(plugin) {

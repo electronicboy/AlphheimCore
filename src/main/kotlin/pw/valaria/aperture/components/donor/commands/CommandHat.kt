@@ -11,11 +11,11 @@ package pw.valaria.aperture.components.donor.commands
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
+import org.bukkit.Material
+import org.bukkit.entity.Player
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.utils.MessageUtil
-import org.bukkit.Material
-import org.bukkit.entity.Player
 
 @CommandAlias("hat")
 class CommandHat(private var plugin: ApertureCore) : CoreCommand(plugin) {

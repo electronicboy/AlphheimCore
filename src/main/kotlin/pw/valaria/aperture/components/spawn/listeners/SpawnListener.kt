@@ -8,9 +8,7 @@
 
 package pw.valaria.aperture.components.spawn.listeners
 
-import pw.valaria.aperture.components.spawn.SpawnHandler
 import org.bukkit.Material
-import org.bukkit.block.BlockFace
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -18,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.inventory.meta.BookMeta
+import pw.valaria.aperture.components.spawn.SpawnHandler
 
 class SpawnListener(private val spawnHandler: SpawnHandler) : Listener {
 

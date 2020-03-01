@@ -8,10 +8,6 @@
 
 package pw.valaria.aperture.components.combat.listeners
 
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.permissions.PermissionHandler
-import pw.valaria.aperture.components.usermanagement.UserManager
-import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -20,6 +16,10 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.components.permissions.PermissionHandler
+import pw.valaria.aperture.components.usermanagement.UserManager
+import pw.valaria.aperture.utils.MessageUtil
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 import java.util.logging.Level

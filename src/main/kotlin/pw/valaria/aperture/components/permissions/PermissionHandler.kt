@@ -17,9 +17,8 @@ import net.luckperms.api.event.user.UserDataRecalculateEvent
 import net.luckperms.api.model.group.Group
 import net.luckperms.api.model.user.User
 import net.luckperms.api.node.NodeType
-import net.luckperms.api.query.QueryMode
+import net.luckperms.api.node.types.InheritanceNode
 import net.luckperms.api.query.QueryOptions
-import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.PluginClassLoader
 import org.bukkit.util.StringUtil
@@ -31,9 +30,6 @@ import pw.valaria.aperture.components.permissions.commands.CommandRank
 import pw.valaria.aperture.components.racial.RacialHandler
 import pw.valaria.aperture.components.tablist.TabListHandler
 import pw.valaria.aperture.components.usermanagement.UserManager
-import pw.valaria.aperture.data.DonorTier
-import pw.valaria.aperture.utils.MySQL
-import java.lang.IllegalStateException
 import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletionException
@@ -132,9 +128,9 @@ class PermissionHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
         if (user == null) return ImmutableList.of()
 
         val builder = ImmutableList.builder<Group>()
-        user.nodes.filter { it.type == NodeType.INHERITANCE }
-                .map { getGroup(it.key.removePrefix("group.")) }
-                .forEach { if (it != null) builder.add(it) }
+        user.nodes.filter { it is InheritanceNode }
+                .map { (it as InheritanceNode).groupName }
+                .forEach { if (it != null) builder.add(getGroup(it)) }
 
         return builder.build()
 

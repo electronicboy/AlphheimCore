@@ -10,9 +10,9 @@ package pw.valaria.aperture.components.chat
 
 import net.kyori.text.TextComponent
 import net.kyori.text.format.TextColor
+import org.bukkit.entity.Player
 import pw.valaria.aperture.components.chat.formatter.IChatFormatter
 import pw.valaria.aperture.data.AlphheimUser
-import org.bukkit.entity.Player
 import java.util.*
 
 abstract class ChatChannel(val name: String, val chatColor: TextColor, val shortName: String, @Suppress("UNUSED_PARAMETER") chatHandler: ChatHandlerService) {

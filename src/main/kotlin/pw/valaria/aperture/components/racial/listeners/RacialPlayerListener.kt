@@ -8,10 +8,10 @@
 
 package pw.valaria.aperture.components.racial.listeners
 
-import pw.valaria.aperture.components.racial.RacialHandler
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerRespawnEvent
+import pw.valaria.aperture.components.racial.RacialHandler
 
 class RacialPlayerListener(private val racialHandler: RacialHandler) : Listener {
 

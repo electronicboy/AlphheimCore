@@ -8,11 +8,10 @@
 
 package pw.valaria.aperture.components.voting.rewards
 
-import pw.valaria.aperture.components.voting.VoteHandler
-import pw.valaria.aperture.utils.MessageUtil
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.entity.Player
-
+import pw.valaria.aperture.components.voting.VoteHandler
+import pw.valaria.aperture.utils.MessageUtil
 import java.text.NumberFormat
 
 class EcoVoteReward(private val voteHandler: VoteHandler, private val amount: Double) : IVoteReward {

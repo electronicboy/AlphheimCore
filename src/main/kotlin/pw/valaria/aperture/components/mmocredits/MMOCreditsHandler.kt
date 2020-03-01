@@ -10,13 +10,13 @@ package pw.valaria.aperture.components.mmocredits
 
 import com.gmail.nossr50.api.ExperienceAPI
 import com.gmail.nossr50.api.SkillAPI
+import org.bukkit.OfflinePlayer
+import org.bukkit.entity.Player
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.mmocredits.commands.CommandCredits
 import pw.valaria.aperture.components.usermanagement.UserManager
 import pw.valaria.aperture.utils.MySQL
-import org.bukkit.OfflinePlayer
-import org.bukkit.entity.Player
 
 class MMOCreditsHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
     private val validSkills = SkillAPI.getSkills()

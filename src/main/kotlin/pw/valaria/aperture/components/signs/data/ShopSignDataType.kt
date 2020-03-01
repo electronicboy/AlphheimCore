@@ -8,7 +8,6 @@ package pw.valaria.aperture.components.signs.data
 
 import com.google.common.io.ByteStreams
 import org.bukkit.Material
-import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataType
 import java.math.BigDecimal

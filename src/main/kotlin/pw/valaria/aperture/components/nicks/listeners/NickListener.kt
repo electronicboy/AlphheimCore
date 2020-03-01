@@ -8,15 +8,15 @@
 
 package pw.valaria.aperture.components.nicks.listeners
 
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.usermanagement.UserManager
-import pw.valaria.aperture.utils.MessageUtil
-import pw.valaria.aperture.utils.MySQL
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.components.usermanagement.UserManager
+import pw.valaria.aperture.utils.MessageUtil
+import pw.valaria.aperture.utils.MySQL
 
 class NickListener(private val plugin: ApertureCore) : Listener {
 

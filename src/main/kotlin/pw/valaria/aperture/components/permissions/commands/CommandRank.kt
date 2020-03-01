@@ -10,15 +10,14 @@ package pw.valaria.aperture.components.permissions.commands
 
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
-import co.aikar.commands.annotation.Optional
 import co.aikar.commands.bukkit.contexts.OnlinePlayer
 import net.luckperms.api.model.group.Group
+import org.bukkit.Bukkit
+import org.bukkit.command.CommandSender
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.permissions.PermissionHandler
 import pw.valaria.aperture.utils.MessageUtil
-import org.bukkit.Bukkit
-import org.bukkit.command.CommandSender
 import java.util.*
 
 @CommandAlias("rank")

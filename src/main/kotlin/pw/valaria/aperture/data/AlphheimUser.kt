@@ -8,13 +8,13 @@
 
 package pw.valaria.aperture.data
 
-import pw.valaria.aperture.components.chat.ChatStatus
-import pw.valaria.aperture.utils.MySQL
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import pw.valaria.aperture.components.chat.ChatChannel
+import pw.valaria.aperture.components.chat.ChatStatus
+import pw.valaria.aperture.utils.MySQL
 import java.sql.Statement
 import java.util.*
 import java.util.concurrent.TimeUnit

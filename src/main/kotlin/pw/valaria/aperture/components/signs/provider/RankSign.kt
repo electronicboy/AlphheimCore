@@ -9,7 +9,6 @@ package pw.valaria.aperture.components.signs.provider
 import com.google.common.cache.CacheBuilder
 import net.luckperms.api.model.group.Group
 import net.luckperms.api.query.QueryOptions
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.block.Sign

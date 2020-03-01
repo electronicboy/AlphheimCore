@@ -8,12 +8,12 @@
 
 package pw.valaria.aperture.components.restart.listener
 
-import pw.valaria.aperture.components.restart.RestartHandler
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.scheduler.BukkitRunnable
+import pw.valaria.aperture.components.restart.RestartHandler
 import java.util.concurrent.TimeUnit
 
 class RestartListener(private val handler: RestartHandler) : Listener {

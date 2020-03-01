@@ -11,16 +11,12 @@ package pw.valaria.aperture.utils
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.flywaydb.core.Flyway
-import org.flywaydb.core.api.logging.Log
-import org.flywaydb.core.api.logging.LogCreator
 import org.flywaydb.core.api.logging.LogFactory
+import org.flywaydb.core.internal.logging.javautil.JavaUtilLogCreator
 import pw.valaria.aperture.ApertureCore
 import java.sql.Connection
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import org.flywaydb.core.internal.logging.javautil.JavaUtilLogCreator
-import org.flywaydb.core.api.logging.LogFactory.setLogCreator
-
 
 
 object MySQL {

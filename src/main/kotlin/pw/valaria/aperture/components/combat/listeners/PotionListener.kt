@@ -8,14 +8,14 @@
 
 package pw.valaria.aperture.components.combat.listeners
 
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.racial.RacialHandler
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityPotionEffectEvent
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.components.racial.RacialHandler
 
 class PotionListener(private var plugin: ApertureCore) : Listener {
 

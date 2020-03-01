@@ -8,10 +8,10 @@
 
 package pw.valaria.aperture.components.voting.rewards
 
+import org.bukkit.entity.Player
 import pw.valaria.aperture.components.mmocredits.MMOCreditsHandler
 import pw.valaria.aperture.components.voting.VoteHandler
 import pw.valaria.aperture.utils.MessageUtil
-import org.bukkit.entity.Player
 
 class MMOCreditReward(private val voteHandler: VoteHandler, private val amount: Int) : IVoteReward {
     override fun process(player: Player): Boolean {

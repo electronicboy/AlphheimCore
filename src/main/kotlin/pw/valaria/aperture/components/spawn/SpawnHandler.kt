@@ -10,18 +10,17 @@ package pw.valaria.aperture.components.spawn
 
 import co.aikar.timings.Timings
 import org.bukkit.*
+import org.bukkit.command.CommandSender
+import org.bukkit.command.ConsoleCommandSender
+import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.BookMeta
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.spawn.command.CommandSpawn
 import pw.valaria.aperture.components.spawn.listeners.SpawnListener
 import pw.valaria.aperture.utils.MessageUtil
 import pw.valaria.aperture.utils.TeleportUtil
-import org.bukkit.command.CommandSender
-import org.bukkit.command.ConsoleCommandSender
-import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.BookMeta
-import java.lang.IllegalStateException
 
 class SpawnHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 

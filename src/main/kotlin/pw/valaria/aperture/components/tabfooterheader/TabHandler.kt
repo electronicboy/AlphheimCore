@@ -9,13 +9,13 @@
 package pw.valaria.aperture.components.tabfooterheader
 
 import com.google.gson.GsonBuilder
+import org.bukkit.ChatColor
+import org.bukkit.entity.Player
+import org.bukkit.scheduler.BukkitRunnable
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.tabfooterheader.data.FrameBuilder
 import pw.valaria.aperture.components.tabfooterheader.data.TabFrame
-import org.bukkit.ChatColor
-import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitRunnable
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileWriter

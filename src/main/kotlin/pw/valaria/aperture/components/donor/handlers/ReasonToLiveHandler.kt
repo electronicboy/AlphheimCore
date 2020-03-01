@@ -8,10 +8,10 @@
 
 package pw.valaria.aperture.components.donor.handlers
 
-import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import pw.valaria.aperture.components.donor.DonorManager
+import pw.valaria.aperture.utils.MessageUtil
 
 
 class ReasonToLiveHandler(donorManager: DonorManager) : IDonorHandler(donorManager, "ReasonToLive") {

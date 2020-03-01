@@ -11,12 +11,12 @@ package pw.valaria.aperture.commands
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import com.destroystokyo.paper.MaterialTags
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.block.Sign
 import org.bukkit.entity.Player
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.utils.MessageUtil
 
 @CommandAlias("editsign")
 class CommandSign(plugin: ApertureCore) : CoreCommand(plugin) {

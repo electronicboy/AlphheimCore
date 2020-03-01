@@ -10,9 +10,9 @@ package pw.valaria.aperture.components.motd.commands
 
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.Default
+import org.bukkit.command.CommandSender
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.motd.MotdHandler
-import org.bukkit.command.CommandSender
 
 @CommandAlias("motd")
 class CommandMotd(val handler: MotdHandler) : CoreCommand(handler.plugin) {

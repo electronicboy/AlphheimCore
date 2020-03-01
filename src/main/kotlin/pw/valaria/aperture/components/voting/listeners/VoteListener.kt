@@ -9,7 +9,6 @@ package pw.valaria.aperture.components.voting.listeners
 import com.vexsoftware.votifier.model.VotifierEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.voting.VoteHandler
 
 class VoteListener(val handler: VoteHandler): Listener {

@@ -9,15 +9,15 @@
 package pw.valaria.aperture.components.racial
 
 import com.palmergames.bukkit.towny.Towny
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.AbstractHandler
-import pw.valaria.aperture.components.racial.handler.MinerSkillProvider
-import pw.valaria.aperture.components.racial.handler.IRacialProcessor
-import pw.valaria.aperture.components.racial.listeners.RacialPlayerListener
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.components.AbstractHandler
+import pw.valaria.aperture.components.racial.handler.IRacialProcessor
+import pw.valaria.aperture.components.racial.handler.MinerSkillProvider
+import pw.valaria.aperture.components.racial.listeners.RacialPlayerListener
 import java.util.*
 
 const val HALF_INT = Int.MAX_VALUE / 2

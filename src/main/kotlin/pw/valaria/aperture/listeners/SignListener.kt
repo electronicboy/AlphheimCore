@@ -8,11 +8,11 @@
 
 package pw.valaria.aperture.listeners
 
-import pw.valaria.aperture.ApertureCore
 import org.bukkit.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.SignChangeEvent
+import pw.valaria.aperture.ApertureCore
 
 class SignListener(plugin: ApertureCore) : Listener {
 

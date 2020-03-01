@@ -11,12 +11,12 @@ package pw.valaria.aperture.components.usermanagement
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
+import org.bukkit.entity.Player
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.usermanagement.listeners.UserListener
 import pw.valaria.aperture.data.AlphheimUser
 import pw.valaria.aperture.utils.MySQL
-import org.bukkit.entity.Player
 import java.util.*
 import java.util.concurrent.TimeUnit
 

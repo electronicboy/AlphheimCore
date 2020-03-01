@@ -8,10 +8,10 @@
 
 package pw.valaria.aperture.utils
 
-import pw.valaria.aperture.ApertureCore
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
+import pw.valaria.aperture.ApertureCore
 
 class TeleportUtil(var player: Player, private val target: Location, timer: Int, private val plugin: ApertureCore) : BukkitRunnable() {
     var countdown = timer

@@ -8,15 +8,15 @@
 
 package pw.valaria.aperture.components.diversions
 
+import org.bukkit.Material
+import org.bukkit.NamespacedKey
+import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.ShapedRecipe
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.diversions.commands.CommandRoulette
 import pw.valaria.aperture.components.diversions.listeners.EdibleListener
 import pw.valaria.aperture.components.diversions.listeners.FurnaceListener
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
 
 class FunHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
 

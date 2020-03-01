@@ -8,10 +8,10 @@
 
 package pw.valaria.aperture.components.diversions.listeners
 
-import pw.valaria.aperture.ApertureCore
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemConsumeEvent
+import pw.valaria.aperture.ApertureCore
 
 class EdibleListener(val plugin: ApertureCore) : Listener {
 

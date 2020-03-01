@@ -8,12 +8,12 @@
 
 package pw.valaria.aperture.components.combat
 
+import org.bukkit.Bukkit
+import org.bukkit.Material
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.combat.listeners.CombatListener
 import pw.valaria.aperture.components.combat.listeners.PotionListener
-import org.bukkit.Bukkit
-import org.bukkit.Material
 import java.util.*
 
 class CombatHandler(plugin: ApertureCore) : AbstractHandler(plugin) {

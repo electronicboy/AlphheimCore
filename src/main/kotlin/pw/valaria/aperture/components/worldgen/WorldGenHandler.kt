@@ -8,10 +8,10 @@
 
 package pw.valaria.aperture.components.worldgen
 
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.AbstractHandler
 import org.bukkit.generator.ChunkGenerator
+import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.componenthandler.annotations.Required
+import pw.valaria.aperture.components.AbstractHandler
 
 @Required
 class WorldGenHandler(plugin: ApertureCore) : AbstractHandler(plugin) {

@@ -11,7 +11,6 @@ package pw.valaria.aperture.components.nicks.command
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.*
 import net.kyori.text.TextComponent
-import net.kyori.text.adapter.bukkit.TextAdapter
 import net.kyori.text.event.ClickEvent
 import net.kyori.text.event.HoverEvent
 import net.kyori.text.format.TextColor
@@ -22,7 +21,6 @@ import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.checkerframework.checker.nullness.qual.NonNull
 import pw.valaria.aperture.ApertureCore
 import pw.valaria.aperture.commands.CoreCommand
 import pw.valaria.aperture.components.permissions.PermissionHandler

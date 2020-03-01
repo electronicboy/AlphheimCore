@@ -8,13 +8,13 @@
 
 package pw.valaria.aperture.components.motd.listeners
 
-import pw.valaria.aperture.components.motd.MotdHandler
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.server.ServerListPingEvent
+import pw.valaria.aperture.components.motd.MotdHandler
 import java.io.File
 import java.io.FileNotFoundException
 import java.util.*

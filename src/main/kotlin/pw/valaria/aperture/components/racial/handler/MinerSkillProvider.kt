@@ -8,10 +8,10 @@
 
 package pw.valaria.aperture.components.racial.handler
 
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.permissions.PermissionHandler
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.components.permissions.PermissionHandler
 
 class MinerSkillProvider(private var plugin: ApertureCore) : IRacialProcessor {
     override fun getEnchants(player: Player): Map<PotionEffectType, Int> {

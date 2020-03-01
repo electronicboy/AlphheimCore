@@ -8,10 +8,10 @@
 
 package pw.valaria.aperture.components.voting.rewards
 
-import pw.valaria.aperture.components.voting.VoteHandler
-import pw.valaria.aperture.utils.MessageUtil
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import pw.valaria.aperture.components.voting.VoteHandler
+import pw.valaria.aperture.utils.MessageUtil
 
 class ItemVoteReward(@Suppress("UNUSED_PARAMETER") voteHandler: VoteHandler, private val itemStack: ItemStack, private var itemDescription: String?) : IVoteReward {
 

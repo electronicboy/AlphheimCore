@@ -8,11 +8,11 @@
 
 package pw.valaria.aperture.components.health
 
-import pw.valaria.aperture.ApertureCore
-import pw.valaria.aperture.components.AbstractHandler
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
+import pw.valaria.aperture.ApertureCore
+import pw.valaria.aperture.components.AbstractHandler
 import pw.valaria.aperture.components.permissions.PermissionHandler
 
 class HealthHandler(plugin: ApertureCore) : AbstractHandler(plugin) {
